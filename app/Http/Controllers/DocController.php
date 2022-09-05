@@ -77,6 +77,14 @@ class DocController extends Controller
         $templateProcessor->saveAs($document->sname.'.docx');
         return response()->download(public_path($document->sname.'.docx'))->deleteFileAfterSend(true);
     }
+    public function printall(){
+        $documentObject = Document::all();
+        $documents = $documentObject->toArray();
+        $templateProcessor = new TemplateProcessor('table.docx');
+        $templateProcessor->cloneblock('table',0,true,false,$documents);
+        $templateProcessor->saveAs('AllInfo.docx');
+        return response()->download(public_path('AllInfo.docx'))->deleteFileAfterSend(true);
+    }
 }
 
 

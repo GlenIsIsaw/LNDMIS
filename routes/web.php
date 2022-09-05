@@ -15,7 +15,7 @@ use App\Http\Controllers\DocController;
 */
 
 
-
+Route::get('/document/printall', [DocController::class, 'printall'])->name('document.printall');
 Route::get('/document/{id}', [DocController::class, 'show'])->name('document');
 Route::get('/view/document/create',[DocController::class, 'create'])->name('document.create');
 Route::post('/document', [DocController::class, 'store'])->name('document.store');
