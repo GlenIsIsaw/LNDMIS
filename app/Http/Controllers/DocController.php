@@ -14,12 +14,12 @@ class DocController extends Controller
     public function index(){
         $documents = Document::all();
 
-        return view('index', [
+        return view('documents.index', [
             'documents' => $documents
         ]);
     }
     public function create(){
-        return View('create');
+        return View('documents.create');
     }
     public function store(Request $request){
         $document = new Document();
