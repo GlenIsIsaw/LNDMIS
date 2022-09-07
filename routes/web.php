@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListOfTrainingController;
 
 /*
@@ -23,3 +24,6 @@ Route::post('/document', [DocController::class, 'store'])->name('document.store'
 Route::get('/view/document', [DocController::class, 'index'])->name('document.index');
 
 Route::get('/view/listoftrainings', [ListOfTrainingController::class, 'index'])->name('listoftraining.index');
+
+Route::get('/register', [UserController::class, 'create'])->name('user.register');
+Route::post('/user', [UserController::class, 'store'])->name('user.store');

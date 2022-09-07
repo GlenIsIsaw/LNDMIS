@@ -17,7 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('teacher');
+            $table->string('position');
+            $table->date('yearJoined');
             $table->string('email')->unique();
+            $table->string('college');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
