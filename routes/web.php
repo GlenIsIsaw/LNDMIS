@@ -25,12 +25,13 @@ Route::get('/view/document/create',[DocController::class, 'create'])->name('docu
 Route::post('/document', [DocController::class, 'store'])->name('document.store');
 Route::get('/view/document', [DocController::class, 'index'])->name('document.index');
 
-Route::get('/trainings', [ListOfTrainingController::class, 'index'])->name('training.index');
 Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('training.create');
+Route::get('/trainings/printall', [ListOfTrainingController::class, 'printall'])->name('training.printall');
+Route::get('/trainings', [ListOfTrainingController::class, 'index'])->name('training.index');
+Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('training.show');
 Route::post('/trainings', [ListOfTrainingController::class, 'store'])->name('training.store');
 
 Route::get('/register', [UserController::class, 'create'])->name('user.register');
-
 Route::post('/user', [UserController::class, 'store'])->name('user.store');
 Route::post('/logout', [UserCOntroller::class, 'logout']);
 Route::get('/login', [UserController::class, 'login']);

@@ -7,11 +7,33 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ListOfTraining;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
     public function index(){
+        $lists = DB::table('users')
+                    ->join('list_of_trainings', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->orderBy('name','asc')
+                    ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
+                    ->get();
+
+        return view('trainings.index', [
+            'lists' => $lists
+        ]);
+    }
+    public function show($id){
+        $training = DB::table('list_of_trainings')
+                        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                        ->where('list_of_trainings.id', $id)
+                        ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
+                        ->first();
+        //Storage::copy(storage_path("users/".$training->name."/".$training->certificate), public_path("Image/".$training->certificate));
+        //dd($training);
+        return view('trainings.show', ['training' => $training]);
+    }
+    public function printall(){
 
 
         $listObject = DB::table('users')
@@ -61,10 +83,6 @@ class ListOfTrainingController extends Controller
 
             $i++;
         }
-
-
-
-
         $listObject = DB::table('users')
                         ->join('list_of_trainings', 'users.id', '=', 'list_of_trainings.user_id')
                         ->where('teacher', 'No')
@@ -137,12 +155,12 @@ class ListOfTrainingController extends Controller
 
         if($request->file('photo')){
             $file= $request->file('photo');
-            $filename= auth()->user()->name.'certificate';
-            $file-> move(storage_path('users/'.auth()->user()->name), $filename);
-            $list['certificate']= storage_path("users/".auth()->user()->name."/".$filename);
+            $filename= request('certificate_title');
+            $file-> move(storage_path('app/public/users/'.auth()->user()->name), $filename);
+            $list['certificate']= $filename;
         }
         
         $list->save();
-        return redirect('/view/document')->with('mssg', 'Updated') ;
+        return redirect('/training')->with('mssg', 'Updated') ;
     }
 }

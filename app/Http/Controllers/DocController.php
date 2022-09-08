@@ -41,7 +41,7 @@ class DocController extends Controller
             $file= $request->file('photo');
             $filename= request('sname').'signature';
             $file-> move(public_path('Image'), $filename);
-            $document['signature']= 'Image/'.$filename;
+            $document['signature']= $filename;
         }
         
         $document->save();

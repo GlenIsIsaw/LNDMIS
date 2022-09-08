@@ -32,7 +32,7 @@ class UserController extends Controller
         $user = User::create($formFields);
 
         // Create directory
-        File::MakeDirectory(storage_path("/users/$request->name") );
+        File::MakeDirectory(storage_path("/app/public/users/$request->name") );
         
         // Login
         auth()->login($user);
