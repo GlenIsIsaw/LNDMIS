@@ -1,3 +1,8 @@
+@extends('layout')
+
+
+@section('content')
+
 <h1>{{$training->certificate_title}}</h1>
 
 <label for="name">Name</label>
@@ -16,3 +21,4 @@ style="height: 100px; width: 150px;">
 
 
 
+@endsection

@@ -1,3 +1,8 @@
+@extends('layout')
+
+
+@section('content')
+
 <h1>List of Submitted Certificates</h1>
 
 @foreach ($lists as $list)
@@ -6,3 +11,6 @@
 @endforeach
 
 <h4><a href="{{ route('training.printall')}}">Print All</a></h4>
+
+
+@endsection
