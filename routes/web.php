@@ -16,7 +16,7 @@ use App\Http\Controllers\ListOfTrainingController;
 |
 */
 Route::get('/', function(){
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/document/printall', [DocController::class, 'printall'])->name('document.printall');
