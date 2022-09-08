@@ -32,8 +32,27 @@
                 ><img class="w-24" src="images/logo.png" alt="" class="logo"
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
+                @auth
                 <li>
-                    <a href="register.html" class="hover:text-laravel"
+                   <span class="font-bold uppercase">Welcome {{auth()->user()->name}}</span>
+                </li>
+                <li>
+                    <a href="/training/manage" class="hover:text-laravel"
+                        ><i class="fa-solid fa-gear"></i>
+                        Manage Lists</a
+                    >
+                </li>
+                <li>
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button type="Submit">
+                            <i class="fa-solid fa-door-closed"></i> Logout
+                        </button>
+                    </form>
+                </li>
+                @else
+                <li>
+                    <a href="{{route('user.register')}}" class="hover:text-laravel"
                         ><i class="fa-solid fa-user-plus"></i> Register</a
                     >
                 </li>
@@ -43,6 +62,8 @@
                         Login</a
                     >
                 </li>
+
+                @endauth
             </ul>
         </nav>
 
@@ -53,37 +74,20 @@
                 >
                     <header class="text-center">
                         <h2 class="text-2xl font-bold uppercase mb-1">
-                            Register
+                            Post a Certificate
                         </h2>
-                        <p class="mb-4">Create an account to post gigs</p>
+
                     </header>
 
-                    <form method="POST" action="{{route('user.store')}}">
+                    <form method="POST" action="{{route('training.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-6">
-                            <label for="name" class="inline-block text-lg mb-2">
+                            <label for="Name" class="inline-block text-lg mb-2">
                                 Name
                             </label>
-                            <input
-                                type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
-                                name="name"
-                                value = "{{old('name')}}"
-                            />
-                        </div>
-                        
-                        @error('name')
-                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                        @enderror
-
-                        <div class="mb-6">
-                            <label for="teacher" class="inline-block text-lg mb-2">
-                                Teacher
-                            </label>
-                            <select name="teacher" id="teacher">
+                            <select name="user_id" id="user_id">
                                 <option value=""></option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
+                                <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                               </select>
 
                         @error('teacher')
@@ -91,120 +95,84 @@
                         @enderror
 
                         <div class="mb-6">
-                            <label for="position" class="inline-block text-lg mb-2">
-                                Position
+                            <label for="name" class="inline-block text-lg mb-2">
+                                Certificate Name
                             </label>
                             <input
                                 type="text"
                                 class="border border-gray-200 rounded p-2 w-full"
-                                name="position"
-                                value = "{{old('position')}}"
+                                name="certificate_title"
+                                value = "{{old('certificate_title')}}"
                             />
                         </div>
-                        @error('position')
+                        
+                        @error('certificate_title')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                         <div class="mb-6">
-                            <label for="college" class="inline-block text-lg mb-2">
-                                College
+                            <label for="level" class="inline-block text-lg mb-2">
+                                Level
                             </label>
                             <input
                                 type="text"
                                 class="border border-gray-200 rounded p-2 w-full"
-                                name="college"
-                                value = "{{old('college')}}"
+                                name="level"
+                                value = "{{old('level')}}"
                             />
                         </div>
 
-                        @error('college')
+                        @error('level')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
 
                         <div class="mb-6">
                             <label for="year" class="inline-block text-lg mb-2">
-                                Year Joined
+                                Dates Covered
                             </label>
                             <input
                                 type="date"
                                 class="border border-gray-200 rounded p-2 w-full"
-                                name="yearJoined"
+                                name="date_covered"
                                 
                             />
                         </div>
-                        @error('yearJoined')
+                        @error('date_covered')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
 
                         <div class="mb-6">
                             <label for="email" class="inline-block text-lg mb-2"
-                                >Email</label
+                                >No. of Hours</label
                             >
                             <input
-                                type="email"
+                                type="number"
                                 class="border border-gray-200 rounded p-2 w-full"
-                                name="email"
-                                value = "{{old('email')}}"
-                            />
-
-                            @error('email')
-                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                            @enderror
-
-                        </div>
-
-                        <div class="mb-6">
-                            <label
-                                for="password"
-                                class="inline-block text-lg mb-2"
-                            >
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                class="border border-gray-200 rounded p-2 w-full"
-                                name="password"
+                                name="num_hours"
+                                value = "s{{old('num_hours')}}"
                             />
                         </div>
-
-                        @error('password')
+                        @error('num_hours')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
 
                         <div class="mb-6">
-                            <label
-                                for="password_confirmation"
-                                class="inline-block text-lg mb-2"
+                            <label for="photo" class="inline-block text-lg mb-2"
+                                >Attach the Photo of the Certificate</label
                             >
-                                Confirm Password
-                            </label>
-                            <input
-                                type="password"
-                                class="border border-gray-200 rounded p-2 w-full"
-                                name="password_confirmation"
-                            />
+                            <input type="file" name="photo" accept="image/*" id="photo" required>
                         </div>
-
-                        @error('password_confirmation')
-                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                        @enderror
+                        
 
                         <div class="mb-6">
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                             >
-                                Sign Up
+                                Submit
                             </button>
                         </div>
 
-                        <div class="mt-8">
-                            <p>
-                                Already have an account?
-                                <a href="login.html" class="text-laravel"
-                                    >Login</a
-                                >
-                            </p>
-                        </div>
+
                     </form>
                 </div>
             </div>

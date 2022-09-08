@@ -110,8 +110,39 @@ class ListOfTrainingController extends Controller
     
         $templateProcessor->saveAs('ListOfTrainings.docx');
         return response()->download(public_path('ListOfTrainings.docx'))->deleteFileAfterSend(true);
+    }
+
+    public function create(){
+        return view('trainings.create');
+    }
+    public function store(Request $request){
+        $formFields = $request->validate([
+            'user_id' => 'required',
+            'certificate_title' => 'required',
+            'level' => 'required',
+            'date_covered' => 'required',
+            'num_hours' => 'required',
+            'photo' => 'required',
 
 
+        ]);
+        $list = new ListOfTraining();
+        $list->user_id = request('user_id');
+        $list->certificate_title = request('certificate_title');
+        $list->level = request('level');
+        $list->date_covered = request('date_covered');
+        $list->num_hours = request('num_hours');
+
+
+
+        if($request->file('photo')){
+            $file= $request->file('photo');
+            $filename= auth()->user()->name.'certificate';
+            $file-> move(storage_path('users/'.auth()->user()->name), $filename);
+            $list['certificate']= storage_path("users/".auth()->user()->name."/".$filename);
+        }
         
+        $list->save();
+        return redirect('/view/document')->with('mssg', 'Updated') ;
     }
 }

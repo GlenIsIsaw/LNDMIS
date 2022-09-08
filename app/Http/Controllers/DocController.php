@@ -36,7 +36,7 @@ class DocController extends Controller
         $document->snum = request('snum');
         $document->semail = request('semail');
 
-        //dd(request('sname'));
+
         if($request->file('photo')){
             $file= $request->file('photo');
             $filename= request('sname').'signature';
