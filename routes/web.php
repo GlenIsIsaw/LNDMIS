@@ -16,7 +16,7 @@ use App\Http\Controllers\ListOfTrainingController;
 |
 */
 Route::get('/', function(){
-    return view('login');
+    return view('welcome');
 });
 
 Route::get('/document/printall', [DocController::class, 'printall'])->name('document.printall');
@@ -36,3 +36,4 @@ Route::post('/user', [UserController::class, 'store'])->name('user.store');
 Route::post('/logout', [UserCOntroller::class, 'logout']);
 Route::get('/login', [UserController::class, 'login']);
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
