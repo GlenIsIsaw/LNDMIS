@@ -10,7 +10,12 @@
 
 @endforeach
 
-<h4><a href="{{ route('training.printall')}}">Print All</a></h4>
-
+<form method="POST" action="{{route('training.printall')}}" >
+    @csrf
+<label for="range">Range of Trainings</label>
+<input type="text" name="range1"/>
+<input type="text" name="range2"/>
+<button type="submit">Print All</button>
+</form>
 
 @endsection

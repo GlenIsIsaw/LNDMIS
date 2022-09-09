@@ -50,8 +50,8 @@ class ListOfTrainingController extends Controller
         $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
 
         $templateProcessor->setValue('deptname','Institute of Computer Studies');
-        $templateProcessor->setValue('year','2020');
-        $templateProcessor->setValue('daterange','January - June 2020');
+        $templateProcessor->setValue('year',date('Y'));
+        $templateProcessor->setValue('daterange',request('range1').' to '.request('range2').' '.date('Y'));
 
         $replacements = array();
         $i = 0;
