@@ -1,25 +1,16 @@
-@extends('layout')
-
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
 
-
-
-
-        <main>
-            <div class="mx-4">
-                <div
-                    class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
-                >
-                    <header class="text-center">
-                        <h2 class="text-2xl font-bold uppercase mb-1">
-                            Register
-                        </h2>
-                        <p class="mb-4">Create an account to access</p>
-                    </header>
-
-                    <form method="POST" action="{{route('user.store')}}">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
+
                         <div class="mb-6">
                             <label for="name" class="inline-block text-lg mb-2">
                                 Name
@@ -114,76 +105,39 @@
 
                         </div>
 
-                        <div class="mb-6">
-                            <label
-                                for="password"
-                                class="inline-block text-lg mb-2"
-                            >
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                class="border border-gray-200 rounded p-2 w-full"
-                                name="password"
-                            />
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
-                        @error('password')
-                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                        @enderror
+                        <div class="row mb-3">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
-                        <div class="mb-6">
-                            <label
-                                for="password_confirmation"
-                                class="inline-block text-lg mb-2"
-                            >
-                                Confirm Password
-                            </label>
-                            <input
-                                type="password"
-                                class="border border-gray-200 rounded p-2 w-full"
-                                name="password_confirmation"
-                            />
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
                         </div>
 
-                        @error('password_confirmation')
-                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                        @enderror
-
-                        <div class="mb-6">
-                            <button
-                                type="submit"
-                                class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
-                            >
-                                Sign Up
-                            </button>
-                        </div>
-
-                        <div class="mt-8">
-                            <p>
-                                Already have an account?
-                                <a href="login.html" class="text-laravel"
-                                    >Login</a
-                                >
-                            </p>
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </main>
-
-        <footer
-            class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
-        >
-            <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
-
-            <a
-                href="create.html"
-                class="absolute top-1/3 right-10 bg-black text-white py-2 px-5"
-                >Post Job</a
-            >
-        </footer>
-    </body>
-</html>
-
+        </div>
+    </div>
+</div>
 @endsection

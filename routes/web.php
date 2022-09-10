@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListOfTrainingController;
 
@@ -29,7 +31,7 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     
     Route::post('/trainings/printall', [ListOfTrainingController::class, 'printall'])->name('training.printall');
     Route::get('/trainings', [ListOfTrainingController::class, 'index'])->name('training.index');
-
+    Route::get('/coordinator/dashboard', [HomeController::class, 'coordindex']);
 
 
 
@@ -47,14 +49,16 @@ Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('
 Route::get('/trainings/{id}/edit',[ListOfTrainingController::class, 'edit']);
 Route::put('/trainings/{id}',[ListOfTrainingController::class, 'update']);
 Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy']);
+
+Route::get('/home', [HomeController::class, 'index']);
+
 Route::post('/logout', [UserCOntroller::class, 'logout']);
 
 });
 
 
 
-Route::get('/register', [UserController::class, 'create'])->name('user.register');
-Route::post('/user', [UserController::class, 'store'])->name('user.store');
-Route::get('/login', [UserController::class, 'login'])->name('login');
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+Auth::routes();
+
+
 
