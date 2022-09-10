@@ -26,13 +26,17 @@ Route::post('/document', [DocController::class, 'store'])->name('document.store'
 Route::get('/view/document', [DocController::class, 'index'])->name('document.index');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('training.create');
+    
     Route::post('/trainings/printall', [ListOfTrainingController::class, 'printall'])->name('training.printall');
     Route::get('/trainings', [ListOfTrainingController::class, 'index'])->name('training.index');
     Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('training.show');
     Route::post('/trainings', [ListOfTrainingController::class, 'store'])->name('training.store');
     Route::get('/trainings/{id}/edit',[ListOfTrainingController::class, 'edit']);
     Route::put('/trainings/{id}',[ListOfTrainingController::class, 'update']);
+    Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy']);
+
+    Route::get('/training/create', [ListOfTrainingController::class, 'create'])->name('training.create');
+    Route::get('/training', [ListOfTrainingController::class, 'empindex']);
 
     Route::post('/logout', [UserCOntroller::class, 'logout']);
 });

@@ -12,6 +12,27 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
+    public function empindex(){
+        $lists = DB::table('list_of_trainings')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->where('users.id',auth()->user()->id)
+                    ->orderBy('date_covered','asc')
+                    ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
+                    ->get();
+
+        return view('employee.index', [
+            'lists' => $lists
+        ]);
+    }
+    public function destroy($id){
+        $list = ListOfTraining::find($id);
+        if($list->user_id != auth()->id()){
+            abort(403, 'Unauthorized Action');
+        }
+
+        ListOfTraining::where('id',$id)->delete();
+        return redirect('/trainings')->with('message','Training Delete Successfully');
+    }
     public function edit($id){
         $training = DB::table('list_of_trainings')
                         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
@@ -36,10 +57,12 @@ class ListOfTrainingController extends Controller
         $training = DB::table('list_of_trainings')
                         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                         ->where('list_of_trainings.id', $id)
-                        ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
+                        ->select('list_of_trainings.id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
                         ->first();
-        //Storage::copy(storage_path("users/".$training->name."/".$training->certificate), public_path("Image/".$training->certificate));
-        //dd($training);
+
+        if($training->user_id != auth()->id()){
+            abort(403, 'Unauthorized Action');
+        }
         return view('trainings.show', ['training' => $training]);
     }
     public function printall(){
@@ -181,10 +204,15 @@ class ListOfTrainingController extends Controller
         }
         
         $list->save();
-        return redirect('/trainings')->with('mssg', 'Updated') ;
+        return redirect('/training')->with('mssg', 'Updated') ;
     }
 
     public function update(Request $request, $id){
+        $list = ListOfTraining::find($id);
+        
+        if($list->user_id != auth()->id()){
+            abort(403, 'Unauthorized Action');
+        }
         $formFields = $request->validate([
             'user_id' => 'required',
             'certificate_title' => 'required',
@@ -198,8 +226,8 @@ class ListOfTrainingController extends Controller
 
 
         ]);
-        $list = ListOfTraining::find($id);
-        $list->user_id = request('user_id');
+
+
         $list->certificate_title = request('certificate_title');
         $list->level = request('level');
         $list->date_covered = request('date_covered');
