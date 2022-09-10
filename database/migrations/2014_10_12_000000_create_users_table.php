@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('role_as')->default('0');
             $table->string('teacher');
             $table->string('position');
             $table->date('yearJoined');

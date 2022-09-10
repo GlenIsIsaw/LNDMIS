@@ -25,10 +25,14 @@ class ListOfTrainingController extends Controller
         ]);
     }
     public function destroy($id){
-        $list = ListOfTraining::find($id);
-        if($list->user_id != auth()->id()){
-            abort(403, 'Unauthorized Action');
+        if(auth()->user()->role_as == 0)
+        {
+            $list = ListOfTraining::find($id);
+            if($list->user_id != auth()->id()){
+                abort(403, 'Unauthorized Action');
+            }
         }
+
 
         ListOfTraining::where('id',$id)->delete();
         return redirect('/trainings')->with('message','Training Delete Successfully');
@@ -60,9 +64,14 @@ class ListOfTrainingController extends Controller
                         ->select('list_of_trainings.id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
                         ->first();
 
-        if($training->user_id != auth()->id()){
-            abort(403, 'Unauthorized Action');
+        if(auth()->user()->role_as == 0)
+        {
+            if($training->user_id != auth()->id())
+            {
+                abort(403, 'Unauthorized Action');
+            }
         }
+
         return view('trainings.show', ['training' => $training]);
     }
     public function printall(){
@@ -165,7 +174,7 @@ class ListOfTrainingController extends Controller
         return response()->download(public_path('ListOfTrainings.docx'))->deleteFileAfterSend(true);
     }
 
-    public function create(){
+public function create(){
         return view('trainings.create');
     }
     public function store(Request $request){
@@ -210,9 +219,13 @@ class ListOfTrainingController extends Controller
     public function update(Request $request, $id){
         $list = ListOfTraining::find($id);
         
-        if($list->user_id != auth()->id()){
-            abort(403, 'Unauthorized Action');
+        if(auth()->user()->role_as == 0)
+        {
+            if($list->user_id != auth()->id()){
+                abort(403, 'Unauthorized Action');
+            }
         }
+
         $formFields = $request->validate([
             'user_id' => 'required',
             'certificate_title' => 'required',
