@@ -9,19 +9,19 @@
                 >
                     <header class="text-center">
                         <h2 class="text-2xl font-bold uppercase mb-1">
-                            Post a Certificate
+                            Edit a Certificate
                         </h2>
-
+                        <p class="mb-4">Edit: {{$training->certificate_title}}</p>
                     </header>
 
-                    <form method="POST" action="{{route('training.store')}}" enctype="multipart/form-data">
+                    <form method="POST" action="/trainings/{{$training->id}}" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="mb-6">
                             <label for="Name" class="inline-block text-lg mb-2">
                                 Name
                             </label>
                             <select name="user_id" id="user_id">
-                                <option value=""></option>
                                 <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             </select>
                             @error('name')
@@ -33,7 +33,7 @@
                                     Certificate Types
                                 </label>
                                 <select name="certificate_type" id="certificate_type">
-                                    <option value=""></option>
+                                    <option value="{{$training->certificate_type}}">{{$training->certificate_type}}</option>
                                     <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                                     <option value="Certificate of Training">Certificate of Training</option>
                                     <option value="Certificate of Appreciation">Certificate of Appreciation</option>
@@ -57,7 +57,7 @@
                                 type="text"
                                 class="border border-gray-200 rounded p-2 w-full"
                                 name="certificate_title"
-                                value = "{{old('certificate_title')}}"
+                                value = "{{$training->certificate_title}}"
                             />
                         </div>
                         
@@ -69,7 +69,7 @@
                                 Level
                             </label>
                             <select name="level" id="level">
-                                <option value=""></option>
+                                <option value="{{$training->level}}">{{$training->level}}</option>
                                 <option value="International">International</option>
                                 <option value="Local">Local</option>
                                 <option value="N/A">N/A</option>
@@ -90,6 +90,7 @@
                                 type="date"
                                 class="border border-gray-200 rounded p-2 w-full"
                                 name="date_covered"
+                                value = "{{$training->date_covered}}"
                                 
                             />
                         </div>
@@ -105,7 +106,7 @@
                                 type="text"
                                 class="border border-gray-200 rounded p-2 w-full"
                                 name="venue"
-                                value = "{{old('venue')}}"
+                                value = "{{$training->venue}}"
                             />
                         </div>
                         
@@ -121,7 +122,7 @@
                                 type="text"
                                 class="border border-gray-200 rounded p-2 w-full"
                                 name="sponsors"
-                                value = "{{old('sponsors')}}"
+                                value = "{{$training->venue}}"
                             />
                         </div>
                         
@@ -136,7 +137,7 @@
                                 type="number"
                                 class="border border-gray-200 rounded p-2 w-full"
                                 name="num_hours"
-                                value = "{{old('num_hours')}}"
+                                value = "{{$training->num_hours}}"
                             />
                         </div>
                         @error('num_hours')
@@ -148,7 +149,7 @@
                                 Type
                             </label>
                             <select name="type" id="type">
-                                <option value=""></option>
+                                <option value="{{$training->type}}">{{$training->type}}</option>
                                 <option value="Eligibility">Eligibility</option>
                                 <option value="Event-Facilitator">Event-Facilitator</option>
                                 <option value="Membership">Membership</option>
@@ -165,8 +166,10 @@
                             <label for="photo" class="inline-block text-lg mb-2"
                                 >Attach the Photo of the Certificate</label
                             >
-                            <input type="file" name="photo" accept="image/*" id="photo" required>
+                            <input type="file" name="photo" accept="image/*" id="photo">
                         </div>
+                        <img src="{{ url('storage/users/'.$training->name.'/'.$training->certificate) }}"
+                            style="height: 100px; width: 150px;">
                         
 
                         <div class="mb-6">

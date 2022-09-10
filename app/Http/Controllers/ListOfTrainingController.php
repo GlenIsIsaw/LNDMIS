@@ -12,9 +12,18 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
+    public function edit($id){
+        $training = DB::table('list_of_trainings')
+                        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                        ->where('list_of_trainings.id', $id)
+                        ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
+                        ->first();
+
+        return view('trainings.edit', ['training' => $training]);
+    }
     public function index(){
-        $lists = DB::table('users')
-                    ->join('list_of_trainings', 'users.id', '=', 'list_of_trainings.user_id')
+        $lists = DB::table('list_of_trainings')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->orderBy('name','asc')
                     ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
                     ->get();
@@ -27,7 +36,7 @@ class ListOfTrainingController extends Controller
         $training = DB::table('list_of_trainings')
                         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                         ->where('list_of_trainings.id', $id)
-                        ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
+                        ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
                         ->first();
         //Storage::copy(storage_path("users/".$training->name."/".$training->certificate), public_path("Image/".$training->certificate));
         //dd($training);
@@ -35,9 +44,8 @@ class ListOfTrainingController extends Controller
     }
     public function printall(){
 
-
-        $listObject = DB::table('users')
-                        ->join('list_of_trainings', 'users.id', '=', 'list_of_trainings.user_id')
+        $listObject = DB::table('list_of_trainings')
+                        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                         ->where('teacher', 'Yes')
                         ->orderBy('name','asc')
                         ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
@@ -52,6 +60,7 @@ class ListOfTrainingController extends Controller
         $templateProcessor->setValue('deptname','Institute of Computer Studies');
         $templateProcessor->setValue('year',date('Y'));
         $templateProcessor->setValue('daterange',request('range1').' to '.request('range2').' '.date('Y'));
+
 
         $replacements = array();
         $i = 0;
@@ -124,6 +133,9 @@ class ListOfTrainingController extends Controller
 
             $i++;
         }
+        $templateProcessor->setValue('facultypercentage',100 .'%');
+        $templateProcessor->setValue('nonpercentage',100 .'%');
+        $templateProcessor->setValue('coordname','Bryan Arellano');
 
     
         $templateProcessor->saveAs('ListOfTrainings.docx');
@@ -140,6 +152,10 @@ class ListOfTrainingController extends Controller
             'level' => 'required',
             'date_covered' => 'required',
             'num_hours' => 'required',
+            'venue' => 'required',
+            'sponsors' => 'required',
+            'type' => 'required',
+            'certificate_type' => 'required',
             'photo' => 'required',
 
 
@@ -149,18 +165,60 @@ class ListOfTrainingController extends Controller
         $list->certificate_title = request('certificate_title');
         $list->level = request('level');
         $list->date_covered = request('date_covered');
+        $list->certificate_type = request('certificate_type');
+        $list->venue = request('venue');
+        $list->sponsors = request('sponsors');
+        $list->type = request('type');
         $list->num_hours = request('num_hours');
 
 
 
         if($request->file('photo')){
             $file= $request->file('photo');
-            $filename= request('certificate_title');
+            $filename= date('Ymd') . request('certificate_title');
             $file-> move(storage_path('app/public/users/'.auth()->user()->name), $filename);
             $list['certificate']= $filename;
         }
         
         $list->save();
-        return redirect('/training')->with('mssg', 'Updated') ;
+        return redirect('/trainings')->with('mssg', 'Updated') ;
+    }
+
+    public function update(Request $request, $id){
+        $formFields = $request->validate([
+            'user_id' => 'required',
+            'certificate_title' => 'required',
+            'level' => 'required',
+            'date_covered' => 'required',
+            'num_hours' => 'required',
+            'venue' => 'required',
+            'sponsors' => 'required',
+            'type' => 'required',
+            'certificate_type' => 'required',
+
+
+        ]);
+        $list = ListOfTraining::find($id);
+        $list->user_id = request('user_id');
+        $list->certificate_title = request('certificate_title');
+        $list->level = request('level');
+        $list->date_covered = request('date_covered');
+        $list->certificate_type = request('certificate_type');
+        $list->venue = request('venue');
+        $list->sponsors = request('sponsors');
+        $list->type = request('type');
+        $list->num_hours = request('num_hours');
+
+
+
+        if($request->file('photo')){
+            $file= $request->file('photo');
+            $filename= date('Ymd') . request('certificate_title');
+            $file-> move(storage_path('app/public/users/'.auth()->user()->name), $filename);
+            $list->certificate = $filename;
+        }
+        
+        $list->save();
+        return back()->with('mssg', 'Updated') ;
     }
 }
