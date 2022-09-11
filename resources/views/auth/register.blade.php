@@ -58,6 +58,19 @@
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                         <div class="mb-6">
+                            <label for="yearinPosition" class="inline-block text-lg mb-2">
+                                Year In Position
+                            </label>
+                            <input
+                                type="date"
+                                class="border border-gray-200 rounded p-2 w-full"
+                                name="yearinPosition"
+                                
+                            />
+                            @error('yearinPosition')
+                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+                        <div class="mb-6">
                             <label for="college" class="inline-block text-lg mb-2">
                                 College/Department
                             </label>
@@ -70,6 +83,22 @@
                         </div>
 
                         @error('college')
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
+
+                        <div class="mb-6">
+                            <label for="supervisor" class="inline-block text-lg mb-2">
+                                Supervisor
+                            </label>
+                            <input
+                                type="text"
+                                class="border border-gray-200 rounded p-2 w-full"
+                                name="supervisor"
+                                value = "{{old('supervisor')}}"
+                            />
+                        </div>
+
+                        @error('supervisor')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
 

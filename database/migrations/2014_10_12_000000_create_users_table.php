@@ -19,9 +19,11 @@ return new class extends Migration
             $table->integer('role_as')->default('0');
             $table->string('teacher');
             $table->string('position');
+            $table->date('yearinPosition');
             $table->date('yearJoined');
             $table->string('email')->unique();
             $table->string('college');
+            $table->string('supervisor');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
