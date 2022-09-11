@@ -20,8 +20,10 @@ class User extends Authenticatable
     protected $fillable = [
         'teacher',
         'position',
+        'yearinPosition',
         'yearJoined',
         'college',
+        'supervisor',
         'name',
         'email',
         'password',
@@ -49,5 +51,9 @@ class User extends Authenticatable
     public function ListOfTraining()
     {
         return $this->hasOne(ListOfTraining::class);
+    }
+    public function Idp()
+    {
+        return $this->hasOne(Idp::class);
     }
 }

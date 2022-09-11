@@ -55,8 +55,10 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'teacher' => 'required',
             'position' => 'required',
+            'yearinPosition' => 'required',
             'yearJoined' => 'required',
-            'college' => 'required'
+            'college' => 'required',
+            'supervisor' => 'required'
 
         ]);
     }
