@@ -5,10 +5,30 @@
 
 <h1>List of Submitted Certificates</h1>
 
-@foreach ($lists as $list)
-<h4><a href="{{route('training.show',$list->id)}}">{{$list->certificate_title}} submitted by {{$list->name}}</a></h4>
-
-@endforeach
+<div>
+    <table>
+     <tr>
+        <th>name</th>
+        <th>certificate_title</th>
+        <th>date_covered</th>
+        <th>level</th>
+        <th>num_hours</th>
+        <th>Venue</th>
+        <th>Sponsors</th>
+     </tr>
+     @foreach($lists as $list)
+     <tr>
+      <td><a href="{{route('training.show',$list->id)}}">{{$list->name}}</a></td>
+      <td>{{ $list->certificate_title }}</td>
+      <td>{{ $list->date_covered }}</td>
+      <td>{{ $list->level }}</td>
+      <td>{{ $list->num_hours }}</td>
+      <td>{{ $list->venue }}</td>
+      <td>{{ $list->sponsors }}</td>
+     </tr>
+     @endforeach
+    </table>
+   </div>
 
 <form method="POST" action="{{route('training.printall')}}" enctype="multipart/form-data" >
     @csrf

@@ -50,7 +50,7 @@ class ListOfTrainingController extends Controller
         $lists = DB::table('list_of_trainings')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->orderBy('name','asc')
-                    ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
+                    ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type')
                     ->get();
 
         return view('trainings.index', [
