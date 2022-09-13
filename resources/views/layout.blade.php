@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+      
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,6 +29,7 @@
         <title>CNSC | Learning and Development MIS</title>
 
     </head>
+    
 
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-2">
@@ -40,24 +42,30 @@
                 Welcome {{auth()->user()->name}}
               </span>
             </li>
+            
             <li>
               <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Account</a>
             </li>
             <li>
+
               <form class="inline" method="POST" action="/logout">
                 @csrf
                 <button type="submit">
                   <i class="fa-solid fa-door-closed"></i> Logout
                 </button>
               </form>
+
             </li>
             @else
+
+            <ul class="flex space-x-6 mr-6 text-lg">
             <li>
               <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
             </li>
             <li>
               <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
             </li>
+            
             @endauth
             </ul>
         </nav>
