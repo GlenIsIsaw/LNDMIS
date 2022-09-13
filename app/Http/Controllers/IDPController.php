@@ -73,9 +73,28 @@ class IDPController extends Controller
             $templateProcessor->setValue($varname, $value);
         }
 
+        if($document->esign == ' '){
+            $templateProcessor->setValue('esign', $document->esign);
+            $templateProcessor->setValue('edate', $document->edate);
+        } else{
+
+        }
+        if($document->ssign == ' '){
+            $templateProcessor->setValue('ssign', $document->ssign);
+            $templateProcessor->setValue('sdate', $document->sdate);
+        } else{
+            
+        }
+        if($document->hsign == ' '){
+            $templateProcessor->setValue('hsign', $document->hsign);
+            $templateProcessor->setValue('hdate', $document->hdate);
+        } else{
+            
+        }
+
 
         //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
-        $templateProcessor->saveAs($document->name.'idp'.'.docx');
-        return response()->download(public_path($document->name.'idp'.'.docx'))->deleteFileAfterSend(true);
+        $templateProcessor->saveAs($document->name.'_Individual_Development_Plan'.'.docx');
+        return response()->download(public_path($document->name.'_Individual_Development_Plan'.'.docx'))->deleteFileAfterSend(true);
     }
 }

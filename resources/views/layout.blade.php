@@ -41,7 +41,7 @@
               </span>
             </li>
             <li>
-              <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Account</a>
+              <a href="/user/{{auth()->user()->id}}/edit" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Account</a>
             </li>
             <li>
               <form class="inline" method="POST" action="/logout">
