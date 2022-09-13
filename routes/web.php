@@ -54,6 +54,8 @@ Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy']);
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::post('/logout', [UserCOntroller::class, 'logout']);
+Route::get('/user/{id}/edit', [UserCOntroller::class, 'edit']);
+Route::put('/user/{id}', [UserCOntroller::class, 'update']);
 
 });
 
