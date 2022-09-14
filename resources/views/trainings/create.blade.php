@@ -13,6 +13,8 @@
                         </h2>
 
                     </header>
+                    
+
 
                     <form method="POST" action="{{route('training.store')}}" enctype="multipart/form-data">
                         @csrf
@@ -167,8 +169,7 @@
                             >
                             <input type="file" name="photo" accept="image/*" id="photo" required>
                         </div>
-                        
-
+                   
                         <div class="mb-6">
                             <button
                                 type="submit"

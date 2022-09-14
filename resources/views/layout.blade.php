@@ -26,6 +26,11 @@
                 },
             };
         </script>
+      <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        </style>
         <title>CNSC | Learning and Development MIS</title>
 
     </head>

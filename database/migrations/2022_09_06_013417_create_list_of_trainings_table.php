@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('num_hours');
             $table->string('type');
             $table->string('certificate');
+            $table->boolean('attendance_form')->default(0);
             $table->timestamps();
         });
     }

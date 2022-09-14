@@ -13,5 +13,9 @@ class ListOfTraining extends Model
 {
     return $this->belongsTo(User::class);
 }
+    public function AttendanceForm()
+    {
+        return $this->hasOne(AttendanceForm::class);
+    }
 
 }
