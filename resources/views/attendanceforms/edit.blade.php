@@ -15,7 +15,7 @@
                     </header>
                     
 
-                    <form method="POST" action="{{route('attendance.store')}}" enctype="multipart/form-data">
+                    <form method="POST" action="/attendance/{{$attendance->att_id}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-6">

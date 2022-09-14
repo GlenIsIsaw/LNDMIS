@@ -54,9 +54,11 @@ Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy']);
 
 Route::get('/attendance/create', [AttendanceFormController::class, 'create'])->name('attendance.create');
 Route::post('/attendance', [AttendanceFormController::class, 'store'])->name('attendance.store');
+Route::get('/attendance/{id}', [AttendanceFormController::class, 'show'])->name('attendance.show');
 Route::get('/attendance/{id}/edit',[AttendanceFormController::class, 'edit']);
 Route::put('/attendance/{id}',[AttendanceFormController::class, 'update']);
 Route::delete('/attendance/{id}',[AttendanceFormController::class, 'destroy']);
+Route::post('/attendance/{id}/print', [AttendanceFormController::class, 'print']);
 
 Route::get('/home', [HomeController::class, 'index']);
 

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ListOfTraining;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -17,7 +18,7 @@ class ListOfTrainingController extends Controller
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->where('users.id',auth()->user()->id)
                     ->orderBy('date_covered','asc')
-                    ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered', 'level', 'num_hours','certificate')
+                    ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
                     ->get();
 
         return view('employee.index', [
@@ -50,7 +51,7 @@ class ListOfTrainingController extends Controller
         $lists = DB::table('list_of_trainings')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->orderBy('name','asc')
-                    ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type')
+                    ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','attendance_form')
                     ->get();
 
         return view('trainings.index', [
@@ -60,25 +61,11 @@ class ListOfTrainingController extends Controller
     public function show($id){
         $list = ListOfTraining::find($id);
 
-        if($list->attendance_form == 0)
-        {
             $training = DB::table('list_of_trainings')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('list_of_trainings.id', $id)
                 ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form')
                 ->first();
-        }
-        else
-        {
-            $training = DB::table('list_of_trainings')
-            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-            ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-            ->where('list_of_trainings.id', $id)
-            ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form')
-            ->first();
-        }
-
-        
 
 
         if(auth()->user()->role_as == 0)
@@ -91,7 +78,7 @@ class ListOfTrainingController extends Controller
 
         return view('trainings.show', ['training' => $training]);
     }
-    public function printall(){
+    public function printall(Request $request){
 
         $listObject = DB::table('list_of_trainings')
                         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
@@ -105,7 +92,7 @@ class ListOfTrainingController extends Controller
         $list = $grouped->toArray();
         $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
 
-        $templateProcessor->setValue('deptname','Institute of Computer Studies');
+        $templateProcessor->setValue('deptname',auth()->user()->college);
         $templateProcessor->setValue('year',date('Y'));
         $templateProcessor->setValue('daterange',request('range1').' to '.request('range2').' '.date('Y'));
 
@@ -183,9 +170,18 @@ class ListOfTrainingController extends Controller
         }
         $templateProcessor->setValue('facultypercentage',100 .'%');
         $templateProcessor->setValue('nonpercentage',100 .'%');
-        $templateProcessor->setValue('coordname','Bryan Arellano');
+        $templateProcessor->setValue('coordname',auth()->user()->name);
 
-    
+        if($request->file('photo')){
+            $file= $request->file('photo');
+            $filename= auth()->user()->name.'signature';
+            $file-> move(public_path('images'), $filename);
+        }
+        else{
+            $templateProcessor->setValue('coordsignature'," ");
+        }
+        $templateProcessor->setImageValue('coordsignature', array('path' => public_path('images/'.$filename), 'width' => 100, 'height' => 50, 'ratio' => false));
+        File::delete('images/'.$filename);
         $templateProcessor->saveAs('ListOfTrainings.docx');
         return response()->download(public_path('ListOfTrainings.docx'))->deleteFileAfterSend(true);
     }
