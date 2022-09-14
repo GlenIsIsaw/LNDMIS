@@ -19,7 +19,7 @@ use App\Http\Controllers\ListOfTrainingController;
 |
 */
 Route::get('/', function(){
-    return view('coorddashboard');
+    return view('empdashboard');
 });
 
 Route::get('/document/printall', [DocController::class, 'printall'])->name('document.printall');
