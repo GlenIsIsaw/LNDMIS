@@ -9,7 +9,7 @@ class AttendanceForm extends Model
 {
     use HasFactory;
 
-    public function listoftraining()
+    public function ListOfTraining()
     {
         return $this->belongsTo(ListOfTraining::class);
     }

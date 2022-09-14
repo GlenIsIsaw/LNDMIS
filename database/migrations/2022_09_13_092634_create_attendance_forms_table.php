@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('attendance_forms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('trainings_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('list_of_training_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('competency');
             $table->text('knowledge_acquired');
             $table->text('outcome');

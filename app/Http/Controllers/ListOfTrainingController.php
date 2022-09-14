@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\AttendanceForm;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ListOfTraining;
@@ -58,11 +58,28 @@ class ListOfTrainingController extends Controller
         ]);
     }
     public function show($id){
-        $training = DB::table('list_of_trainings')
-                        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                        ->where('list_of_trainings.id', $id)
-                        ->select('list_of_trainings.id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
-                        ->first();
+        $list = ListOfTraining::find($id);
+
+        if($list->attendance_form == 0)
+        {
+            $training = DB::table('list_of_trainings')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->where('list_of_trainings.id', $id)
+                ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form')
+                ->first();
+        }
+        else
+        {
+            $training = DB::table('list_of_trainings')
+            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+            ->where('list_of_trainings.id', $id)
+            ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form')
+            ->first();
+        }
+
+        
+
 
         if(auth()->user()->role_as == 0)
         {
@@ -86,7 +103,6 @@ class ListOfTrainingController extends Controller
         $grouped = $listObject->groupBy('name');
 
         $list = $grouped->toArray();
-
         $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
 
         $templateProcessor->setValue('deptname','Institute of Computer Studies');
@@ -187,8 +203,7 @@ public function create(){
             'venue' => 'required',
             'sponsors' => 'required',
             'type' => 'required',
-            'certificate_type' => 'required',
-            'photo' => 'required',
+            'certificate_type' => 'required'
 
 
         ]);
@@ -202,6 +217,7 @@ public function create(){
         $list->sponsors = request('sponsors');
         $list->type = request('type');
         $list->num_hours = request('num_hours');
+
 
 
 

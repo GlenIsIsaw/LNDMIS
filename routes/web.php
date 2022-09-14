@@ -6,6 +6,7 @@ use App\Http\Controllers\DocController;
 use App\Http\Controllers\IDPController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AttendanceFormController;
 use App\Http\Controllers\ListOfTrainingController;
 
 /*
@@ -50,6 +51,12 @@ Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('
 Route::get('/trainings/{id}/edit',[ListOfTrainingController::class, 'edit']);
 Route::put('/trainings/{id}',[ListOfTrainingController::class, 'update']);
 Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy']);
+
+Route::get('/attendance/create', [AttendanceFormController::class, 'create'])->name('attendance.create');
+Route::post('/attendance', [AttendanceFormController::class, 'store'])->name('attendance.store');
+Route::get('/attendance/{id}/edit',[AttendanceFormController::class, 'edit']);
+Route::put('/attendance/{id}',[AttendanceFormController::class, 'update']);
+Route::delete('/attendance/{id}',[AttendanceFormController::class, 'destroy']);
 
 Route::get('/home', [HomeController::class, 'index']);
 
