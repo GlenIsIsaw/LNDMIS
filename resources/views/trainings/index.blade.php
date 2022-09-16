@@ -4,7 +4,6 @@
 @section('content')
 
 <h1>List of Submitted Certificates</h1>
-
 <div>
     <table>
      <tr>
@@ -39,6 +38,7 @@
     </table>
    </div>
 
+  
 <form method="POST" action="{{route('training.printall')}}" enctype="multipart/form-data" >
     @csrf
 <label for="range">Range of Trainings</label>

@@ -23,5 +23,11 @@ class Idp extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function scopeFilter($query, array $filters){
+        if($filters['search'] ?? false){
+            $query->where('name','like','%'. request('search') . '%')
+                ->orWhere('idps.created_at','like','%'. request('search') . '%');
+        }
+    }
 
 }

@@ -23,10 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('empdashboard');
-    }
-    public function coordindex()
-    {
-        return view('coorddashboard');
+        return view('home');
     }
 }

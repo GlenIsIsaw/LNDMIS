@@ -27,9 +27,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
-    public function authenticated(){
+    /*public function authenticated(){
         if(Auth::user()->role_as == 1)
         {
             return redirect('/coordinator/dashboard')->with('status', 'Welcome to the Coordinator Dashboard');
@@ -42,7 +42,7 @@ class LoginController extends Controller
         {
             return redirect('/');
         }
-    }
+    } */
     /**
      * Create a new controller instance.
      *

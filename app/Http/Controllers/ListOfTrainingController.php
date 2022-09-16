@@ -2,24 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AttendanceForm;
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\ListOfTraining;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
-    public function empindex(){
-        $lists = DB::table('list_of_trainings')
-                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->orderBy('date_covered','asc')
-                    ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
-                    ->get();
+    public function empindex(Request $request){
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->where('users.id',auth()->user()->id)
+                                    ->whereBetween('date_covered',[$start_date,$end_date])
+                                    ->orderBy('date_covered','asc')
+                                    ->filter(request(['level','search']))
+                                    ->get();
+        } else {
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->where('users.id',auth()->user()->id)
+                                    ->orderBy('date_covered','asc')
+                                    ->filter(request(['level','search']))
+                                    ->get();
+                                    
+        }
+
 
         return view('employee.trainingsindex', [
             'lists' => $lists

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DocController;
 use App\Http\Controllers\IDPController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -23,12 +22,6 @@ Route::get('/', function(){
     return view('welcome');
 });
 
-Route::get('/document/printall', [DocController::class, 'printall'])->name('document.printall');
-Route::get('/document/{id}', [DocController::class, 'show'])->name('document');
-Route::get('/view/document/create',[DocController::class, 'create'])->name('document.create');
-Route::post('/document', [DocController::class, 'store'])->name('document.store');
-Route::get('/view/document', [DocController::class, 'index'])->name('document.index');
-
 Route::middleware(['auth','isCoordinator'])->group(function () {
     
     Route::post('/trainings/printall', [ListOfTrainingController::class, 'printall'])->name('training.printall');
@@ -38,7 +31,7 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/training', [ListOfTrainingController::class, 'empindex']);
+Route::get('/training', [ListOfTrainingController::class, 'empindex'])->name('training.empindex');;
 Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('trainings.create');
 Route::post('/trainings', [ListOfTrainingController::class, 'store'])->name('training.store');
 Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('training.show');
@@ -56,7 +49,7 @@ Route::post('/attendance/{id}/print', [AttendanceFormController::class, 'print']
 
 Route::get('/idp/create', [IDPController::class, 'create'])->name('idp.create');
 Route::post('/idp', [IDPController::class, 'store'])->name('idp.store');
-Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.index');
+Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.empindex');
 Route::get('/idp/{id}', [IDPController::class, 'show'])->name('idp.show');
 Route::get('/idp/{id}/edit', [IDPController::class, 'edit'])->name('idp.edit');
 Route::put('/idp/{id}', [IDPController::class, 'update'])->name('idp.update');

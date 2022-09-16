@@ -84,11 +84,11 @@ class IDPController extends Controller
     }
 
     public function empindex(){
-        $lists = DB::table('idps')
+        $lists = Idp::select('idps.id as idp_id','user_id','name', 'idps.created_at')
                     ->join('users', 'users.id', '=', 'idps.user_id')
                     ->where('users.id',auth()->user()->id)
-                    ->orderBy('created_at','desc')
-                    ->select('idps.id as idp_id','user_id','name', 'idps.created_at')
+                    ->orderBy('idps.created_at','desc')
+                    ->filter(request(['search']))
                     ->get();
         return view('employee.idpindex', [
             'idps' => $lists
