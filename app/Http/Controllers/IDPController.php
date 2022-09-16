@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Idp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -9,6 +10,48 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class IDPController extends Controller
 {
+    public function create(){
+        return view('idp.create');
+    }
+    public function store(Request $request){
+        $formFields = $request->validate([
+            'user_id' => 'required',
+            'competency' => 'required',
+            'sug' => 'required',
+            'dev_act' => 'required',
+            'target_date' => 'required',
+            'responsible' => 'required',
+            'support' => 'required',
+            'status' => 'required',
+            'compfunctiondesc0' => 'required',
+            'compfunctiondesc1' => 'required',
+            'diffunctiondesc0' => 'required',
+            'diffunctiondesc1' => 'required',
+            'career' => 'required',
+        ]);
+
+        $info = new Idp();
+        $info->user_id = request('user_id');
+        $info->purpose_meet = ' '.request('purpose_meet');
+        $info->purpose_improve = ' '.request('purpose_improve');
+        $info->purpose_obtain = ' '.request('purpose_obtain');
+        $info->purpose_others = ' '.request('purpose_others');
+        $info->competency = request('competency');
+        $info->sug = request('sug');
+        $info->dev_act = request('dev_act');
+        $info->target_date = request('target_date');
+        $info->responsible = request('responsible');
+        $info->support = request('support');
+        $info->status = request('status');
+        $info->compfunctiondesc0 = request('compfunction1').' - '.request('compfunctiondesc0');
+        $info->compfunctiondesc1 = request('compfunction2').' - '.request('compfunctiondesc1');
+        $info->diffunctiondesc0 = request('diffunction1').' - '.request('diffunctiondesc0');
+        $info->diffunctiondesc1 = request('diffunction2').' - '.request('diffunctiondesc1');
+        $info->career = request('career');
+        $info->save();
+        return redirect('/home')->with('mssg', 'IDP Created') ;
+    }
+    
     public function year($year){
         $pieces = explode("-", $year);
         $current_year = date('Y');
