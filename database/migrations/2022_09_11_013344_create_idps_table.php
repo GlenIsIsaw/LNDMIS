@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('purpose_improve')->default(' ');
             $table->string('purpose_obtain')->default(' ');
             $table->string('purpose_others')->default(' ');
+            $table->string('purpose_explain')->default(' ');
             
             $table->json('competency');
             $table->json('sug');

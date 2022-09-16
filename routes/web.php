@@ -56,6 +56,8 @@ Route::post('/attendance/{id}/print', [AttendanceFormController::class, 'print']
 
 Route::get('/idp/create', [IDPController::class, 'create'])->name('idp.create');
 Route::post('/idp', [IDPController::class, 'store'])->name('idp.store');
+Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.index');
+Route::get('/idp/{id}', [IDPController::class, 'show'])->name('idp.show');
 
 Route::get('/home', [HomeController::class, 'index']);
 

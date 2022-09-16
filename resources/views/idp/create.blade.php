@@ -24,7 +24,7 @@
                                 <option value=""></option>
                                 <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             </select>
-                            @error('name')
+                            @error('user_id')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror <br>
                         
@@ -58,7 +58,7 @@
                                                 @endforeach
                                             @endforeach
                                         </select>
-                                        @error('competency[]')
+                                        @error('competency')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -69,7 +69,7 @@
                                             <option value="U">U</option>
                                             <option value="G">G</option>
                                         </select>
-                                        @error('sug[]')
+                                        @error('sug')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -78,7 +78,7 @@
                                         type="text"
                                         name="dev_act[]"
                                         />
-                                        @error('dev_act[]')
+                                        @error('dev_act')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -88,7 +88,7 @@
                                         name="target_date[]"
                                             />
                                         </div>
-                                        @error('target_date[]')
+                                        @error('target_date')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -97,7 +97,7 @@
                                         type="text"
                                         name="responsible[]"
                                         />
-                                        @error('responsible[]')
+                                        @error('responsible')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -106,7 +106,7 @@
                                         type="text"
                                         name="support[]"
                                         />
-                                        @error('support[]')
+                                        @error('support')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -116,7 +116,7 @@
                                             <option value="Ongoing">Ongoing</option>
                                             <option value="Completed">Completed</option>
                                         </select>
-                                        @error('status[]')
+                                        @error('status')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>

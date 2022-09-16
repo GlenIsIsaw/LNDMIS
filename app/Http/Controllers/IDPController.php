@@ -36,6 +36,7 @@ class IDPController extends Controller
         $info->purpose_improve = ' '.request('purpose_improve');
         $info->purpose_obtain = ' '.request('purpose_obtain');
         $info->purpose_others = ' '.request('purpose_others');
+        $info->purpose_explain = ' '.request('explain');
         $info->competency = request('competency');
         $info->sug = request('sug');
         $info->dev_act = request('dev_act');
@@ -51,8 +52,39 @@ class IDPController extends Controller
         $info->save();
         return redirect('/home')->with('mssg', 'IDP Created') ;
     }
-    
-    public function year($year){
+
+    public function empindex(){
+        $lists = DB::table('idps')
+                    ->join('users', 'users.id', '=', 'idps.user_id')
+                    ->where('users.id',auth()->user()->id)
+                    ->orderBy('created_at','desc')
+                    ->select('idps.id as idp_id','user_id','name', 'idps.created_at')
+                    ->get();
+        return view('employee.idpindex', [
+            'idps' => $lists
+        ]);
+    }
+    public function show($id){
+        $training = DB::table('idps')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('idps.id', $id)
+            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunctiondesc0','compfunctiondesc1','diffunctiondesc0','diffunctiondesc1','career','idps.created_at')
+            ->first();
+
+        $array = $training;
+
+    if(auth()->user()->role_as == 0)
+    {
+        if($training->user_id != auth()->id())
+        {
+            abort(403, 'Unauthorized Action');
+        }
+    }
+
+    return view('idp.show', ['idp' => $array]);
+
+    }
+    public static function year($year){
         $pieces = explode("-", $year);
         $current_year = date('Y');
         return $current_year - $pieces[0];

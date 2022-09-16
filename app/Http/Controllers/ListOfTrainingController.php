@@ -21,7 +21,7 @@ class ListOfTrainingController extends Controller
                     ->select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
                     ->get();
 
-        return view('employee.index', [
+        return view('employee.trainingsindex', [
             'lists' => $lists
         ]);
     }
@@ -59,7 +59,7 @@ class ListOfTrainingController extends Controller
         ]);
     }
     public function show($id){
-        $list = ListOfTraining::find($id);
+
 
             $training = DB::table('list_of_trainings')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
