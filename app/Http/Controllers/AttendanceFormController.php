@@ -156,6 +156,7 @@ class AttendanceFormController extends Controller
         foreach($array as $varname=>$value){
             $templateProcessor->setValue($varname, $value);
         }
+            $templateProcessor->setValue('college',auth()->user()->college);
             if($request->file('esign')){
                 $file= $request->file('esign');
                 $filename= auth()->user()->name.'esign';
