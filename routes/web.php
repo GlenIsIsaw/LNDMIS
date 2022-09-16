@@ -33,13 +33,7 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     
     Route::post('/trainings/printall', [ListOfTrainingController::class, 'printall'])->name('training.printall');
     Route::get('/trainings', [ListOfTrainingController::class, 'index'])->name('training.index');
-    Route::get('/coordinator/dashboard', [HomeController::class, 'coordindex']);
-
-
-
-
-
-    
+    Route::get('/coordinator/dashboard', [HomeController::class, 'coordindex']);    
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -59,6 +53,9 @@ Route::get('/attendance/{id}/edit',[AttendanceFormController::class, 'edit']);
 Route::put('/attendance/{id}',[AttendanceFormController::class, 'update']);
 Route::delete('/attendance/{id}',[AttendanceFormController::class, 'destroy']);
 Route::post('/attendance/{id}/print', [AttendanceFormController::class, 'print']);
+
+Route::get('/idp/create', [IDPController::class, 'create'])->name('idp.create');
+Route::post('/idp', [IDPController::class, 'store'])->name('idp.store');
 
 Route::get('/home', [HomeController::class, 'index']);
 

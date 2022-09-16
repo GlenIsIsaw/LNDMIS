@@ -36,8 +36,8 @@ class UserController extends Controller
 
         $formFields = $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['string', 'min:8', 'confirmed'],
             'teacher' => 'required',
             'position' => 'required',
             'yearinPosition' => 'required',

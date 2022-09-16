@@ -20,10 +20,9 @@
                                 type="text"
                                 class="border border-gray-200 rounded p-2 w-full"
                                 name="name"
-                                value = {{$users->name}}
+                                value = "{{$users->name}}"
                             />
                         </div>
-                        
                         @error('name')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
@@ -35,7 +34,6 @@
                             <select name="teacher" id="teacher">
                                 <option value="{{$users->teacher}}">{{$users->teacher}}</option>
                               </select>
-
                             </div>
 
                         @error('teacher')

@@ -20,10 +20,6 @@ return new class extends Migration
             $table->text('knowledge_acquired');
             $table->text('outcome');
             $table->text('personal_action');
-            $table->string('esign')->default(' ');
-            $table->string('edate')->default(' ');
-            $table->string('ssign')->default(' ');
-            $table->string('sdate')->default(' ');
             $table->timestamps();
         });
     }
