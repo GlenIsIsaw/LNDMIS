@@ -30,9 +30,13 @@ return new class extends Migration
             $table->json('support');
             $table->json('status');
             
+            $table->string('compfunction0');
             $table->Text('compfunctiondesc0');
+            $table->string('compfunction1');
             $table->Text('compfunctiondesc1');
+            $table->string('diffunction0');
             $table->Text('diffunctiondesc0');
+            $table->string('diffunction1');
             $table->Text('diffunctiondesc1');
             $table->Text('career');
             $table->timestamps();

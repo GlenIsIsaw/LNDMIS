@@ -78,19 +78,46 @@
                     What function do you feel competent to perform?<br>
                     (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
                 </h4>
-                    <p>1. {{$idp->compfunctiondesc0}}</p>
-                    <p>2. {{$idp->compfunctiondesc1}}</p>
+                    <p>1.{{$idp->compfunction0}} - {{$idp->compfunctiondesc0}}</p>
+                    <p>2.{{$idp->compfunction1}} - {{$idp->compfunctiondesc1}}</p>
                 <h4 class="font-bold">
                     What function do you have a difficulty to perform?<br>
                     (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
                 </h4>
-                    <p>1. {{$idp->diffunctiondesc0}}</p>
-                    <p>2. {{$idp->diffunctiondesc1}}</p>
+                    <p>1.{{$idp->diffunction0}} - {{$idp->diffunctiondesc0}}</p>
+                    <p>2.{{$idp->diffunction1}} - {{$idp->diffunctiondesc1}}</p>
                 
                 <h4 class="font-bold">
                     Where do you see your career progressing in? the next two years?
                 </h4>
-                <p>{{$idp->diffunctiondesc0}}</p>
+                <p>{{$idp->career}}</p>
+
+                <form method="POST" action="{{route('idp.print',$idp->idp_id)}}" enctype="multipart/form-data" >
+                    @csrf    
+                <div class="mb-6">
+                    <label for="esign" class="inline-block text-lg mb-2"
+                        >Attach the Photo of your Signature</label
+                    >
+                    <input type="file" name="esign" accept="image/*" id="esign">
+                </div>
+                <div class="mb-6">
+                    <label for="ssign" class="inline-block text-lg mb-2"
+                        >Attach the Photo of your Supervisor Signature</label
+                    >
+                    <input type="file" name="ssign" accept="image/*" id="ssign">
+                </div>
+                <div class="mb-6">
+                    <label for="hsign" class="inline-block text-lg mb-2"
+                        >Attach the Photo of your Head of Agency Signature</label
+                    >
+                    <input type="file" name="hsign" accept="image/*" id="ssign">
+                </div>
+                <button type="submit"><i class="fa-solid fa-download"></i>Download</button>
+                </form>
+
+                <a href="{{route('idp.edit', $idp->idp_id)}}">
+                    <i class="fa-solid fa-pencil"></i> Edit
+                    </a>
             </div>
         </main>
 @endsection

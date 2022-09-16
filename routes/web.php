@@ -58,6 +58,9 @@ Route::get('/idp/create', [IDPController::class, 'create'])->name('idp.create');
 Route::post('/idp', [IDPController::class, 'store'])->name('idp.store');
 Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.index');
 Route::get('/idp/{id}', [IDPController::class, 'show'])->name('idp.show');
+Route::get('/idp/{id}/edit', [IDPController::class, 'edit'])->name('idp.edit');
+Route::put('/idp/{id}', [IDPController::class, 'update'])->name('idp.update');
+Route::post('/idp/print/{id}', [IDPController::class, 'print'])->name('idp.print');
 
 Route::get('/home', [HomeController::class, 'index']);
 
@@ -67,7 +70,7 @@ Route::put('/user/{id}', [UserCOntroller::class, 'update']);
 
 });
 
-Route::get('/idp/print/{id}', [IDPController::class, 'print']);
+
 
 
 

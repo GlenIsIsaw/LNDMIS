@@ -137,7 +137,7 @@ class AttendanceFormController extends Controller
         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
         ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
         ->where('list_of_trainings.id', $id)
-        ->select('name', 'certificate_title', 'date_covered', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action')
+        ->select('name', 'certificate_title', 'date_covered','college', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action')
         ->first();
 
         $array = [
@@ -156,7 +156,7 @@ class AttendanceFormController extends Controller
         foreach($array as $varname=>$value){
             $templateProcessor->setValue($varname, $value);
         }
-            $templateProcessor->setValue('college',auth()->user()->college);
+            $templateProcessor->setValue('college',$training->college);
             if($request->file('esign')){
                 $file= $request->file('esign');
                 $filename= auth()->user()->name.'esign';
