@@ -70,10 +70,3 @@ Route::get('/idp/print/{id}', [IDPController::class, 'print']);
 
 
 Auth::routes();
-
-
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
