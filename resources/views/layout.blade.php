@@ -40,6 +40,7 @@
                 ><img class="w-24" src="images/cnsc.png" alt="" class="logo"
             /></a>
             @auth
+            <ul class="flex space-x-6 mr-6 text-lg">
             <li>
               <span class="font-bold uppercase">
                 Welcome {{auth()->user()->name}}
