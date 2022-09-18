@@ -25,21 +25,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', function ($view) {
+        View::composer(['employee.compindex','idp.create','idp.edit','attendanceforms.create',"attendanceforms.edit"], function ($view) {
 
-            if(auth()->teaching = 'Yes')
+            if(auth()->user()->teacher == 'Yes')
             {
                 $list = DB::table('competencies')
                 ->where('teaching','=', 1)
                 ->orderBy('competency_group','asc')
-                ->select('competency_name','competency_group')
                 ->get();
             }else
             {
                 $list = DB::table('competencies')
-                ->where('non-teaching','=', 1)
+                ->where('nonteaching','=', 1)
                 ->orderBy('competency_group','asc')
-                ->select('competency_name','competency_group')
                 ->get();
             }
             $comp = $list->groupBy('competency_group')->toArray();

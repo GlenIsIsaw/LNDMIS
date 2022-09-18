@@ -28,6 +28,8 @@
       <style>
         table, th, td {
           border: 1px solid black;
+          margin-left: auto;
+          margin-right: auto;
         }
         </style>
         <title>CNSC | Learning and Development MIS</title>

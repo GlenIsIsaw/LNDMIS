@@ -6,6 +6,7 @@ use App\Http\Controllers\IDPController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AttendanceFormController;
+use App\Http\Controllers\CompetencyController;
 use App\Http\Controllers\ListOfTrainingController;
 
 /*
@@ -18,14 +19,13 @@ use App\Http\Controllers\ListOfTrainingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    return view('welcome');
-});
+
 
 Route::middleware(['auth','isCoordinator'])->group(function () {
     
     Route::post('/trainings/printall', [ListOfTrainingController::class, 'printall'])->name('training.printall');
     Route::get('/trainings', [ListOfTrainingController::class, 'index'])->name('training.index');
+    Route::get('/competencies',[CompetencyController::class, 'index'])->name('competency.index');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -55,7 +55,10 @@ Route::put('/idp/{id}', [IDPController::class, 'update'])->name('idp.update');
 Route::put('/idp/submit/{id}', [IDPController::class, 'submit'])->name('idp.submit');
 Route::post('/idp/print/{id}', [IDPController::class, 'print'])->name('idp.print');
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/competency',[CompetencyController::class, 'empindex'])->name('competency.empindex');
+
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::post('/logout', [UserCOntroller::class, 'logout']);
 Route::get('/user/{id}/edit', [UserCOntroller::class, 'edit']);
