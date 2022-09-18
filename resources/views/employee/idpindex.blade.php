@@ -15,25 +15,7 @@
       </div>
     </div>
   </form>
-  
-  <form action="{{route('idp.empindex')}}">
-  
-      <label for="start_date" class="inline-block text-lg mb-2">
-          Start Date
-      </label>
-      <input
-          type="date"
-          name="start_date"
-        />
-      <label for="end_date" class="inline-block text-lg mb-2">
-          End Date
-      </label>
-      <input
-          type="date"
-          name="end_date"
-        />
-        <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Filter</button>
-  </form>
+
 <h1>List of {{auth()->user()->name}}'s Individual Development Plan</h1>
 
 

@@ -87,7 +87,7 @@
                                                 @endforeach
                                             @endforeach
                                         </select>
-                                        @error('competency')
+                                        @error('competency.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -98,7 +98,7 @@
                                             <option value="U">U</option>
                                             <option value="G">G</option>
                                         </select>
-                                        @error('sug')
+                                        @error('sug.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -108,7 +108,7 @@
                                         name="dev_act[]"
                                         value = "{{$dev_act[$i]}}"
                                         />
-                                        @error('dev_act')
+                                        @error('dev_act.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -119,7 +119,7 @@
                                         value="{{$target_date[$i]}}"
                                         />
                                         </div>
-                                        @error('target_date')
+                                        @error('target_date.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -129,7 +129,7 @@
                                         name="responsible[]"
                                         value="{{$responsible[$i]}}"
                                         />
-                                        @error('responsible')
+                                        @error('responsible.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -139,7 +139,7 @@
                                         name="support[]"
                                         value="{{$support[$i]}}"
                                         />
-                                        @error('support')
+                                        @error('support.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -149,7 +149,7 @@
                                             <option value="Ongoing">Ongoing</option>
                                             <option value="Completed">Completed</option>
                                         </select>
-                                        @error('status')
+                                        @error('status.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
@@ -172,10 +172,11 @@
                                                 <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
                                                 @endforeach
                                             @endforeach
-                                            @error('compfunction0')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                            @enderror
+
                                         </select>
+                                        @error('compfunction0')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
                                     </td>
                                     <td>
                                         <select name="compfunction1" id="compfunctiondesc">
@@ -186,10 +187,10 @@
                                                 <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
                                                 @endforeach
                                             @endforeach
-                                            @error('compfunction1')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                            @enderror
                                         </select>
+                                        @error('compfunction1')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
@@ -227,10 +228,11 @@
                                                 <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
                                                 @endforeach
                                             @endforeach
-                                            @error('diffunction0')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                            @enderror
+
                                         </select>
+                                        @error('diffunction0')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
                                     </td>
                                     <td>
                                         <select name="diffunction1" id="diffunctiondesc">
@@ -241,10 +243,11 @@
                                                 <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
                                                 @endforeach
                                             @endforeach
-                                            @error('diffunction1')
-                                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                            @enderror
+
                                         </select>
+                                        @error('diffunction1')
+                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
@@ -288,7 +291,7 @@
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                             >
-                                Submit
+                                Edit
                             </button>
                         </div>
 

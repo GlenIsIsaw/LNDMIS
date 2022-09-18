@@ -92,6 +92,21 @@
                 </h4>
                 <p>{{$idp->career}}</p>
 
+                <br>
+
+                @if ($idp->submit == 0)
+                    <a href="{{route('idp.edit', $idp->idp_id)}}">
+                        <i class="fa-solid fa-pencil"></i> Edit
+                    </a>
+                    <form method="POST" action="{{route('idp.submit', $idp->idp_id)}}">
+                        @csrf
+                        @method('PUT')
+                        <button><i class="fa-solid fa-arrow-up-from-bracket"></i>Submit</button>
+                    </form>
+                @endif
+                
+                <br>
+
                 <form method="POST" action="{{route('idp.print',$idp->idp_id)}}" enctype="multipart/form-data" >
                     @csrf    
                 <div class="mb-6">
@@ -115,9 +130,9 @@
                 <button type="submit"><i class="fa-solid fa-download"></i>Download</button>
                 </form>
 
-                <a href="{{route('idp.edit', $idp->idp_id)}}">
-                    <i class="fa-solid fa-pencil"></i> Edit
-                    </a>
+
+
+
             </div>
         </main>
 @endsection

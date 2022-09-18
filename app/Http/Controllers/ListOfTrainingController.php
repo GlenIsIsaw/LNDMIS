@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\ListOfTraining;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\File;
@@ -39,6 +40,7 @@ class ListOfTrainingController extends Controller
         ]);
     }
     public function destroy($id){
+
         if(auth()->user()->role_as == 0)
         {
             $list = ListOfTraining::find($id);
@@ -46,10 +48,10 @@ class ListOfTrainingController extends Controller
                 abort(403, 'Unauthorized Action');
             }
         }
-
-
+        $user = User::find($list->user_id);
+        File::delete(storage_path('app/public/users/'.$user->name.'/'.$list->certificate));
         ListOfTraining::where('id',$id)->delete();
-        return redirect('/trainings')->with('message','Training Delete Successfully');
+        return redirect('/trainings')->with('message','Training Deleted Successfully');
     }
     public function edit($id){
         $training = DB::table('list_of_trainings')
@@ -229,11 +231,11 @@ public function create(){
 
 
 
-
+        $user = User::find($list->user_id);
         if($request->file('photo')){
             $file= $request->file('photo');
             $filename= date('Ymd') . request('certificate_title');
-            $file-> move(storage_path('app/public/users/'.auth()->user()->name), $filename);
+            $file-> move(storage_path('app/public/users/'.$user->name), $filename);
             $list['certificate']= $filename;
         }
         
@@ -276,15 +278,16 @@ public function create(){
         $list->num_hours = request('num_hours');
 
 
-
+        $user = User::find($list->user_id);
         if($request->file('photo')){
+            File::delete(storage_path('app/public/users/'.$user->name.'/'.$list->certificate));
             $file= $request->file('photo');
             $filename= date('Ymd') . request('certificate_title');
-            $file-> move(storage_path('app/public/users/'.auth()->user()->name), $filename);
+            $file-> move(storage_path('app/public/users/'.$user->name), $filename);
             $list->certificate = $filename;
         }
         
         $list->save();
-        return back()->with('mssg', 'Updated') ;
+        return redirect('/training')->with('mssg', 'Updated') ;
     }
 }
