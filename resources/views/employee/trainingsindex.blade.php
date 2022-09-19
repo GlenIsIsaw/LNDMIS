@@ -71,20 +71,11 @@
      
     </tr>
     @endforeach
-<<<<<<< HEAD
-   </table>
-   
-   <div class="text-center mt-6">
-   <a href="{{route('trainings.create')}}"><button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"></i>Create</a>
-   </div>
-  </button>
-=======
   </table>
 @else
 <p>You Dont have Any Submitted Trainings/Seminar/Workshop</p>
 @endif
 
-   <a href="{{route('trainings.create')}}"><i class="fa-solid fa-pen-to-square"></i>Create</a>
+   <a href="{{route('trainings.create')}}" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"> Create</a>
 
->>>>>>> 56f8cc4a62bbdeeda27621891c31d96b6e5361c0
 @endsection

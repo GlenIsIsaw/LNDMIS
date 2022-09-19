@@ -94,7 +94,7 @@
 
                 <br>
 
-                @if ($idp->submit == 0)
+                @if ($idp->submitted == 0)
                     <a href="{{route('idp.edit', $idp->idp_id)}}">
                         <i class="fa-solid fa-pencil"></i> Edit
                     </a>
