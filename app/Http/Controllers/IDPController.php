@@ -20,6 +20,16 @@ class IDPController extends Controller
             }
         }
     }
+    public function submit($id){
+        $info = Idp::find($id);
+        if($info->user_id != auth()->id())
+        {
+            abort(403, 'Unauthorized Action');
+        }
+        $info->submit = 1;
+        $info->save();
+        return redirect()->back();
+    }
     public function create(){
         return view('idp.create');
     }
@@ -33,10 +43,25 @@ class IDPController extends Controller
             'responsible' => 'required',
             'support' => 'required',
             'status' => 'required',
+
+            'competency.*' => 'required|distinct',
+            'sug.*' => 'required',
+            'dev_act.*' => 'required',
+            'target_date.*' => 'required',
+            'responsible.*' => 'required',
+            'support.*' => 'required',
+            'status.*' => 'required',
+
+            'compfunction0' => 'required',
             'compfunctiondesc0' => 'required',
+            'compfunction1' => 'required',
             'compfunctiondesc1' => 'required',
+
+            'diffunction0' => 'required',
             'diffunctiondesc0' => 'required',
+            'diffunction1' => 'required',
             'diffunctiondesc1' => 'required',
+            
             'career' => 'required',
         ]);
         $info = new Idp();  
@@ -98,7 +123,7 @@ class IDPController extends Controller
         $training = DB::table('idps')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('idps.id', $id)
-            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at')
+            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit')
             ->first();
 
 
@@ -111,8 +136,12 @@ class IDPController extends Controller
         $training = DB::table('idps')
         ->join('users', 'users.id', '=', 'idps.user_id')
         ->where('idps.id', $id)
-        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at')
+        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit')
         ->first();
+
+        if($training->submit == 1){
+            return redirect()->back();
+        }
 
         $this->check($training->user_id);
         return view('idp.edit', ['idp' => $training]);
@@ -130,12 +159,27 @@ class IDPController extends Controller
             'responsible' => 'required',
             'support' => 'required',
             'status' => 'required',
+
+            'competency.*' => 'required|distinct',
+            'sug.*' => 'required',
+            'dev_act.*' => 'required',
+            'target_date.*' => 'required',
+            'responsible.*' => 'required',
+            'support.*' => 'required',
+            'status.*' => 'required',
+
+            'compfunction0' => 'required',
             'compfunctiondesc0' => 'required',
+            'compfunction1' => 'required',
             'compfunctiondesc1' => 'required',
+
+            'diffunction0' => 'required',
             'diffunctiondesc0' => 'required',
+            'diffunction1' => 'required',
             'diffunctiondesc1' => 'required',
+            
             'career' => 'required',
-        ]); 
+        ]);
         $info->user_id = request('user_id');
         if($request->has('purpose_meet') && !empty($request->input('purpose_meet'))) {
             $info->purpose_meet = request('purpose_meet');

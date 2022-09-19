@@ -15,7 +15,7 @@
                     </header>
                     
 
-                    <form method="POST" action="/attendance/{{$attendance->att_id}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('attendance.update',$attendance->att_id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-6">
@@ -82,7 +82,7 @@
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black text-center"
                             >
-                                Submit
+                                Edit
                             </button>
                         </div>
 

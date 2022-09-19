@@ -90,7 +90,7 @@
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                             >
-                                Submit
+                                Create
                             </button>
                         </div>
 

@@ -58,8 +58,7 @@
     <p>{{$training->personal_action}}</p>
 
     
-
-    <form method="POST" action="/attendance/{{$training->training_id}}/print" enctype="multipart/form-data" >
+    <form method="POST" action="{{route('attendance.print',$training->att_id)}}" enctype="multipart/form-data" >
         @csrf    
     <div class="mb-6 mt-6">
         <td><label for="esign" class="inline-block text-lg mb-2"
@@ -79,11 +78,11 @@
     <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-download mt-2 text-center"></i>Download</button>
     </form>
 
-    <a href="/attendance/{{$training->att_id}}/edit"><button class="bg-laravel text-white rounded py-1 px-4 hover:bg-black mt-2 text-center">
-    <i class="fa-solid fa-pencil mt-2 ml-1"></i> Edit
-    </a></button>
-    
-    <form method="POST" action="/attendance/{{$training->att_id}}">
+    <a href="{{route('attendance.edit',$training->att_id)}}">
+    <i class="fa-solid fa-pencil"></i> Edit
+    </a>
+
+    <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
         @csrf
         @method('DELETE')
         <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>

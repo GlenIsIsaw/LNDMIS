@@ -22,13 +22,13 @@ class ListOfTraining extends Model
             $query->where('level','like','%'. request('level') . '%');
         }
         if($filters['search'] ?? false){
-            $query->where('certificate_title','like','%'. request('search') . '%')
-            ->orWhere('venue','like','%'. request('search') . '%')
-            ->orWhere('sponsors','like','%'. request('search') . '%')
-            ->orWhere('certificate_type','like','%'. request('search') . '%')
-            ->orWhere('type','like','%'. request('search') . '%')
-            ->orWhere('name','like','%'. request('search') . '%')
-            ->orWhere('level','like','%'. request('search') . '%');
+            $query->whereRaw("LOWER(certificate_title) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(venue) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(sponsors) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(certificate_type) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(type) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(name) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(level) LIKE '%".strtolower(request('search'))."%'");
         }
     }
 

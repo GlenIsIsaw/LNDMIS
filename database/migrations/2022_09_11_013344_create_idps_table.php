@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('diffunction1');
             $table->Text('diffunctiondesc1');
             $table->Text('career');
+            $table->boolean('submitted')->default(0);
             $table->timestamps();
         });
     }

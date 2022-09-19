@@ -25,8 +25,11 @@ class Idp extends Model
     }
     public function scopeFilter($query, array $filters){
         if($filters['search'] ?? false){
-            $query->where('name','like','%'. request('search') . '%')
-                ->orWhere('idps.created_at','like','%'. request('search') . '%');
+
+            $query->whereRaw("LOWER(name) LIKE '%".strtolower(request('search'))."%'")
+                ->orWhere('idps.created_at','like','%'. request('search') . '%')
+                ->orWhereRaw("LOWER(competency) LIKE '%".strtolower(request('search'))."%'")
+                ->orWhereRaw("LOWER(status) LIKE '%".strtolower(request('search'))."%'");
         }
     }
 

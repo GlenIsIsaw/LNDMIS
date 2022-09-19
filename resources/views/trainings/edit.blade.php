@@ -14,7 +14,7 @@
                         <p class="mb-4">Edit: {{$training->certificate_title}}</p>
                     </header>
 
-                    <form method="POST" action="/trainings/{{$training->id}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('training.update',$training->id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-6">

@@ -25,11 +25,11 @@
             <img src="{{ url('storage/users/'.$training->name.'/'.$training->certificate) }}"
             style="height: 100px; width: 150px;">
 
-            <a href="/trainings/{{$training->training_id}}/edit">
+            <a href="{{route('training.edit',$training->training_id)}}">
             <i class="fa-solid fa-pencil"></i> Edit
             </a>
 
-            <form method="POST" action="/trainings/{{$training->training_id}}">
+            <form method="POST" action="{{route('training.destroy',$training->training_id)}}">
             @csrf
             @method('DELETE')
             <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button>
