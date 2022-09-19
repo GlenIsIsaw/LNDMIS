@@ -1,21 +1,55 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="images/favicon.ico" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
 
-@section('content')
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            laravel: "#800000",
+                        },
+                    },
+                },
+            };
+        </script>
+        <title>Log In</title>
+
+
+    </head>
+    <nav class="bg-red-900 text-white h-24 flex justify-between items-center">
+        <a href="/"
+            ><img class="w-24" src="images/cnsc.png" alt="" class="logo"
+        /></a>
+        <ul class="flex space-x-6 mr-6 text-lg">
+        </nav>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="flex items-center justify-center h-screen bg-gray-100">
+        <div class="bg-gray-400 w-96 p-6 rounded shadow-sm">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header text-center text-3xl mb-4">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <div class="row mb-7 text-center">
+                            <label for="email" class="col-md-4 col-form-label outline-white-900 text-md-end">{{ __('Email Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div class="row mb-3">
+                                <input id="email" type="email" class="form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -25,7 +59,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-7 text-center">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -53,7 +87,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary bg-red-900 w-full text-white py-2 rounded hover:bg-black-100 transition-colors mb-7">
                                     {{ __('Login') }}
                                 </button>
 
@@ -70,4 +104,12 @@
         </div>
     </div>
 </div>
-@endsection
+<footer
+        class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
+    >
+        <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
+
+        
+        
+    </footer>
+
