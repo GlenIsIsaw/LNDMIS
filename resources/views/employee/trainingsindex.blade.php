@@ -2,6 +2,9 @@
 
 
 @section('content')
+<header class="text-center align-top">
+<h1 class="text-2xl font-bold uppercase mt-6">List of Submitted Certificates</h1>
+</header>
 
 <h1>List of Submitted Certificates</h1>
 
@@ -65,6 +68,7 @@
       <td><a href="{{route('attendance.show',$list->id)}}">View Attendance Report</a></td>
     @endif
 
+     
     </tr>
     @endforeach
   </table>
@@ -72,6 +76,6 @@
 <p>You Dont have Any Submitted Trainings/Seminar/Workshop</p>
 @endif
 
-   <a href="{{route('trainings.create')}}"><i class="fa-solid fa-pen-to-square"></i>Create</a>
+   <a href="{{route('trainings.create')}}" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"> Create</a>
 
 @endsection

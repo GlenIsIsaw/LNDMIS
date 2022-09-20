@@ -5,7 +5,7 @@
         <main>
             <div class="mx-4">
                 <div
-                    class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
+                    class="bg-gray-100 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
                 >
                     <header class="text-center">
                         <h2 class="text-2xl font-bold uppercase mb-1">
@@ -20,7 +20,7 @@
                         @method('PUT')
                         <div class="mb-6">
                             <div class="mb-6">
-                                <label for="list_of_training_id" class="inline-block text-lg mb-2">
+                                <label for="list_of_training_id" class="inline-block text-lg mb-2 mt-6">
                                     Training
                                 </label>
                                 <select name="list_of_training_id" id="list_of_training_id">
@@ -30,7 +30,7 @@
                                 @error('list_of_training_id')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
-                            <label for="competency" class="inline-block text-lg mb-2">
+                            <label for="competency" class="inline-block text-lg mb-2 mt-6">
                                 Specific Competency Target to Enhance
                             </label>
                             <select name="competency" id="competency">
@@ -47,8 +47,8 @@
                             @enderror
                         
                             <div class="mb-6">
-                                <label for="knowledge_acquired" class="inline-block text-lg mb-2">
-                                    Knowledge Acquired(What skills, knowledge and attitudes acquired?);
+                                <label for="knowledge_acquired" class="inline-block text-lg mb-2 mt-6">
+                                    Knowledge Acquired(What skills, knowledge and attitudes acquired?)
                                 </label>
                                 <textarea rows="4" cols="50" name="knowledge_acquired">{{$attendance->knowledge_acquired}}</textarea>
 
@@ -57,7 +57,7 @@
                         @enderror
 
                         <div class="mb-6">
-                            <label for="outcome" class="inline-block text-lg mb-2">
+                            <label for="outcome" class="inline-block text-lg mb-2 mt-6">
                                 Outcome
                             </label>
                             <textarea rows="4" cols="50" name="outcome">{{$attendance->outcome}}</textarea>
@@ -67,7 +67,7 @@
                     @enderror
 
                     <div class="mb-6">
-                        <label for="personal_action" class="inline-block text-lg mb-2">
+                        <label for="personal_action" class="inline-block text-lg mb-2 mt-6">
                             Personal Action
                         </label>
                         <textarea rows="4" cols="50" name="personal_action">{{$attendance->personal_action}}</textarea>
@@ -77,10 +77,10 @@
                 @enderror
                         
                    
-                        <div class="mb-6">
+                        <div class="mb-6 text-center mt-6">
                             <button
                                 type="submit"
-                                class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+                                class="bg-laravel text-white rounded py-2 px-4 hover:bg-black text-center"
                             >
                                 Edit
                             </button>
@@ -97,11 +97,7 @@
         >
             <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
 
-            <a
-                href="create.html"
-                class="absolute top-1/3 right-10 bg-black text-white py-2 px-5"
-                >Post Job</a
-            >
+            
         </footer>
     </body>
 </html>

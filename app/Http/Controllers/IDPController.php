@@ -26,7 +26,7 @@ class IDPController extends Controller
         {
             abort(403, 'Unauthorized Action');
         }
-        $info->submit = 1;
+        $info->submitted = 1;
         $info->save();
         return redirect()->back();
     }
@@ -123,7 +123,7 @@ class IDPController extends Controller
         $training = DB::table('idps')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('idps.id', $id)
-            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit')
+            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submitted')
             ->first();
 
 
@@ -136,10 +136,10 @@ class IDPController extends Controller
         $training = DB::table('idps')
         ->join('users', 'users.id', '=', 'idps.user_id')
         ->where('idps.id', $id)
-        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit')
+        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submitted')
         ->first();
 
-        if($training->submit == 1){
+        if($training->submitted == 1){
             return redirect()->back();
         }
 

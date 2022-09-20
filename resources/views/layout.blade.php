@@ -27,35 +27,42 @@
         </script>
       <style>
         table, th, td {
-          border: 1px solid black;
-          margin-left: auto;
-          margin-right: auto;
+          margin-left:auto;
+          margin-right:auto;
+          margin-top:25px;
+          height:50px;
+          width:auto;
+          padding:13px;
+          border: 2px solid black;
         }
+      
+    
         </style>
         <title>CNSC | Learning and Development MIS</title>
 
-    </head>
+      </head>
 
     <body class="mb-48">
-        <nav class="flex justify-between items-center mb-2">
+        <nav class="bg-red-900 text-white h-24 flex justify-between items-center mb-2">
             <a href="/"
                 ><img class="w-24" src="images/cnsc.png" alt="" class="logo"
             /></a>
+            <ul class="flex space-x-6 mr-6 text-lg">
             @auth
             <ul class="flex space-x-6 mr-6 text-lg">
             <li>
-              <span class="font-bold uppercase">
+              <span class="ml-5 inline-block border-none py-2 px-4 rounded-xl font-bold uppercase">
                 Welcome {{auth()->user()->name}}
               </span>
             </li>
             <li>
-              <a href="/user/{{auth()->user()->id}}/edit" class="hover:text-laravel"><i class="fa-solid fa-gear"></i> Manage Account</a>
+              <a href="/user/{{auth()->user()->id}}/edit" class="hover:text-black hover:border-black ml-5 inline-block border-2 border-white py-2 px-4 rounded-xl"><i class="fa-solid fa-gear"></i> Manage Account</a>
             </li>
             <li>
               <form class="inline" method="POST" action="/logout">
                 @csrf
                 <button type="submit">
-                  <i class="fa-solid fa-door-closed"></i> Logout
+                  <nav class="hover:text-black hover:border-black ml-5 inline-block border-2 border-white py-2 px-4 rounded-xl"><i class="fa-solid fa-door-closed"></i> Logout
                 </button>
               </form>
             </li>

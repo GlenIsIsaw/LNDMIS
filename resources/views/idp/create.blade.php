@@ -6,7 +6,7 @@
             <div class="mx-4">
 
                     <header class="text-center">
-                        <h2 class="text-2xl font-bold uppercase mb-1">
+                        <h2 class="text-2xl font-bold uppercase mt-6">
                             Create an Individual Development Plan
                         </h2>
 
@@ -253,7 +253,7 @@
                             </table>
                             
                         </div>
-                        <div class="mb-6">
+                        <div class="mb-6 text-center">
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"

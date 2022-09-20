@@ -9,7 +9,7 @@
       </div>
       <input type="text" name="search" class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"/>
       <div class="absolute top-2 right-2">
-        <button type="submit" class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">
+        <button type="submit" class="h-10 w-20 text-white rounded-lg bg-red-900 hover:bg-black-600">
           Search
         </button>
       </div>
@@ -26,6 +26,8 @@
     <p><a href="{{route('idp.show',$idp->idp_id)}}">{{$idp->name}}'s Individual Development Plan For Year {{$pieces[0]}}</a></p>
 @endforeach
 
-<a href="{{route('idp.create')}}"><i class="fa-solid fa-pen-to-square"></i>Create</a>
-
+<div class="text-center mt-6">
+<a href="{{route('idp.create')}}"><button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"></i>Create</a>
+</button>
+</div>
 @endsection

@@ -3,9 +3,10 @@
 
 @section('content')
         <main>
+           
             <div class="mx-4">
                 <div
-                    class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
+                    class="bg-gray-100 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
                 >
                     <header class="text-center">
                         <h2 class="text-2xl font-bold uppercase mb-1">
@@ -18,9 +19,9 @@
 
                     <form method="POST" action="{{route('training.store')}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="mb-6">
+                        <div class="mb-6 ml-3">
                             <label for="Name" class="inline-block text-lg mb-2">
-                                Name
+                                Name 
                             </label>
                             <select name="user_id" id="user_id">
                                 <option value=""></option>
@@ -31,7 +32,7 @@
                             @enderror
                         
                             <div class="mb-6">
-                                <label for="certificate_type" class="inline-block text-lg mb-2">
+                                <label for="certificate_type" class="inline-block text-lg mb-2 mt-5">
                                     Certificate Types
                                 </label>
                                 <select name="certificate_type" id="certificate_type">
@@ -52,7 +53,7 @@
                         @enderror
 
                         <div class="mb-6">
-                            <label for="name" class="inline-block text-lg mb-2">
+                            <label for="name" class="inline-block text-lg mb-2 mt-5">
                                 Certificate Name
                             </label>
                             <input
@@ -170,7 +171,7 @@
                             <input type="file" name="photo" accept="image/*" id="photo" required>
                         </div>
                    
-                        <div class="mb-6">
+                        <div class="text-center mt-6">
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
@@ -185,17 +186,7 @@
             </div>
         </main>
 
-        <footer
-            class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
-        >
-            <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
-
-            <a
-                href="create.html"
-                class="absolute top-1/3 right-10 bg-black text-white py-2 px-5"
-                >Post Job</a
-            >
-        </footer>
+       
     </body>
 </html>
 
