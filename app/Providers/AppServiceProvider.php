@@ -47,16 +47,5 @@ class AppServiceProvider extends ServiceProvider
             
             $view->with('comps', $comp);
         });
-
-        View::composer('attendanceforms.create', function ($view) {
-            $list = DB::table('list_of_trainings')
-            ->where('attendance_form','=', 0)
-            ->where('user_id','=', auth()->user()->id)
-            ->orderBy('created_at','asc')
-            ->select('id','certificate_title')
-            ->get();
-
-            $view->with('training',$list);
-        });
     }
 }

@@ -23,11 +23,7 @@
                                     Training
                                 </label>
                                 <select name="list_of_training_id" id="list_of_training_id">
-                                    <option value=""></option>
-                                    @foreach ($training as $item)
-                                        <option value="{{$item->id}}">{{$item->certificate_title}}</option>
-                                    @endforeach
-                                    
+                                    <option value="{{$training->training_id}}">{{$training->name}}</option>                                    
                                 </select>
                                 @error('list_of_training_id')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -52,9 +48,7 @@
                                 <label for="knowledge_acquired" class="inline-block text-lg mb-2 mt-6">
                                     Knowledge Acquired(What skills, knowledge and attitudes acquired?)
                                 </label>
-                                <textarea rows="4" cols="50" name="knowledge_acquired">
-                                    Enter text here...
-                                </textarea>
+                                <textarea rows="4" cols="50" name="knowledge_acquired"></textarea>
 
                         @error('knowledge_acquired')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -76,9 +70,7 @@
                         <label for="personal_action" class="inline-block text-lg mb-2">
                             Personal Action
                         </label>
-                        <textarea rows="4" cols="50" name="personal_action">
-                            Enter text here...
-                        </textarea>
+                        <textarea rows="4" cols="50" name="personal_action"></textarea>
 
                 @error('personal_action')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>

@@ -40,6 +40,7 @@ return new class extends Migration
             $table->Text('diffunctiondesc1');
             $table->Text('career');
             $table->boolean('submitted')->default(0);
+            $table->string('submit_status')->default('Pending');
             $table->timestamps();
         });
     }

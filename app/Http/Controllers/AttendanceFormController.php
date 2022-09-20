@@ -11,8 +11,13 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class AttendanceFormController extends Controller
 {
-    public function create(){
-        return view('attendanceforms.create');
+    public function create($id){
+        $training = DB::table('list_of_trainings')
+            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->where('list_of_trainings.id', $id)
+            ->select('list_of_trainings.id as training_id','name')
+            ->first();
+        return view('attendanceforms.create',['training' => $training]);
     }
     public function store(Request $request){
         $formFields = $request->validate([
@@ -36,7 +41,7 @@ class AttendanceFormController extends Controller
         
         $list->save();
         $train->save();
-        return redirect('/training')->with('mssg', 'Updated') ;
+        return redirect('/training')->with('message', 'Attendance Form Updated') ;
     }
 
     public function show($id){
@@ -105,7 +110,7 @@ class AttendanceFormController extends Controller
             $list->personal_action = request('personal_action');
             
             $list->save();
-            return back()->with('mssg', 'Updated') ;
+            return redirect(route('attendance.show',$list->list_of_training_id))->with('message', 'Updated') ;
         
     }
     public function destroy($id){

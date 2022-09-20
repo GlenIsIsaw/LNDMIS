@@ -94,10 +94,11 @@
 
                 <br>
 
-                @if ($idp->submitted == 0)
+                
                     <a href="{{route('idp.edit', $idp->idp_id)}}">
                         <i class="fa-solid fa-pencil"></i> Edit
                     </a>
+                @if ($idp->submitted == 0)
                     <form method="POST" action="{{route('idp.submit', $idp->idp_id)}}">
                         @csrf
                         @method('PUT')

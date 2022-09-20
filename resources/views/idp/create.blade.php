@@ -21,7 +21,6 @@
                                 Name
                             </label>
                             <select name="user_id" id="user_id">
-                                <option value=""></option>
                                 <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             </select>
                             @error('user_id')
@@ -50,7 +49,7 @@
                                 <tr>
                                     <td>
                                         <select name="competency[]" id="competency">
-                                            <option value=""> </option>
+                                            <option value="{{old("competency."."$i")}}">{{old("competency."."$i")}}</option>
                                             @foreach ($comps as $key => $comp)
                                             <optgroup label={{$key}}>
                                                 @foreach ($comp as $item)
@@ -64,7 +63,7 @@
                                     </td>
                                     <td>
                                         <select name="sug[]" id="sug">
-                                            <option value=""> </option>
+                                            <option value="{{old("sug."."$i")}}">{{old("sug."."$i")}}</option>
                                             <option value="S">S</option>
                                             <option value="U">U</option>
                                             <option value="G">G</option>
@@ -77,6 +76,7 @@
                                         <input
                                         type="text"
                                         name="dev_act[]"
+                                        value="{{old("dev_act."."$i")}}"
                                         />
                                         @error('dev_act.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -86,6 +86,7 @@
                                         <input
                                         type="date"
                                         name="target_date[]"
+                                        value="{{old("target_date."."$i")}}"
                                             />
                                         </div>
                                         @error('target_date.*')
@@ -96,6 +97,7 @@
                                         <input
                                         type="text"
                                         name="responsible[]"
+                                        value="{{old("responsible."."$i")}}"
                                         />
                                         @error('responsible.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -105,6 +107,7 @@
                                         <input
                                         type="text"
                                         name="support[]"
+                                        value="{{old("support."."$i")}}"
                                         />
                                         @error('support.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -112,7 +115,7 @@
                                     </td>
                                     <td>
                                         <select name="status[]" id="status">
-                                            <option value=""> </option>
+                                            <option value="{{old("status."."$i")}}">{{old("status."."$i")}}</option>
                                             <option value="Ongoing">Ongoing</option>
                                             <option value="Completed">Completed</option>
                                         </select>
@@ -124,7 +127,7 @@
                             @endfor
                         </table>
                         <div class="mb-6">
-                            <label for="compfunctiondesc" class="inline-block text-lg mb-2">
+                            <label for="compfunctiondesc" class="inline-block text-lg mb-2" >
                                 What function do you feel competent to perform?<br>
                                 (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
                             </label><br>
@@ -132,7 +135,7 @@
                                 <tr>
                                     <td>
                                         <select name="compfunction0" id="compfunctiondesc">
-                                            <option value=""> </option>
+                                            <option value="{{old('compfunction0')}}">{{old('compfunction0')}}</option>
                                             @foreach ($comps as $key => $comp)
                                             <optgroup label={{$key}}>
                                                 @foreach ($comp as $item)
@@ -146,7 +149,7 @@
                                     </td>
                                     <td>
                                         <select name="compfunction1" id="compfunctiondesc">
-                                            <option value=""> </option>
+                                            <option value="{{old('compfunction1')}}">{{old('compfunction1')}}</option>
                                             @foreach ($comps as $key => $comp)
                                             <optgroup label={{$key}}>
                                                 @foreach ($comp as $item)
@@ -162,14 +165,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <textarea rows="4" cols="50" name="compfunctiondesc0" id="compfunctiondesc"> </textarea>
+                                        <textarea rows="4" cols="50" name="compfunctiondesc0" id="compfunctiondesc">{{old('compfunctiondesc0')}}</textarea>
             
                                         @error('compfunctiondesc0')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
                                     <td>
-                                        <textarea rows="4" cols="50" name="compfunctiondesc1" id="compfunctiondesc"> </textarea>
+                                        <textarea rows="4" cols="50" name="compfunctiondesc1" id="compfunctiondesc">{{old('compfunctiondesc1')}}</textarea>
             
                                         @error('compfunctiondesc1')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -188,7 +191,7 @@
                                 <tr>
                                     <td>
                                         <select name="diffunction0" id="diffunctiondesc">
-                                            <option value=""> </option>
+                                            <option value="{{old('diffunction0')}}">{{old('diffunction0')}}</option>
                                             @foreach ($comps as $key => $comp)
                                             <optgroup label={{$key}}>
                                                 @foreach ($comp as $item)
@@ -203,7 +206,7 @@
                                     </td>
                                     <td>
                                         <select name="diffunction1" id="diffunctiondesc">
-                                            <option value=""> </option>
+                                            <option value="{{old('diffunction1')}}">{{old('diffunction1')}}</option>
                                             @foreach ($comps as $key => $comp)
                                             <optgroup label={{$key}}>
                                                 @foreach ($comp as $item)
@@ -219,14 +222,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <textarea rows="4" cols="50" name="diffunctiondesc0" id="diffunctiondesc"> </textarea>
+                                        <textarea rows="4" cols="50" name="diffunctiondesc0" id="diffunctiondesc">{{old('diffunctiondesc0')}}</textarea>
             
                                         @error('diffunctiondesc0')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
                                     </td>
                                     <td>
-                                        <textarea rows="4" cols="50" name="diffunctiondesc1" id="diffunctiondesc"> </textarea>
+                                        <textarea rows="4" cols="50" name="diffunctiondesc1" id="diffunctiondesc">{{old('diffunctiondesc1')}}</textarea>
             
                                         @error('diffunctiondesc1')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -243,7 +246,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <textarea rows="4" cols="50" name="career"> </textarea>
+                                        <textarea rows="4" cols="50" name="career">{{old('career')}}</textarea>
             
                                         @error('career')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>

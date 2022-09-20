@@ -24,7 +24,6 @@
                                 Name 
                             </label>
                             <select name="user_id" id="user_id">
-                                <option value=""></option>
                                 <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             </select>
                             @error('name')
@@ -176,7 +175,7 @@
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                             >
-                                Submit
+                                Create
                             </button>
                         </div>
 

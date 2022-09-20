@@ -25,11 +25,7 @@
                                 </label>
                                 <select name="list_of_training_id" id="list_of_training_id">
                                     <option value="{{$attendance->training_id}}">{{$attendance->certificate_title}}</option>
-                                    
                                 </select>
-                                @error('list_of_training_id')
-                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                @enderror
                             <label for="competency" class="inline-block text-lg mb-2 mt-6">
                                 Specific Competency Target to Enhance
                             </label>

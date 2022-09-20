@@ -13,11 +13,24 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
+    public function submit($id){
+        $info = ListOfTraining::find($id);
+        if($info->user_id != auth()->id())
+        {
+            abort(403, 'Unauthorized Action');
+        }
+        if ($info->attendance_form == 0) {
+            return redirect()->back()->with('message', ' Cannot be submitted missing Attendance Form');
+        }
+        $info->submitted = 1;
+        $info->save();
+        return redirect()->back()->with('message', 'Sucessfully Submitted');
+    }
     public function empindex(Request $request){
         if (request()->start_date || request()->end_date) {
             $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
             $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status','submitted')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('users.id',auth()->user()->id)
                                     ->whereBetween('date_covered',[$start_date,$end_date])
@@ -25,7 +38,7 @@ class ListOfTrainingController extends Controller
                                     ->filter(request(['level','search']))
                                     ->get();
         } else {
-            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form')
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status','submitted')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('users.id',auth()->user()->id)
                                     ->orderBy('date_covered','asc')
@@ -51,7 +64,7 @@ class ListOfTrainingController extends Controller
         $user = User::find($list->user_id);
         File::delete(storage_path('app/public/users/'.$user->name.'/'.$list->certificate));
         ListOfTraining::where('id',$id)->delete();
-        return redirect('/trainings')->with('message','Training Deleted Successfully');
+        return redirect(route('training.empindex'))->with('message', $list->certitficate_title.'Deleted');
     }
     public function edit($id){
         $training = DB::table('list_of_trainings')
@@ -75,11 +88,10 @@ class ListOfTrainingController extends Controller
     }
     public function show($id){
 
-
             $training = DB::table('list_of_trainings')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('list_of_trainings.id', $id)
-                ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form')
+                ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status','submitted')
                 ->first();
 
 
@@ -240,7 +252,7 @@ public function create(){
         }
         
         $list->save();
-        return redirect('/training')->with('mssg', 'Updated') ;
+        return redirect(route('training.show',$list->id))->with('message', 'List of Trainings Created');
     }
 
     public function update(Request $request, $id){
@@ -288,6 +300,6 @@ public function create(){
         }
         
         $list->save();
-        return redirect('/training')->with('mssg', 'Updated') ;
+        return redirect(route('training.show',$list->id))->with('message', 'List of Trainings Updated');
     }
 }

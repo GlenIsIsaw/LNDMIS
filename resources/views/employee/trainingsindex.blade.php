@@ -50,6 +50,7 @@
       <th>Venue</th>
       <th>Sponsors</th>
       <th>Has an Attendance Report</th>
+      <th>Status</th>
 
       
     </tr>
@@ -63,9 +64,15 @@
     <td>{{ $list->venue }}</td>
     <td>{{ $list->sponsors }}</td>
     @if ($list->attendance_form == 0)
-      <td><a href="{{route('attendance.create')}}">Create Attendance Report</a></td>
+      <td><a href="{{route('attendance.create',$list->id)}}">Create Attendance Report</a></td>
     @else
       <td><a href="{{route('attendance.show',$list->id)}}">View Attendance Report</a></td>
+    @endif
+    
+    @if ($list->submitted == 0)
+      <td>Not Submitted</td>
+    @else
+      <td>{{ $list->status }}</td>
     @endif
 
      

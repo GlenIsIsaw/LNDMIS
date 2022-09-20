@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('certificate');
             $table->boolean('attendance_form')->default(0);
+            $table->boolean('submitted')->default(0);
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

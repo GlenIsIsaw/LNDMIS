@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('competency_group');
             $table->string('competency_name');
             $table->boolean('teaching')->default(0);
-            $table->boolean('non-teaching')->default(0);;
+            $table->boolean('nonteaching')->default(0);;
             $table->timestamps();
         });
     }

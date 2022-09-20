@@ -78,9 +78,9 @@
     <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-download mt-2 text-center"></i>Download</button>
     </form>
 
-    <a href="{{route('attendance.edit',$training->att_id)}}">
-    <i class="fa-solid fa-pencil"></i> Edit
-    </a>
+    <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">    <a href="{{route('attendance.edit',$training->att_id)}}">
+<i class="fa-solid fa-download mt-2 text-center"></i>Edit</a></button>
+
 
     <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
         @csrf

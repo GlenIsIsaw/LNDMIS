@@ -35,10 +35,11 @@ Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->na
 Route::post('/trainings', [ListOfTrainingController::class, 'store'])->name('training.store');
 Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('training.show');
 Route::get('/trainings/{id}/edit',[ListOfTrainingController::class, 'edit'])->name('training.edit');
-Route::put('/trainings/{id}',[ListOfTrainingController::class, 'update'])->name('training.update');
+Route::put('/trainings/{id}/update',[ListOfTrainingController::class, 'update'])->name('training.update');
 Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy'])->name('training.destroy');
+Route::put('/trainings/{id}/submit', [ListOfTrainingController::class, 'submit'])->name('training.submit');
 
-Route::get('/attendance/create', [AttendanceFormController::class, 'create'])->name('attendance.create');
+Route::get('/attendance/{id}/create', [AttendanceFormController::class, 'create'])->name('attendance.create');
 Route::post('/attendance', [AttendanceFormController::class, 'store'])->name('attendance.store');
 Route::get('/attendance/{id}', [AttendanceFormController::class, 'show'])->name('attendance.show');
 Route::get('/attendance/{id}/edit',[AttendanceFormController::class, 'edit'])->name('attendance.edit');
@@ -52,7 +53,7 @@ Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.empindex');
 Route::get('/idp/{id}', [IDPController::class, 'show'])->name('idp.show');
 Route::get('/idp/{id}/edit', [IDPController::class, 'edit'])->name('idp.edit');
 Route::put('/idp/{id}', [IDPController::class, 'update'])->name('idp.update');
-Route::put('/idp/submit/{id}', [IDPController::class, 'submit'])->name('idp.submit');
+Route::put('/idp/{id}/submit', [IDPController::class, 'submit'])->name('idp.submit');
 Route::post('/idp/print/{id}', [IDPController::class, 'print'])->name('idp.print');
 
 Route::get('/competency',[CompetencyController::class, 'empindex'])->name('competency.empindex');

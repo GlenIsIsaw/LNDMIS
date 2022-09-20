@@ -28,12 +28,13 @@ class IDPController extends Controller
         }
         $info->submitted = 1;
         $info->save();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Successfully Submitted');;
     }
     public function create(){
         return view('idp.create');
     }
     public function store(Request $request){
+        $request->flash();
         $formFields = $request->validate([
             'user_id' => 'required',
             'competency' => 'required',
@@ -105,7 +106,7 @@ class IDPController extends Controller
         $info->diffunctiondesc1 = request('diffunctiondesc1');
         $info->career = request('career');
         $info->save();
-        return redirect('/idp')->with('mssg', 'IDP Created') ;
+        return redirect('/idp')->with('message', 'IDP Created') ;
     }
 
     public function empindex(){
@@ -140,7 +141,7 @@ class IDPController extends Controller
         ->first();
 
         if($training->submitted == 1){
-            return redirect()->back();
+            return redirect()->back()->with('message', 'You Cannot Edit');;
         }
 
         $this->check($training->user_id);
@@ -223,7 +224,7 @@ class IDPController extends Controller
         $info->diffunctiondesc1 = request('diffunctiondesc1');
         $info->career = request('career');
         $info->save();
-        return redirect('/idp')->with('mssg', 'IDP Updated') ;
+        return redirect('/idp')->with('message', 'IDP Updated') ;
     }
     public static function year($year){
         $pieces = explode("-", $year);

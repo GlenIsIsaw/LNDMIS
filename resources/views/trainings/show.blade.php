@@ -2,36 +2,78 @@
 
 
 @section('content')
-            <h1>Training Information</h1>
-            <label for="name">Name</label>
-            <p>{{$training->name}}</p>
-            <label for="certificate_title">Training</label>
-            <p>{{$training->certificate_title}}</p>
-            <label for="certificate_type">Certificate Type</label>
-            <p>{{$training->certificate_type}}</p>
-            <label for="level">Level</label>
-            <p>{{$training->level}}</p>
-            <label for="venue">Venue</label>
-            <p>{{$training->venue}}</p>
-            <label for="sponsors">Sponsors</label>
-            <p>{{$training->sponsors}}</p>
-            <label for="date">Date Covered</label>
-            <p>{{$training->date_covered}}</p>
-            <label for="hours">Number of Hours</label>
-            <p>{{$training->num_hours}}</p>
-            <label for="type">Type</label>
-            <p>{{$training->type}}</p>
-            <label for="certificate">Certificate</label>
-            <img src="{{ url('storage/users/'.$training->name.'/'.$training->certificate) }}"
-            style="height: 100px; width: 150px;">
+<table>
+    <tr>
+        <th>Name</th>
+        <td>{{$training->name}}</td>
+    </tr>
+    <tr>
+        <th>Training</th>
+        <td>{{$training->certificate_title}}</td>
+    </tr>
+    <tr>
+        <th>Certificate Type</th>
+        <td>{{$training->certificate_type}}</td>
+    </tr>
+    <tr>
+        <th>Level</th>
+        <td>{{$training->level}}</td>
+    </tr>
+    <tr>
+        <th>Venue</th>
+        <td>{{$training->venue}}</td>
+    </tr>
+    <tr>
+        <th>Sponsors</th>
+        <td>{{$training->sponsors}}</td>
+    </tr>
+    <tr>
+        <th>Date Covered</th>
+        <td>{{$training->date_covered}}</td>
+    </tr>
+    <tr>
+        <th>Number of Hours</th>
+        <td>{{$training->num_hours}}</td>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td>{{$training->type}}</td>
+    </tr>
+    <tr>
+        <th>Has an Attendance Form</th>
+        @if ($training->attendance_form == 0)
+            <td><a href="{{route('attendance.create',$training->training_id)}}">Create Attendance Report</a></td>
+        @else
+          <td><a href="{{route('attendance.show',$training->training_id)}}">View Attendance Report</a></td>
+        @endif
+    </tr>
+    <tr>
+        <th>Certificate</th>
+        <td>            <img src="{{ url('storage/users/'.$training->name.'/'.$training->certificate) }}"
+            style="height: 100px; width: 150px;"></td>
+    </tr>
 
-            <a href="{{route('training.edit',$training->training_id)}}">
-            <i class="fa-solid fa-pencil"></i> Edit
-            </a>
+  </table>
+    <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">
+        <a href="{{route('training.edit',$training->training_id)}}">
+            <i class="fa-solid fa-download mt-2 text-center"></i>
+            Edit
+        </a>
+    </button>
 
-            <form method="POST" action="{{route('training.destroy',$training->training_id)}}">
+    @if ($training->submitted == 0)
+        
+        <form method="POST" action="{{route('training.submit', $training->training_id)}}">
             @csrf
-            @method('DELETE')
-            <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button>
-            </form>
+            @method('PUT')
+            <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-arrow-up-from-bracket"></i>Submit</button>
+        </form>
+    @endif
+
+
+    <form method="POST" action="{{route('training.destroy',$training->training_id)}}">
+        @csrf
+        @method('DELETE')
+        <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center text-red-500 "><i class="fa-solid fa-trash"></i>Delete</button>
+    </form>
 @endsection
