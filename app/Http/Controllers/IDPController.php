@@ -11,13 +11,13 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class IDPController extends Controller
 {
-    public $part1 = [];
+
     public function check($id){
         if(auth()->user()->role_as == 0)
         {
             if($id != auth()->id())
             {
-                abort(403, 'Unauthorized Action');
+                abort(403,'Unauthorized entry');
             }
         }
     }
@@ -27,11 +27,16 @@ class IDPController extends Controller
         {
             abort(403, 'Unauthorized Action');
         }
-        $info->submitted = 1;
+        $info->status = 'Pending';
         $info->save();
-        return redirect()->back()->with('message', 'Successfully Submitted');;
+        return redirect()->back()->with('message', 'Successfully Submitted');
     }
     public function create(){
+        $idp = Idp::where('user_id','=',auth()->user()->id)
+            ->where('created_at','like','%'. date('Y') . '%')->get();
+        if(!$idp->isEmpty()){
+            return redirect()->back()->with('message','You already have an IDP for this Year');
+        }
         return view('idp.create');
     }
     public function store(Request $request){
@@ -120,7 +125,7 @@ class IDPController extends Controller
     }
 
     public function empindex(){
-        $lists = Idp::select('idps.id as idp_id','user_id','name', 'idps.created_at')
+        $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
                     ->join('users', 'users.id', '=', 'idps.user_id')
                     ->where('users.id',auth()->user()->id)
                     ->orderBy('idps.created_at','desc')
@@ -134,7 +139,7 @@ class IDPController extends Controller
         $training = DB::table('idps')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('idps.id', $id)
-            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submitted')
+            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit_status')
             ->first();
 
 
@@ -147,12 +152,8 @@ class IDPController extends Controller
         $training = DB::table('idps')
         ->join('users', 'users.id', '=', 'idps.user_id')
         ->where('idps.id', $id)
-        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submitted')
+        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at')
         ->first();
-
-        if($training->submitted == 1){
-            return redirect()->back()->with('message', 'You Cannot Edit');;
-        }
 
         $this->check($training->user_id);
         return view('idp.edit', ['idp' => $training]);

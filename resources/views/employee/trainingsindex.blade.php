@@ -68,14 +68,9 @@
     @else
       <td><a href="{{route('attendance.show',$list->id)}}">View Attendance Report</a></td>
     @endif
-    
-    @if ($list->submitted == 0)
-      <td>Not Submitted</td>
-    @else
-      <td>{{ $list->status }}</td>
-    @endif
 
-     
+      <td>{{ $list->status }}</td>
+
     </tr>
     @endforeach
   </table>

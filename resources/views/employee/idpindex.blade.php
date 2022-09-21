@@ -23,11 +23,36 @@
     @php
         $pieces = explode("-", $idp->created_at);
     @endphp
-    <p><a href="{{route('idp.show',$idp->idp_id)}}">{{$idp->name}}'s Individual Development Plan For Year {{$pieces[0]}}</a></p>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Competencies</th>
+        <th>Completion Status</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td><a href="{{route('idp.show',$idp->idp_id)}}">{{$idp->name}}</td>
+        <td>
+          @foreach ($idp->competency as $item)
+              {{$item}} <br>
+          @endforeach
+        </td>
+        <td>
+          @foreach ($idp->status as $item)
+              {{$item}} <br>
+          @endforeach
+        </td>
+        <td>{{$idp->created_at}}</td>
+        <td>{{$idp->updated_at}}</td>
+        <td>{{$idp->submit_status}}</td>
+      </tr>
+    </table>
 @endforeach
 
 <div class="text-center mt-6">
-<a href="{{route('idp.create')}}"><button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"></i>Create</a>
-</button>
+  <a href="{{route('idp.create')}}"><button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"></i>Create</a>
+  </button>
 </div>
 @endsection
