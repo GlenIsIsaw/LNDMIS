@@ -28,7 +28,7 @@ return new class extends Migration
             $table->json('target_date');
             $table->json('responsible');
             $table->json('support');
-            $table->json('status');
+            $table->json('status')->default('Ongoing');
             
             $table->string('compfunction0');
             $table->Text('compfunctiondesc0');
