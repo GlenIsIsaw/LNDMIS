@@ -4,7 +4,8 @@
 @section('content')
 
 <h1>List of Submitted Certificates</h1>
-<div>
+<div class="max-width-lg">
+  
     <table>
      <tr>
         <th>name</th>
@@ -16,7 +17,7 @@
         <th>Sponsors</th>
         <th>Has an Attendance Report</th>
 
-        
+      
      </tr>
      @foreach($lists as $list)
      <tr>
@@ -36,6 +37,7 @@
      </tr>
      @endforeach
     </table>
+  
    </div>
 
   

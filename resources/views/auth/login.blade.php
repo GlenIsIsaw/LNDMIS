@@ -25,18 +25,18 @@
                 },
             };
         </script>
-        <title>Log In</title>
+        <title>LNDMIS Log In</title>
 
 
     </head>
     <nav class="bg-red-900 text-white h-24 flex justify-between items-center">
         <a href="/"
-            ><img class="w-24" src="images/cnsc.png" alt="" class="logo"
+            ><img class="w-24 ml-7" src="images/cnsc.png" alt="" class="logo"
         /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
         </nav>
 <div class="container">
-    <div class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="flex items-center justify-center h-screen w-screen bg-gray-100">
         <div class="bg-gray-400 w-96 p-6 rounded shadow-sm">
             <div class="card">
                 <div class="card-header text-center text-3xl mb-4">{{ __('Login') }}</div>
