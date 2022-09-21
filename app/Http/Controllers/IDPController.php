@@ -11,12 +11,13 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class IDPController extends Controller
 {
+
     public function check($id){
         if(auth()->user()->role_as == 0)
         {
             if($id != auth()->id())
             {
-                abort(403, 'Unauthorized Action');
+                abort(403,'Unauthorized entry');
             }
         }
     }
@@ -26,91 +27,105 @@ class IDPController extends Controller
         {
             abort(403, 'Unauthorized Action');
         }
-        $info->submitted = 1;
+        $info->status = 'Pending';
         $info->save();
-        return redirect()->back()->with('message', 'Successfully Submitted');;
+        return redirect()->back()->with('message', 'Successfully Submitted');
     }
     public function create(){
+        $idp = Idp::where('user_id','=',auth()->user()->id)
+            ->where('created_at','like','%'. date('Y') . '%')->get();
+        if(!$idp->isEmpty()){
+            return redirect()->back()->with('message','You already have an IDP for this Year');
+        }
         return view('idp.create');
     }
     public function store(Request $request){
-        $request->flash();
-        $formFields = $request->validate([
-            'user_id' => 'required',
-            'competency' => 'required',
-            'sug' => 'required',
-            'dev_act' => 'required',
-            'target_date' => 'required',
-            'responsible' => 'required',
-            'support' => 'required',
-            'status' => 'required',
-
-            'competency.*' => 'required|distinct',
-            'sug.*' => 'required',
-            'dev_act.*' => 'required',
-            'target_date.*' => 'required',
-            'responsible.*' => 'required',
-            'support.*' => 'required',
-            'status.*' => 'required',
-
-            'compfunction0' => 'required',
-            'compfunctiondesc0' => 'required',
-            'compfunction1' => 'required',
-            'compfunctiondesc1' => 'required',
-
-            'diffunction0' => 'required',
-            'diffunctiondesc0' => 'required',
-            'diffunction1' => 'required',
-            'diffunctiondesc1' => 'required',
-            
-            'career' => 'required',
-        ]);
-        $info = new Idp();  
-        $info->user_id = request('user_id');
-        if($request->has('purpose_meet') && !empty($request->input('purpose_meet'))) {
-            $info->purpose_meet = request('purpose_meet');
-        }else{
-            $info->purpose_meet = " ";
+        if($request->has('user_id')){
+            $formFields1 = $request->validate([
+                'user_id' => 'required',
+                'purpose_meet' => 'max:1',
+                'purpose_obtain' => 'max:1',
+                'purpose_improve' => 'max:1',
+                'purpose_others' => 'max:1',
+                'purpose_explanation' => 'max:255',
+                'competency' => 'required',
+                'sug' => 'required',
+                'dev_act' => 'required',
+                'target_date' => 'required',
+                'responsible' => 'required',
+                'support' => 'required',
+                'status' => 'required',
+    
+                'competency.*' => 'required|distinct',
+                'sug.*' => 'required',
+                'dev_act.*' => 'required',
+                'target_date.*' => 'required',
+                'responsible.*' => 'required',
+                'support.*' => 'required',
+                'status.*' => 'required',
+            ]);
+            return view('idp.create2', ['part'=> $formFields1]);
         }
-        if($request->has('purpose_improve') && !empty($request->input('purpose_improve'))) {
-            $info->purpose_improve = request('purpose_improve');
-        }else{
-            $info->purpose_improve = " ";
+        if($request->has('compfunction0')){
+            $request->validate([
+                'compfunction0' => 'required',
+                'compfunctiondesc0' => 'required',
+                'compfunction1' => 'required',
+                'compfunctiondesc1' => 'required',
+    
+                'diffunction0' => 'required',
+                'diffunctiondesc0' => 'required',
+                'diffunction1' => 'required',
+                'diffunctiondesc1' => 'required',
+                'career' => 'required',
+            ]);
+            $info = new Idp();  
+            $info->user_id = request('users_id');
+            if($request->has('purpose_meet') && !empty($request->input('purpose_meet'))) {
+                $info->purpose_meet = request('purpose_meet');
+            }else{
+                $info->purpose_meet = " ";
+            }
+            if($request->has('purpose_improve') && !empty($request->input('purpose_improve'))) {
+                $info->purpose_improve = request('purpose_improve');
+            }else{
+                $info->purpose_improve = " ";
+            }
+            if($request->has('purpose_obtain') && !empty($request->input('purpose_obtain'))) {
+                $info->purpose_obtain = request('purpose_obtain');
+            }else{
+                $info->purpose_obtain = " ";
+            }
+            if($request->has('purpose_others') && !empty($request->input('purpose_others'))) {
+                $info->purpose_others = request('purpose_others');
+                $info->purpose_explain = request('purpose_explain');
+            }else{
+                $info->purpose_others = " ";
+                $info->purpose_explain = " ";
+            }
+            $info->competency = request('competency');
+            $info->sug = request('sug');
+            $info->dev_act = request('dev_act');
+            $info->target_date = request('target_date');
+            $info->responsible = request('responsible');
+            $info->support = request('support');
+            $info->status = request('status');
+            $info->compfunction0 = request('compfunction0');
+            $info->compfunctiondesc0 = request('compfunctiondesc0');
+            $info->compfunction1 = request('compfunction1');
+            $info->compfunctiondesc1 = request('compfunctiondesc1');
+            $info->diffunction0 = request('diffunction0');
+            $info->diffunctiondesc0 = request('diffunctiondesc0');
+            $info->diffunction1 = request('diffunction1');
+            $info->diffunctiondesc1 = request('diffunctiondesc1');
+            $info->career = request('career');
+            $info->save();
+            return redirect(route('idp.show',$info->id))->with('message', 'IDP Created') ;
         }
-        if($request->has('purpose_obtain') && !empty($request->input('purpose_obtain'))) {
-            $info->purpose_obtain = request('purpose_obtain');
-        }else{
-            $info->purpose_obtain = " ";
-        }
-        if($request->has('purpose_others') && !empty($request->input('purpose_others'))) {
-            $info->purpose_others = request('purpose_others');
-            $info->purpose_explain = request('purpose_explain');
-        }else{
-            $info->purpose_others = " ";
-            $info->purpose_explain = " ";
-        }
-        $info->competency = request('competency');
-        $info->sug = request('sug');
-        $info->dev_act = request('dev_act');
-        $info->target_date = request('target_date');
-        $info->responsible = request('responsible');
-        $info->support = request('support');
-        $info->status = request('status');
-        $info->compfunction0 = request('compfunction0');
-        $info->compfunctiondesc0 = request('compfunctiondesc0');
-        $info->compfunction1 = request('compfunction1');
-        $info->compfunctiondesc1 = request('compfunctiondesc1');
-        $info->diffunction0 = request('diffunction0');
-        $info->diffunctiondesc0 = request('diffunctiondesc0');
-        $info->diffunction1 = request('diffunction1');
-        $info->diffunctiondesc1 = request('diffunctiondesc1');
-        $info->career = request('career');
-        $info->save();
-        return redirect('/idp')->with('message', 'IDP Created') ;
     }
 
     public function empindex(){
-        $lists = Idp::select('idps.id as idp_id','user_id','name', 'idps.created_at')
+        $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
                     ->join('users', 'users.id', '=', 'idps.user_id')
                     ->where('users.id',auth()->user()->id)
                     ->orderBy('idps.created_at','desc')
@@ -124,7 +139,7 @@ class IDPController extends Controller
         $training = DB::table('idps')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('idps.id', $id)
-            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submitted')
+            ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit_status')
             ->first();
 
 
@@ -137,12 +152,8 @@ class IDPController extends Controller
         $training = DB::table('idps')
         ->join('users', 'users.id', '=', 'idps.user_id')
         ->where('idps.id', $id)
-        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submitted')
+        ->select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at')
         ->first();
-
-        if($training->submitted == 1){
-            return redirect()->back()->with('message', 'You Cannot Edit');;
-        }
 
         $this->check($training->user_id);
         return view('idp.edit', ['idp' => $training]);
@@ -151,80 +162,106 @@ class IDPController extends Controller
     public function update(Request $request, $id){
         $info = Idp::find($id);
         $this->check($info->user_id);
-        $formFields = $request->validate([
-            'user_id' => 'required',
-            'competency' => 'required',
-            'sug' => 'required',
-            'dev_act' => 'required',
-            'target_date' => 'required',
-            'responsible' => 'required',
-            'support' => 'required',
-            'status' => 'required',
-
-            'competency.*' => 'required|distinct',
-            'sug.*' => 'required',
-            'dev_act.*' => 'required',
-            'target_date.*' => 'required',
-            'responsible.*' => 'required',
-            'support.*' => 'required',
-            'status.*' => 'required',
-
-            'compfunction0' => 'required',
-            'compfunctiondesc0' => 'required',
-            'compfunction1' => 'required',
-            'compfunctiondesc1' => 'required',
-
-            'diffunction0' => 'required',
-            'diffunctiondesc0' => 'required',
-            'diffunction1' => 'required',
-            'diffunctiondesc1' => 'required',
-            
-            'career' => 'required',
-        ]);
-        $info->user_id = request('user_id');
-        if($request->has('purpose_meet') && !empty($request->input('purpose_meet'))) {
-            $info->purpose_meet = request('purpose_meet');
-        }else{
-            $info->purpose_meet = " ";
+        if($request->has('user_id')){
+            $formFields = $request->validate([
+                'user_id' => 'required',
+                'name' => 'required',
+                'year' => 'required',
+                'idp_id' => 'required',
+                'purpose_meet' => 'max:1',
+                'purpose_obtain' => 'max:1',
+                'purpose_improve' => 'max:1',
+                'purpose_others' => 'max:1',
+                'purpose_explanation' => 'max:255',
+                'competency' => 'required',
+                'sug' => 'required',
+                'dev_act' => 'required',
+                'target_date' => 'required',
+                'responsible' => 'required',
+                'support' => 'required',
+                'status' => 'required',
+    
+                'competency.*' => 'required|distinct',
+                'sug.*' => 'required',
+                'dev_act.*' => 'required',
+                'target_date.*' => 'required',
+                'responsible.*' => 'required',
+                'support.*' => 'required',
+                'status.*' => 'required',
+                'compfunction0' => 'required',
+                'compfunctiondesc0' => 'required',
+                'compfunction1' => 'required',
+                'compfunctiondesc1' => 'required',
+    
+                'diffunction0' => 'required',
+                'diffunctiondesc0' => 'required',
+                'diffunction1' => 'required',
+                'diffunctiondesc1' => 'required',
+                
+                'career' => 'required',
+            ]);
+            return view('idp.edit2',['part' => $formFields]);
         }
-        if($request->has('purpose_improve') && !empty($request->input('purpose_improve'))) {
-            $info->purpose_improve = request('purpose_improve');
-        }else{
-            $info->purpose_improve = " ";
-        }
-        if($request->has('purpose_obtain') && !empty($request->input('purpose_obtain'))) {
-            $info->purpose_obtain = request('purpose_obtain');
-        }else{
-            $info->purpose_obtain = " ";
-        }
-        if($request->has('purpose_others') && !empty($request->input('purpose_others'))) {
-            $info->purpose_others = request('purpose_others');
-            $info->purpose_explain = request('purpose_explain');
-        }else{
-            $info->purpose_others = " ";
-            $info->purpose_explain = " ";
-        }
+        if($request->has('users_id')){
+            $request->validate([
+                'compfunction0' => 'required',
+                'compfunctiondesc0' => 'required',
+                'compfunction1' => 'required',
+                'compfunctiondesc1' => 'required',
+    
+                'diffunction0' => 'required',
+                'diffunctiondesc0' => 'required',
+                'diffunction1' => 'required',
+                'diffunctiondesc1' => 'required',
+                
+                'career' => 'required',
+            ]);
+        
+            $info->user_id = request('users_id');
+            if($request->has('purpose_meet') && !empty($request->input('purpose_meet'))) {
+                $info->purpose_meet = request('purpose_meet');
+            }else{
+                $info->purpose_meet = " ";
+            }
+            if($request->has('purpose_improve') && !empty($request->input('purpose_improve'))) {
+                $info->purpose_improve = request('purpose_improve');
+            }else{
+                $info->purpose_improve = " ";
+            }
+            if($request->has('purpose_obtain') && !empty($request->input('purpose_obtain'))) {
+                $info->purpose_obtain = request('purpose_obtain');
+            }else{
+                $info->purpose_obtain = " ";
+            }
+            if($request->has('purpose_others') && !empty($request->input('purpose_others'))) {
+                $info->purpose_others = request('purpose_others');
+                $info->purpose_explain = request('purpose_explain');
+            }else{
+                $info->purpose_others = " ";
+                $info->purpose_explain = " ";
+            }
 
-            
+                
 
-        $info->competency = request('competency');
-        $info->sug = request('sug');
-        $info->dev_act = request('dev_act');
-        $info->target_date = request('target_date');
-        $info->responsible = request('responsible');
-        $info->support = request('support');
-        $info->status = request('status');
-        $info->compfunction0 = request('compfunction0');
-        $info->compfunctiondesc0 = request('compfunctiondesc0');
-        $info->compfunction1 = request('compfunction1');
-        $info->compfunctiondesc1 = request('compfunctiondesc1');
-        $info->diffunction0 = request('diffunction0');
-        $info->diffunctiondesc0 = request('diffunctiondesc0');
-        $info->diffunction1 = request('diffunction1');
-        $info->diffunctiondesc1 = request('diffunctiondesc1');
-        $info->career = request('career');
-        $info->save();
-        return redirect('/idp')->with('message', 'IDP Updated') ;
+            $info->competency = request('competency');
+            $info->sug = request('sug');
+            $info->dev_act = request('dev_act');
+            $info->target_date = request('target_date');
+            $info->responsible = request('responsible');
+            $info->support = request('support');
+            $info->status = request('status');
+            $info->compfunction0 = request('compfunction0');
+            $info->compfunctiondesc0 = request('compfunctiondesc0');
+            $info->compfunction1 = request('compfunction1');
+            $info->compfunctiondesc1 = request('compfunctiondesc1');
+            $info->diffunction0 = request('diffunction0');
+            $info->diffunctiondesc0 = request('diffunctiondesc0');
+            $info->diffunction1 = request('diffunction1');
+            $info->diffunctiondesc1 = request('diffunctiondesc1');
+            $info->career = request('career');
+            $info->save();
+            return redirect(route('idp.show',$info->id))->with('message', 'IDP Updated');
+        }
     }
     public static function year($year){
         $pieces = explode("-", $year);

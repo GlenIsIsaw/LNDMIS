@@ -71,7 +71,7 @@
         </a>
     </button>
 
-    @if ($training->submitted == 0)
+    @if ($training->status == 'Not Submitted')
         
         <form method="POST" action="{{route('training.submit', $training->training_id)}}">
             @csrf

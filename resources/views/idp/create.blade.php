@@ -14,7 +14,7 @@
                     
 
 
-                    <form method="POST" action="{{route('idp.store')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('idp.store')}}" enctype="multipart/form-data" name="part1">
                         @csrf
                         <div class="mb-6">
                             <label for="Name" class="inline-block text-lg mb-2">
@@ -115,9 +115,7 @@
                                     </td>
                                     <td>
                                         <select name="status[]" id="status">
-                                            <option value="{{old("status."."$i")}}">{{old("status."."$i")}}</option>
                                             <option value="Ongoing">Ongoing</option>
-                                            <option value="Completed">Completed</option>
                                         </select>
                                         @error('status.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -126,134 +124,6 @@
                                 </tr>
                             @endfor
                         </table>
-                        <div class="mb-6">
-                            <label for="compfunctiondesc" class="inline-block text-lg mb-2" >
-                                What function do you feel competent to perform?<br>
-                                (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
-                            </label><br>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <select name="compfunction0" id="compfunctiondesc">
-                                            <option value="{{old('compfunction0')}}">{{old('compfunction0')}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-                                        </select>
-                                        @error('compfunction0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <select name="compfunction1" id="compfunctiondesc">
-                                            <option value="{{old('compfunction1')}}">{{old('compfunction1')}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-
-                                        </select>
-                                        @error('compfunction1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="compfunctiondesc0" id="compfunctiondesc">{{old('compfunctiondesc0')}}</textarea>
-            
-                                        @error('compfunctiondesc0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="compfunctiondesc1" id="compfunctiondesc">{{old('compfunctiondesc1')}}</textarea>
-            
-                                        @error('compfunctiondesc1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="diffunctiondesc" class="inline-block text-lg mb-2">
-                                What function do you have a difficulty to perform?<br>
-                                (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)                                
-                            </label><br>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <select name="diffunction0" id="diffunctiondesc">
-                                            <option value="{{old('diffunction0')}}">{{old('diffunction0')}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-
-                                        </select>
-                                        @error('diffunction0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <select name="diffunction1" id="diffunctiondesc">
-                                            <option value="{{old('diffunction1')}}">{{old('diffunction1')}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-
-                                        </select>
-                                        @error('diffunction1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="diffunctiondesc0" id="diffunctiondesc">{{old('diffunctiondesc0')}}</textarea>
-            
-                                        @error('diffunctiondesc0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="diffunctiondesc1" id="diffunctiondesc">{{old('diffunctiondesc1')}}</textarea>
-            
-                                        @error('diffunctiondesc1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="mb-6">
-                            <p class="inline-block text-lg mb-2">
-                                Where do you see your career progressing in? the next two years?
-                            </p>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="career">{{old('career')}}</textarea>
-            
-                                        @error('career')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
                             
                         </div>
                         <div class="mb-6 text-center">
@@ -261,7 +131,7 @@
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                             >
-                                Create IDP
+                                Next
                             </button>
                         </div>
 

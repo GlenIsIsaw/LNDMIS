@@ -20,8 +20,6 @@ return new class extends Migration
             $table->text('knowledge_acquired');
             $table->text('outcome');
             $table->text('personal_action');
-            $table->boolean('submitted')->default(0);
-            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

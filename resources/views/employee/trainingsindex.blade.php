@@ -70,14 +70,9 @@
     @else
       <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a href="{{route('attendance.show',$list->id)}}"><span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-green-900 rounded-lg bg-opacity-90">View Attendance Report</span></a></td>
     @endif
-    
-    @if ($list->submitted == 0)
-      <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">Not Submitted</td>
-    @else
-      <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $list->status }}</td>
-    @endif
 
-     
+      <td>{{ $list->status }}</td>
+
     </tr>
     @endforeach
   </table>

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->json('target_date');
             $table->json('responsible');
             $table->json('support');
-            $table->json('status');
+            $table->json('status')->default('Ongoing');
             
             $table->string('compfunction0');
             $table->Text('compfunctiondesc0');
@@ -39,8 +39,7 @@ return new class extends Migration
             $table->string('diffunction1');
             $table->Text('diffunctiondesc1');
             $table->Text('career');
-            $table->boolean('submitted')->default(0);
-            $table->string('submit_status')->default('Pending');
+            $table->string('submit_status')->default('Not Submitted');
             $table->timestamps();
         });
     }

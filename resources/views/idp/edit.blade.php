@@ -29,8 +29,13 @@
                                 Name
                             </label>
                             <select name="user_id" id="user_id">
-                                <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
+                                <option value="{{$idp->user_id}}">{{$idp->name}}</option>
                             </select>
+                            <input type="hidden" id="name" name="name" value="{{$idp->name}}">
+                            <input type="hidden" id="year" name="year" value="{{$pieces[0]}}">
+                            <input type="hidden" id="idp_id" name="idp_id" value="{{$idp->idp_id}}">
+
+                            
                             @error('user_id')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror <br>
@@ -156,142 +161,22 @@
                                 </tr>
                             @endfor
                         </table>
-                        <div class="mb-6">
-                            <label for="compfunctiondesc" class="inline-block text-lg mb-2">
-                                What function do you feel competent to perform?<br>
-                                (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
-                            </label><br>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <select name="compfunction0" id="compfunctiondesc">
-                                            <option value="{{$idp->compfunction0}}">{{$idp->compfunction0}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
 
-                                        </select>
-                                        @error('compfunction0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <select name="compfunction1" id="compfunctiondesc">
-                                            <option value="{{$idp->compfunction1}}">{{$idp->compfunction1}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-                                        </select>
-                                        @error('compfunction1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="compfunctiondesc0" id="compfunctiondesc">{{$idp->compfunctiondesc0}}</textarea>
-            
-                                        @error('compfunctiondesc0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="compfunctiondesc1" id="compfunctiondesc">{{$idp->compfunctiondesc1}}</textarea>
-            
-                                        @error('compfunctiondesc1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="diffunctiondesc" class="inline-block text-lg mb-2">
-                                What function do you have a difficulty to perform?<br>
-                                (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)                                
-                            </label><br>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <select name="diffunction0" id="diffunctiondesc">
-                                            <option value="{{$idp->diffunction0}}">{{$idp->diffunction0}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-
-                                        </select>
-                                        @error('diffunction0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <select name="diffunction1" id="diffunctiondesc">
-                                            <option value="{{$idp->diffunction1}}">{{$idp->diffunction1}}</option>
-                                            @foreach ($comps as $key => $comp)
-                                            <optgroup label={{$key}}>
-                                                @foreach ($comp as $item)
-                                                <option value="{{$key}}-{{$item->competency_name}}">{{$item->competency_name}}</option>
-                                                @endforeach
-                                            @endforeach
-
-                                        </select>
-                                        @error('diffunction1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="diffunctiondesc0" id="diffunctiondesc">{{$idp->diffunctiondesc0}}</textarea>
-            
-                                        @error('diffunctiondesc0')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="diffunctiondesc1" id="diffunctiondesc">{{$idp->diffunctiondesc1}}</textarea>
-            
-                                        @error('diffunctiondesc1')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="mb-6">
-                            <p class="inline-block text-lg mb-2">
-                                Where do you see your career progressing in? the next two years?
-                            </p>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <textarea rows="4" cols="50" name="career">{{$idp->career}}</textarea>
-            
-                                        @error('career')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                        </div>
+                        <input type="hidden" id="compfunction0" name="compfunction0" value="{{$idp->compfunction0}}">
+                        <input type="hidden" id="compfunctiondesc0" name="compfunctiondesc0" value="{{$idp->compfunctiondesc0}}">
+                        <input type="hidden" id="compfunction1" name="compfunction1" value="{{$idp->compfunction1}}">
+                        <input type="hidden" id="compfunctiondesc1" name="compfunctiondesc1" value="{{$idp->compfunctiondesc1}}">
+                        <input type="hidden" id="diffunction0" name="diffunction0" value="{{$idp->diffunction0}}">
+                        <input type="hidden" id="diffunctiondesc0" name="diffunctiondesc0" value="{{$idp->diffunctiondesc0}}">
+                        <input type="hidden" id="diffunction1" name="diffunction1" value="{{$idp->diffunction1}}">
+                        <input type="hidden" id="diffunctiondesc1" name="diffunctiondesc1" value="{{$idp->diffunctiondesc1}}">
+                        <input type="hidden" id="career" name="career" value="{{$idp->career}}">
                         <div class="mb-6">
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                             >
-                                Edit
+                                Next
                             </button>
                         </div>
 

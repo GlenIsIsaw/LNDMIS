@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttendanceForm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\ListOfTraining;
@@ -13,24 +14,36 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
+    public function check($id){
+        if(auth()->user()->role_as == 0)
+        {
+            
+            if($id != auth()->id()){
+                abort(403,'Unauthorized entry');
+            }
+        }
+    }
     public function submit($id){
-        $info = ListOfTraining::find($id);
-        if($info->user_id != auth()->id())
+        $list = ListOfTraining::find($id);
+        if($list->user_id != auth()->id())
         {
             abort(403, 'Unauthorized Action');
         }
-        if ($info->attendance_form == 0) {
+        if ($list->attendance_form == 0) {
             return redirect()->back()->with('message', ' Cannot be submitted missing Attendance Form');
         }
-        $info->submitted = 1;
-        $info->save();
+        $att = AttendanceForm::where('list_of_training','=', $id);
+        $list->status = 'Pending';
+        $att->status = 'Pending';
+        $list->save();
+
         return redirect()->back()->with('message', 'Sucessfully Submitted');
     }
     public function empindex(Request $request){
         if (request()->start_date || request()->end_date) {
             $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
             $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status','submitted')
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('users.id',auth()->user()->id)
                                     ->whereBetween('date_covered',[$start_date,$end_date])
@@ -38,7 +51,7 @@ class ListOfTrainingController extends Controller
                                     ->filter(request(['level','search']))
                                     ->get();
         } else {
-            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status','submitted')
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('users.id',auth()->user()->id)
                                     ->orderBy('date_covered','asc')
@@ -53,14 +66,8 @@ class ListOfTrainingController extends Controller
         ]);
     }
     public function destroy($id){
-
-        if(auth()->user()->role_as == 0)
-        {
-            $list = ListOfTraining::find($id);
-            if($list->user_id != auth()->id()){
-                abort(403, 'Unauthorized Action');
-            }
-        }
+        $list = ListOfTraining::find($id);
+        $this->check($list->user_id);
         $user = User::find($list->user_id);
         File::delete(storage_path('app/public/users/'.$user->name.'/'.$list->certificate));
         ListOfTraining::where('id',$id)->delete();
@@ -70,16 +77,15 @@ class ListOfTrainingController extends Controller
         $training = DB::table('list_of_trainings')
                         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                         ->where('list_of_trainings.id', $id)
-                        ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
+                        ->select('list_of_trainings.id','name','user_id', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate')
                         ->first();
-
+        $this->check($training->user_id);
         return view('trainings.edit', ['training' => $training]);
     }
     public function index(){
         $lists = DB::table('list_of_trainings')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                    ->orderBy('name','asc')
-                    ->select('list_of_trainings.id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','attendance_form')
+                    ->orderBy('status','asc')
                     ->get();
 
         return view('trainings.index', [
@@ -91,18 +97,10 @@ class ListOfTrainingController extends Controller
             $training = DB::table('list_of_trainings')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('list_of_trainings.id', $id)
-                ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status','submitted')
+                ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status')
                 ->first();
 
-
-        if(auth()->user()->role_as == 0)
-        {
-            if($training->user_id != auth()->id())
-            {
-                abort(403, 'Unauthorized Action');
-            }
-        }
-
+        $this->check($training->user_id);
         return view('trainings.show', ['training' => $training]);
     }
     public function printall(Request $request){
@@ -258,14 +256,8 @@ public function create(){
     public function update(Request $request, $id){
         $list = ListOfTraining::find($id);
         
-        if(auth()->user()->role_as == 0)
-        {
-            if($list->user_id != auth()->id()){
-                abort(403, 'Unauthorized Action');
-            }
-        }
-
-        $formFields = $request->validate([
+        $this->check($list->user_id);
+        $request->validate([
             'user_id' => 'required',
             'certificate_title' => 'required',
             'level' => 'required',
