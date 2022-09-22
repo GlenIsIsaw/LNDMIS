@@ -20,7 +20,7 @@
 <div class="text-left mt-6 text-red-600">
     <label for="certificate_title">Title of Intervention Attended</label>
 </div>
-    <p>{{$training->certificate_title}}</p>
+    <p><div class="break-all">{{$training->certificate_title}}</div></p>
 
 <div class="text-left mt-6 text-red-600">
     <label for="date_covered">Date Conducted</label>
@@ -30,7 +30,7 @@
 <div class="text-left mt-6 text-red-600">
     <label for="venue">Venue</label>
 </div>
-    <p>{{$training->venue}}</p>
+    <p><div class="break-all">{{$training->venue}}</div></p>
 
 <div class="text-left mt-6 text-red-600">
     <label for="sponsors">Sponsors</label>
@@ -64,18 +64,18 @@
         <td><label for="esign" class="inline-block text-lg mb-2"
             >Attach the Photo of your Own Signature</label
         >
-        <input type="file" name="esign" accept="image/*" id="esign">
+        <input type="file" name="esign" accept="image/*" id="esign" class="border-2 border-black border-gray-200 rounded p-2 w-full">
     </div>
     <div class="mb-6 mt-6">
         <td> <label for="ssign" class="inline-block text-lg mb-2"
             >Attach the Photo of you Supervisor Signature</label
         >
     
-        <input type="file" name="ssign" accept="image/*" id="ssign">
+        <input type="file" name="ssign" accept="image/*" id="ssign" class="border-2 border-black border-gray-200 rounded p-2 w-full">
     </div>
 
-    <div class ="text-left">
-    <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-download mt-2 text-center"></i>Download</button>
+    <div class ="flex space-x-2 ml-5 justify-center items-center">
+    <button type="submit" class="bg-laravel text-white rounded py-2 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-download mt-2 text-center"></i>Download</button>
     </form>
         @if ($training->status == 'Approved')
             @if (auth()->user()->role_as == 1)
@@ -86,22 +86,28 @@
                 <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
                     @csrf
                     @method('DELETE')
-                    <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>
+                    <button class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>
                 </form>
             @endif
         @else
-            <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">    <a href="{{route('attendance.edit',$training->att_id)}}">
+            <button type="submit" class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-2 text-center">    <a href="{{route('attendance.edit',$training->att_id)}}">
                 <i class="fa-solid fa-download mt-2 text-center"></i>Edit</a></button>
         
         
                 <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
                     @csrf
                     @method('DELETE')
-                    <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>
+                    <button class="bg-laravel text-white rounded py-2.5 px-5 hover:bg-black mt-2 "><i class="fa-solid fa-trash"></i>Delete</button>
                 </form>
         @endif
+        @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
+        <form method="POST" action="{{route('training.submit', $training->training_id)}}">
+            @csrf
+            @method('PUT')
+            <button class="bg-green-700 text-white rounded py-2.5 px-7 hover:bg-black mt-2 text-center"><i class="fa-solid"></i>Done</button>
+        </form>
+    @endif
 
-    
         </div>  
         </div>
 </main>

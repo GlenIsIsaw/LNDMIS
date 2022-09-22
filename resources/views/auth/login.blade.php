@@ -39,11 +39,11 @@
        
         </nav>
 
-        <div style="background-image: url('images/lnd.jpg')" class="w-full h-full bg-no-repeat bg-center bg-cover"> 
+    <div style="background-image: url('images/lnd.jpg')" class="w-full h-full bg-no-repeat bg-center bg-cover"> 
 <div class="container">
     <div class="flex items-center justify-center h-screen w-screen">
         <div class="bg-gray-400 w-96 p-6 rounded shadow-sm">
-            <div class="card">
+            <div class="card rounded shadow-sm">
                 <div class="card-header text-center text-3xl mb-4">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -54,7 +54,7 @@
                             <label for="email" class="col-md-4 col-form-label outline-white-900 text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="row mb-3">
-                                <input id="email" type="email" class="w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="border-2 border-black w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="border-2 border-black w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
