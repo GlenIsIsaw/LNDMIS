@@ -8,8 +8,8 @@
                     class="bg-gray-100 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
                 >
                     <header class="text-center">
-                        <h2 class="text-2xl font-bold uppercase mb-1">
-                            Edit {{$attendance->certificate_title}} Attendance Form
+                        <h2 class="text-2xl font-bold uppercase mb-1 align-left">
+                            Edit : <div class="text-red-900 text-2xl font-bold uppercase mb-1">{{$attendance->certificate_title}}</div> Attendance Form
                         </h2>
 
                     </header>
@@ -23,13 +23,13 @@
                                 <label for="list_of_training_id" class="inline-block text-lg mb-2 mt-6">
                                     Training
                                 </label>
-                                <select name="list_of_training_id" id="list_of_training_id">
+                                <select name="list_of_training_id" id="list_of_training_id" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                     <option value="{{$attendance->training_id}}">{{$attendance->certificate_title}}</option>
                                 </select>
                             <label for="competency" class="inline-block text-lg mb-2 mt-6">
                                 Specific Competency Target to Enhance
                             </label>
-                            <select name="competency" id="competency">
+                            <select name="competency" id="competency" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value="{{$attendance->competency}}">{{$attendance->competency}}</option>
                                 @foreach ($comps as $key => $comp)
                                 <optgroup label={{$key}}>
@@ -46,7 +46,7 @@
                                 <label for="knowledge_acquired" class="inline-block text-lg mb-2 mt-6">
                                     Knowledge Acquired(What skills, knowledge and attitudes acquired?)
                                 </label>
-                                <textarea rows="4" cols="50" name="knowledge_acquired">{{$attendance->knowledge_acquired}}</textarea>
+                                <textarea rows="4" cols="50" name="knowledge_acquired" class="border-2 border-black border-gray-200 rounded p-2 w-full">{{$attendance->knowledge_acquired}}</textarea>
 
                         @error('knowledge_acquired')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -56,7 +56,7 @@
                             <label for="outcome" class="inline-block text-lg mb-2 mt-6">
                                 Outcome
                             </label>
-                            <textarea rows="4" cols="50" name="outcome">{{$attendance->outcome}}</textarea>
+                            <textarea rows="4" cols="50" name="outcome" class="border-2 border-black border-gray-200 rounded p-2 w-full">{{$attendance->outcome}}</textarea>
 
                     @error('outcome')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -66,14 +66,20 @@
                         <label for="personal_action" class="inline-block text-lg mb-2 mt-6">
                             Personal Action
                         </label>
-                        <textarea rows="4" cols="50" name="personal_action">{{$attendance->personal_action}}</textarea>
+                        <textarea rows="4" cols="50" name="personal_action" class="border-2 border-black border-gray-200 rounded p-2 w-full">{{$attendance->personal_action}}</textarea>
 
                 @error('personal_action')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
                         
                    
-                        <div class="mb-6 text-center mt-6">
+                        <div class="flex space-x-2 ml-5 mt-7 justify-center items-center">
+                            <button
+                                type="submit"
+                                class="bg-gray-700 text-white rounded py-2 px-3 hover:bg-black"
+                            >
+                                Cancel
+                            </button>
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black text-center"

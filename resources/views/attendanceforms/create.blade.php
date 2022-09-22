@@ -22,7 +22,7 @@
                                 <label for="list_of_training_id" class="inline-block text-lg mb-2 mt-6">
                                     Training
                                 </label>
-                                <select name="list_of_training_id" id="list_of_training_id">
+                                <select name="list_of_training_id" id="list_of_training_id" class="break-all border-2 border-black border-gray-200 rounded p-2 w-full"">
                                     <option value="{{$training->training_id}}">{{$training->certificate_title}}</option>                                    
                                 </select>
                                 @error('list_of_training_id')
@@ -31,7 +31,7 @@
                             <label for="competency" class="inline-block text-lg mb-2 mt-6">
                                 Specific Competency Target to Enhance
                             </label>
-                            <select name="competency" id="competency">
+                            <select name="competency" id="competency" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                         
                                 @foreach ($comps as $key => $comp)
                                 <optgroup label={{$key}}>
@@ -48,17 +48,17 @@
                                 <label for="knowledge_acquired" class="inline-block text-lg mb-2 mt-6">
                                     Knowledge Acquired (What skills, knowledge and attitudes acquired?)
                                 </label>
-                                <textarea rows="4" cols="50" name="knowledge_acquired"></textarea>
+                                <textarea rows="4" cols="50" name="knowledge_acquired" class="w-full border-2 border-black"></textarea>
 
                         @error('knowledge_acquired')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
 
                         <div class="mb-6 mt-6">
-                            <label for="outcome" class="inline-block text-lg mb-2">
+                            <label for="outcome" class="inline-block text-lg mb-2 w-full">
                                 Outcome
                             </label>
-                            <textarea rows="4" cols="50" name="outcome"></textarea>
+                            <textarea rows="4" cols="50" name="outcome" class="w-full border-2 border-black"></textarea>
                                
                             
 
@@ -70,14 +70,20 @@
                         <label for="personal_action" class="inline-block text-lg mb-2">
                             Personal Action
                         </label>
-                        <textarea rows="4" cols="50" name="personal_action"></textarea>
+                        <textarea rows="4" cols="50" name="personal_action" class="w-full border-2 border-black"></textarea>
 
                 @error('personal_action')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
                         
                    
-                        <div class="text-center mt-6">
+                        <div class="flex space-x-2 justify-center items-center mt-10">
+                            <button
+                                type="submit"
+                                class="bg-gray-700 text-white rounded py-2 px-4 hover:bg-black"
+                            >
+                                Cancel
+                            </button>
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
