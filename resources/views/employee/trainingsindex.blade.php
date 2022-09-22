@@ -26,12 +26,7 @@
     </div>
   </div>
 </form>
-
-@if(!$lists->isEmpty())
-  
-
-
-  <div class="text-center mt-6">
+<div class="text-center mt-6">
   <form action="{{route('training.empindex')}}">
       <label for="start_date" class="inline-block text-lg mb-2">
           Start Date
@@ -47,9 +42,22 @@
           type="date"
           name="end_date"
         />
+        <select name="status" id="status">
+          <option value=""></option>
+          <option value="Approved">Approved</option>
+          <option value="Not Submitted">Not Submitted</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Pending">Pending</option>
+        </select>
         <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Filter</button>
   </form>
   </div>
+
+@if(!$lists->isEmpty())
+  
+
+
+
 
   
 
@@ -58,7 +66,7 @@
     <thead class="bg-gray-50 border-b-2 border-gray-200">
     <tbody class="divide-y divide-gray-100">
     <tr>
-      <td class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap"></td>
+      <td></td>
       <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Name</th>
       <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Certificate Title</th>
       <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Date Covered</th>
@@ -75,15 +83,18 @@
   </thead>
     @foreach($lists as $list)
     <tr>
-    <td>
-        <a href="{{route('training.edit',$list->id)}}" class="text-xs">
-            <i class="fa-solid fa-pen mt-2 text-center"></i>
-        </a>
-    <form method="POST" action="{{route('training.destroy',$list->id)}}">
-        @csrf
-        @method('DELETE')
-        <button class="text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i></button>
-    </form>
+      <td>
+      @if ($list->status != 'Approved')
+          <a href="{{route('training.edit',$list->id)}}" class="text-xs">
+              <i class="fa-solid fa-pen mt-2 text-center"></i>
+          </a>
+      <form method="POST" action="{{route('training.destroy',$list->id)}}">
+          @csrf
+          @method('DELETE')
+          <button class="text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i></button>
+      </form>
+      
+      @endif
     </td>
     <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a href="{{route('training.show',$list->id)}}">{{$list->name}}</a></td>
       <td class="p-3 text-sm text-gray-700 whitespace-nowrap width: 100px;">{{ $list->certificate_title }}</td>

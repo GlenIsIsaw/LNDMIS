@@ -9,7 +9,7 @@
 
   <h1 class="text-2xl font-bold uppercase mt-6">List of Submitted Certificates</h1>
   
-  <form action="{{route('training.index')}}">
+  <form action="{{route('training.queue')}}">
       
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
       <div class="absolute top-4 left-3">
@@ -20,15 +20,11 @@
         <button type="submit" class="h-10 w-20 text-white rounded-lg bg-red-900 hover:bg-yellow-600">
           Search
         </button>
-        
-      
       </div>
     </div>
   </form>
-  
-  @if(!$lists->isEmpty())
-    <div class="text-center mt-6">
-    <form action="{{route('training.index')}}">
+  <div class="text-center mt-6">
+    <form action="{{route('training.queue')}}">
         <label for="start_date" class="inline-block text-lg mb-2">
             Start Date
         </label>
@@ -43,12 +39,19 @@
             type="date"
             name="end_date"
           />
+          <select name="status" id="status">
+            <option value=""></option>
+            <option value="Approved">Approved</option>
+            <option value="Not Submitted">Not Submitted</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Pending">Pending</option>
+          </select>
           <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Filter</button>
     </form>
     </div>
   
-    
-  
+  @if(!$lists->isEmpty())
+
     <div class="break-all overflow-auto rounded-lg shadow mt-7">
     <table class="w-full">
       <thead class="bg-gray-50 border-b-2 border-gray-200">

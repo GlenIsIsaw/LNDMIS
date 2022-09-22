@@ -29,9 +29,11 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::put('/trainings/{id}/approve', [ListOfTrainingController::class, 'approve'])->name('training.approve');
     Route::put('/trainings/{id}/reject', [ListOfTrainingController::class, 'reject'])->name('training.reject');
     Route::get('/competencies',[CompetencyController::class, 'index'])->name('competency.index');
-    Route::get('/coordinator/training/menu', function () {
-        return view('coordinator.training_menu');
-    })->name('training.menu');
+    Route::get('/coordinator/training/menu', function () { return view('coordinator.training_menu'); })->name('training.menu');
+
+    Route::get('/idps', [IDPController::class, 'index'])->name('idp.index');
+
+
 });
 
 Route::middleware(['auth'])->group(function () {

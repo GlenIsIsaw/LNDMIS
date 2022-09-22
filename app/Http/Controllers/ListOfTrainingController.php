@@ -24,14 +24,14 @@ class ListOfTrainingController extends Controller
                                     ->where('college',auth()->user()->college)
                                     ->whereBetween('date_covered',[$start_date,$end_date])
                                     ->orderBy('date_covered','asc')
-                                    ->filter(request(['level','search']))
+                                    ->filter(request(['level','search','status']))
                                     ->get();
         } else {
             $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('status','Pending')
                                     ->orderBy('date_covered','asc')
-                                    ->filter(request(['level','search']))
+                                    ->filter(request(['level','search','status']))
                                     ->get();
                                     
         }
@@ -83,14 +83,14 @@ class ListOfTrainingController extends Controller
                                     ->where('users.id',auth()->user()->id)
                                     ->whereBetween('date_covered',[$start_date,$end_date])
                                     ->orderBy('date_covered','asc')
-                                    ->filter(request(['level','search']))
+                                    ->filter(request(['level','search','status']))
                                     ->get();
         } else {
             $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('users.id',auth()->user()->id)
                                     ->orderBy('date_covered','asc')
-                                    ->filter(request(['level','search']))
+                                    ->filter(request(['level','search','status']))
                                     ->get();
                                     
         }
@@ -134,14 +134,14 @@ class ListOfTrainingController extends Controller
                                     ->where('college',auth()->user()->college)
                                     ->whereBetween('date_covered',[$start_date,$end_date])
                                     ->orderBy('date_covered','asc')
-                                    ->filter(request(['level','search']))
+                                    ->filter(request(['level','search','status']))
                                     ->get();
         } else {
             $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->where('status','Approved')
                                     ->orderBy('date_covered','asc')
-                                    ->filter(request(['level','search']))
+                                    ->filter(request(['level','search','status']))
                                     ->get();
                                     
         }

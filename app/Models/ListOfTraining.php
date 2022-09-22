@@ -21,6 +21,9 @@ class ListOfTraining extends Model
         if($filters['level'] ?? false){
             $query->where('level','like','%'. request('level') . '%');
         }
+        if($filters['status'] ?? false){
+            $query->where('status','like','%'. request('status') . '%');
+        }
         if($filters['search'] ?? false){
             $query->whereRaw("LOWER(certificate_title) LIKE '%".strtolower(request('search'))."%'")
             ->orwhereRaw("LOWER(venue) LIKE '%".strtolower(request('search'))."%'")
@@ -28,7 +31,8 @@ class ListOfTraining extends Model
             ->orwhereRaw("LOWER(certificate_type) LIKE '%".strtolower(request('search'))."%'")
             ->orwhereRaw("LOWER(type) LIKE '%".strtolower(request('search'))."%'")
             ->orwhereRaw("LOWER(name) LIKE '%".strtolower(request('search'))."%'")
-            ->orwhereRaw("LOWER(level) LIKE '%".strtolower(request('search'))."%'");
+            ->orwhereRaw("LOWER(level) LIKE '%".strtolower(request('search'))."%'")
+            ->orwhereRaw("LOWER(status) LIKE '%".strtolower(request('search'))."%'");
         }
     }
 
