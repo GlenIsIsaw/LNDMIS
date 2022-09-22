@@ -36,14 +36,19 @@
                             <input type="checkbox" id="purpose_others" name="purpose_others" value="/">
                             <label for="purpose_others">Others, please specify: </label><input type="text" class="border border-gray-200" name="purpose_explain" value = "{{old('purpose_explain')}}"
                         /><br>
-                        <table>
-                            <th>Target Competency</th>
-                            <th>S/U/G Priorities</th>
-                            <th>Development Activity</th>
-                            <th>Target Completion Date</th>
-                            <th>Person Responsible</th>
-                            <th>Support Needed </th>
-                            <th>Completion Status</th>
+                        <div class="break-all overflow-auto rounded-lg shadow mt-7">
+                            <table class="w-full">
+                              <thead class="bg-gray-50 border-b-2 border-gray-200">
+                              <tbody class="divide-y divide-gray-100">
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Target Competency</th>
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">S/U/G Priorities</th>
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Development Activity</th>
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Target Completion Date</th>
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Person Responsible</th>
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Support Needed </th>
+                            <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Completion Status</th>
+
+                              </thead>
 
                             @for ($i = 0; $i < 3; $i++)
                                 <tr>
@@ -73,6 +78,8 @@
                                         @enderror
                                     </td>
                                     <td>
+                                       
+                                       
                                         <input
                                         type="text"
                                         name="dev_act[]"
@@ -124,6 +131,8 @@
                                 </tr>
                             @endfor
                         </table>
+                        </div>
+                    </tbody>
                             
                         </div>
                         <div class="mb-6 text-center">

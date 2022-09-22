@@ -3,6 +3,7 @@
 
 @section('content')
 
+
 <div class="break-all overflow-auto rounded-lg shadow">
 <table class="w-fit">
     <tbody class="divide-y divide-gray-100">
@@ -87,4 +88,6 @@
         <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center text-red-500 "><i class="fa-solid fa-trash"></i>Delete</button>
     </form>
 </div>
+
+
 @endsection
