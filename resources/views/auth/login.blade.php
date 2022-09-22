@@ -25,18 +25,23 @@
                 },
             };
         </script>
-        <title>Log In</title>
+        <title>LNDMIS Log In</title>
 
 
     </head>
-    <nav class="bg-red-900 text-white h-24 flex justify-between items-center">
+    <nav class="fixed top-0 left-0 w-full bg-red-900 text-white h-24 flex justify-between items-center">
         <a href="/"
-            ><img class="w-24" src="images/cnsc.png" alt="" class="logo"
+            ><img class="w-24 ml-7" src="images/cnsc.png" alt="" class="logo"
         /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
+        
+        
+       
         </nav>
+
+        <div style="background-image: url('images/lnd.jpg')" class="w-full h-full bg-no-repeat bg-center bg-cover"> 
 <div class="container">
-    <div class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="flex items-center justify-center h-screen w-screen">
         <div class="bg-gray-400 w-96 p-6 rounded shadow-sm">
             <div class="card">
                 <div class="card-header text-center text-3xl mb-4">{{ __('Login') }}</div>
@@ -45,11 +50,11 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-7 text-center">
+                        <div class="row mb-7 text-left">
                             <label for="email" class="col-md-4 col-form-label outline-white-900 text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="row mb-3">
-                                <input id="email" type="email" class="form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -59,11 +64,11 @@
                             </div>
                         </div>
 
-                        <div class="row mb-7 text-center">
+                        <div class="row mb-7 text-left">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -87,7 +92,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary bg-red-900 w-full text-white py-2 rounded hover:bg-black-100 transition-colors mb-7">
+                                <button type="submit" class="btn btn-primary bg-red-900 w-full text-white py-2 rounded hover:bg-yellow-500 transition-colors mb-7">
                                     {{ __('Login') }}
                                 </button>
 
@@ -104,6 +109,8 @@
         </div>
     </div>
 </div>
+</div>
+</div>  
 <footer
         class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
     >

@@ -46,7 +46,7 @@
                         
                             <div class="mb-6">
                                 <label for="knowledge_acquired" class="inline-block text-lg mb-2 mt-6">
-                                    Knowledge Acquired(What skills, knowledge and attitudes acquired?)
+                                    Knowledge Acquired (What skills, knowledge and attitudes acquired?)
                                 </label>
                                 <textarea rows="4" cols="50" name="knowledge_acquired"></textarea>
 
@@ -58,9 +58,9 @@
                             <label for="outcome" class="inline-block text-lg mb-2">
                                 Outcome
                             </label>
-                            <textarea rows="4" cols="50" name="outcome">
-                                Enter text here...
-                            </textarea>
+                            <textarea rows="4" cols="50" name="outcome"></textarea>
+                               
+                            
 
                     @error('outcome')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>

@@ -27,12 +27,12 @@
         </script>
       <style>
         table, th, td {
-          margin-left:auto;
-          margin-right:auto;
+          margin-left:150px;
+          margin-right:150px;
           margin-top:25px;
           height:50px;
           width:auto;
-          padding:13px;
+          padding:50px;
           border: 2px solid black;
         }
       
@@ -45,7 +45,7 @@
     <body class="mb-48">
         <nav class="bg-red-900 text-white h-24 flex justify-between items-center mb-2">
             <a href="/"
-                ><img class="w-24" src="images/cnsc.png" alt="" class="logo"
+                ><img class="w-24 ml-5" src="images/cnsc.png" alt="" class="logo"
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
             @auth
