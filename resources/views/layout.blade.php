@@ -27,12 +27,12 @@
         </script>
       <style>
         table, th, td {
-          margin-left:150px;
-          margin-right:150px;
+          margin-left:auto;
+          margin-right:auto;
           margin-top:25px;
           height:50px;
-          width:auto;
-          padding:50px;
+          width: auto;
+          padding:20px;
           border: 2px solid black;
         }
       

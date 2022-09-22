@@ -22,7 +22,7 @@
                                 Name
                             </label>
                             <select name="user_id" id="user_id">
-                                <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
+                                <option value="{{$training->user_id}}">{{$training->name}}</option>
                             </select>
                             @error('name')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>

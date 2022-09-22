@@ -15,19 +15,17 @@ class AttendanceFormController extends Controller
         $training = DB::table('list_of_trainings')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->where('list_of_trainings.id', $id)
-            ->select('list_of_trainings.id as training_id','name')
+            ->select('list_of_trainings.id as training_id','name','certificate_title')
             ->first();
         return view('attendanceforms.create',['training' => $training]);
     }
     public function store(Request $request){
-        $formFields = $request->validate([
+        $request->validate([
             'list_of_training_id' => 'required',
             'competency' => 'required',
             'knowledge_acquired' => 'required',
             'outcome' => 'required',
             'personal_action' => 'required'
-
-
         ]);
         $list = new AttendanceForm();
         $list->list_of_training_id = request('list_of_training_id');
@@ -41,7 +39,7 @@ class AttendanceFormController extends Controller
         
         $list->save();
         $train->save();
-        return redirect('/training')->with('message', 'Attendance Form Updated') ;
+        return redirect(route('attendance.show',request('list_of_training_id')))->with('message', 'Attendance Form Updated') ;
     }
 
     public function show($id){
@@ -49,7 +47,7 @@ class AttendanceFormController extends Controller
         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
         ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
         ->where('list_of_trainings.id', $id)
-        ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form')
+        ->select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form','status')
         ->first();
 
         if(auth()->user()->role_as == 0)

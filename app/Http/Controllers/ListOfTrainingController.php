@@ -14,6 +14,31 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class ListOfTrainingController extends Controller
 {
+    public function queue(){
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->where('status','Pending')
+                                    ->where('college',auth()->user()->college)
+                                    ->whereBetween('date_covered',[$start_date,$end_date])
+                                    ->orderBy('date_covered','asc')
+                                    ->filter(request(['level','search']))
+                                    ->get();
+        } else {
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->where('status','Pending')
+                                    ->orderBy('date_covered','asc')
+                                    ->filter(request(['level','search']))
+                                    ->get();
+                                    
+        }
+        return view('trainings.queue', [
+            'lists' => $lists
+        ]);
+    }
     public function check($id){
         if(auth()->user()->role_as == 0)
         {
@@ -22,6 +47,18 @@ class ListOfTrainingController extends Controller
                 abort(403,'Unauthorized entry');
             }
         }
+    }
+    public function reject($id){
+        $list = ListOfTraining::find($id);
+        $list->status = 'Rejected';
+        $list->save();
+        return redirect(route('training.queue'))->with('message', 'Sucessfully Rejected');
+    }
+    public function approve($id){
+        $list = ListOfTraining::find($id);
+        $list->status = 'Approved';
+        $list->save();
+        return redirect(route('training.queue'))->with('message', 'Sucessfully Approved');
     }
     public function submit($id){
         $list = ListOfTraining::find($id);
@@ -32,9 +69,7 @@ class ListOfTrainingController extends Controller
         if ($list->attendance_form == 0) {
             return redirect()->back()->with('message', ' Cannot be submitted missing Attendance Form');
         }
-        $att = AttendanceForm::where('list_of_training','=', $id);
         $list->status = 'Pending';
-        $att->status = 'Pending';
         $list->save();
 
         return redirect()->back()->with('message', 'Sucessfully Submitted');
@@ -68,6 +103,13 @@ class ListOfTrainingController extends Controller
     public function destroy($id){
         $list = ListOfTraining::find($id);
         $this->check($list->user_id);
+        if(auth()->user()->role_as == 0)
+        {
+            if ($list->status == 'Approved') {
+                return redirect()->back()->with('message', 'Unauthorized Action');
+            }
+        }
+
         $user = User::find($list->user_id);
         File::delete(storage_path('app/public/users/'.$user->name.'/'.$list->certificate));
         ListOfTraining::where('id',$id)->delete();
@@ -83,10 +125,27 @@ class ListOfTrainingController extends Controller
         return view('trainings.edit', ['training' => $training]);
     }
     public function index(){
-        $lists = DB::table('list_of_trainings')
-                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                    ->orderBy('status','asc')
-                    ->get();
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->where('status','Approved')
+                                    ->where('college',auth()->user()->college)
+                                    ->whereBetween('date_covered',[$start_date,$end_date])
+                                    ->orderBy('date_covered','asc')
+                                    ->filter(request(['level','search']))
+                                    ->get();
+        } else {
+            $lists = ListOfTraining::select('list_of_trainings.id','name', 'certificate_title', 'date_covered','venue','sponsors', 'level', 'num_hours','certificate','attendance_form','status')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->where('status','Approved')
+                                    ->orderBy('date_covered','asc')
+                                    ->filter(request(['level','search']))
+                                    ->get();
+                                    
+        }
+
 
         return view('trainings.index', [
             'lists' => $lists
