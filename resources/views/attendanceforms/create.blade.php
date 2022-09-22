@@ -23,7 +23,7 @@
                                     Training
                                 </label>
                                 <select name="list_of_training_id" id="list_of_training_id">
-                                    <option value="{{$training->training_id}}">{{$training->name}}</option>                                    
+                                    <option value="{{$training->training_id}}">{{$training->certificate_title}}</option>                                    
                                 </select>
                                 @error('list_of_training_id')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>

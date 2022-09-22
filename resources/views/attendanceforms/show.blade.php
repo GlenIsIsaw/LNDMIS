@@ -77,16 +77,30 @@
     <div class ="text-left">
     <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-download mt-2 text-center"></i>Download</button>
     </form>
+        @if ($training->status == 'Approved')
+            @if (auth()->user()->role_as == 1)
+            <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">    <a href="{{route('attendance.edit',$training->att_id)}}">
+                <i class="fa-solid fa-download mt-2 text-center"></i>Edit</a></button>
+        
+        
+                <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>
+                </form>
+            @endif
+        @else
+            <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">    <a href="{{route('attendance.edit',$training->att_id)}}">
+                <i class="fa-solid fa-download mt-2 text-center"></i>Edit</a></button>
+        
+        
+                <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>
+                </form>
+        @endif
 
-    <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">    <a href="{{route('attendance.edit',$training->att_id)}}">
-<i class="fa-solid fa-download mt-2 text-center"></i>Edit</a></button>
-
-
-    <form method="POST" action="{{route('attendance.destroy',$training->att_id)}}">
-        @csrf
-        @method('DELETE')
-        <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black mt-6"><i class="fa-solid fa-trash"></i>Delete</button>
-    </form>
     
         </div>  
         </div>

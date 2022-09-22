@@ -44,6 +44,10 @@
         <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Type</th>
         <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{$training->type}}</td>
     </tr>
+    <tr class="bg-white">
+        <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Status</th>
+        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{$training->status}}</td>
+    </tr>
     <tr class="bg-gray">
         
         <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap">Has an Attendance Form</th>
@@ -64,16 +68,7 @@
 </tbody>
 
 
-
-    <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">
-        <a href="{{route('training.edit',$training->training_id)}}">
-            <i class="fa-solid fa-download mt-2 text-center"></i>
-            Edit
-        </a>
-    </button>
-
-    @if ($training->status == 'Not Submitted')
-        
+    @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
         <form method="POST" action="{{route('training.submit', $training->training_id)}}">
             @csrf
             @method('PUT')
@@ -82,12 +77,47 @@
     @endif
 
 
-    <form method="POST" action="{{route('training.destroy',$training->training_id)}}">
-        @csrf
-        @method('DELETE')
-        <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center text-red-500 "><i class="fa-solid fa-trash"></i>Delete</button>
-    </form>
+    @if ($training->status != 'Approved')
+        @if ($training->status == 'Pending')
+            @if (auth()->user()->role_as == 1)
+                <form method="POST" action="{{route('training.approve', $training->training_id)}}">
+                    @csrf
+                    @method('PUT')
+                    <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-check"></i>Approve</button>
+                </form>
+                <form method="POST" action="{{route('training.reject', $training->training_id)}}">
+                    @csrf
+                    @method('PUT')
+                    <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-xmark"></i>Reject</button>
+                </form>
+            @endif    
+        @endif
+        <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">
+            <a href="{{route('training.edit',$training->training_id)}}">
+                <i class="fa-solid fa-download mt-2 text-center"></i>
+                Edit
+            </a>
+        </button>
+        <form method="POST" action="{{route('training.destroy',$training->training_id)}}">
+            @csrf
+            @method('DELETE')
+            <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i>Delete</button>
+        </form>
+    @else
+        @if (auth()->user()->role_as == 1)
+            <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">
+                <a href="{{route('training.edit',$training->training_id)}}">
+                    <i class="fa-solid fa-download mt-2 text-center"></i>
+                    Edit
+                </a>
+            </button>
+            <form method="POST" action="{{route('training.destroy',$training->training_id)}}">
+                @csrf
+                @method('DELETE')
+                <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i>Delete</button>
+            </form>
+        @endif
+    @endif
+
 </div>
-
-
 @endsection

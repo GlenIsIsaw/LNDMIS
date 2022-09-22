@@ -35,14 +35,18 @@
       <tr>
         <td><a href="{{route('idp.show',$idp->idp_id)}}">{{$idp->name}}</td>
         <td>
-          @foreach ($idp->competency as $item)
-              {{$item}} <br>
-          @endforeach
+          <ol class="list-decimal">
+            @foreach ($idp->competency as $item)
+              <li>{{$item}}</li>
+            @endforeach
+        </ol>
         </td>
         <td>
-          @foreach ($idp->status as $item)
-              {{$item}} <br>
-          @endforeach
+          <ol class="list-decimal">
+            @foreach ($idp->status as $item)
+              <li>{{$item}}</li>
+            @endforeach
+        </ol>
         </td>
         <td>{{$idp->created_at}}</td>
         <td>{{$idp->updated_at}}</td>

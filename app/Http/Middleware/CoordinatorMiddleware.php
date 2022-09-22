@@ -25,12 +25,12 @@ class CoordinatorMiddleware
             }
             else
             {
-                return redirect('/')->with('message', 'Access Denied');
+                return redirect()->back()->with('message', 'Access Denied');
             }
         }
         else
         {
-            return redirect('/')->with('message', 'Please Login First');
+            return redirect()->back()->with('message', 'Please Login First');
         }
         
     }

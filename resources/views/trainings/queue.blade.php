@@ -7,7 +7,7 @@
   
 
 
-  <h1 class="text-2xl font-bold uppercase mt-6">List of Approved Certificates</h1>
+  <h1 class="text-2xl font-bold uppercase mt-6">List of Submitted Certificates</h1>
   
   <form action="{{route('training.index')}}">
       
@@ -27,9 +27,6 @@
   </form>
   
   @if(!$lists->isEmpty())
-    
-  
-  
     <div class="text-center mt-6">
     <form action="{{route('training.index')}}">
         <label for="start_date" class="inline-block text-lg mb-2">
@@ -53,11 +50,10 @@
     
   
     <div class="break-all overflow-auto rounded-lg shadow mt-7">
-    <table class="w-fit content-center">
+    <table class="w-full">
       <thead class="bg-gray-50 border-b-2 border-gray-200">
       <tbody class="divide-y divide-gray-100">
       <tr>
-        <td></td>
         <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap break-normal">Name</th>
         <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap break-normal">Certificate Title</th>
         <th class="p-3 text-sm font-bold tracking-wide text-left whitespace-nowrap break-normal">Date Covered</th>
@@ -74,16 +70,6 @@
     </thead>
       @foreach($lists as $list)
       <tr>
-      <td>
-          <a href="{{route('training.edit',$list->id)}}">
-              <i class="fa-solid fa-download mt-2 text-center"></i>
-          </a>
-      <form method="POST" action="{{route('training.destroy',$list->id)}}">
-          @csrf
-          @method('DELETE')
-          <button class="text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i></button>
-      </form>
-      </td>
       <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a href="{{route('training.show',$list->id)}}">{{$list->name}}</a></td>
         <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ $list->certificate_title }}</td>
   
@@ -106,29 +92,6 @@
     </table>
     </div>
   </tbody>
-  <form method="POST" action="{{route('training.printall')}}" enctype="multipart/form-data" >
-    @csrf
-<label for="range">Range of Trainings</label>
-<input type="text" name="range1"/>
-<input type="text" name="range2"/>
-
-<div class="mb-6">
-    <label for="photo" class="inline-block text-lg mb-2"
-        >Attach the Photo of your Signature</label
-    >
-    <input type="file" name="photo" accept="image/*" id="photo" required>
-</div>
-<button type="submit" class="h-10 w-20 text-white rounded-lg bg-red-900 hover:bg-yellow-600"><i class="fa-solid fa-download"></i>Download File</button>
-</form>
-</div>
-
-  @else
-  
-  <div class="flex items-center justify-center h-60 text-2xl">
-  <p>No Result is Found</p>
-  </div>
-
-
   @endif
 
   
