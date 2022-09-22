@@ -2,17 +2,19 @@
 
 
 @section('content')
+
         <main>
+            
            
-            <div class="mx-4">
+            <div class="mx-4 w-full h-full bg-no-repeat bg-center bg-cover" style="background-image: url('images/lnd.jpg')">
                 <div
                     class="bg-gray-100 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
                 >
                     <header class="text-center">
-                        <h2 class="text-2xl font-bold uppercase mb-1">
+                        <h2 class="text-2xl font-bold uppercase mb-4">
                             Post a Certificate
                         </h2>
-
+                        
                     </header>
                     
 
@@ -20,10 +22,10 @@
                     <form method="POST" action="{{route('training.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-6 ml-3">
-                            <label for="Name" class="inline-block text-lg mb-2">
+                            <label for="Name" class="inline-block text-lg mb-2 ">
                                 Name 
                             </label>
-                            <select name="user_id" id="user_id">
+                            <select name="user_id" id="user_id" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             </select>
                             @error('name')
@@ -34,7 +36,7 @@
                                 <label for="certificate_type" class="inline-block text-lg mb-2 mt-5">
                                     Certificate Types
                                 </label>
-                                <select name="certificate_type" id="certificate_type">
+                                <select name="certificate_type" id="certificate_type" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                     <option value=""></option>
                                     <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                                     <option value="Certificate of Training">Certificate of Training</option>
@@ -52,12 +54,12 @@
                         @enderror
 
                         <div class="mb-6">
-                            <label for="name" class="inline-block text-lg mb-2 mt-5">
+                            <label for="name" class="inline-block x text-lg mb-2 mt-5">
                                 Certificate Name
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="certificate_title"
                                 value = "{{old('certificate_title')}}"
                             />
@@ -70,7 +72,7 @@
                             <label for="level" class="inline-block text-lg mb-2">
                                 Level
                             </label>
-                            <select name="level" id="level">
+                            <select name="level" id="level" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value=""></option>
                                 <option value="International">International</option>
                                 <option value="Local">Local</option>
@@ -90,7 +92,7 @@
                             </label>
                             <input
                                 type="date"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="date_covered"
                                 
                             />
@@ -105,7 +107,7 @@
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="venue"
                                 value = "{{old('venue')}}"
                             />
@@ -121,7 +123,7 @@
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="sponsors"
                                 value = "{{old('sponsors')}}"
                             />
@@ -136,7 +138,7 @@
                             >
                             <input
                                 type="number"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="num_hours"
                                 value = "{{old('num_hours')}}"
                             />
@@ -149,7 +151,7 @@
                             <label for="type" class="inline-block text-lg mb-2">
                                 Type
                             </label>
-                            <select name="type" id="type">
+                            <select name="type" id="type" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value=""></option>
                                 <option value="Eligibility">Eligibility</option>
                                 <option value="Event-Facilitator">Event-Facilitator</option>
@@ -167,10 +169,17 @@
                             <label for="photo" class="inline-block text-lg mb-2"
                                 >Attach the Photo of the Certificate</label
                             >
-                            <input type="file" name="photo" accept="image/*" id="photo" required>
+                            <input type="file" name="photo" class="border-2 border-black border-gray-200 rounded p-2 w-full" accept="image/*" id="photo" required >
                         </div>
                    
-                        <div class="text-center mt-6">
+                        <div class="flex space-x-2 justify-center items-center mt-10">
+                            <button
+                                type="submit"
+                                class="bg-gray-700 text-white rounded py-2 px-4 hover:bg-black"
+                            >
+                                Cancel
+                            </button>
+                        
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
@@ -179,12 +188,12 @@
                             </button>
                         </div>
 
-
                     </form>
                 </div>
             </div>
+            </div>
         </main>
-
+    
        
     </body>
 </html>

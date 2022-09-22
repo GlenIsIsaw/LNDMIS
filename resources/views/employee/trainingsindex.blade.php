@@ -7,8 +7,12 @@
 
 
 <h1 class="text-2xl font-bold uppercase mt-6">List of {{ auth()->user()->name }} Certificates</h1>
-<div class="text-center mt-9 mb-8">
+
+<div class="flex space-x-6 ml-5 mt-10 justify-center items-center">
+
+      <a href="{{route('trainings.create')}}" class="bg-gray-700 text-white rounded py-4 px-12 hover:bg-yellow-500 text-top">Back</a>
       <a href="{{route('trainings.create')}}" class="bg-laravel text-white rounded py-4 px-10 hover:bg-black text-top">Create</a>
+      
       </div>
 </header>
 
@@ -77,22 +81,23 @@
     <tr>
     <td>
         <a href="{{route('training.edit',$list->id)}}" class="text-xs">
-            <i class="fa-solid fa-pen mt-2 text-center"></i>
+            <i class="fa-solid fa-pen mt-2 text-center inline-block border-2 border-black py-2 px-4 rounded-xl"></i>
         </a>
     <form method="POST" action="{{route('training.destroy',$list->id)}}">
         @csrf
         @method('DELETE')
-        <button class="text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i></button>
+        <button class="text-red-500" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash mt-6 inline-block border-2 border-red-900 py-2 px-4 rounded-xl"></i></button>
     </form>
     </td>
-    <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a href="{{route('training.show',$list->id)}}">{{$list->name}}</a></td>
-      <td class="p-3 text-sm text-gray-700 whitespace-nowrap width: 100px;">{{ $list->certificate_title }}</td>
-
     
-    <td class="p-3 text-sm text-gray-700 whitespace-nowrap w-60">{{ $list->date_covered }}</td>
+    <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a href="{{route('training.show',$list->id)}}">{{$list->name}}</a></td>
+    <td class="p-3 text-sm text-gray-700 w-30"><div class="break-all">{{ $list->certificate_title }}</div></td>
+    
+    
+    <td class="p-3 text-sm text-gray-700 whitespace-nowrap w-20">{{ $list->date_covered }}</td>
     <td class="p-3 text-sm text-gray-700 whitespace-nowrap w-23"><a href="/training?level={{ $list->level }}">{{ $list->level }}</a></td>
     <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ $list->num_hours }}</td>
-    <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ $list->venue }}</td>
+    <td class="p-3 text-sm text-gray-700"><div class="overflow-wrap: break-words">{{ $list->venue }}</div></td>
     <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $list->sponsors }}</td>
     @if ($list->attendance_form == 0)
       <td class="p-3 text-sm text-gray-700 whitespace-nowrap"><a href="{{route('attendance.create',$list->id)}}"><span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-red-900 rounded-lg bg-opacity-90 text-center w-40">Create Attendance Report</span></a></td>
@@ -110,7 +115,7 @@
 @else
 
 <div class="flex items-center justify-center h-60 text-2xl">
-<p>No Result is Found</p>
+<p>No Result(s) Found</p>
 </div>
 @endif
 

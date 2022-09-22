@@ -11,7 +11,7 @@
                         <h2 class="text-2xl font-bold uppercase mb-1">
                             Edit a Certificate
                         </h2>
-                        <p class="mb-4">Edit: {{$training->certificate_title}}</p>
+                        <p class="mb-4 break-all">Edit : {{$training->certificate_title}}</p>
                     </header>
 
                     <form method="POST" action="{{route('training.update',$training->id)}}" enctype="multipart/form-data">
@@ -21,18 +21,18 @@
                             <label for="Name" class="inline-block text-lg mb-2">
                                 Name
                             </label>
-                            <select name="user_id" id="user_id">
+                            <select name="user_id" id="user_id" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value="{{$training->user_id}}">{{$training->name}}</option>
                             </select>
                             @error('name')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
                         
-                            <div class="mb-6">
+                            <div class="mb-6 mt-5">
                                 <label for="certificate_type" class="inline-block text-lg mb-2">
                                     Certificate Types
                                 </label>
-                                <select name="certificate_type" id="certificate_type">
+                                <select name="certificate_type" id="certificate_type" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                     <option value="{{$training->certificate_type}}">{{$training->certificate_type}}</option>
                                     <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                                     <option value="Certificate of Training">Certificate of Training</option>
@@ -49,13 +49,13 @@
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
 
-                        <div class="mb-6">
+                        <div class="mb-6 mt-5">
                             <label for="name" class="inline-block text-lg mb-2">
                                 Certificate Name
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="certificate_title"
                                 value = "{{$training->certificate_title}}"
                             />
@@ -68,7 +68,7 @@
                             <label for="level" class="inline-block text-lg mb-2">
                                 Level
                             </label>
-                            <select name="level" id="level">
+                            <select name="level" id="level" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value="{{$training->level}}">{{$training->level}}</option>
                                 <option value="International">International</option>
                                 <option value="Local">Local</option>
@@ -88,7 +88,7 @@
                             </label>
                             <input
                                 type="date"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="date_covered"
                                 value = "{{$training->date_covered}}"
                                 
@@ -104,7 +104,7 @@
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="venue"
                                 value = "{{$training->venue}}"
                             />
@@ -120,7 +120,7 @@
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="sponsors"
                                 value = "{{$training->sponsors}}"
                             />
@@ -135,7 +135,7 @@
                             >
                             <input
                                 type="number"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border-2 border-black border-gray-200 rounded p-2 w-full"
                                 name="num_hours"
                                 value = "{{$training->num_hours}}"
                             />
@@ -148,7 +148,7 @@
                             <label for="type" class="inline-block text-lg mb-2">
                                 Type
                             </label>
-                            <select name="type" id="type">
+                            <select name="type" id="type" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                                 <option value="{{$training->type}}">{{$training->type}}</option>
                                 <option value="Eligibility">Eligibility</option>
                                 <option value="Event-Facilitator">Event-Facilitator</option>
@@ -166,13 +166,19 @@
                             <label for="photo" class="inline-block text-lg mb-2"
                                 >Attach the Photo of the Certificate</label
                             >
-                            <input type="file" name="photo" accept="image/*" id="photo">
+                            <input type="file" name="photo" accept="image/*" id="photo" class="border-2 border-black border-gray-200 rounded p-2 w-full">
                         </div>
                         <img src="{{ url('storage/users/'.$training->name.'/'.$training->certificate) }}"
-                            style="height: 100px; width: 150px;">
+                            style="height: 100px; width: 150px; justify-center">
                         
 
-                        <div class="mb-6">
+                        <div class="flex space-x-2 justify-center items-center mt-10">
+                            <button
+                                type="submit"
+                                class="bg-gray-700 text-white rounded py-2 px-4 hover:bg-black"
+                            >
+                                Cancel
+                            </button>
                             <button
                                 type="submit"
                                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
@@ -192,11 +198,7 @@
         >
             <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
 
-            <a
-                href="create.html"
-                class="absolute top-1/3 right-10 bg-black text-white py-2 px-5"
-                >Post Job</a
-            >
+            
         </footer>
     </body>
 </html>
