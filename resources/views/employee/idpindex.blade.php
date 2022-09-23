@@ -62,9 +62,11 @@
         @endphp
           <tr>
             <td>
+              @if ($idp->status == 'Approved')
               <a href="{{route('idp.edit',$idp->idp_id)}}" class="text-xs">
                 <i class="fa-solid fa-pen mt-2 text-center inline-block border-2 border-black py-2 px-4 rounded-xl"></i>
             </a>
+            @endif
             </td>
             <td><a href="{{route('idp.show',$idp->idp_id)}}">{{$idp->name}}</td>
             <td>
