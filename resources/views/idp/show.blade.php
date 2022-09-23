@@ -18,7 +18,9 @@
 @endphp
                 <header class="text-center">
                     <h2 class="text-2xl font-bold uppercase mb-1">
-                            {{$idp->name}}'s Individual Development Plan {{$pieces[0]}}
+                            {{$idp->name}}'s Individual Development Plan of Year {{$pieces[0]}}<br>
+                            Status: {{$idp->submit_status}}
+                            
                     </h2>
                 </header>
 
@@ -92,21 +94,56 @@
                 </h4>
                 <p>{{$idp->career}}</p>
 
-                <br>
 
-                
-                    <a href="{{route('idp.edit', $idp->idp_id)}}">
-                        <i class="fa-solid fa-pencil"></i> Edit
-                    </a>
                 @if ($idp->submit_status == 'Not Submitted')
                     <form method="POST" action="{{route('idp.submit', $idp->idp_id)}}">
                         @csrf
                         @method('PUT')
-                        <button><i class="fa-solid fa-arrow-up-from-bracket"></i>Submit</button>
+                        <button class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-2 text-center"><i class="fa-solid fa-arrow-up-from-bracket"></i>Submit</button>
                     </form>
                 @endif
                 
-                <br>
+                @if ($idp->submit_status != 'Approved')
+                    @if ($idp->submit_status == 'Pending')
+                        @if (auth()->user()->role_as == 1)
+                            <form method="POST" action="{{route('idp.approve', $idp->idp_id)}}">
+                                @csrf
+                                @method('PUT')
+                                <button class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center"><i class="fa-solid fa-check"></i>Approve</button>
+                            </form>
+                            <form method="POST" action="{{route('idp.reject', $idp->idp_id)}}">
+                                @csrf
+                                @method('PUT')
+                                <button class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-2 text-center"><i class="fa-solid fa-xmark"></i>Reject</button>
+                            </form>
+                        @endif    
+                    @endif
+                <button type="submit" class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-2 text-center">
+                    <a href="{{route('idp.edit',$idp->idp_id)}}">
+                        <i class="fa-solid fa-download mt-2 text-center"></i>
+                        Edit
+                    </a>
+                </button>
+                <form method="POST" action="{{route('idp.destroy',$idp->idp_id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-2 text-center text-yellow-200" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i>Delete</button>
+                </form>
+            @else
+                @if (auth()->user()->role_as == 1)
+                    <button type="submit" class="bg-laravel text-white rounded py-1 px-2 hover:bg-black mt-2 text-center">
+                        <a href="{{route('idp.edit',$idp->idp_id)}}">
+                            <i class="py-2 px-5 fa-solid fa-download mt-2 text-center"></i>
+                            Edit
+                        </a>
+                    </button>
+                    <form method="POST" action="{{route('idp.destroy',$idp->idp_id)}}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="bg-laravel text-white rounded py-2 px-5 hover:bg-black mt-2 text-center text-yellow-200" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash"></i>Delete</button>
+                    </form>
+                @endif
+            @endif
 
                 <form method="POST" action="{{route('idp.print',$idp->idp_id)}}" enctype="multipart/form-data" >
                     @csrf    

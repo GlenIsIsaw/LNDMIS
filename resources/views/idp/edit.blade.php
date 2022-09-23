@@ -152,7 +152,10 @@
                                         <select name="status[]" id="status">
                                             <option value="{{$status[$i]}}">{{$status[$i]}}</option>
                                             <option value="Ongoing">Ongoing</option>
-                                            <option value="Completed">Completed</option>
+                                            @if (auth()->user()->role_as == 1)
+                                                <option value="Completed">Completed</option>
+                                            @endif
+                                            
                                         </select>
                                         @error('status.*')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>

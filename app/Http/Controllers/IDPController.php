@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Idp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,76 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class IDPController extends Controller
 {
+    public function queue(){
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('submit_status','Pending')
+            ->where('college',auth()->user()->college)
+            ->whereBetween('idps.created_at',[$start_date,$end_date])
+            ->orderBy('idps.created_at','desc')
+            ->filter(request(['search']))
+            ->get();
+        } else {
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('submit_status','Pending')
+                ->where('college',auth()->user()->college)
+                ->orderBy('idps.created_at','desc')
+                ->filter(request(['search']))
+                ->get();
+        }
+        
+
+            return view('idp.queue', [
+            'idps' => $lists
+        ]);
+    }
+    public function reject($id){
+        $list = Idp::find($id);
+        $list->submit_status = 'Rejected';
+        $list->save();
+        return redirect(route('idp.queue'))->with('message', 'Sucessfully Rejected');
+    }
+    public function approve($id){
+        $list = Idp::find($id);
+        $list->submit_status = 'Approved';
+        $list->save();
+        return redirect(route('idp.queue'))->with('message', 'Sucessfully Approved');
+    }
+    public function destroy($id){
+        Idp::where('id',$id)->delete();
+        return redirect(route('training.empindex'))->with('message','Deleted');
+    }
+    public function index(){
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('submit_status','Approved')
+            ->where('college',auth()->user()->college)
+            ->whereBetween('idps.created_at',[$start_date,$end_date])
+            ->orderBy('idps.created_at','desc')
+            ->filter(request(['search']))
+            ->get();
+        } else {
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('college',auth()->user()->college)
+                ->where('submit_status','Approved')
+                ->orderBy('idps.created_at','desc')
+                ->filter(request(['search']))
+                ->get();
+        }
+        
+
+            return view('idp.index', [
+            'idps' => $lists
+        ]);
+    }
 
     public function check($id){
         if(auth()->user()->role_as == 0)
@@ -27,7 +98,7 @@ class IDPController extends Controller
         {
             abort(403, 'Unauthorized Action');
         }
-        $info->status = 'Pending';
+        $info->submit_status = 'Pending';
         $info->save();
         return redirect()->back()->with('message', 'Successfully Submitted');
     }
@@ -125,13 +196,27 @@ class IDPController extends Controller
     }
 
     public function empindex(){
-        $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
-                    ->join('users', 'users.id', '=', 'idps.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->orderBy('idps.created_at','desc')
-                    ->filter(request(['search']))
-                    ->get();
-        return view('employee.idpindex', [
+        if (request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('users.id',auth()->user()->id)
+            ->whereBetween('idps.created_at',[$start_date,$end_date])
+            ->orderBy('idps.created_at','desc')
+            ->filter(request(['search','submit_status']))
+            ->get();
+        } else {
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('users.id',auth()->user()->id)
+                ->orderBy('idps.created_at','desc')
+                ->filter(request(['search','submit_status']))
+                ->get();
+        }
+        
+
+            return view('employee.idpindex', [
             'idps' => $lists
         ]);
     }

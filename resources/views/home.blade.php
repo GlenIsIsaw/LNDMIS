@@ -18,7 +18,11 @@
 
 
 <button type="button" class="bg-laravel text-white rounded py-5 px-20 hover:bg-black rounded-lg">
-    <a href="{{route('idp.empindex')}}">Individual Development Plan</a>
+    @if (auth()->user()->role_as == 0)
+        <a href="{{route('idp.empindex')}}">Individual Development Plan</a>
+    @else
+        <a href="{{route('idp.menu')}}">Individual Development Plan</a>
+    @endif
 </button>
     </div>
 </div>

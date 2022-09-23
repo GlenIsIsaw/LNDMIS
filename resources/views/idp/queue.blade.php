@@ -3,9 +3,9 @@
 
 @section('content')
 <header class="text-center align-top">
-<h1 class="text-2xl font-bold uppercase mt-6">{{auth()->user()->name}}'s Individual Development Plan</h1>
+<h1 class="text-2xl font-bold uppercase mt-6">List of Submitted Individual Development Plan</h1>
 </header>
-<form action="{{route('idp.empindex')}}">
+<form action="{{route('idp.index')}}">
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
       <div class="absolute top-4 left-3">
         <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
@@ -19,7 +19,7 @@
     </div>
   </form>
   <div class="text-center mt-6">
-    <form action="{{route('idp.empindex')}}">
+    <form action="{{route('idp.index')}}">
         <label for="start_date" class="inline-block text-lg mb-2">
             Start Date
         </label>
@@ -34,18 +34,13 @@
             type="date"
             name="end_date"
           />
-          <select name="submit_status" id="submit_status">
-            <option value=""></option>
-            <option value="Approved">Approved</option>
-            <option value="Not Submitted">Not Submitted</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Pending">Pending</option>
-          </select>
           <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">Filter</button>
     </form>
     </div>
+@if (!$idps->isEmpty())
+    
 
-    @if(!$idps->isEmpty())
+
     <table>
       <tr>
         <td></td>
@@ -88,8 +83,4 @@
       @endforeach
     </table>
     @endif
-    <div class="text-center mt-6">
-      <a href="{{route('idp.create')}}"><button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"></i>Create</a>
-      </button>
-    </div>
 @endsection

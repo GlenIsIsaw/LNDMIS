@@ -32,6 +32,11 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::get('/coordinator/training/menu', function () { return view('coordinator.training_menu'); })->name('training.menu');
 
     Route::get('/idps', [IDPController::class, 'index'])->name('idp.index');
+    Route::get('/idps/queue', [IDPController::class, 'queue'])->name('idp.queue');
+    Route::put('/idps/{id}/approve', [IDPController::class, 'approve'])->name('idp.approve');
+    Route::put('/idps/{id}/reject', [IDPController::class, 'reject'])->name('idp.reject');
+    Route::delete('/idps/{id}',[AttendanceFormController::class, 'idp'])->name('idp.destroy');
+    Route::get('/coordinator/idp/menu', function () { return view('coordinator.idp_menu'); })->name('idp.menu');
 
 
 });
