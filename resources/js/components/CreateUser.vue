@@ -37,7 +37,7 @@
                         <input type="text" class="form-control" v-model="user.supervisor">
                     </div>
                     <div class="form-group">
-                        <label>Passwword</label>
+                        <label>Password</label>
                         <input type="text" class="form-control" v-model="user.password">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>

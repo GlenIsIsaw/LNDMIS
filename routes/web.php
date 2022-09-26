@@ -72,7 +72,7 @@ Route::post('/idp/print/{id}', [IDPController::class, 'print'])->name('idp.print
 Route::get('/competency',[CompetencyController::class, 'empindex'])->name('competency.empindex');
 
 
-Route::get('/', [HomeController::class, 'index']);
+
 
 Route::post('/logout', [UserCOntroller::class, 'logout']);
 Route::get('/user/{id}/edit', [UserCOntroller::class, 'edit']);
@@ -81,9 +81,8 @@ Route::put('/user/{id}', [UserCOntroller::class, 'update']);
 });
 
 
-
-Route::get('/use', function () {
+Route::get('{any}', function () {
     return view('users.user');
-});
+})->where('any', '.*');
 
 Auth::routes();

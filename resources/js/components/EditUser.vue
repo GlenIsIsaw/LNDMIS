@@ -66,7 +66,7 @@
                 this.axios
                     .patch(`http://localhost:8000/api/users/${this.$route.params.id}`, this.user)
                     .then((res) => {
-                        this.$router.push('/users');
+                        this.$router.push({ name: 'home' });
                     });
             }
         }

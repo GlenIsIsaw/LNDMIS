@@ -6,8 +6,8 @@
 
 import "./bootstrap";
 import { createApp } from "vue";
-import VueAxios from 'vue-axios';
-import axios from 'axios';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import router from "./router/AllUser";
 import App from "./App.vue";
 
@@ -19,8 +19,9 @@ import App from "./App.vue";
  
 
 const app = createApp(App);
+app.use(VueAxios, axios);
 app.use(router);
-app.use(VueAxios,axios);
+
 app.mount("#app");
  /**
   * The following block of code may be used to automatically register your

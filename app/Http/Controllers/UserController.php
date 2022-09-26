@@ -66,7 +66,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all()->toArray();
-        return array_reverse($users);      
+        $new = array_reverse($users);
+        
+        return response()->json($new);      
     }
     public function store(Request $request)
     {

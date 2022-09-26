@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <h2 class="text-center">Users List</h2>
@@ -14,13 +15,13 @@
                 <th>Year Joined</th>
                 <th>College</th>
                 <th>Supervisor</th>
-                <th>Password</th>
-                <!-- <th>Actions</th> -->
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="user in users" :key="user.id">
                 <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.teacher }}</td>
                 <td>{{ user.position }}</td>
@@ -28,7 +29,6 @@
                 <td>{{ user.yearJoined }}</td>
                 <td>{{ user.college }}</td>
                 <td>{{ user.supervisor }}</td>
-                <td>{{ user.password }}</td>
                 <td>
                     <div class="btn-group" role="group">
                         <router-link :to="{name: 'edit', params: { id: user.id }}" class="btn btn-success">Edit</router-link>
@@ -48,11 +48,12 @@
                 users: []
             }
         },
+
         created() {
             this.axios
-                .get('http://localhost:8000/api/users')
+                .get(`http://localhost:8000/api/users/`)
                 .then(response => {
-                    this.users = response.data;
+                    this.users = response.data
                 });
         },
         
