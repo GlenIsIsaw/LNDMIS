@@ -82,6 +82,8 @@ Route::put('/user/{id}', [UserCOntroller::class, 'update']);
 
 
 
-
+Route::get('/use', function () {
+    return view('users.user');
+});
 
 Auth::routes();
