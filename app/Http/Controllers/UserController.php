@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -26,17 +27,11 @@ class UserController extends Controller
         $users = User::find($id);
         return view('users.edit', ['users' => $users]);
     }
-    public function update(Request $request, $id){
+    public function update($id,Request $request){
         $user = User::find($id);
-        
-
-        if($user->id != auth()->id()){
-            abort(403, 'Unauthorized Action');
-        }
-
         $formFields = $request->validate([
             'name' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['string', 'min:8', 'confirmed'],
             'teacher' => 'required',
             'position' => 'required',
@@ -44,23 +39,10 @@ class UserController extends Controller
             'yearJoined' => 'required',
             'college' => 'required',
             'supervisor' => 'required'
-
-
         ]);
+        $formFields['password'] = Hash::make($formFields['password']);
 
-
-        $user->name = request('name');
-        $user->email = request('email');
-        $user->password = Hash::make(request('password'));
-        $user->teacher = request('teacher');
-        $user->position = request('position');
-        $user->yearinPosition = request('yearinPosition');
-        $user->yearJoined = request('yearJoined');
-        $user->college = request('college');
-        $user->supervisor = request('supervisor');
-
-        
-        $user->save();
+        $user->update($formFields);
         return response()->json('User updated!');
     }
     public function index()
@@ -72,6 +54,18 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
+            'password' => ['required','string', 'min:8', 'confirmed'],
+            'teacher' => 'required',
+            'position' => 'required',
+            'yearinPosition' => 'required',
+            'yearJoined' => 'required',
+            'college' => 'required',
+            'supervisor' => 'required'
+        ]);
+        
         $user = new User([
             'name' => $request->input('name'),
             'email' => $request->input('email'),

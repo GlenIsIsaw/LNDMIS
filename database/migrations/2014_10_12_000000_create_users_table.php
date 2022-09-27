@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('college');
             $table->string('supervisor');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->default('$2y$10$stgI1e/lAXyooh0WY9WmNeMSrRpMITpIT269ivI7glOWxwV8yUxk.');
             $table->rememberToken();
             $table->timestamps();
         });

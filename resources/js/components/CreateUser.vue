@@ -38,7 +38,11 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="text" class="form-control" v-model="user.password">
+                        <input type="password" class="form-control" v-model="user.password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" v-model="user.password_confirmation">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
@@ -61,7 +65,9 @@
                     .then(response => (
                         this.$router.push({ name: 'home' })
                     ))
-                    .catch(err => console.log(err))
+                    .catch(err => {this.errors = err.response.data.errors;
+                        console.log(this.errors);
+                    })
                     .finally(() => this.loading = false)
             }
         }

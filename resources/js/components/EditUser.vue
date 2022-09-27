@@ -37,8 +37,12 @@
                         <input type="text" class="form-control" v-model="user.supervisor">
                     </div>
                     <div class="form-group">
-                        <label>Passwword</label>
-                        <input type="text" class="form-control" v-model="user.password">
+                        <label>Password</label>
+                        <input type="password" class="form-control" v-model="user.password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" v-model="user.password_confirmation">
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
@@ -64,7 +68,7 @@
         methods: {
             updateUser() {
                 this.axios
-                    .patch(`http://localhost:8000/api/users/${this.$route.params.id}`, this.user)
+                    .put(`http://localhost:8000/api/users/${this.$route.params.id}`, this.user)
                     .then((res) => {
                         this.$router.push({ name: 'home' });
                     });
