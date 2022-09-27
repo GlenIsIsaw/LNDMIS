@@ -61,6 +61,42 @@ class UserController extends Controller
 
         
         $user->save();
-        return back()->with('mssg', 'Updated') ;
+        return response()->json('User updated!');
+    }
+    public function index()
+    {
+        $users = User::all()->toArray();
+        $new = array_reverse($users);
+        
+        return response()->json($new);      
+    }
+    public function store(Request $request)
+    {
+        $user = new User([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'teacher' => $request->input('teacher'),
+            'position' => $request->input('position'),
+            'yearinPosition' => $request->input('yearinPosition'),
+            'yearJoined' => $request->input('yearJoined'),
+            'college' => $request->input('college'),
+            'supervisor' => $request->input('supervisor'),
+            'password' => Hash::make($request->input('password')),
+
+                
+        ]);
+        $user->save();
+        return response()->json('User created!');
+    }
+    public function show($id)
+    {
+        $user = User::find($id);
+        return response()->json($user);
+    }
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return response()->json('User deleted!');
     }
 }
