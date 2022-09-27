@@ -75,8 +75,6 @@ Route::get('/competency',[CompetencyController::class, 'empindex'])->name('compe
 Route::get('/', [HomeController::class, 'index']);
 
 Route::post('/logout', [UserController::class, 'logout']);
-Route::get('/user/{id}/edit', [UserController::class, 'edit']);
-Route::put('/user/{id}', [UserController::class, 'update']);
 
 });
 

@@ -21,8 +21,12 @@
                         <input type="text" class="form-control" v-model="user.position">
                     </div>
                     <div class="form-group">
-                        <label>Year In Position</label>
-                        <input type="date" class="form-control" v-model="user.yearinPosition">
+                        <label>Teacher</label>
+                        <select class="form-select" aria-label="Default select example" v-model="user.teacher">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Year Joined</label>

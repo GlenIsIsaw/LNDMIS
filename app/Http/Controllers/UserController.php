@@ -93,4 +93,20 @@ class UserController extends Controller
         $user->delete();
         return response()->json('User deleted!');
     }
+    public function filter(Request $request){
+
+        $data = User::where('teacher', 'LIKE','%'.$request->keyword.'%')->get()->toArray();
+        return response()->json($data); 
+    }
+    public function search(Request $request){
+
+        $data = User::whereRaw("LOWER(name) LIKE '%".strtolower($request->search)."%'")
+                    ->orwhereRaw("LOWER(teacher) LIKE '%".strtolower($request->search)."%'")
+                    ->orwhereRaw("LOWER(position) LIKE '%".strtolower($request->search)."%'")
+                    ->orwhereRaw("LOWER(college) LIKE '%".strtolower($request->search)."%'")
+                    ->orwhereRaw("LOWER(supervisor) LIKE '%".strtolower($request->search)."%'")
+                    ->get()
+                    ->toArray();
+        return response()->json($data); 
+    }
 }

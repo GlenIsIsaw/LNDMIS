@@ -14,7 +14,11 @@
                     </div>
                     <div class="form-group">
                         <label>Teacher</label>
-                        <input type="text" class="form-control" v-model="user.teacher">
+                        <select class="form-select" aria-label="Default select example" v-model="user.teacher">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Position</label>
@@ -35,14 +39,6 @@
                     <div class="form-group">
                         <label>Supervisor</label>
                         <input type="text" class="form-control" v-model="user.supervisor">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" v-model="user.password">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" class="form-control" v-model="user.password_confirmation">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>

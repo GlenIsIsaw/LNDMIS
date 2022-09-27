@@ -8,8 +8,8 @@ import "./bootstrap";
 import { createApp } from "vue";
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import router from "./router/AllUser";
-import App from "./App.vue";
+import router from "./router/User";
+import User from "./body/User.vue";
 
  /**
   * Next, we will create a fresh Vue application instance. You may then begin
@@ -18,11 +18,11 @@ import App from "./App.vue";
   */
  
 
-const app = createApp(App);
+const app = createApp(User);
 app.use(VueAxios, axios);
 app.use(router);
 
-app.mount("#app");
+app.mount("#user");
  /**
   * The following block of code may be used to automatically register your
   * Vue components. It will recursively scan this directory for the Vue
