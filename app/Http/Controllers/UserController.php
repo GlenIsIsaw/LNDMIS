@@ -47,10 +47,8 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::all()->toArray();
-        $new = array_reverse($users);
-        
-        return response()->json($new);      
+        $users = User::paginate(10);
+        return response()->json($users);      
     }
     public function store(Request $request)
     {
@@ -95,7 +93,7 @@ class UserController extends Controller
     }
     public function filter(Request $request){
 
-        $data = User::where('teacher', 'LIKE','%'.$request->keyword.'%')->get()->toArray();
+        $data = User::where('teacher', 'LIKE','%'.$request->keyword.'%')->paginate(10);
         return response()->json($data); 
     }
     public function search(Request $request){
@@ -105,8 +103,7 @@ class UserController extends Controller
                     ->orwhereRaw("LOWER(position) LIKE '%".strtolower($request->search)."%'")
                     ->orwhereRaw("LOWER(college) LIKE '%".strtolower($request->search)."%'")
                     ->orwhereRaw("LOWER(supervisor) LIKE '%".strtolower($request->search)."%'")
-                    ->get()
-                    ->toArray();
+                    ->paginate(10);
         return response()->json($data); 
     }
 }

@@ -35,8 +35,16 @@
 
 
 
-        <div v-if="users.length > 0">
-            
+
+        <div v-if="keyword != null">
+                <Pagination :data="users" @pagination-change-page="filter" />
+            </div>
+            <div v-else-if="search != null">
+                <Pagination :data="users" @pagination-change-page="find" />
+            </div>
+            <div v-else>
+                <Pagination :data="users" @pagination-change-page="getUser" />
+            </div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -53,50 +61,55 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="user in users" :key="user.id">
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.teacher }}</td>
-                    <td>{{ user.position }}</td>
-                    <td>{{ user.yearinPosition }}</td>
-                    <td>{{ user.yearJoined }}</td>
-                    <td>{{ user.college }}</td>
-                    <td>{{ user.supervisor }}</td>
+                
+                <tr v-for="(value) in users.data" :key="value.id">
+                    <td>{{ value.id }}</td>
+                    <td>{{ value.name }}</td>
+                    <td>{{ value.email }}</td>
+                    <td>{{ value.teacher }}</td>
+                    <td>{{ value.position }}</td>
+                    <td>{{ value.yearinPosition }}</td>
+                    <td>{{ value.yearJoined }}</td>
+                    <td>{{ value.college }}</td>
+                    <td>{{ value.supervisor }}</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <router-link :to="{name: 'edit', params: { id: user.id }}" class="btn btn-success">Edit</router-link>
-                            <button class="btn btn-danger" @click="deleteuser(user.id)">Delete</button>
+                            <router-link :to="{name: 'edit', params: { id: value.id }}" class="btn btn-success">Edit</router-link>
+                            <button class="btn btn-danger" @click="deleteuser(value.id)">Delete</button>
                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div v-else>
-            <h1 class="text-center">No Results</h1>
-        </div>
+            <div v-if="keyword != null">
+                <Pagination :data="users" @pagination-change-page="filter" />
+            </div>
+            <div v-else-if="search != null">
+                <Pagination :data="users" @pagination-change-page="find" />
+            </div>
+            <div v-else>
+                <Pagination :data="users" @pagination-change-page="getUser" />
+            </div>
+                
+
         
     </div>
 </template>
  
 <script>
     export default {
-
         data() {
             return {
                 keyword: null,
                 search: null,
-                users: []
+                users: {}
+                
                 
             } 
         },
         mounted() {
-            this.axios
-                .get(`http://localhost:8000/api/users/`)
-                .then(response => {
-                    this.users = response.data
-                });
+            this.getUser();
+            console.log(this.users);
         },
         watch: {
             keyword(after, before) {
@@ -107,6 +120,13 @@
             }
         },
         methods: {
+            getUser(page = 1) {
+                this.axios
+                    .get(`http://localhost:8000/api/users`, {params: { page: page }})
+                    .then((res) => {
+                            this.users = res.data;
+                        });
+            },
             deleteuser(id) { 
                 this.axios
                     .delete(`http://localhost:8000/api/users/${id}`)
@@ -115,16 +135,17 @@
                         this.users.splice(i, 1)
                     });
             },
-            filter() {
+            filter(page = 1) {
                 this.axios
-                    .get(`http://localhost:8000/api/filter_user`, {params: { keyword: this.keyword }})
+                    .get(`http://localhost:8000/api/filter_user`, {params: { keyword: this.keyword,page: page  }})
                     .then((res) => {
                             this.users = res.data;
                         });
+                        console.log(this.users);
             },
-            find() {
+            find(page = 1) {
                 this.axios
-                    .get(`http://localhost:8000/api/search_user`, {params: { search: this.search }})
+                    .get(`http://localhost:8000/api/search_user`, {params: { search: this.search,page: page }})
                     .then((res) => {
                             this.users = res.data;
                         });

@@ -10,6 +10,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from "./router/User";
 import User from "./body/User.vue";
+import LaravelVuePagination from "laravel-vue-pagination";
 
  /**
   * Next, we will create a fresh Vue application instance. You may then begin
@@ -21,7 +22,7 @@ import User from "./body/User.vue";
 const app = createApp(User);
 app.use(VueAxios, axios);
 app.use(router);
-
+app.component('Pagination', LaravelVuePagination);
 app.mount("#user");
  /**
   * The following block of code may be used to automatically register your
