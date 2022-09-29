@@ -56,15 +56,17 @@
         },
         methods: {
             adduser() {
-                this.axios
-                    .post('http://localhost:8000/api/users', this.user)
-                    .then(response => (
-                        this.$router.push({ name: 'home' })
-                    ))
-                    .catch(err => {this.errors = err.response.data.errors;
-                        console.log(this.errors);
-                    })
-                    .finally(() => this.loading = false)
+                if(confirm("Confirmation question?")){
+                    this.axios
+                        .post('http://localhost:8000/api/users', this.user)
+                        .then(response => (
+                            this.$router.push({ name: 'home' })
+                        ))
+                        .catch(err => {this.errors = err.response.data.errors;
+                            console.log(this.errors);
+                        })
+                        .finally(() => this.loading = false)
+                }
             }
         }
     }

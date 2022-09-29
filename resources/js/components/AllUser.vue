@@ -35,8 +35,8 @@
 
 
 
-
-        <div v-if="keyword != null">
+        <div class="container d-flex align-items-center justify-content-center">
+            <div v-if="keyword != null">
                 <Pagination :data="users" @pagination-change-page="filter" />
             </div>
             <div v-else-if="search != null">
@@ -45,7 +45,10 @@
             <div v-else>
                 <Pagination :data="users" @pagination-change-page="getUser" />
             </div>
-            <table class="table table-striped">
+        </div>
+
+            <table class="table">
+                
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -60,56 +63,53 @@
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
-                <tbody>
-                
-                <tr v-for="(value) in users.data" :key="value.id">
-                    <td>{{ value.id }}</td>
-                    <td>{{ value.name }}</td>
-                    <td>{{ value.email }}</td>
-                    <td>{{ value.teacher }}</td>
-                    <td>{{ value.position }}</td>
-                    <td>{{ value.yearinPosition }}</td>
-                    <td>{{ value.yearJoined }}</td>
-                    <td>{{ value.college }}</td>
-                    <td>{{ value.supervisor }}</td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <router-link :to="{name: 'edit', params: { id: value.id }}" class="btn btn-success">Edit</router-link>
-                            <button class="btn btn-danger" @click="deleteuser(value.id)">Delete</button>
-                        </div>
-                    </td>
-                </tr>
+                <tbody v-for="(value, key) in users.data" :key="key">
+                    <tr v-if="value.id != 'deleted'">
+                        
+                            <td>{{ value.id }}</td>
+                            <td>{{ value.name }}</td>
+                            <td>{{ value.email }}</td>
+                            <td>{{ value.teacher }}</td>
+                            <td>{{ value.position }}</td>
+                            <td>{{ value.yearinPosition }}</td>
+                            <td>{{ value.yearJoined }}</td>
+                            <td>{{ value.college }}</td>
+                            <td>{{ value.supervisor }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <router-link :to="{name: 'edit', params: { id: value.id }}" class="btn btn-success">Edit</router-link>
+                                    <button class="btn btn-danger" @click="deleteuser(value.id,key)" >Delete</button>
+                                </div>
+                            </td>
+                    </tr>
                 </tbody>
             </table>
-            <div v-if="keyword != null">
-                <Pagination :data="users" @pagination-change-page="filter" />
+            <div class="container d-flex align-items-center justify-content-center">
+                <div v-if="keyword != null">
+                    <Pagination :data="users" @pagination-change-page="filter" />
+                </div>
+                <div v-else-if="search != null">
+                    <Pagination :data="users" @pagination-change-page="find" />
+                </div>
+                <div v-else>
+                    <Pagination :data="users" @pagination-change-page="getUser" />
+                </div>
             </div>
-            <div v-else-if="search != null">
-                <Pagination :data="users" @pagination-change-page="find" />
-            </div>
-            <div v-else>
-                <Pagination :data="users" @pagination-change-page="getUser" />
-            </div>
-                
-
-        
     </div>
 </template>
  
 <script>
+
     export default {
         data() {
             return {
                 keyword: null,
                 search: null,
                 users: {}
-                
-                
             } 
         },
         mounted() {
             this.getUser();
-            console.log(this.users);
         },
         watch: {
             keyword(after, before) {
@@ -126,14 +126,18 @@
                     .then((res) => {
                             this.users = res.data;
                         });
+                        
             },
-            deleteuser(id) { 
-                this.axios
-                    .delete(`http://localhost:8000/api/users/${id}`)
-                    .then(response => {
-                        let i = this.users.map(data => data.id).indexOf(id);
-                        this.users.splice(i, 1)
-                    });
+            deleteuser(id,key) { 
+                if(confirm("Do you really want to delete?")){
+                    this.axios
+                        .delete(`http://localhost:8000/api/users/${id}`)
+                        .then(response => {
+                            this.users['data'][key]['id'] = 'deleted';
+                            console.log(this.users['data'][key]);
+
+                        });
+                }
             },
             filter(page = 1) {
                 this.axios
@@ -141,7 +145,6 @@
                     .then((res) => {
                             this.users = res.data;
                         });
-                        console.log(this.users);
             },
             find(page = 1) {
                 this.axios
@@ -149,6 +152,9 @@
                     .then((res) => {
                             this.users = res.data;
                         });
+            },
+            check(){
+                console.log(this.users);
             }
         }
     }

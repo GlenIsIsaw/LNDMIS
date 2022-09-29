@@ -71,11 +71,13 @@
         },
         methods: {
             updateUser() {
-                this.axios
-                    .put(`http://localhost:8000/api/users/${this.$route.params.id}`, this.user)
-                    .then((res) => {
-                        this.$router.push({ name: 'home' });
-                    });
+                if(confirm("Confirmation question?")){
+                    this.axios
+                        .put(`http://localhost:8000/api/users/${this.$route.params.id}`, this.user)
+                        .then((res) => {
+                            this.$router.push({ name: 'home' });
+                        });
+                }
             }
         }
     }
