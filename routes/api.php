@@ -20,6 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('users', UserController::class);
-
 Route::get('/filter_user', [UserController::class, 'filter']);
 Route::get('/search_user', [UserController::class, 'search']);
