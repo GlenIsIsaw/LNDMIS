@@ -43,45 +43,48 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/training', [ListOfTrainingController::class, 'empindex'])->name('training.empindex');;
-Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('trainings.create');
-Route::post('/trainings', [ListOfTrainingController::class, 'store'])->name('training.store');
-Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('training.show');
-Route::get('/trainings/{id}/edit',[ListOfTrainingController::class, 'edit'])->name('training.edit');
-Route::put('/trainings/{id}/update',[ListOfTrainingController::class, 'update'])->name('training.update');
-Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy'])->name('training.destroy');
-Route::put('/trainings/{id}/submit', [ListOfTrainingController::class, 'submit'])->name('training.submit');
+    Route::get('/empTraining', function(){
+        return view('trainings.emptraining');
+    });
 
-Route::get('/attendance/{id}/create', [AttendanceFormController::class, 'create'])->name('attendance.create');
-Route::post('/attendance', [AttendanceFormController::class, 'store'])->name('attendance.store');
-Route::get('/attendance/{id}', [AttendanceFormController::class, 'show'])->name('attendance.show');
-Route::get('/attendance/{id}/edit',[AttendanceFormController::class, 'edit'])->name('attendance.edit');
-Route::put('/attendance/{id}',[AttendanceFormController::class, 'update'])->name('attendance.update');
-Route::delete('/attendance/{id}',[AttendanceFormController::class, 'destroy'])->name('attendance.destroy');
-Route::post('/attendance/{id}/print', [AttendanceFormController::class, 'print'])->name('attendance.print');
+    Route::get('/training', [ListOfTrainingController::class, 'empindex'])->name('training.empindex');;
+    Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('trainings.create');
+    Route::post('/trainings', [ListOfTrainingController::class, 'store'])->name('training.store');
+    Route::get('/trainings/{id}', [ListOfTrainingController::class, 'show'])->name('training.show');
+    Route::get('/trainings/{id}/edit',[ListOfTrainingController::class, 'edit'])->name('training.edit');
+    Route::put('/trainings/{id}/update',[ListOfTrainingController::class, 'update'])->name('training.update');
+    Route::delete('/trainings/{id}',[ListOfTrainingController::class, 'destroy'])->name('training.destroy');
+    Route::put('/trainings/{id}/submit', [ListOfTrainingController::class, 'submit'])->name('training.submit');
 
-Route::get('/idp/create', [IDPController::class, 'create'])->name('idp.create');
-Route::post('/idp', [IDPController::class, 'store'])->name('idp.store');
-Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.empindex');
-Route::get('/idp/{id}', [IDPController::class, 'show'])->name('idp.show');
-Route::get('/idp/{id}/edit', [IDPController::class, 'edit'])->name('idp.edit');
-Route::put('/idp/{id}', [IDPController::class, 'update'])->name('idp.update');
-Route::put('/idp/{id}/submit', [IDPController::class, 'submit'])->name('idp.submit');
-Route::post('/idp/print/{id}', [IDPController::class, 'print'])->name('idp.print');
+    Route::get('/attendance/{id}/create', [AttendanceFormController::class, 'create'])->name('attendance.create');
+    Route::post('/attendance', [AttendanceFormController::class, 'store'])->name('attendance.store');
+    Route::get('/attendance/{id}', [AttendanceFormController::class, 'show'])->name('attendance.show');
+    Route::get('/attendance/{id}/edit',[AttendanceFormController::class, 'edit'])->name('attendance.edit');
+    Route::put('/attendance/{id}',[AttendanceFormController::class, 'update'])->name('attendance.update');
+    Route::delete('/attendance/{id}',[AttendanceFormController::class, 'destroy'])->name('attendance.destroy');
+    Route::post('/attendance/{id}/print', [AttendanceFormController::class, 'print'])->name('attendance.print');
 
-Route::get('/competency',[CompetencyController::class, 'empindex'])->name('competency.empindex');
+    Route::get('/idp/create', [IDPController::class, 'create'])->name('idp.create');
+    Route::post('/idp', [IDPController::class, 'store'])->name('idp.store');
+    Route::get('/idp', [IDPController::class, 'empindex'])->name('idp.empindex');
+    Route::get('/idp/{id}', [IDPController::class, 'show'])->name('idp.show');
+    Route::get('/idp/{id}/edit', [IDPController::class, 'edit'])->name('idp.edit');
+    Route::put('/idp/{id}', [IDPController::class, 'update'])->name('idp.update');
+    Route::put('/idp/{id}/submit', [IDPController::class, 'submit'])->name('idp.submit');
+    Route::post('/idp/print/{id}', [IDPController::class, 'print'])->name('idp.print');
+
+    Route::get('/competency',[CompetencyController::class, 'empindex'])->name('competency.empindex');
 
 
-Route::get('/', [HomeController::class, 'index']);
+    Route::get('/', [HomeController::class, 'index']);
 
-Route::post('/logout', [UserCOntroller::class, 'logout']);
-Route::get('/user/{id}/edit', [UserCOntroller::class, 'edit']);
-Route::put('/user/{id}', [UserCOntroller::class, 'update']);
+    Route::post('/logout', [UserCOntroller::class, 'logout']);
 
 });
 
 
 Route::get('/users', [UserController::class, 'index']);
+
 
 
 Auth::routes();
