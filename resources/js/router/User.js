@@ -25,6 +25,7 @@ const routes = [
         name: 'edit',
         component: EditUser
     },
+   
     
 ]
 

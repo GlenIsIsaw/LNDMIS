@@ -5,6 +5,7 @@
         <h4 class="text-center" v-if="search != null && search != ''">Search Results for "{{search}}"</h4>
         
         <div class="d-flex flex-row-reverse bd-highlight">
+            
         <div class="p-2 bd-highlight">
             <input type="text" v-model="search" placeholder="Search"/> 
         </div>
@@ -100,9 +101,12 @@
  
 <script>
 
+
+
     export default {
         data() {
             return {
+                variant: 'dark',
                 keyword: null,
                 search: null,
                 users: {}
