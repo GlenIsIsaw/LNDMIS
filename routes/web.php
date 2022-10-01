@@ -74,14 +74,41 @@ Route::get('/competency',[CompetencyController::class, 'empindex'])->name('compe
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::post('/logout', [UserCOntroller::class, 'logout']);
-Route::get('/user/{id}/edit', [UserCOntroller::class, 'edit']);
-Route::put('/user/{id}', [UserCOntroller::class, 'update']);
+Route::post('/logout', [UserController::class, 'logout']);
 
 });
 
 
-
-
+Route::get('/users', function () {
+    return view('users.user');
+});
 
 Auth::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
