@@ -14,6 +14,12 @@
 
         $('#createTrainingModal').modal('hide');
         $('#deleteTrainingModal').modal('hide');
+        $('#updateTrainingModal').modal('hide');
+        $('#showTrainingModal').modal('hide');
+        $('#createAttendanceModal').modal('hide');
+        $('#deleteAttendanceModal').modal('hide');
+        $('#updateAttendanceModal').modal('hide');
+        $('#showAttendanceModal').modal('hide');
         
 
     })

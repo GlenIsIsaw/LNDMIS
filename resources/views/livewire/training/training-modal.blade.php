@@ -10,15 +10,6 @@
             </div>
             <form wire:submit.prevent="store">
                 <div class="modal-body">
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="list-unstyled">
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="mb-3">
                         <label>Name</label>
                         <select wire:model="user_id" class="form-control">
@@ -320,6 +311,210 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Create Attendance Modal -->
+<div wire:ignore.self class="modal fade" id="createAttendanceModal" tabindex="-1" aria-labelledby="createAttendanceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAttendanceModalLabel">Create Attendance Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="closeModal"></button>
+            </div>
+            <form wire:submit.prevent="storeAttendanceForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <select wire:model="ListOfTraining_id" class="form-control">
+                            <option value=""></option>
+                            <option value="{{$ListOfTraining_id}}">{{$name}}</option>
+                        </select>
+                        @error('ListOfTraining_id') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Specific Competency Target to Enhance</label>
+                        <select wire:model="competency" class="form-control">
+                            <option value=""></option>
+                            @foreach ($comps as $key => $comp)
+                            <optgroup label={{$key}}>
+                                @foreach ($comp as $item)
+                                <option value="{{$item->competency_name}}">{{$item->competency_name}}</option>
+                                @endforeach
+                            @endforeach
+                        </select>
+                        @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label>
+                        <textarea wire:model="knowledge_acquired" rows="4" cols="50" class="form-control"></textarea>
+                        @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Outcome</label>
+                        <textarea wire:model="outcome" rows="4" cols="50" class="form-control"></textarea>
+                        @error('outcome') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Personal Action</label>
+                        <textarea wire:model="personal_action" rows="4" cols="50" class="form-control"></textarea>
+                        @error('personal_action') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Show Ateendance Modal -->
+<div wire:ignore.self class="modal fade" id="showAttendanceModal" tabindex="-1" aria-labelledby="showAttendanceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showAttendanceModalLabel">{{$certificate_title}}'s Attendance Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="closeModal"></button>
+            </div>
+            <div class="modal-body">
+                    <table class="table table-borderd table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{$name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Title of Intervention Attended</th>
+                                <td>{{$certificate_title}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date Conducted</th>
+                                <td>{{$certificate_title}}</td>
+                            </tr>
+                            <tr>
+                                <th>Venue</th>
+                                <td>{{$venue}}</td>
+                            </tr>
+                            <tr>
+                                <th>Sponsors</th>
+                                <td>{{$sponsors}}</td>
+                            </tr>
+                                <th>Specific Competency to Develop/Enhance</th>
+                                <td>{{$competency}}</td>
+                            </tr>
+                            <tr>
+                                <th>Knowledge Acquired</th>
+                                <td>{{$knowledge_acquired}}</td>
+                            </tr>
+                            <tr>
+                                <th>Outcome</th>
+                                <td>{{$outcome}}</td>
+                            </tr>
+                            <tr>
+                                <th>Personal Action</th>
+                                <td>{{$personal_action}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#updateAttendanceModal" wire:click="editAttendanceForm({{$att_id}})" class="btn btn-primary">Edit</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$att_id}})" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Atendance Modal -->
+<div wire:ignore.self class="modal fade" id="deleteAttendanceModal" tabindex="-1" aria-labelledby="deleteAttendanceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAttendanceModalLabel">Delete {{$certificate_title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="destroyAttendanceForm">
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete this data ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Update Attendance Modal -->
+<div wire:ignore.self class="modal fade" id="updateAttendanceModal" tabindex="-1" aria-labelledby="updateAttendanceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateAttendanceModalLabel">Update Attendance Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="closeModal"></button>
+            </div>
+            <form wire:submit.prevent="updateAttendanceForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <select wire:model="ListOfTraining_id" class="form-control">
+                            <option value=""></option>
+                            <option value="{{$ListOfTraining_id}}">{{$name}}</option>
+                        </select>
+                        @error('ListOfTraining_id') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Specific Competency Target to Enhance</label>
+                        <select wire:model="competency" class="form-control">
+                            <option value=""></option>
+                            @foreach ($comps as $key => $comp)
+                            <optgroup label={{$key}}>
+                                @foreach ($comp as $item)
+                                <option value="{{$item->competency_name}}">{{$item->competency_name}}</option>
+                                @endforeach
+                            @endforeach
+                        </select>
+                        @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label>
+                        <textarea wire:model="knowledge_acquired" rows="4" cols="50" class="form-control"></textarea>
+                        @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Outcome</label>
+                        <textarea wire:model="outcome" rows="4" cols="50" class="form-control"></textarea>
+                        @error('outcome') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Personal Action</label>
+                        <textarea wire:model="personal_action" rows="4" cols="50" class="form-control"></textarea>
+                        @error('personal_action') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

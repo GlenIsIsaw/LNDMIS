@@ -16,6 +16,27 @@
                         </h4>
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <label>Start Date</label>
+                                <input type="date" wire:model="start_date">
+                                <label>End Date</label>
+                                <input type="date" wire:model="end_date">
+                                
+                            </div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col">
+                                <label>Filter By Status</label>
+                                <select wire:model="filterStatus">
+                                    <option value=""></option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Not Submitted">Not Submitted</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Pending">Pending</option>
+                                  </select>
+                            </div>
+                          </div>
                         <div class="table-responsive">
                             <table class="table table-borderd table-striped">
                                 <thead>
@@ -27,7 +48,7 @@
                                         <th scope="col">Number of Hours</th>
                                         <th scope="col">Venue</th>
                                         <th scope="col">Sponsors</th>
-                                        <th scope="col">Has an Attendance Report</th>
+                                        <th scope="col">Attendance Report</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -43,9 +64,9 @@
                                             <td>{{ $training->venue }}</td>
                                             <td>{{ $training->sponsors }}</td>
                                             @if ($training->attendance_form == 0)
-                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="edit({{$training->training_id}})" class="btn btn-warning">Create Attendance Report</button></td>
+                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="createAttendanceForm({{$training->training_id}})" class="btn btn-warning">Create Attendance Report</button></td>
                                             @else
-                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$training->training_id}})" class="btn btn-danger">View Attendance Report</button></td>
+                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="showAttendanceForm({{$training->training_id}})" class="btn btn-danger">View Attendance Report</button></td>
                                             @endif
                                             <td>{{ $training->status }}</td>
                                             <td>
