@@ -1,4 +1,4 @@
-<!-- Insert Modal -->
+
 <div wire:ignore.self class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     wire:click="closeModal"></button>
             </div>
-            <form wire:submit.prevent="saveuser">
+            <form wire:submit.prevent="saveUser">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label>Name</label>
@@ -21,18 +21,27 @@
                         @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
+                        <label>Teacher</label>
+                        <select wire:model="teacher" class="form-control">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        @error('teacher') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
                         <label>Position</label>
                         <input type="text" wire:model="position" class="form-control">
                         @error('position') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
                         <label>Year In Position</label>
-                        <input type="text" wire:model="yearinPostion" class="form-control">
+                        <input type="date" wire:model="yearinPosition" class="form-control">
                         @error('yearinPosition') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
                         <label>Year Joined</label>
-                        <input type="text" wire:model="yearJoined" class="form-control">
+                        <input type="date" wire:model="yearJoined" class="form-control">
                         @error('yearJoined') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
@@ -69,7 +78,6 @@
             </div>
             <form wire:submit.prevent="updateUser">
                 <div class="modal-body">
-                    <div class="modal-body">
                         <div class="mb-3">
                             <label>Name</label>
                             <input type="text" wire:model="name" class="form-control">
@@ -81,18 +89,27 @@
                             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
+                            <label>Teacher</label>
+                            <select wire:model="teacher" class="form-control">
+                                <option value=""></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                            @error('teacher') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
                             <label>Position</label>
                             <input type="text" wire:model="position" class="form-control">
                             @error('position') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
                             <label>Year In Position</label>
-                            <input type="text" wire:model="yearinPostion" class="form-control">
+                            <input type="date" wire:model="yearinPosition" class="form-control">
                             @error('yearinPosition') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
                             <label>Year Joined</label>
-                            <input type="text" wire:model="yearJoined" class="form-control">
+                            <input type="date" wire:model="yearJoined" class="form-control">
                             @error('yearJoined') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">

@@ -14,6 +14,7 @@ class UserShow extends Component
 
     public $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college,$supervisor,$User_id;
     public $search = '';
+    public $updateMode = false;
 
     protected function rules()
     {
@@ -35,10 +36,20 @@ class UserShow extends Component
     }
 
     public function saveUser()
-    {
+    {   
+        
         $validatedData = $this->validate();
-
-        User::create($validatedData);
+        
+        User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'teacher' => $this->teacher,
+            'position' => $this->position,
+            'yearinPosition' => $this->yearinPosition,
+            'yearJoined' => $this->yearJoined,
+            'college' => $this->college,
+            'supervisor' => $this->supervisor,
+        ]);
         session()->flash('message','User Added Successfully');
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
@@ -46,18 +57,21 @@ class UserShow extends Component
 
     public function editUser(int $User_id)
     {
-        $User = User::find($User_id);
-        if($User){
 
+        $User = User::find($User_id);
+        
+        if($User){
+            
             $this->User_id = $User->id;
             $this->name = $User->name;
             $this->email = $User->email;
             $this->teacher = $User->teacher;
             $this->position = $User->position;
-            $this->yearinPostion = $User->yearinPosition;
+            $this->yearinPosition = $User->yearinPosition;
             $this->yearJoined = $User->yearJoined;
             $this->college = $User->college;
             $this->supervisor = $User->supervisor;
+            $this->updateMode = true;
         }else{
             return redirect()->to('/Users');
         }
@@ -77,6 +91,7 @@ class UserShow extends Component
             'college' => $validatedData['college'],
             'supervisor' => $validatedData['supervisor']
         ]);
+        $this->updateMode = false;
         session()->flash('message','User Updated Successfully');
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
@@ -96,6 +111,7 @@ class UserShow extends Component
 
     public function closeModal()
     {
+        $this->updateMode = false;
         $this->resetInput();
     }
 
@@ -106,7 +122,7 @@ class UserShow extends Component
         $this->email = '';
         $this->teacher = '';
         $this->position = '';
-        $this->yearinPostion = '';
+        $this->yearinPosition = '';
         $this->yearJoined = '';
         $this->college = '';
         $this->supervisor = '';
