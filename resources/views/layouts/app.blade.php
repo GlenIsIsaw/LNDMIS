@@ -76,19 +76,30 @@
                                         @csrf
                                     </form>
                                 </div>
+
+                               
                             </li>
                         @endguest
                         <body>
                     </ul>
+                   
                 </div>
             </div>
+            
+            
         </nav>
+        @livewire('menu')
+        @livewire('dashboard')
         
-    
+   
+        
+    </div>
 
         <main class="py-4">
             @yield('content')
         </main>
+        
     </div>
+    
 </body>
 </html>
