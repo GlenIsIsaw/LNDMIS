@@ -25,7 +25,6 @@ class EmployeeTrainingIndex extends Component
     public $start_date = '';
     public $end_date = '';
     public $filterStatus = '';
-    public $updateMode = false;
 
     protected function rules()
     {
@@ -429,7 +428,7 @@ class EmployeeTrainingIndex extends Component
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('users.id',auth()->user()->id)
-                ->where('certificate_title', 'like', '%'.$this->search.'%')
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('date_covered','asc')
@@ -438,7 +437,7 @@ class EmployeeTrainingIndex extends Component
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('users.id',auth()->user()->id)
-                ->where('certificate_title', 'like', '%'.$this->search.'%')
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->orderBy('date_covered','desc')
                 ->paginate(10);
