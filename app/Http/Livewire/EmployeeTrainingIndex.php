@@ -9,7 +9,9 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\AttendanceForm;
 use App\Models\ListOfTraining;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class EmployeeTrainingIndex extends Component
 {
@@ -17,7 +19,7 @@ class EmployeeTrainingIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name, $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo;
+    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $search = '';
     public $start_date = '';
@@ -299,16 +301,18 @@ class EmployeeTrainingIndex extends Component
         $lists = ListOfTraining::find($check->list_of_training_id);
 
         $lists->attendance_form = 0;
+        $lists->status = 'Not Submitted';
 
         $lists->save();
         AttendanceForm::where('id',$this->att_id)->delete();
         session()->flash('message','Attendance Form Deleted Successfully');
+        $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
+        
     }
 
     public function closeModal()
     {
-        $this->updateMode = false;
         $this->resetInput();
     }
 
@@ -334,6 +338,88 @@ class EmployeeTrainingIndex extends Component
         $this->outcome ='';
         $this->personal_action ='';
     }
+    public function reject($id){
+        $list = ListOfTraining::find($id);
+        $list->status = 'Rejected';
+        $list->save();
+        return redirect(route('training.queue'))->with('message', 'Sucessfully Rejected');
+    }
+    public function approve($id){
+        $list = ListOfTraining::find($id);
+        $list->status = 'Approved';
+        $list->save();
+        return redirect(route('training.queue'))->with('message', 'Sucessfully Approved');
+    }
+    public function submit(){
+        $list = ListOfTraining::find($this->ListOfTraining_id);
+        if($list->user_id != auth()->user()->id)
+        {
+            abort(403, 'Unauthorized Action');
+        }
+        if ($list->attendance_form == 1) {
+            session()->flash('message',$list->certificate_title.' Submitted');
+            $this->dispatchBrowserEvent('show-modal');
+            $list->status = 'Pending';
+            $list->save();
+        }else{
+            session()->flash('message','No Attendance Form/Cannot submit');
+            $this->dispatchBrowserEvent('close-modal');
+        }
+    }
+    public function removeSubmit(){
+        $list = ListOfTraining::find($this->ListOfTraining_id);
+        if($list->user_id != auth()->user()->id)
+        {
+            abort(403, 'Unauthorized Action');
+        }
+        if ($list->status == 'Pending') {
+            session()->flash('message','Removed the Submission of '.$list->certificate_title);
+            $this->dispatchBrowserEvent('close-modal');
+            $list->status = 'Not Submitted';
+            $list->save();
+        }else{
+            session()->flash('message','You can no longer Remove the Submission');
+            $this->dispatchBrowserEvent('close-modal');
+        }
+    }
+    
+    public function printAttendanceForm(){
+
+
+        $training = DB::table('list_of_trainings')
+        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+        ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+        ->where('list_of_trainings.id', $this->ListOfTraining_id)
+        ->select('name', 'certificate_title', 'date_covered','college', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action')
+        ->first();
+        
+
+        $array = [
+            'name' => $training->name,
+            'certificate_title' => $training->certificate_title,
+            'date_covered' => $training->date_covered,
+            'venue' => $training->venue,
+            'sponsors' => $training->sponsors,
+            'competency' => $training->competency,
+            'knowledge_acquired' => $training->knowledge_acquired,
+            'outcome' => $training->outcome,
+            'personal_action' => $training->personal_action
+        ];
+
+        $templateProcessor = new TemplateProcessor(storage_path('Attendance-Report.docx'));
+        foreach($array as $varname=>$value){
+            $templateProcessor->setValue($varname, $value);
+        }
+            $templateProcessor->setValue('college',$training->college);
+
+                $templateProcessor->setValue('esign'," ");
+                $templateProcessor->setValue('edate'," ");
+                $templateProcessor->setValue('ssign'," ");
+                $templateProcessor->setValue('sdate'," ");
+
+        $templateProcessor->saveAs($training->name.'_Attendance_Report.docx');
+        return response()->download(public_path($training->name.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
+    }
 
     public function render()
     {
@@ -354,7 +440,7 @@ class EmployeeTrainingIndex extends Component
                 ->where('users.id',auth()->user()->id)
                 ->where('certificate_title', 'like', '%'.$this->search.'%')
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
-                ->orderBy('date_covered','asc')
+                ->orderBy('date_covered','desc')
                 ->paginate(10);
         }
 
