@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('certificate');
             $table->boolean('attendance_form')->default(0);
             $table->string('status')->default('Not Submitted');
-            $table->longText('comment');
+            $table->longText('comment')->default(null);
             $table->timestamps();
         });
     }
