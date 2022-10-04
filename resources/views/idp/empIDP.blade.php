@@ -21,6 +21,7 @@
         $('#showIdpModal').modal('hide');
         $('#updateIdpModal').modal('hide');
         $('#submitIdpModal').modal('hide');
+        $('#printIdpModal').modal('hide');
         $('#removeSubmissionIdpModal').modal('hide');
     })
     window.addEventListener('open-create2', event => {

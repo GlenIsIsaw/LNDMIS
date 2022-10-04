@@ -338,7 +338,7 @@
 
                     
                 
-                
+                <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-info">Print</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#updateIdpModal" wire:click="edit({{$idp_id}})" class="btn btn-primary">Edit</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-danger">Delete</button>
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
@@ -667,6 +667,30 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Remove Submission</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Print IDP Modal -->
+<div wire:ignore.self class="modal fade" id="printIdpModal" tabindex="-1" aria-labelledby="printIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printIdpModalLabel">Print IDP</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="print">
+                <div class="modal-body">
+                    <h4>Are you sure you want to print this Idp ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print</button>
                 </div>
             </form>
         </div>

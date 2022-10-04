@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Idp;
 use App\Models\User;
 use Livewire\Component;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class EmployeeIdpIndex extends Component
 {
@@ -442,6 +443,69 @@ class EmployeeIdpIndex extends Component
             session()->flash('message','You can no longer Remove the Submission');
             $this->dispatchBrowserEvent('close-modal');
         }
+    }
+    public function print(){
+        $document = Idp::join('users', 'users.id', '=', 'idps.user_id')
+                ->where('idps.id', $this->idp_id)
+                ->first();
+
+                
+        $array = [
+            'college' => $document->college,
+            'ename' => $document->name,
+            'position' => $document->position,
+            'pyear' => $this->year($document->yearinPosition),
+            'sname' => $document->supervisor,
+            'ayear' => $this->year($document->yearJoined),
+            'meet' => $document->purpose_meet,
+            'improve' => $document->purpose_improve,
+            'obtain' => $document->purpose_obtain,
+            'others' => $document->purpose_others,
+            'explain' => $document->purpose_explain,
+
+            'compfunction0' => $document->compfunction0,
+            'compfunctiondesc0' => $document->compfunctiondesc0,
+            'compfunction1' => $document->compfunction1,
+            'compfunctiondesc1' => $document->compfunctiondesc1,
+
+            'diffunction0' => $document->diffunction0,
+            'diffunctiondesc0' => $document->diffunctiondesc0,
+            'diffunction1' => $document->diffunction1,
+            'diffunctiondesc1' => $document->diffunctiondesc1,
+
+            'career' => $document->career
+            
+        ];
+
+        $templateProcessor = new TemplateProcessor(storage_path('IDP.docx'));
+        foreach($array as $varname=>$value){
+            $templateProcessor->setValue($varname, $value);
+        }
+        for ($i=0; $i < 3; $i++) { 
+            $templateProcessor->setValue('compe'.$i, $document->competency[$i]);
+            $templateProcessor->setValue('prio'.$i, $document->sug[$i]);
+            $templateProcessor->setValue('devact'.$i, $document->dev_act[$i]);
+            $templateProcessor->setValue('date'.$i, $document->target_date[$i]);
+            $templateProcessor->setValue('person'.$i, $document->responsible[$i]);
+            $templateProcessor->setValue('supp'.$i, $document->support[$i]);
+            $templateProcessor->setValue('complestat'.$i, $document->status[$i]);
+        }
+        
+            $templateProcessor->setValue('esign'," ");
+            $templateProcessor->setValue('edate'," ");
+       
+            $templateProcessor->setValue('ssign'," ");
+            $templateProcessor->setValue('sdate'," ");
+        
+            $templateProcessor->setValue('hsign'," ");
+            $templateProcessor->setValue('hdate'," ");
+        
+
+
+        //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
+        $templateProcessor->saveAs($document->name.'_Individual_Development_Plan'.'.docx');
+        $this->dispatchBrowserEvent('close-modal');
+        return response()->download(public_path($document->name.'_Individual_Development_Plan'.'.docx'))->deleteFileAfterSend(true);
     }
 
     public function render()
