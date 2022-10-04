@@ -13,7 +13,7 @@
 :root {
     --main-bg-color: #030b0b;
     --main-text-color: hsl(0, 83%, 28%);
-    --second-text-color: #bbbec5;
+    --second-text-color: #030712;
     --second-bg-color: #c1eeef;
   }
   
@@ -118,21 +118,21 @@
                 ><img class="d-inline-block align-text-top" src="images/cnsc.png" alt="" class="logo" width="167" height="164"
             /></a>
     </div>
-    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">Learning and Development</div>
+    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom border-5 border-info">Learning and Development</div>
     <div class="list-group list-group-flush my-3">
       
-        <a href="#" class="list-group-item list-group-item-action py-4 second-text active border-bottom"><i
+        <a href="#" class="list-group-item list-group-item-action py-4 fw-bold second-text border-bottom border-2 border-white-50"><i
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
                 @if (auth()->user()->role_as == 0)
-        <a href="{{route('training.empindex')}}" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom"><i
+        <a href="{{route('training.empindex')}}" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5" class="divide"><i
                 class="fas fa-project-diagram me-2"></i>Training</a>
                 @else
         <a href="{{route('training.menu')}}">List of Trainings</a>
         @endif
 
 
-        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom"><i
+        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5"><i
                 class="fas fa-chart-line me-3"></i>IDP</a>
        
                    
@@ -145,7 +145,7 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
-        <button class="btn btn-outline-info mx-2 fas fa-align-left text-light fs-4 me-2 mx-2" type="submit" id="menu-toggle"></button>
+        <button class="btn btn-outline-info border-3 mx-2 fas fa-align-left text-light fs-4 me-2 mx-2" type="submit" id="menu-toggle"></button>
           <h2 class="fs-2 me-5 text-white">Dashboard</h2>
          
       </div>

@@ -219,8 +219,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="showTrainingModalLabel">Show {{$certificate_title}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                <h5 class="modal-title" id="showTrainingModalLabel" class="text-break">Show {{$certificate_title}}</h5>
+                <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
                     wire:click="closeModal"></button>
             </div>
             <div class="modal-body">
@@ -239,7 +239,7 @@
                             </tr>
                             <tr>
                                 <th>Certificate Title</th>
-                                <td>{{$certificate_title}}</td>
+                                <td class="text-break">{{$certificate_title}}</td>
                             </tr>
                             <tr>
                                 <th>Level</th>
@@ -247,11 +247,11 @@
                             </tr>
                             <tr>
                                 <th>Venue</th>
-                                <td>{{$venue}}</td>
+                                <td class="text-break">{{$venue}}</td>
                             </tr>
                             <tr>
                                 <th>Sponsors</th>
-                                <td>{{$sponsors}}</td>
+                                <td class="text-break">{{$sponsors}}</td>
                             </tr>
                             <tr>
                                 <th>Date Covered</th>

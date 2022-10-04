@@ -24,7 +24,7 @@
             <div class="container px-9">
                 
 
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand text-uppercase font-helvetica fw-bold" href="{{ url('/') }}">
                     Camarines Norte State College
                 </a>
                 

@@ -1,7 +1,8 @@
 
-@include('livewire.menu')
+
 
 <div>
+    @include('livewire.menu')
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12 mr-3">
@@ -12,7 +13,7 @@
                 <div class="card">
                     <div class="card-header">
                         
-                        <h4>Trainings
+                        <h4 class="fw-bold">Trainings
                             
                             
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
@@ -20,39 +21,41 @@
                                 Add New Training
                             </button>
                             
+                            
                         </h4>
+                        
                     </div>
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="row">
-                            <div class="col">
+                    
+                        <div class="card-header bg-transparent border-0">
+                            <div class="float-start">
+
+                                
+                            
                                 <label>Start Date</label>
-                                <input type="date" wire:model="start_date" class="mx-auto my-2">
+                                <input type="date" wire:model="start_date" class="text-center">
                         
                                 
                                 <label>End Date</label>
-                                <input type="date" wire:model="end_date" class="mx-1">
+                                <input type="date" wire:model="end_date" class="text-center">
                             </div>
                             
-                            <div class="col"></div>
-                            <div class="col"></div>
-                            <div class="col">
+                            <div class="float-end mx-2">
                                 <label>Sort By</label>
-                                <select wire:model="filterStatus" class="dropdown" style="width:150px">
-                                    <option value="All">All</option>
+                                <select wire:model="filterStatus" class="text-center">
+                                    <option value="All">Default</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Not Submitted">Not Submitted</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Pending">Pending</option>
                                   </select>
                             </div>
+                            </div>
                             
-                          </div>
-                        </div>  
+                        
 
                           <div class="card-body">
-                        <div class="table-responsive text-center">
+                        <div class="table-responsive table-bordered text-center">
                             <table class="table table-borderd table-striped">
                                 <thead>
                                     <tr>
@@ -73,9 +76,9 @@
                                         <tr>
                                             <td>{{$training->name}}</td>
                                             <td><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn btn-link">{{$training->certificate_title}}</button></td>
-                                            <td>{{ $training->date_covered }}</td>
+                                            <td class="text-break">{{ $training->date_covered }}</td>
                                             <td>{{ $training->level }}</td>
-                                            <td>{{ $training->num_hours }}</td>
+                                            <td class="text-break">{{ $training->num_hours }}</td>
                                             <td>{{ $training->venue }}</td>
                                             <td>{{ $training->sponsors }}</td>
                                             @if ($training->attendance_form == 0)
@@ -87,7 +90,7 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$training->training_id}})" class="btn btn-primary">Edit</button>
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger">Delete</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger mx-2">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
