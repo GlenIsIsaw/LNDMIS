@@ -258,9 +258,7 @@
                     wire:click="closeModal"></button>
             </div>
             <div class="modal-body">
-                @if ($submit_status == 'Pending')
-                <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-success">Remove Submission</button>
-                @endif
+
                 <table class="table">
                     <tr>
                         <td><p >Employee Name: {{$name}}</p></td>
@@ -335,15 +333,29 @@
                 @if ($submit_status == 'Not Submitted' || $submit_status == 'Rejected')
                     <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-success">Submit</button>
                 @endif
+                @if ($submit_status == 'Pending')
+                <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-success">Remove Submission</button>
+                @endif
+                @if ($submit_status != 'Approved')
+                    @if ($submit_status == 'Pending')
+                        @if (auth()->user()->role_as == 1)
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#approveIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-success">Approve</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#rejectIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-danger">Reject</button>
+                        @endif    
+                    @endif
 
-                    
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#updateIdpModal" wire:click="edit({{$idp_id}})" class="btn btn-primary">Edit</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
                 
-                <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-info">Print</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#updateIdpModal" wire:click="edit({{$idp_id}})" class="btn btn-primary">Edit</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-danger">Delete</button>
-                <button type="button" class="btn btn-secondary" wire:click="closeModal"
-                    data-bs-dismiss="modal">Close</button>
-
+                @else
+                    @if (auth()->user()->role_as == 1)
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#updateIdpModal" wire:click="edit({{$idp_id}})" class="btn btn-primary">Edit</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp_id}})" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
+                    @endif
+                @endif
+ 
             </div>
         </div>
     </div>
@@ -691,6 +703,64 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Approve IDP Modal -->
+<div wire:ignore.self class="modal fade" id="approveIdpModal" tabindex="-1" aria-labelledby="approveIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveIdpModalLabel">Approve the Submitted Idp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="approve">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h4>Are you sure you want to Approve this Submission ?</h4>
+                        <label>Comment:</label>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject IDP Modal -->
+<div wire:ignore.self class="modal fade" id="rejectIdpModal" tabindex="-1" aria-labelledby="rejectIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectIdpModalLabel">Reject the Submitted Idp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="reject">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h4>Are you sure you want to Reject this Submission ?</h4>
+                        <label>Comment:</label>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Reject</button>
                 </div>
             </form>
         </div>

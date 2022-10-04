@@ -224,9 +224,7 @@
                     wire:click="closeModal"></button>
             </div>
             <div class="modal-body">
-                @if ($status == 'Pending')
-                <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Remove Submission</button>
-                @endif
+
                     <table class="table table-borderd table-striped">
                         <tbody>
                             <tr>
@@ -272,9 +270,9 @@
                             <tr>
                                 <th>Attendance Form</th>
                                 @if ($attendance_form == 0)
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-warning">Create Attendance Report</button></td>
+                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="editAttendanceForm({{$ListOfTraining_id}})" class="btn btn-warning">Create Attendance Report</button></td>
                                 @else
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-danger">View Attendance Report</button></td>
+                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="editAttendanceForm({{$ListOfTraining_id}})" class="btn btn-primary">View Attendance Report</button></td>
                                 @endif
                             </tr>
                             @if ($comment != null)
@@ -295,15 +293,28 @@
                 @if ($status == 'Not Submitted' || $status == 'Rejected')
                     <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Submit</button>
                 @endif
+                @if ($status == 'Pending')
+                <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Remove Submission</button>
+                @endif
+                @if ($status != 'Approved')
+                    @if ($status == 'Pending')
+                        @if (auth()->user()->role_as == 1)
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Approve</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Reject</button>
+                        @endif    
+                    @endif
 
-                    
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
                 
-                
-                <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Delete</button>
-                <button type="button" class="btn btn-secondary" wire:click="closeModal"
-                    data-bs-dismiss="modal">Close</button>
-
+                @else
+                    @if (auth()->user()->role_as == 1)
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
+                    @endif
+                @endif
             </div>
         </div>
     </div>
@@ -442,7 +453,7 @@
     </div>
 </div>
 
-<!-- Show Ateendance Modal -->
+<!-- Show Atendance Modal -->
 <div wire:ignore.self class="modal fade" id="showAttendanceModal" tabindex="-1" aria-labelledby="showAttendanceModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -495,8 +506,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Print</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#updateAttendanceModal" wire:click="editAttendanceForm({{$att_id}})" class="btn btn-primary">Edit</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$att_id}})" class="btn btn-danger">Delete</button>
+                @if ($status == 'Not Submitted' || $status == 'Rejected')
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#updateAttendanceModal" wire:click="editAttendanceForm({{$att_id}})" class="btn btn-primary">Edit</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$att_id}})" class="btn btn-danger">Delete</button>
+                @endif
+
                 <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -605,6 +619,64 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Training Modal -->
+<div wire:ignore.self class="modal fade" id="approveTrainingModal" tabindex="-1" aria-labelledby="approveTraningModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveTrainingModalLabel">Approve the Submitted Training</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="approve">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h4>Are you sure you want to Approve this Submission ?</h4>
+                        <label>Comment:</label>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Training Modal -->
+<div wire:ignore.self class="modal fade" id="rejectTrainingModal" tabindex="-1" aria-labelledby="rejectTraningModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="reject">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h4>Are you sure you want to Reject this Submission ?</h4>
+                        <label>Comment:</label>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Reject</button>
                 </div>
             </form>
         </div>

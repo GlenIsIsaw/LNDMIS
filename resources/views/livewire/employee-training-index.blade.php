@@ -8,7 +8,17 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Trainings
+                        <h4>
+                            @if (auth()->user()->role_as == 1)
+                                <select wire:model="table">
+                                    <option value="Approved Trainings">Approved Trainings</option>
+                                    <option value="My Trainings">My Trainings</option>
+                                    <option value="Submitted Trainings">Submitted Trainings</option>
+                                </select>
+                            @else
+                                My Trainings
+                            @endif
+                            
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
                             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#createTrainingModal">
                                 Add New Training
