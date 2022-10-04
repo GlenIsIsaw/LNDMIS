@@ -1,8 +1,9 @@
+@livewire('menu')
 
 <div>
-    <div class="container">
+    <div class="container py-3 px-5">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mr-3">
                 @if (session()->has('message'))
                     <h5 class="alert alert-success">{{ session('message') }}</h5>
                 @endif
@@ -68,6 +69,7 @@
             </div>
         </div>
     </div>
+    
     @include('livewire.usermodal')
 </div>
 

@@ -1,43 +1,58 @@
+
+@include('livewire.menu')
+
 <div>
-    <div class="container">
+    <div class="container py-3 px-5">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mr-3">
                 @if (session()->has('message'))
                     <h5 class="alert alert-success">{{ session('message') }}</h5>
                 @endif
 
                 <div class="card">
                     <div class="card-header">
+                        
                         <h4>Trainings
+                            
+                            
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#createTrainingModal">
+                            <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#createTrainingModal">
                                 Add New Training
                             </button>
+                            
                         </h4>
                     </div>
+
                     <div class="card-body">
                         <div class="row">
+                            <div class="row">
                             <div class="col">
                                 <label>Start Date</label>
-                                <input type="date" wire:model="start_date">
-                                <label>End Date</label>
-                                <input type="date" wire:model="end_date">
+                                <input type="date" wire:model="start_date" class="mx-auto my-2">
+                        
                                 
+                                <label>End Date</label>
+                                <input type="date" wire:model="end_date" class="mx-1">
                             </div>
+                            
                             <div class="col"></div>
                             <div class="col"></div>
                             <div class="col">
-                                <label>Filter By Status</label>
-                                <select wire:model="filterStatus">
-                                    <option value=""></option>
+                                <label>Sort By</label>
+                                <select wire:model="filterStatus" class="dropdown" style="width:150px">
+                                    <option value="All">All</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Not Submitted">Not Submitted</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Pending">Pending</option>
                                   </select>
                             </div>
+                            
                           </div>
-                        <div class="table-responsive">
+                        </div>  
+
+                          <div class="card-body">
+                        <div class="table-responsive text-center">
                             <table class="table table-borderd table-striped">
                                 <thead>
                                     <tr>
@@ -77,8 +92,9 @@
                                             </td>
                                         </tr>
                                     @empty
+                                        
                                         <tr>
-                                            <td colspan="5">No Record Found</td>
+                                            <td colspan="10">No Record/s Found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -88,9 +104,11 @@
                             {{ $trainings->links() }}
                         </div>
                     </div>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
     @include('livewire.training.training-modal')
+    
 </div>

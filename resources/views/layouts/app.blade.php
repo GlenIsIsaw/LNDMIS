@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Camarines Norte State College') }}</title>
+    <title>Camarines Norte State College Learning and Development</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,11 +20,15 @@
     
 
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+        <nav class="navbar blue-text navbar-expand-md navbar-dark bg-dark shadow-sm">
+            <div class="container px-9">
+                
+
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Camarines Norte State College') }}
+                    Camarines Norte State College
                 </a>
+                
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -52,7 +56,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -76,12 +80,12 @@
             </div>
           
         </nav>
-        @livewire('menu')
-        @livewire('dashboard')
+        
+        
 
     </div>
 
-        <main class="py-4">
+        <main class="py-9">
             @yield('content')
            
             
