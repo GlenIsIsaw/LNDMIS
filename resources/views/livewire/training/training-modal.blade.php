@@ -224,6 +224,9 @@
                     wire:click="closeModal"></button>
             </div>
             <div class="modal-body">
+                @if ($status == 'Pending')
+                <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Remove Submission</button>
+                @endif
                     <table class="table table-borderd table-striped">
                         <tbody>
                             <tr>
@@ -274,6 +277,13 @@
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-danger">View Attendance Report</button></td>
                                 @endif
                             </tr>
+                            @if ($comment != null)
+                                <tr>
+                                    <th>Comment</th>
+                                    <td>{{$comment}}</td>
+                                </tr>
+                            @endif
+
                             <tr>
                                 <th>Certificate</th>
                                 <td><img class="img-fluid" src="{{ url('storage/users/'.$name.'/'.$certificate) }}"></td>
@@ -282,6 +292,13 @@
                     </table>
             </div>
             <div class="modal-footer">
+                @if ($status == 'Not Submitted' || $status == 'Rejected')
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Submit</button>
+                @endif
+
+                    
+                
+                
                 <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Delete</button>
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
@@ -311,6 +328,54 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Submit Training Modal -->
+<div wire:ignore.self class="modal fade" id="submitTrainingModal" tabindex="-1" aria-labelledby="submitTraningModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitTrainingModalLabel">Submit {{$certificate_title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="submit">
+                <div class="modal-body">
+                    <h4>Are you sure you want to submit your input ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Submit Training Modal -->
+<div wire:ignore.self class="modal fade" id="removeSubmissionTrainingModal" tabindex="-1" aria-labelledby="removeSubmissionTraningModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeSubmissionTrainingModalLabel">Remove Submission of {{$certificate_title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="removeSubmit">
+                <div class="modal-body">
+                    <h4>Are you sure you want to remove your submission ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Remove Submission</button>
                 </div>
             </form>
         </div>
@@ -429,6 +494,7 @@
                     </table>
             </div>
             <div class="modal-footer">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Print</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#updateAttendanceModal" wire:click="editAttendanceForm({{$att_id}})" class="btn btn-primary">Edit</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$att_id}})" class="btn btn-danger">Delete</button>
                 <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
@@ -455,6 +521,30 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Print Atendance Modal -->
+<div wire:ignore.self class="modal fade" id="printAttendanceModal" tabindex="-1" aria-labelledby="printAttendanceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAttendanceModalLabel">Print Attendance Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="printAttendanceForm">
+                <div class="modal-body">
+                    <h4>Are you sure you want to print this Attendance Form ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print</button>
                 </div>
             </form>
         </div>

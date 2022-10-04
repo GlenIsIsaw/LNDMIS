@@ -81,7 +81,7 @@
                                             @if ($training->attendance_form == 0)
                                                 <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="createAttendanceForm({{$training->training_id}})" class="btn btn-warning">Create Attendance Report</button></td>
                                             @else
-                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="showAttendanceForm({{$training->training_id}})" class="btn btn-danger">View Attendance Report</button></td>
+                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="showAttendanceForm({{$training->training_id}})" class="btn btn-primary">View Attendance Report</button></td>
                                             @endif
                                             <td>{{ $training->status }}</td>
                                             <td>

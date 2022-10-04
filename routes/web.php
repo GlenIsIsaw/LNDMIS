@@ -46,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/empTraining', function(){
         return view('trainings.emptraining');
     });
+    Route::get('/empIDP', function(){
+        return view('idp.empIDP');
+    });
 
     Route::get('/training', [ListOfTrainingController::class, 'empindex'])->name('training.empindex');;
     Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('trainings.create');
