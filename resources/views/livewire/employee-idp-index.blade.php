@@ -8,10 +8,10 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Trainings
+                        <h4>Individual Development Plan
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#createTrainingModal">
-                                Add New Training
+                            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#createIdpModal">
+                                Add New idp
                             </button>
                         </h4>
                     </div>
@@ -42,37 +42,41 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Certificate Title</th>
-                                        <th scope="col">Date Covered</th>
-                                        <th scope="col">Level</th>
-                                        <th scope="col">Number of Hours</th>
-                                        <th scope="col">Venue</th>
-                                        <th scope="col">Sponsors</th>
-                                        <th scope="col">Attendance Report</th>
+                                        <th scope="col">Competency</th>
+                                        <th scope="col">Completion Status</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Updated At</th>
+                                        <th scope="col">Comment</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($trainings as $training)
+                                    @forelse ($idps as $idp)
                                         <tr>
-                                            <td>{{$training->name}}</td>
-                                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn btn-link">{{$training->certificate_title}}</button></td>
-                                            <td>{{ $training->date_covered }}</td>
-                                            <td>{{ $training->level }}</td>
-                                            <td>{{ $training->num_hours }}</td>
-                                            <td>{{ $training->venue }}</td>
-                                            <td>{{ $training->sponsors }}</td>
-                                            @if ($training->attendance_form == 0)
-                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="createAttendanceForm({{$training->training_id}})" class="btn btn-warning">Create Attendance Report</button></td>
-                                            @else
-                                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="showAttendanceForm({{$training->training_id}})" class="btn btn-primary">View Attendance Report</button></td>
-                                            @endif
-                                            <td>{{ $training->status }}</td>
+                                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#showIdpModal" wire:click="show({{$idp->idp_id}})" class="btn btn-link">{{$idp->name}}</button></td>
+                                            <td>
+                                                <ol class="list-group list-group-numbered">
+                                                    @foreach ($idp->competency as $item)
+                                                        <li class="list-group-item">{{$item}}</li>
+                                                    @endforeach
+                                                </ol>
+                                            </td>
+                                            <td>
+                                                <ol class="list-group list-group-numbered">
+                                                    @foreach ($idp->status as $item)
+                                                        <li class="list-group-item">{{$item}}</li>
+                                                    @endforeach
+                                                </ol>
+                                            </td>
+                                            <td>{{ $idp->created_at }}</td>
+                                            <td>{{ $idp->updated_at }}</td>
+                                            <td>{{ $idp->comment }}</td>
+                                            <td>{{ $idp->submit_status }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$training->training_id}})" class="btn btn-primary">Edit</button>
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger">Delete</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#updateIdpModal" wire:click="edit({{$idp->idp_id}})" class="btn btn-primary">Edit</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn btn-danger">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -85,12 +89,12 @@
                             </table>
                         </div>
                         <div>
-                            {{ $trainings->links() }}
+                            {{ $idps->links() }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('livewire.training.training-modal')
+    @include('livewire.idp.idp-modal')
 </div>
