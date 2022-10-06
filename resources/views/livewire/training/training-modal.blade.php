@@ -270,9 +270,9 @@
                             <tr>
                                 <th>Attendance Form</th>
                                 @if ($attendance_form == 0)
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="editAttendanceForm({{$ListOfTraining_id}})" class="btn btn-warning">Create Attendance Report</button></td>
+                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="createAttendanceForm({{$ListOfTraining_id}})" class="btn btn-warning">Create Attendance Report</button></td>
                                 @else
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="editAttendanceForm({{$ListOfTraining_id}})" class="btn btn-primary">View Attendance Report</button></td>
+                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#showAttendanceModal" wire:click="showAttendanceForm({{$ListOfTraining_id}})" class="btn btn-primary">View Attendance Report</button></td>
                                 @endif
                             </tr>
                             @if ($comment != null)
@@ -304,13 +304,13 @@
                         @endif    
                     @endif
 
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Delete</button>
                     <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
                 
                 @else
                     @if (auth()->user()->role_as == 1)
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#updateTrainingModal" wire:click="edit({{$ListOfTraining_id}})" class="btn btn-primary">Edit</button>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-danger">Delete</button>
                         <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
                     @endif
@@ -401,7 +401,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="createAttendanceModalLabel">Create Attendance Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    wire:click="closeModal"></button>
+                    ></button>
             </div>
             <form wire:submit.prevent="storeAttendanceForm">
                 <div class="modal-body">
@@ -461,7 +461,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="showAttendanceModalLabel">{{$certificate_title}}'s Attendance Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    wire:click="closeModal"></button>
+                    ></button>
             </div>
             <div class="modal-body">
                     <table class="table table-borderd table-striped">
@@ -511,7 +511,7 @@
                     <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$att_id}})" class="btn btn-danger">Delete</button>
                 @endif
 
-                <button type="button" class="btn btn-secondary" wire:click="closeModal" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

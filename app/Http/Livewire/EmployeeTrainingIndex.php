@@ -215,7 +215,7 @@ class EmployeeTrainingIndex extends Component
         if($lists){
             $this->ListOfTraining_id = $lists->training_id;
             $this->name = $lists->name;
-            $this->certificate_title = $lists->certificate_type;
+            $this->certificate_title = $lists->certificate_title;
         }else{
             return redirect()->to('/empTraining')->with('message','No results found');
         }
