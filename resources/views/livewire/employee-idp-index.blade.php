@@ -1,5 +1,7 @@
+
 <div>
-    <div class="container">
+    @include('livewire.menu')
+    <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12">
                 @if (session()->has('message'))
@@ -19,34 +21,37 @@
                             My Individual Development Plan
                         @endif
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#createIdpModal">
-                                Add New idp
+                            <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#createIdpModal">
+                                Add New IDP
                             </button>
                         </h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
+
+                     <div class="card-header bg-transparent border-0">
+                            <div class="float-start">
+                            
                                 <label>Start Date</label>
-                                <input type="date" wire:model="start_date">
-                                <label>End Date</label>
-                                <input type="date" wire:model="end_date">
+                                <input type="date" wire:model="start_date" class="text-center">
+                        
                                 
+                                <label>End Date</label>
+                                <input type="date" wire:model="end_date" class="text-center">
                             </div>
-                            <div class="col"></div>
-                            <div class="col"></div>
-                            <div class="col">
-                                <label>Filter By Status</label>
-                                <select wire:model="filterStatus">
-                                    <option value=""></option>
+                            
+                            <div class="float-end mx-2">
+                                <label>Sort By</label>
+                                <select wire:model="filterStatus" class="text-center">
+                                    <option value="All">Default</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Not Submitted">Not Submitted</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Pending">Pending</option>
                                   </select>
                             </div>
-                          </div>
-                        <div class="table-responsive">
+                            </div>
+
+                            <div class="card-body text-center">
+                        <div class="table-responsive table-bordered">
                             <table class="table table-borderd table-striped">
                                 <thead>
                                     <tr>
@@ -85,13 +90,13 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#updateIdpModal" wire:click="edit({{$idp->idp_id}})" class="btn btn-primary">Edit</button>
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn btn-danger">Delete</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn btn-danger mx-2">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5">No Record Found</td>
+                                            <td colspan="10">No Record Found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
