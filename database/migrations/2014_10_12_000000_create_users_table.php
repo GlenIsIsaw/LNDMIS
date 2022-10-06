@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('college_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->integer('role_as')->default('0');
             $table->string('teacher');
@@ -22,10 +23,9 @@ return new class extends Migration
             $table->date('yearinPosition');
             $table->date('yearJoined');
             $table->string('email')->unique();
-            $table->string('college');
-            $table->string('supervisor');
+            $table->string('signature')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->default('$2y$10$BLcdzo8WWNfprDSiPBUsbeEJF1Y0SwhCUH8EKyqKdTS.xy9gMsLKu');
             $table->rememberToken();
             $table->timestamps();
         });

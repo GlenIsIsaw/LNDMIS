@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\College;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class UserShow extends Component
 {
@@ -12,7 +14,8 @@ class UserShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college,$supervisor,$User_id;
+
+    public $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id;
     public $search = '';
     public $updateMode = false;
 
@@ -20,36 +23,43 @@ class UserShow extends Component
     {
         return [
             'name' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => 'required|string|email|max:255|unique:users,email,'. $this->User_id,
             'teacher' => 'required',
             'position' => 'required',
             'yearinPosition' => 'required',
             'yearJoined' => 'required',
-            'college' => 'required',
-            'supervisor' => 'required'
         ];
     }
 
-    public function updated($fields)
-    {
-        $this->validateOnly($fields);
-    }
 
     public function saveUser()
     {   
         
-        $validatedData = $this->validate();
-        
-        User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'teacher' => $this->teacher,
-            'position' => $this->position,
-            'yearinPosition' => $this->yearinPosition,
-            'yearJoined' => $this->yearJoined,
-            'college' => $this->college,
-            'supervisor' => $this->supervisor,
+        $validatedData = $this->validate([
+            'name' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255','unique:users,email'],
+            'teacher' => 'required',
+            'position' => 'required',
+            'yearinPosition' => 'required',
+            'yearJoined' => 'required',
         ]);
+        
+        $user = new User();
+
+            $user->college_id = $this->college_id;
+            $user->name = $this->name;
+            $user->email = $this->email;
+            $user->teacher = $this->teacher;
+            $user->position = $this->position;
+            $user->yearinPosition = $this->yearinPosition;
+            $user->yearJoined = $this->yearJoined;
+            if($this->supervisor == 1){
+                $user->role_as = 2;
+                $coll = College::find($this->college_id);
+                $coll->supervisor = $this->name;
+                $coll->save();
+            }
+        $user->save();
         session()->flash('message','User Added Successfully');
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
@@ -58,20 +68,19 @@ class UserShow extends Component
     public function editUser(int $User_id)
     {
 
-        $User = User::find($User_id);
+        $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
+                    ->find($User_id);
         
         if($User){
             
-            $this->User_id = $User->id;
+            $this->User_id = $User_id;
             $this->name = $User->name;
             $this->email = $User->email;
             $this->teacher = $User->teacher;
             $this->position = $User->position;
             $this->yearinPosition = $User->yearinPosition;
             $this->yearJoined = $User->yearJoined;
-            $this->college = $User->college;
-            $this->supervisor = $User->supervisor;
-            $this->updateMode = true;
+
         }else{
             return redirect()->to('/Users');
         }
@@ -79,19 +88,22 @@ class UserShow extends Component
 
     public function updateUser()
     {
+
+
+    
         $validatedData = $this->validate();
 
-        User::where('id',$this->User_id)->update([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'teacher' => $validatedData['teacher'],
-            'position' => $validatedData['position'],
-            'yearinPosition' => $validatedData['yearinPosition'],
-            'yearJoined' => $validatedData['yearJoined'],
-            'college' => $validatedData['college'],
-            'supervisor' => $validatedData['supervisor']
-        ]);
-        $this->updateMode = false;
+        $user = User::find($this->User_id);
+
+            $user->name = $this->name;
+            $user->email = $this->email;
+            $user->teacher = $this->teacher;
+            $user->position = $this->position;
+            $user->yearinPosition = $this->yearinPosition;
+            $user->yearJoined = $this->yearJoined;
+
+            
+        $user->save();
         session()->flash('message','User Updated Successfully');
         $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
@@ -111,12 +123,12 @@ class UserShow extends Component
 
     public function closeModal()
     {
-        $this->updateMode = false;
         $this->resetInput();
     }
 
     public function resetInput()
     {
+        $this->college_id = '';
         $this->User_id = '';
         $this->name = '';
         $this->email = '';
@@ -130,7 +142,13 @@ class UserShow extends Component
 
     public function render()
     {
-        $Users = User::where('name', 'like', '%'.$this->search.'%')->orderBy('id','DESC')->paginate(10);
+        $this->college_id = auth()->user()->college_id;
+        $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at')
+                        ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                        ->where('college_id',auth()->user()->college_id)
+                        ->where('name', 'like', '%'.$this->search.'%')
+                        ->orderBy('users.updated_at','DESC')
+                        ->paginate(10);
         return view('livewire.User-show', ['users' => $Users]);
     }
 }

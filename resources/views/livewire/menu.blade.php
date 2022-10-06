@@ -8,16 +8,16 @@
     <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom border-5 border-info">Learning and Development</div>
     <div class="list-group list-group-flush my-3">
       
-        <a href="#" class="list-group-item list-group-item-action py-4 fw-bold second-text border-bottom border-2 border-white-50"><i
+        <a href="/" class="list-group-item list-group-item-action py-4 fw-bold second-text border-bottom border-2 border-white-50"><i
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
                 
-        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5" class="divide"><i
+        <a href="{{route('training.empTraining')}}" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5" class="divide"><i
                 class="fas fa-project-diagram me-2"></i>Training</a>
                
 
 
-        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5"><i
+        <a href="{{route('idp.empIDP')}}" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5"><i
                 class="fas fa-chart-line me-3"></i>IDP</a>
        
                    

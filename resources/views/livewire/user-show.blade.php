@@ -1,4 +1,3 @@
-@livewire('menu')
 
 <div>
     <div class="container py-3 px-5">
@@ -12,6 +11,9 @@
                     <div class="card-header">
                         <h4>Users
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
+                            <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#collegeModal">
+                                Edit College Info
+                            </button>
                             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userModal">
                                 Add New user
                             </button>
@@ -36,21 +38,21 @@
                             <tbody>
                                 @forelse ($users as $user)
                                     <tr>
-                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->user_id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->teacher }}</td>
                                         <td>{{ $user->position }}</td>
                                         <td>{{ $user->yearinPosition }}</td>
                                         <td>{{ $user->yearJoined }}</td>
-                                        <td>{{ $user->college }}</td>
+                                        <td>{{ $user->college_name }}</td>
                                         <td>{{ $user->supervisor }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#updateuserModal" wire:click="editUser({{$user->id}})" class="btn btn-primary">
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#updateuserModal" wire:click="editUser({{$user->user_id}})" class="btn btn-primary">
                                                     Edit
                                                 </button>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->id}})" class="btn btn-danger">Delete</button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn btn-danger">Delete</button>
                                             </div>
                                         </td>
                                     </tr>

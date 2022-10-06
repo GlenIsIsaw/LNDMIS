@@ -45,14 +45,11 @@
                         @error('yearJoined') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-3">
-                        <label>College</label>
-                        <input type="text" wire:model="college" class="form-control">
-                        @error('college') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label>Supervisor</label>
-                        <input type="text" wire:model="supervisor" class="form-control">
-                        @error('supervisor') <span class="text-danger">{{ $message }}</span> @enderror
+                        <label>
+                            <input type="checkbox" wire:model="supervisor" value="1">
+                            Supervisor
+                        </label><br>
+                        <h6>{{$supervisor}}</h6>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -112,16 +109,6 @@
                             <input type="date" wire:model="yearJoined" class="form-control">
                             @error('yearJoined') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="mb-3">
-                            <label>College</label>
-                            <input type="text" wire:model="college" class="form-control">
-                            @error('college') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label>Supervisor</label>
-                            <input type="text" wire:model="supervisor" class="form-control">
-                            @error('supervisor') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
@@ -151,6 +138,34 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit College Info -->
+<div wire:ignore.self class="modal fade" id="collegeModal" tabindex="-1" aria-labelledby="collegeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="collegeModalLabel">Create User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="closeModal"></button>
+            </div>
+            <form wire:submit.prevent="updateCollege">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" wire:model="name" class="form-control">
+                        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

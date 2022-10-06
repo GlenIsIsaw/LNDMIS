@@ -6,10 +6,15 @@ use Carbon\Carbon;
 use App\Models\Idp;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class EmployeeIdpIndex extends Component
 {
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
+    
     public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at,$submit_status;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
@@ -560,7 +565,7 @@ class EmployeeIdpIndex extends Component
             $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college',auth()->user()->college)
+                ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->where('name', 'like', '%'.$this->search.'%')
@@ -570,7 +575,7 @@ class EmployeeIdpIndex extends Component
         } else {
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college',auth()->user()->college)
+                ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
