@@ -12,9 +12,16 @@
 
                 <div class="card">
                     <div class="card-header">
-                        
-                        <h4 class="fw-bold">Trainings
-                            
+                        <h4>
+                            @if (auth()->user()->role_as == 1)
+                                <select class="border border-info border-3 rounded" wire:model="table">
+                                    <option value="Approved Trainings">Approved Trainings</option>
+                                    <option value="My Trainings">My Trainings</option>
+                                    <option value="Submitted Trainings">Submitted Trainings</option>
+                                </select>
+                            @else
+                                My Trainings
+                            @endif
                             
                             <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
                             <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#createTrainingModal">
@@ -33,16 +40,16 @@
                                 
                             
                                 <label>Start Date</label>
-                                <input type="date" wire:model="start_date" class="text-center">
+                                <input type="date" wire:model="start_date" class="text-center border border-dark border-2 rounded">
                         
                                 
                                 <label>End Date</label>
-                                <input type="date" wire:model="end_date" class="text-center">
+                                <input type="date" wire:model="end_date" class="text-center text-center border border-dark border-2 rounded">
                             </div>
                             
                             <div class="float-end mx-2">
                                 <label>Sort By</label>
-                                <select wire:model="filterStatus" class="text-center">
+                                <select wire:model="filterStatus" class="text-center text-center border border-dark border-2 rounded">
                                     <option value="All">Default</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Not Submitted">Not Submitted</option>

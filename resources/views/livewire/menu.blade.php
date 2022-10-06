@@ -124,12 +124,10 @@
         <a href="#" class="list-group-item list-group-item-action py-4 fw-bold second-text border-bottom border-2 border-white-50"><i
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
-                @if (auth()->user()->role_as == 0)
-        <a href="{{route('training.empindex')}}" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5" class="divide"><i
+                
+        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5" class="divide"><i
                 class="fas fa-project-diagram me-2"></i>Training</a>
-                @else
-        <a href="{{route('training.menu')}}">List of Trainings</a>
-        @endif
+               
 
 
         <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5"><i

@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use App\Models\Idp;
 use App\Models\User;
 use Livewire\Component;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class EmployeeIdpIndex extends Component
 {
-    public $idp_id,$name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at,$submit_status;
+    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at,$submit_status;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
@@ -21,6 +22,29 @@ class EmployeeIdpIndex extends Component
     public $start_date = '';
     public $end_date = '';
     public $filterStatus = '';
+    public $query = [];
+    public $table = 'My IDPs';
+    
+    public function checkCoord(){
+        if(auth()->user()->role_as == 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public function checkTable(){
+        if($this->table == 'My IDPs'){
+            $this->query = ['users.id',auth()->user()->id];
+        }
+        if($this->table == 'Submitted IDPs'){
+            $this->query = ['submit_status','Pending'];
+        }
+        if($this->table == 'Approved IDPs'){
+            $this->query = ['submit_status','Approved'];
+        }
+    }
     
         protected function rules()
     {
@@ -109,6 +133,7 @@ class EmployeeIdpIndex extends Component
         $this->yearinPosition = '';
         $this->yearJoined = '';
         $this->supervisor = '';
+        $this->comment = '';
     }
     public function keep(){
         $validatedData = $this->validate([
@@ -443,27 +468,113 @@ class EmployeeIdpIndex extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
     }
+    public function reject(){
+        $list = Idp::find($this->idp_id);
+        $list->submit_status = 'Rejected';
+        $list->comment = $this->comment;
+        $list->save();
+        $this->comment = '';
+        $this->dispatchBrowserEvent('close-modal');
+        session()->flash('message','Rejected the Submission');
+        
+    }
+    public function approve(){
+        $list = Idp::find($this->idp_id);
+        $list->submit_status = 'Approved';
+        $list->comment = $this->comment;
+        $list->save();
+        $this->comment = '';
+        $this->dispatchBrowserEvent('close-modal');
+        session()->flash('message','Approved the Submission');
+    }
+
+    public function print(){
+        $document = Idp::join('users', 'users.id', '=', 'idps.user_id')
+                ->where('idps.id', $this->idp_id)
+                ->first();
+
+                
+        $array = [
+            'college' => $document->college,
+            'ename' => $document->name,
+            'position' => $document->position,
+            'pyear' => $this->year($document->yearinPosition),
+            'sname' => $document->supervisor,
+            'ayear' => $this->year($document->yearJoined),
+            'meet' => $document->purpose_meet,
+            'improve' => $document->purpose_improve,
+            'obtain' => $document->purpose_obtain,
+            'others' => $document->purpose_others,
+            'explain' => $document->purpose_explain,
+
+            'compfunction0' => $document->compfunction0,
+            'compfunctiondesc0' => $document->compfunctiondesc0,
+            'compfunction1' => $document->compfunction1,
+            'compfunctiondesc1' => $document->compfunctiondesc1,
+
+            'diffunction0' => $document->diffunction0,
+            'diffunctiondesc0' => $document->diffunctiondesc0,
+            'diffunction1' => $document->diffunction1,
+            'diffunctiondesc1' => $document->diffunctiondesc1,
+
+            'career' => $document->career
+            
+        ];
+
+        $templateProcessor = new TemplateProcessor(storage_path('IDP.docx'));
+        foreach($array as $varname=>$value){
+            $templateProcessor->setValue($varname, $value);
+        }
+        for ($i=0; $i < 3; $i++) { 
+            $templateProcessor->setValue('compe'.$i, $document->competency[$i]);
+            $templateProcessor->setValue('prio'.$i, $document->sug[$i]);
+            $templateProcessor->setValue('devact'.$i, $document->dev_act[$i]);
+            $templateProcessor->setValue('date'.$i, $document->target_date[$i]);
+            $templateProcessor->setValue('person'.$i, $document->responsible[$i]);
+            $templateProcessor->setValue('supp'.$i, $document->support[$i]);
+            $templateProcessor->setValue('complestat'.$i, $document->status[$i]);
+        }
+        
+            $templateProcessor->setValue('esign'," ");
+            $templateProcessor->setValue('edate'," ");
+       
+            $templateProcessor->setValue('ssign'," ");
+            $templateProcessor->setValue('sdate'," ");
+        
+            $templateProcessor->setValue('hsign'," ");
+            $templateProcessor->setValue('hdate'," ");
+        
+
+
+        //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
+        $templateProcessor->saveAs($document->name.'_Individual_Development_Plan'.'.docx');
+        $this->dispatchBrowserEvent('close-modal');
+        return response()->download(public_path($document->name.'_Individual_Development_Plan'.'.docx'))->deleteFileAfterSend(true);
+    }
 
     public function render()
     {
+        $this->checkTable();
         if (request()->start_date || request()->end_date) {
             $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
             $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
-            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('users.id',auth()->user()->id)
+                ->where('college',auth()->user()->college)
+                ->where($this->query[0],$this->query[1])
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->where('name', 'like', '%'.$this->search.'%')
                 ->whereBetween('idps.created_at',[$start_date,$end_date])
-                ->orderBy('idps.created_at','desc')
+                ->orderBy('idps.updated_at','desc')
                 ->paginate(10);
         } else {
-            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status')
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('users.id',auth()->user()->id)
+                ->where('college',auth()->user()->college)
+                ->where($this->query[0],$this->query[1])
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
-                ->orderBy('idps.created_at','desc')
+                ->orderBy('idps.updated_at','desc')
                 ->paginate(10);
         }
         

@@ -26,6 +26,8 @@
         $('#showAttendanceModal').modal('hide');
         $('#submitTrainingModal').modal('hide');
         $('#submitTrainingModal').modal('hide');
+        $('#approveTrainingModal').modal('hide');
+        $('#rejectTrainingModal').modal('hide');
         $('#removeSubmissionTrainingModal').modal('hide');
     })
     window.addEventListener('show-modal', event => {
