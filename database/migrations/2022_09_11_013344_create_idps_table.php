@@ -40,7 +40,7 @@ return new class extends Migration
             $table->Text('diffunctiondesc1');
             $table->Text('career');
             $table->string('submit_status')->default('Not Submitted');
-            $table->longText('comment')->nullable()->default(null);
+            $table->longText('comment')->nullable();
             $table->timestamps();
         });
     }
