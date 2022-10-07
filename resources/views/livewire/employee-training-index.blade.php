@@ -35,17 +35,7 @@
 
                     
                         <div class="card-header bg-transparent border-0">
-                            <div class="float-start">
-
-                                
                             
-                                <label>Start Date</label>
-                                <input type="date" wire:model="start_date" class="text-center border border-dark border-2 rounded">
-                        
-                                
-                                <label>End Date</label>
-                                <input type="date" wire:model="end_date" class="text-center text-center border border-dark border-2 rounded">
-                            </div>
                             
                             <div class="float-end mx-2">
                                 <label>Sort By</label>
@@ -63,7 +53,7 @@
 
                           <div class="card-body">
                         <div class="table-responsive table-bordered text-center">
-                            <table class="table table-borderd table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>

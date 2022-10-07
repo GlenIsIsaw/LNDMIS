@@ -16,6 +16,8 @@
     @livewireStyles
     
 </head>
+
+
 <body>
     
 
@@ -23,7 +25,7 @@
         <nav class="navbar blue-text navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container px-9">
                 
-
+              
                 <a class="navbar-brand text-uppercase font-helvetica fw-bold" href="{{ url('/') }}">
                     Camarines Norte State College
                 </a>
@@ -36,7 +38,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                       
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,6 +72,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    
                                 </div>
                                 
                             </li>
@@ -78,12 +81,16 @@
                 </div>
                 
             </div>
+            
           
         </nav>
+
         
         
 
     </div>
+
+    
 
         <main class="py-9">
             @yield('content')
@@ -96,13 +103,32 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-    <script> var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-        toggleButton.onclick = function () {
+
+    <script>
+            var el = document.getElementById("wrapper");
+            var toggleButton = document.getElementById("menu-toggle");
+            toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
 
     </script>
+    <script> 
+            $(".sidebar ul li").on('click' , function(){
+            $(".sidebar ul li.active").removeClass('active');
+            $(this).addClass('active');
+
+
+    }) 
+    </script>
+    <script>
+
+           
+
+    </script>
+
+   
+
+
     @livewireScripts
     @yield('script')
 </body>

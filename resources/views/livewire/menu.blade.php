@@ -11,9 +11,9 @@
 <style>
 
 :root {
-    --main-bg-color: #030b0b;
-    --main-text-color: hsl(0, 83%, 28%);
-    --second-text-color: #030712;
+    --main-bg-color: #23b1b1;
+    --main-text-color: hsl(0, 0%, 96%);
+    --second-text-color: #267a7a;
     --second-bg-color: #c1eeef;
   }
   
@@ -41,9 +41,11 @@
     overflow-x: hidden;
     background-image: linear-gradient(
       to right,
-      #0F2027,
+      #2C5364,
       #203A43,
-      #2C5364
+      #0F2027
+      
+      
       
     );
   }
@@ -58,12 +60,13 @@
   }
   
   #sidebar-wrapper .sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
+    padding: 0.775rem 1.25rem;
+    font-size: 1.5rem; 
   }
   
   #sidebar-wrapper .list-group {
     width: 20rem;
+
   }
   
   #page-content-wrapper {
@@ -85,11 +88,36 @@
   }
   
   .list-group-item.active {
-    background-color: transparent;
+    background-color: #eee;
     color: var(--main-text-color);
     font-weight: bold;
-    border: none;
+    border-radius: 8px;
   }
+
+  .h-color{
+
+    background: #eee;
+  }
+
+  .sidebar li.active{
+
+    background: #eee;
+    border-radius: 8px;
+  }
+
+  .sidebar li.active a, .sidebar li.active a.hover {
+
+    color:#0F2027;
+
+  }
+
+  .sidebar li a{
+
+    color:#fff;
+  }
+  
+  
+  
   
   @media (min-width: 768px) {
     #sidebar-wrapper {
@@ -106,36 +134,60 @@
       margin-left: -29rem;
     }
   }
+
+  
   
   </style>
 
 <body>
     <div class="d-flex" id="wrapper">
    <!-- Sidebar -->
-   <div class="bg-white" id="sidebar-wrapper">
+   
+   <div class="shadow-sm navbar-expand-md" style="background-color:#06283D" id="sidebar-wrapper">
     <div class="sidebar-heading text-center">
     <a href="/"
-                ><img class="d-inline-block align-text-top" src="images/cnsc.png" alt="" class="logo" width="167" height="164"
+                ><img class="d-inline-block align-text-top" src="images/cnsc.png" alt="" class="logo" width="97" height="94"
             /></a>
     </div>
-    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom border-5 border-info">Learning and Development</div>
-    <div class="list-group list-group-flush my-3">
-      
-        <a href="#" class="list-group-item list-group-item-action py-4 fw-bold second-text border-bottom border-2 border-white-50"><i
-                class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+    <div class="sidebar-heading text-center py-4 primary-text fs-7 fw-bold text-uppercase">learning and development</div>
+
+    <hr class="h-color mx-2">
+    <div class="sidebar my-3">
+
+        <ul class="list-unstyled px-2">
+
+        <li class=""><a href="#" class="text-decoration-none px-3 py-2 fw-bold second-text  d-block"><i
+                class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
 
                 
-        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5" class="divide"><i
-                class="fas fa-project-diagram me-2"></i>Training</a>
+                <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                 class="fas fa-project-diagram me-2"></i>Training</a></li>
+
+                
+                 <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                class="fas fa-chart-line me-2"></i>IDP</a></li>
+
+                <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>
+
+                 </ul>
                
+          <hr class="h-color mx-2">
+          <ul class="list-unstyled px-2">
+          <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-paperclip me-2"></i>Core Competencies</a></li>
+              
+          <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+            class="fas fa-cog me-2"></i>Settings</a></li>
+          </ul>
+            
+      
 
-
-        <a href="#" class="list-group-item list-group-item-action py-4 second-text fw-bold border-bottom border-2 border-white-5"><i
-                class="fas fa-chart-line me-3"></i>IDP</a>
-       
-                   
-                    
-
+          <!-- Log Out -->
+          <hr class="h-color mx-2">
+          <ul class="list-unstyled px-2">
+          <li class=""><a href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();"
+             {{ __('Logout') }} class="text-decoration-none px-3 py-2 text-danger fw-bold d-block"><i class="fas fa-power-off me-2"></i>Log Out</a></li>
                 
     </div>
 </div>
@@ -143,11 +195,14 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
-        <button class="btn btn-outline-info border-3 mx-2 fas fa-align-left text-light fs-4 me-2 mx-2" type="submit" id="menu-toggle"></button>
-          <h2 class="fs-2 me-5 text-white">Dashboard</h2>
+        <button class="btn btn-outline-info border-3 mx-2 fas fa-align-left text-light fs-5 me-2 mx-2" type="button" id="menu-toggle"></button>
+          <h2 class="fs-4 me-3 mx-2 text-white text-uppercase">Menu</h2>
+
+          
          
       </div>
 
   </nav>
+
 
 </body>
