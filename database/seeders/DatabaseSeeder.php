@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\College;
 use App\Models\Competency;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        College::create([
+            'college_name' => 'Institute of Computer Studies'
+        ]);
+        College::create([
+            'college_name' => 'College of Arts and Sciences'
+        ]);
+        College::create([
+            'college_name' => 'College of Engineering'
+        ]);
+        College::create([
+            'college_name' => 'College of Business and Public Administration'
+        ]);
+        
          \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

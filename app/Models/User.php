@@ -28,7 +28,10 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+    public function colleges()
+    {
+        return $this->belongsTo(College::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

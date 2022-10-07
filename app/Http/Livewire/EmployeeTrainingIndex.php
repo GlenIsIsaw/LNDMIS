@@ -215,7 +215,7 @@ class EmployeeTrainingIndex extends Component
         if($lists){
             $this->ListOfTraining_id = $lists->training_id;
             $this->name = $lists->name;
-            $this->certificate_title = $lists->certificate_type;
+            $this->certificate_title = $lists->certificate_title;
         }else{
             return redirect()->to('/empTraining')->with('message','No results found');
         }
@@ -412,9 +412,10 @@ class EmployeeTrainingIndex extends Component
 
         $training = DB::table('list_of_trainings')
         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+        ->join('colleges', 'colleges.id', '=', 'users.college_id')
         ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
         ->where('list_of_trainings.id', $this->ListOfTraining_id)
-        ->select('name', 'certificate_title', 'date_covered','college', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action')
+        ->select('name', 'certificate_title', 'date_covered','college_name', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action')
         ->first();
         
 
@@ -434,7 +435,7 @@ class EmployeeTrainingIndex extends Component
         foreach($array as $varname=>$value){
             $templateProcessor->setValue($varname, $value);
         }
-            $templateProcessor->setValue('college',$training->college);
+            $templateProcessor->setValue('college',$training->college_name);
 
                 $templateProcessor->setValue('esign'," ");
                 $templateProcessor->setValue('edate'," ");
@@ -442,6 +443,7 @@ class EmployeeTrainingIndex extends Component
                 $templateProcessor->setValue('sdate'," ");
 
         $templateProcessor->saveAs($training->name.'_Attendance_Report.docx');
+        $this->dispatchBrowserEvent('close-modal');
         return response()->download(public_path($training->name.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
     }
 
@@ -453,7 +455,7 @@ class EmployeeTrainingIndex extends Component
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->where('college',auth()->user()->college)
+                ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
@@ -463,7 +465,7 @@ class EmployeeTrainingIndex extends Component
         }else{
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->where('college',auth()->user()->college)
+                ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')

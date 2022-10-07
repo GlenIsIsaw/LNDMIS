@@ -16,4 +16,4 @@
         $('#deleteuserModal').modal('hide');
     })
 </script>
-@endsection
+@endsection 

@@ -38,6 +38,8 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::delete('/idps/{id}',[AttendanceFormController::class, 'idp'])->name('idp.destroy');
     Route::get('/coordinator/idp/menu', function () { return view('coordinator.idp_menu'); })->name('idp.menu');
 
+    Route::get('/users', [UserController::class, 'index']);
+
 
 });
 
@@ -45,10 +47,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/empTraining', function(){
         return view('trainings.emptraining');
-    });
+    })->name('training.empTraining');
     Route::get('/empIDP', function(){
         return view('idp.empIDP');
-    });
+    })->name('idp.empIDP');
+    
 
     Route::get('/training', [ListOfTrainingController::class, 'empindex'])->name('training.empindex');;
     Route::get('/trainings/create', [ListOfTrainingController::class, 'create'])->name('trainings.create');
@@ -86,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/users', [UserController::class, 'index']);
+
 
 
 
