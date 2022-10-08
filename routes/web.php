@@ -34,8 +34,9 @@ Route::middleware(['auth'])->group(function () {
         return view('idp.index');
     })->name('idp.index');
 
-    Route::get('/', [HomeController::class, 'index']);
-
+    Route::get('/', function(){
+        return view('main-page');
+    })->name('main');
 
 
 });

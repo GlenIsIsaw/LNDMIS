@@ -1,15 +1,9 @@
-@extends('layouts.app')
 
-@section('content')
 
     <div>
         <livewire:idp-show />
     </div>
 
-        
-
-
-@endsection
 
 @section('script')
 <script>

@@ -151,8 +151,8 @@
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
 
                 
-                <li class=""><a href="{{route('training.index')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                 class="fas fa-project-diagram me-2"></i>Training</a></li>
+                <li class=""><button wire:click="trainIndex" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                 class="fas fa-project-diagram me-2"></i>Training</button></li>
                  @if (auth()->user()->role_as == 1)
                  <select class="border border-info border-3 rounded" wire:model="table">
                      <option value="Approved Trainings">Approved Trainings</option>
@@ -166,8 +166,8 @@
 
 
                 
-                 <li class=""><a href="{{route('idp.index')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-chart-line me-2"></i>IDP</a></li>
+                 <li class=""><button wire:click="idpsIndex" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                class="fas fa-chart-line me-2"></i>IDP</button></li>
 
                 <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>
 

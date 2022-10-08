@@ -1,15 +1,8 @@
-@extends('layouts.app')
 
-@section('content')
+<div>
+    <livewire:training-show />
+</div>
 
-    <div>
-        <livewire:training-show />
-    </div>
-
-        
-
-
-@endsection
 
 @section('script')
 <script>
