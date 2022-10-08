@@ -36,6 +36,13 @@ class TrainingShow extends Component
     public $editAttendanceForm = false;
     public $showAttendanceForm = false;
 
+    protected $listeners = [
+        'createTraining' => 'createButton',
+        'clear' => 'backButton',
+        'passTable' => 'passTable'
+    ];
+
+
     public $next = 0;
     public function next(){
         ++$this->next;
@@ -109,6 +116,9 @@ class TrainingShow extends Component
         else{
             return false;
         }
+    }
+    public function passTable($string){
+        $this->table = $string;
     }
     public function checkTable(){
         if($this->table == 'My Trainings'){

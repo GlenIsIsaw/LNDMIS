@@ -154,14 +154,14 @@
                 <li class=""><button wire:click="trainIndex" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                  class="fas fa-project-diagram me-2"></i>Training</button></li>
                  @if (auth()->user()->role_as == 1)
-                 <select class="border border-info border-3 rounded" wire:model="table">
+                 <select class="border border-info border-3 rounded" wire:model="string" wire:click="passData">
                      <option value="Approved Trainings">Approved Trainings</option>
                      <option value="My Trainings">My Trainings</option>
                      <option value="Submitted Trainings">Submitted Trainings</option>
                  </select>
                @endif
-                 <li class=""><button wire:click="createButton" class="text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-project-diagram me-2"></i>
+                 <li class=""><button wire:click="$emitTo('training-show','createTraining')" class="text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-arrow-right"></i>
                    Create Training </button></li>
 
 

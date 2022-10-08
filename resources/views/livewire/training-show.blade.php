@@ -112,7 +112,7 @@
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger">Reject</button>
                                                             @endif    
                                                         @endif
-                                                        @if (auth()->user()->role_as == 0)
+
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 @if ($training->attendance_form == 1) 
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-success">Submit</button>
@@ -125,7 +125,6 @@
                                                                 <button type="button" wire:click="edit({{$training->training_id}})" class="btn btn-primary">Edit</button>
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger mx-2">Delete</button>
                                                             @endif
-                                                        @endif
                                                     @endif
 
                                                 </td>

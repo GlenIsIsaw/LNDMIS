@@ -27,13 +27,6 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/empTraining', function(){
-        return view('trainings.index');
-    })->name('training.index');
-    Route::get('/empIDP', function(){
-        return view('idp.index');
-    })->name('idp.index');
-
     Route::get('/', function(){
         return view('main-page');
     })->name('main');
