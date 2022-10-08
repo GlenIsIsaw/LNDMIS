@@ -35,17 +35,7 @@
 
                     
                         <div class="card-header bg-transparent border-0">
-                            <div class="float-start">
-
-                                
                             
-                                <label>Start Date</label>
-                                <input type="date" wire:model="start_date" class="text-center border border-dark border-2 rounded">
-                        
-                                
-                                <label>End Date</label>
-                                <input type="date" wire:model="end_date" class="text-center text-center border border-dark border-2 rounded">
-                            </div>
                             
                             <div class="float-end mx-2">
                                 <label>Sort By</label>
@@ -63,7 +53,7 @@
 
                           <div class="card-body">
                         <div class="table-responsive table-bordered text-center">
-                            <table class="table table-borderd table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
@@ -82,11 +72,11 @@
                                     @forelse ($trainings as $training)
                                         <tr>
                                             <td>{{$training->name}}</td>
-                                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn btn-link">{{$training->certificate_title}}</button></td>
+                                            <td class="text-break"><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn btn-link">{{$training->certificate_title}}</button></td>
                                             <td class="text-break">{{ $training->date_covered }}</td>
                                             <td>{{ $training->level }}</td>
                                             <td class="text-break">{{ $training->num_hours }}</td>
-                                            <td>{{ $training->venue }}</td>
+                                            <td class="text-break">{{ $training->venue }}</td>
                                             <td>{{ $training->sponsors }}</td>
                                             @if ($training->attendance_form == 0)
                                                 <td><button type="button" data-bs-toggle="modal" data-bs-target="#createAttendanceModal" wire:click="createAttendanceForm({{$training->training_id}})" class="btn btn-warning">Create Attendance Report</button></td>

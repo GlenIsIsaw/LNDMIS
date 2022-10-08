@@ -19,106 +19,8 @@
     @livewireStyles
 
 </head>
-<style>
-    
-    :root {
-        --main-bg-color: #030b0b;
-        --main-text-color: hsl(0, 83%, 28%);
-        --second-text-color: #030712;
-        --second-bg-color: #c1eeef;
-      }
-      
-      .primary-text {
-        color: var(--main-text-color);
-      }
-      
-      .second-text {
-        color: var(--second-text-color);
-      }
-      
-      .primary-bg {
-        background-color: var(--main-bg-color);
-      }
-      
-      .secondary-bg {
-        background-color: var(--second-bg-color);
-      }
-      
-      .rounded-full {
-        border-radius: 100%;
-      }
-      
-      #wrapper {
-        overflow-x: hidden;
-        background-image: linear-gradient(
-          to right,
-          #0F2027,
-          #203A43,
-          #2C5364
-          
-        );
-      }
-      
-      #sidebar-wrapper {
-        min-height: 100vh;
-        margin-left: -15rem;
-        -webkit-transition: margin 0.25s ease-out;
-        -moz-transition: margin 0.25s ease-out;
-        -o-transition: margin 0.25s ease-out;
-        transition: margin 0.25s ease-out;
-      }
-      
-      #sidebar-wrapper .sidebar-heading {
-        padding: 0.875rem 1.25rem;
-        font-size: 1.2rem;
-      }
-      
-      #sidebar-wrapper .list-group {
-        width: 20rem;
-      }
-      
-      #page-content-wrapper {
-        min-width: 100vw;
-        
-      }
-      
-      #wrapper.toggled #sidebar-wrapper {
-        margin-left: 0;
-      }
-      
-      #menu-toggle {
-        cursor: pointer;
-      }
-      
-      .list-group-item {
-        border: none;
-        padding: 20px 30px;
-      }
-      
-      .list-group-item.active {
-        background-color: transparent;
-        color: var(--main-text-color);
-        font-weight: bold;
-        border: none;
-      }
-      
-      @media (min-width: 768px) {
-        #sidebar-wrapper {
-          margin-left: 0;
-        }
-      
-        #page-content-wrapper {
-          min-width: 0;
-          width: 100%;
-          
-        }
-      
-        #wrapper.toggled #sidebar-wrapper {
-          margin-left: -29rem;
-        }
-      }
-      
-      </style>
+
+
 <body>
     
 
@@ -126,7 +28,7 @@
         <nav class="navbar blue-text navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container px-9">
                 
-
+              
                 <a class="navbar-brand text-uppercase font-helvetica fw-bold" href="{{ url('/') }}">
                     Camarines Norte State College
                 </a>
@@ -139,7 +41,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                       
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -173,6 +75,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    
                                 </div>
                                 
                             </li>
@@ -181,12 +84,16 @@
                 </div>
                 
             </div>
+            
           
         </nav>
+
         
         
 
     </div>
+
+    
 
         <main class="py-9">
             @yield('content')
@@ -199,13 +106,32 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-    <script> var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-        toggleButton.onclick = function () {
+
+    <script>
+            var el = document.getElementById("wrapper");
+            var toggleButton = document.getElementById("menu-toggle");
+            toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
 
     </script>
+    <script> 
+            $(".sidebar ul li").on('click' , function(){
+            $(".sidebar ul li.active").removeClass('active');
+            $(this).addClass('active');
+
+
+    }) 
+    </script>
+    <script>
+
+           
+
+    </script>
+
+   
+
+
     @livewireScripts
     @yield('script')
 </body>

@@ -28,19 +28,11 @@
                     </div>
 
                      <div class="card-header bg-transparent border-0">
-                            <div class="float-start">
                             
-                                <label>Start Date</label>
-                                <input type="date" wire:model="start_date" class="text-center">
-                        
-                                
-                                <label>End Date</label>
-                                <input type="date" wire:model="end_date" class="text-center">
-                            </div>
                             
                             <div class="float-end mx-2">
                                 <label>Sort By</label>
-                                <select wire:model="filterStatus" class="text-center">
+                                <select wire:model="filterStatus" class="text-center text-center border border-dark border-2 rounded">
                                     <option value="All">Default</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Not Submitted">Not Submitted</option>
@@ -52,9 +44,9 @@
 
                             <div class="card-body text-center">
                         <div class="table-responsive table-bordered">
-                            <table class="table table-borderd table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr class="table-bordered">
                                         <th scope="col">Name</th>
                                         <th scope="col">Competency</th>
                                         <th scope="col">Completion Status</th>
