@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['livewire.idp.idp-modal','livewire.training.training-modal','employee.compindex','idp.create','idp.create2','idp.edit','idp.edit2','attendanceforms.create',"attendanceforms.edit"], function ($view) {
+        View::composer(['livewire.idp-show','livewire.training-show'], function ($view) {
 
             if(auth()->user()->teacher == 'Yes')
             {

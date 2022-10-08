@@ -15,11 +15,8 @@
 <script>
     window.addEventListener('close-modal', event => {
 
-        $('#createTrainingModal').modal('hide');
         $('#deleteTrainingModal').modal('hide');
         $('#updateTrainingModal').modal('hide');
-        $('#showTrainingModal').modal('hide');
-        $('#createAttendanceModal').modal('hide');
         $('#deleteAttendanceModal').modal('hide');
         $('#printAttendanceModal').modal('hide');
         $('#updateAttendanceModal').modal('hide');
