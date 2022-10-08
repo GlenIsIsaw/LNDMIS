@@ -32,16 +32,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>
-                                @if (auth()->user()->role_as == 1)
-                                    <select class="border border-info border-3 rounded" wire:model="table">
-                                        <option value="Approved Trainings">Approved Trainings</option>
-                                        <option value="My Trainings">My Trainings</option>
-                                        <option value="Submitted Trainings">Submitted Trainings</option>
-                                    </select>
-                                @else
-                                    My Trainings
-                                @endif
-                                
+                                {{$table}}
                                 <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
                                 
                                 
@@ -123,7 +114,7 @@
                                                         @endif
                                                         @if (auth()->user()->role_as == 0)
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                                @if ($training->attendance_form == 1)
+                                                                @if ($training->attendance_form == 1) 
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-success">Submit</button>
                                                                 @endif
                                                                 

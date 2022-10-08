@@ -115,9 +115,11 @@ class TrainingShow extends Component
             $this->query = ['users.id',auth()->user()->id];
         }
         if($this->table == 'Submitted Trainings'){
+            $this->backButton();
             $this->query = ['status','Pending'];
         }
         if($this->table == 'Approved Trainings'){
+            $this->backButton();
             $this->query = ['status','Approved'];
         }
     }
@@ -447,7 +449,6 @@ class TrainingShow extends Component
         $this->knowledge_acquired ='';
         $this->outcome ='';
         $this->personal_action ='';
-        $this->photo = '';
     }
     public function reject(){
         $list = ListOfTraining::find($this->ListOfTraining_id);

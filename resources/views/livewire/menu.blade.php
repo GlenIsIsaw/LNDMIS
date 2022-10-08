@@ -153,9 +153,17 @@
                 
                 <li class=""><a href="{{route('training.index')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                  class="fas fa-project-diagram me-2"></i>Training</a></li>
+                 @if (auth()->user()->role_as == 1)
+                 <select class="border border-info border-3 rounded" wire:model="table">
+                     <option value="Approved Trainings">Approved Trainings</option>
+                     <option value="My Trainings">My Trainings</option>
+                     <option value="Submitted Trainings">Submitted Trainings</option>
+                 </select>
+               @endif
                  <li class=""><button wire:click="createButton" class="text-decoration-none px-3 py-2 second-text fw-bold d-block">
                   <i class="fas fa-project-diagram me-2"></i>
                    Create Training </button></li>
+
 
                 
                  <li class=""><a href="{{route('idp.index')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
