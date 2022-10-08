@@ -3,7 +3,7 @@
 @section('content')
 
     <div>
-        <livewire:employee-idp-index />
+        <livewire:idp-show />
     </div>
 
         

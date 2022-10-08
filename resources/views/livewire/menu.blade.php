@@ -151,11 +151,11 @@
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
 
                 
-                <li class=""><a href="{{route('training.empTraining')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                <li class=""><a href="{{route('training.index')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                  class="fas fa-project-diagram me-2"></i>Training</a></li>
 
                 
-                 <li class=""><a href="{{route('idp.empIDP')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                 <li class=""><a href="{{route('idp.index')}}" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-chart-line me-2"></i>IDP</a></li>
 
                 <li class=""><a href="#" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>

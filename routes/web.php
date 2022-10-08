@@ -28,11 +28,11 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/empTraining', function(){
-        return view('trainings.emptraining');
-    })->name('training.empTraining');
+        return view('trainings.index');
+    })->name('training.index');
     Route::get('/empIDP', function(){
-        return view('idp.empIDP');
-    })->name('idp.empIDP');
+        return view('idp.index');
+    })->name('idp.index');
 
     Route::get('/', [HomeController::class, 'index']);
 

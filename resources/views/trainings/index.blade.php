@@ -3,7 +3,7 @@
 @section('content')
 
     <div>
-        <livewire:employee-training-index />
+        <livewire:training-show />
     </div>
 
         

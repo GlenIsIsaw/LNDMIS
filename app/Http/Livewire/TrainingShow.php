@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class EmployeeTrainingIndex extends Component
+class TrainingShow extends Component
 {
     use WithPagination,WithFileUploads;
 
@@ -474,6 +474,6 @@ class EmployeeTrainingIndex extends Component
         }
 
                                     
-        return view('livewire.employee-training-index', ['trainings' => $lists]);
+        return view('livewire.training-show', ['trainings' => $lists]);
     }
 }

@@ -88,7 +88,7 @@
                         <label>Attach the Certificate Photo</label>
                         <input type="file" wire:model="photo" class="form-control">
                         @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
+                    </div> 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"

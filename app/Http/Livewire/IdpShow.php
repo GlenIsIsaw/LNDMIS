@@ -9,7 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class EmployeeIdpIndex extends Component
+class IdpShow extends Component
 {
     use WithPagination;
 
@@ -585,7 +585,7 @@ class EmployeeIdpIndex extends Component
         }
         
 
-            return view('livewire.employee-idp-index', [
+            return view('livewire.idp-show', [
             'idps' => $lists
         ]);
     }
