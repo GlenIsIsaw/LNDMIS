@@ -19,6 +19,7 @@ class Main extends Component
         $this->idpIndex = false;
     }
     public function idpsIndex(){
+        $this->emitTo('idp-show','clear');
         $this->trainingIndex = false;
         $this->idpIndex = true;
     }

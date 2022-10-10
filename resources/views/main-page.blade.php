@@ -5,8 +5,4 @@
 <div>
     <livewire:main />
 </div>
-
-        
-
-
 @endsection
