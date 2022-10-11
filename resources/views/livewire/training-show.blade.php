@@ -34,8 +34,6 @@
                             <h4>
                                 {{$table}}
                                 <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                                
-                                
                             </h4>
                             
                         </div>
@@ -92,7 +90,7 @@
                                                     <td><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn btn-warning">Create</button></td>
                                                 @else
                                                     <td>
-                                                        <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn btn-success">View</button>
+                                                        <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn btn-info">View</button>
                                                         @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                             <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn btn-primary">Edit</button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn btn-danger">Delete</button>
@@ -102,7 +100,10 @@
                                                 <td>{{ $training->status }}</td>
 
                                                 <td>
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn btn-warning">View</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn btn-info">View</button>
+                                                    @if ($training->comment)
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn btn-info">View Comment</button>
+                                                    @endif
 
 
                                                     @if ($training->status != 'Approved')
@@ -120,7 +121,9 @@
                                                                 
                                                             @endif
                                                             @if ($training->status == 'Pending')
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger">Remove Submission</button>
+                                                                @if (auth()->user()->role_as == 0)
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger">Remove Submission</button>
+                                                                @endif    
                                                             @else
                                                                 <button type="button" wire:click="edit({{$training->training_id}})" class="btn btn-primary">Edit</button>
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn btn-danger mx-2">Delete</button>

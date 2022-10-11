@@ -113,7 +113,7 @@ class TrainingShow extends Component
         {
             return true;
         }
-        else{
+        else{ 
             return false;
         }
     }
@@ -125,11 +125,9 @@ class TrainingShow extends Component
             $this->query = ['users.id',auth()->user()->id];
         }
         if($this->table == 'Submitted Trainings'){
-            $this->backButton();
             $this->query = ['status','Pending'];
         }
         if($this->table == 'Approved Trainings'){
-            $this->backButton();
             $this->query = ['status','Approved'];
         }
     }
@@ -283,9 +281,9 @@ class TrainingShow extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function delete(int $ListOfTraining_id)
+    public function delete(int $id)
     {
-        $this->ListOfTraining_id = $ListOfTraining_id;
+        $this->ListOfTraining_id = $id;
     }
 
     public function destroy()
@@ -470,6 +468,7 @@ class TrainingShow extends Component
     }
     public function approve(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
+        
         $list->status = 'Approved';
         $list->comment = $this->comment;
         $list->save();
@@ -544,9 +543,15 @@ class TrainingShow extends Component
                 $templateProcessor->setValue('ssign'," ");
                 $templateProcessor->setValue('sdate'," ");
 
-        $templateProcessor->saveAs($training->name.'_Attendance_Report.docx');
+        $templateProcessor->saveAs($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
         $this->dispatchBrowserEvent('close-modal');
         return response()->download(public_path($training->name.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
+    }
+    public function showComment(int $id){
+        $lists = ListOfTraining::select('comment')
+                ->where('list_of_trainings.id', $id)
+                ->first();
+        $this->comment = $lists->comment;
     }
 
     public function render()
@@ -555,7 +560,7 @@ class TrainingShow extends Component
         if ($this->start_date || $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
@@ -563,16 +568,16 @@ class TrainingShow extends Component
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         }else{
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         }
 
                                     

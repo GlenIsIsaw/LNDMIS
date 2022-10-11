@@ -29,16 +29,57 @@ class IdpShow extends Component
     public $filterStatus = '';
     public $query = [];
     public $table = 'My IDPs';
-    
-    public function checkCoord(){
-        if(auth()->user()->role_as == 0)
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
+
+    public $click = false;
+    public $create = false;
+    public $update = false;
+    public $show = false;
+    public $next = 0;
+
+    protected $listeners = [
+        'createIDP' => 'createButton',
+        'clear' => 'backButton',
+        'pass' => 'passTable'
+    ];
+
+    public function passTable($string2){
+        $this->table = $string2;
     }
+
+    public function after(){
+        ++$this->next;
+    }
+    public function createButton(){
+        $this->click = true;
+        $this->create = true;
+        $this->update = false;
+        $this->show = false;
+    }
+    public function updateButton(){
+        $this->click = true;
+        $this->create = false;
+        $this->update = true;
+        $this->show = false;
+
+    }
+    public function showButton(){
+        $this->click = true;
+        $this->create = false;
+        $this->update = false;
+        $this->show = true;
+
+    }
+    public function backButton(){
+        $this->resetInput();
+        $this->next = 0;
+        $this->click = false;
+        $this->create = false;
+        $this->update = false;
+        $this->show = false;
+    }
+    
+
+
     public function checkTable(){
         if($this->table == 'My IDPs'){
             $this->query = ['users.id',auth()->user()->id];
@@ -194,7 +235,7 @@ class IdpShow extends Component
         $this->support = $validatedData['support'];
         $this->status = ["Ongoing","Ongoing","Ongoing"];
 
-        $this->dispatchBrowserEvent('open-create2');
+        $this->after();
 
 
     }
@@ -255,7 +296,7 @@ class IdpShow extends Component
         $this->career = $validatedData['career'];
         $this->getUser();
         session()->flash('message','IDP Added Successfully');
-        $this->dispatchBrowserEvent('open-show-modal');
+        $this->backButton();
     }
     public static function year($year){
         $pieces = explode("-", $year);
@@ -266,9 +307,13 @@ class IdpShow extends Component
     public function show($id){
         $idp = Idp::select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit_status')
                         ->join('users', 'users.id', '=', 'idps.user_id')
-                        ->join('colleges','colleges.id','=','users.college_id')
+                        ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('idps.id', $id)
                         ->first();
+        $supervisor = User::select('name')
+                            ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                            ->where('users.id','=',$idp->supervisor)
+                            ->first();
         if($idp){
             $this->idp_id = $idp->idp_id;
             $pieces = explode("-", $idp->created_at);
@@ -279,7 +324,7 @@ class IdpShow extends Component
             $this->yearinPosition = $this->year($idp->yearinPosition);
             $this->yearJoined = $this->year($idp->yearJoined);
             $this->college = $idp->college_name;
-            $this->supervisor = $idp->supervisor;
+            $this->supervisor = $supervisor->name;
             $this->purpose_meet = $idp->purpose_meet;  
             $this->purpose_improve = $idp->purpose_improve;
             $this->purpose_obtain = $idp->purpose_obtain;
@@ -302,6 +347,7 @@ class IdpShow extends Component
             $this->diffunctiondesc1 = $idp->diffunctiondesc1;
             $this->career = $idp->career;
             $this->submit_status = $idp->submit_status;
+            $this->showButton();
         }else{
             return redirect()->to('/empIDP')->with('message','No results found');
         }
@@ -325,27 +371,19 @@ class IdpShow extends Component
             $this->user_id = $idp->user_id;
             if ($idp->purpose_meet == "/"){
                 $this->purpose_meet = $idp->purpose_meet;
-            }else{
-                $this->purpose_meet = false;
             }
 
             if ($idp->purpose_improve == "/"){
                 $this->purpose_improve = $idp->purpose_improve;
-            }else{
-                $this->purpose_improve = false;
             }
 
             if ($idp->purpose_obtain == "/"){
                 $this->purpose_obtain = $idp->purpose_obtain;
-            }else{ 
-                $this->purpose_obtain = false;
             }
 
             if ($idp->purpose_others == "/"){
                 $this->purpose_others = $idp->purpose_others;
                 $this->purpose_explain = $idp->purpose_explain;
-            }else{
-                $this->purpose_others = false;
             }
             $this->competency = $idp->competency;
             $this->sug = $idp->sug;
@@ -363,6 +401,7 @@ class IdpShow extends Component
             $this->diffunction1 = $idp->diffunction1;
             $this->diffunctiondesc1 = $idp->diffunctiondesc1;
             $this->career = $idp->career;
+            $this->updateButton();
         }else{
             return redirect()->to('/empIDP')->with('message','No results found');
         }
@@ -405,7 +444,7 @@ class IdpShow extends Component
             'support.2' => 'required',
 
         ]);
-        $this->dispatchBrowserEvent('open-nextUpdate-modal');
+        $this->after();
     }
     public function update(){
         $validatedData = $this->validate([
@@ -422,6 +461,32 @@ class IdpShow extends Component
 
         ]);
         $idp = Idp::find($this->idp_id);
+        if ($this->purpose_meet == "/"){
+            $idp->purpose_meet =  $this->purpose_meet;
+        }else{
+            $idp->purpose_meet =  " ";
+        }
+
+        if ($this->purpose_meet == "/"){
+            $idp->purpose_improve = $this->purpose_improve;
+        }else{
+            $idp->purpose_improve = ' ';
+        }
+
+        if ($this->purpose_meet == "/"){
+            $idp->purpose_obtain = $this->purpose_obtain;
+        }else{ 
+            $idp->purpose_obtain = ' ';
+        }
+
+        if ($this->purpose_meet == "/"){
+            $idp->purpose_others = $this->purpose_others;
+            $idp->purpose_explain = $this->purpose_explain;
+        }else{
+            $idp->purpose_others = ' ';
+            $idp->purpose_explain = ' ';
+        }
+
         $idp->user_id = $this->user_id;
         $idp->competency = $this->competency;
         $idp->sug = $this->sug;
@@ -441,8 +506,8 @@ class IdpShow extends Component
         $idp->career = $this->career;
         $this->getUser();
         $idp->save();
+        $this->backButton();
         session()->flash('message','IDP Updated Successfully');
-        $this->dispatchBrowserEvent('open-show-modal');
     }
     public function submit(){
         $list = Idp::find($this->idp_id);
@@ -493,9 +558,16 @@ class IdpShow extends Component
         $this->dispatchBrowserEvent('close-modal');
         session()->flash('message','Approved the Submission');
     }
+    public function showComment(int $id){
+        $lists = Idp::select('comment')
+                ->where('idps.id', $id)
+                ->first();
+        $this->comment = $lists->comment;
+    }
 
     public function print(){
         $document = Idp::join('users', 'users.id', '=', 'idps.user_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
                 ->where('idps.id', $this->idp_id)
                 ->first();
 
@@ -572,7 +644,7 @@ class IdpShow extends Component
                 ->where('name', 'like', '%'.$this->search.'%')
                 ->whereBetween('idps.created_at',[$start_date,$end_date])
                 ->orderBy('idps.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         } else {
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
@@ -581,7 +653,7 @@ class IdpShow extends Component
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
                 ->orderBy('idps.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         }
         
 

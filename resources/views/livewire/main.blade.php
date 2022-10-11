@@ -6,5 +6,5 @@
     @if ($idpIndex)
         @include('idp.index')
     @endif
-    
+     
 </div>

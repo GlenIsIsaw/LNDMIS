@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('colleges', function (Blueprint $table) {
             $table->id();
             $table->string('college_name');
-            $table->string('supervisor')->nullable();
+            $table->integer('supervisor')->nullable();
             $table->string('head_signature')->nullable();
             $table->timestamps();
         });

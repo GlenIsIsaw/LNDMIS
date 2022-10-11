@@ -53,12 +53,13 @@ class UserShow extends Component
             $user->position = $this->position;
             $user->yearinPosition = $this->yearinPosition;
             $user->yearJoined = $this->yearJoined;
+            /*
             if($this->supervisor == 1){
                 $user->role_as = 2;
                 $coll = College::find($this->college_id);
                 $coll->supervisor = $this->name;
                 $coll->save();
-            }
+            }*/
         $user->save();
         session()->flash('message','User Added Successfully');
         $this->resetInput();
