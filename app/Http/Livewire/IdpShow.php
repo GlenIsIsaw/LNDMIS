@@ -9,7 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class EmployeeIdpIndex extends Component
+class IdpShow extends Component
 {
     use WithPagination;
 
@@ -266,6 +266,7 @@ class EmployeeIdpIndex extends Component
     public function show($id){
         $idp = Idp::select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit_status')
                         ->join('users', 'users.id', '=', 'idps.user_id')
+                        ->join('colleges','colleges.id','=','users.college_id')
                         ->where('idps.id', $id)
                         ->first();
         if($idp){
@@ -277,7 +278,7 @@ class EmployeeIdpIndex extends Component
             $this->position = $idp->position;
             $this->yearinPosition = $this->year($idp->yearinPosition);
             $this->yearJoined = $this->year($idp->yearJoined);
-            $this->college = $idp->college;
+            $this->college = $idp->college_name;
             $this->supervisor = $idp->supervisor;
             $this->purpose_meet = $idp->purpose_meet;  
             $this->purpose_improve = $idp->purpose_improve;
@@ -584,7 +585,7 @@ class EmployeeIdpIndex extends Component
         }
         
 
-            return view('livewire.employee-idp-index', [
+            return view('livewire.idp-show', [
             'idps' => $lists
         ]);
     }
