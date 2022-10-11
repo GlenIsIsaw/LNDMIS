@@ -79,6 +79,7 @@
                                                 <td>{{ $idp->submit_status }}</td>
                                                 <td>
                                                     <button type="button" wire:click="show({{$idp->idp_id}})" class="btn btn-info">View</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn btn-success">Print</button>
                                                     @if ($idp->comment)
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn btn-info">View Comment</button>
                                                     @endif

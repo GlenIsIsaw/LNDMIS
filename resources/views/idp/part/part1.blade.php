@@ -1,19 +1,7 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="list-unstyled">
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
         <div class="mb-3">
-            <label><h6>Name</h6></label>
-            <select wire:model="user_id">
-                <option value=""></option>
-                <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
-            </select>
-            @error('user_id') <span class="text-danger">{{ $message }}</span> @enderror
+            <label><h6>Name:</h6></label>
+            <p>{{auth()->user()->name}}</p>
         </div>
         <div class="mb-3">
             <label><h6>Purpose:</h6></label><br>

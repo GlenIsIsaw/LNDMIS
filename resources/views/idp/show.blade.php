@@ -33,7 +33,7 @@
             @for ($i = 0; $i < 3; $i++)
                 <tr>
                     <td>
-                        <p>{{$competency[$i]}}</p>
+                        <p><button type="button" data-bs-toggle="modal" data-bs-target="#getTrainingsModal" wire:click="getId({{$idp_id}})">{{$competency[$i]}}</button></p>
                     </td>
                     <td>
                         <p>{{$sug[$i]}}</p>
@@ -51,7 +51,15 @@
                         <p>{{$support[$i]}}</p>
                     </td>
                     <td>
-                        <p>{{$status[$i]}}</p>
+                        @if (auth()->user()->role_as == 1)
+                            <select wire:model="status.{{$i}}">
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        @else
+                            <p>{{$status[$i]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
             @endfor

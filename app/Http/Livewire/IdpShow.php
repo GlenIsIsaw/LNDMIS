@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AttendanceForm;
 use Carbon\Carbon;
 use App\Models\Idp;
+use App\Models\ListOfTraining;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -50,10 +52,20 @@ class IdpShow extends Component
         ++$this->next;
     }
     public function createButton(){
-        $this->click = true;
-        $this->create = true;
-        $this->update = false;
-        $this->show = false;
+        $idpYear = Idp::select('idps.created_at')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('users.id',auth()->user()->id)
+            ->where('idps.created_at', 'like', '%'.date('Y').'%')
+            ->first();
+        if($idpYear){
+            session()->flash('message','You already have an IDP this year');
+        }else{
+            $this->click = true;
+            $this->create = true;
+            $this->update = false;
+            $this->show = false;
+        }
+
     }
     public function updateButton(){
         $this->click = true;
@@ -95,7 +107,6 @@ class IdpShow extends Component
         protected function rules()
     {
         return [
-            'user_id' => 'required',
             'purpose_meet' => 'max:1',
             'purpose_obtain' => 'max:1',
             'purpose_improve' => 'max:1',
@@ -183,7 +194,6 @@ class IdpShow extends Component
     }
     public function keep(){
         $validatedData = $this->validate([
-            'user_id' => 'required|numeric',
             'purpose_meet' => 'max:1',
             'purpose_obtain' => 'max:1',
             'purpose_improve' => 'max:1',
@@ -226,7 +236,7 @@ class IdpShow extends Component
         $this->purpose_obtain = $validatedData['purpose_obtain'];
         $this->purpose_others = $validatedData['purpose_others'];
         $this->purpose_explain = $validatedData['purpose_explain'];
-        $this->user_id = $validatedData['user_id'];
+        $this->user_id = auth()->user()->id;
         $this->competency = $validatedData['competency'];
         $this->sug = $validatedData['sug'];
         $this->dev_act = $validatedData['dev_act'];
@@ -267,7 +277,7 @@ class IdpShow extends Component
             $idp->purpose_others = $this->purpose_others;
             $idp->purpose_explain = $this->purpose_explain;
         }
-        $idp->user_id = $this->user_id;
+        $idp->user_id = auth()->user()->id;
         $idp->competency = $this->competency;
         $idp->sug = $this->sug;
         $idp->dev_act = $this->dev_act;
@@ -285,15 +295,6 @@ class IdpShow extends Component
         $idp->diffunctiondesc1 = $validatedData['diffunctiondesc1'];
         $idp->career = $validatedData['career'];
         $idp->save();
-        $this->compfunction0 = $validatedData['compfunction0'];
-        $this->compfunctiondesc0 = $validatedData['compfunctiondesc0'];
-        $this->compfunction1 = $validatedData['compfunction1'];
-        $this->compfunctiondesc1 = $validatedData['compfunctiondesc1'];
-        $this->diffunction0 = $validatedData['diffunction0'];
-        $this->diffunctiondesc0 = $validatedData['diffunctiondesc0'];
-        $this->diffunction1 = $validatedData['diffunction1'];
-        $this->diffunctiondesc1 = $validatedData['diffunctiondesc1'];
-        $this->career = $validatedData['career'];
         $this->getUser();
         session()->flash('message','IDP Added Successfully');
         $this->backButton();
@@ -314,6 +315,7 @@ class IdpShow extends Component
                             ->join('colleges', 'colleges.id', '=', 'users.college_id')
                             ->where('users.id','=',$idp->supervisor)
                             ->first();
+        
         if($idp){
             $this->idp_id = $idp->idp_id;
             $pieces = explode("-", $idp->created_at);
@@ -351,6 +353,9 @@ class IdpShow extends Component
         }else{
             return redirect()->to('/empIDP')->with('message','No results found');
         }
+    }
+    public function getTraining(){
+        
     }
     public function getId($id){
         $this->idp_id = $id;
@@ -408,7 +413,6 @@ class IdpShow extends Component
     }
     public function next(){
         $validatedData = $this->validate([
-            'user_id' => 'required|numeric',
             'purpose_meet' => 'max:1',
             'purpose_obtain' => 'max:1',
             'purpose_improve' => 'max:1',
@@ -467,19 +471,19 @@ class IdpShow extends Component
             $idp->purpose_meet =  " ";
         }
 
-        if ($this->purpose_meet == "/"){
+        if ($this->purpose_improve == "/"){
             $idp->purpose_improve = $this->purpose_improve;
         }else{
             $idp->purpose_improve = ' ';
         }
 
-        if ($this->purpose_meet == "/"){
+        if ($this->purpose_obtain == "/"){
             $idp->purpose_obtain = $this->purpose_obtain;
         }else{ 
             $idp->purpose_obtain = ' ';
         }
 
-        if ($this->purpose_meet == "/"){
+        if ($this->purpose_others == "/"){
             $idp->purpose_others = $this->purpose_others;
             $idp->purpose_explain = $this->purpose_explain;
         }else{
@@ -487,7 +491,6 @@ class IdpShow extends Component
             $idp->purpose_explain = ' ';
         }
 
-        $idp->user_id = $this->user_id;
         $idp->competency = $this->competency;
         $idp->sug = $this->sug;
         $idp->dev_act = $this->dev_act;
@@ -571,6 +574,10 @@ class IdpShow extends Component
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
                 ->where('idps.id', $this->idp_id)
                 ->first();
+        $supervisor = User::select('name')
+                    ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                    ->where('users.id','=',$document->supervisor)
+                    ->first();
 
                 
         $array = [
@@ -578,7 +585,7 @@ class IdpShow extends Component
             'ename' => $document->name,
             'position' => $document->position,
             'pyear' => $this->year($document->yearinPosition),
-            'sname' => $document->supervisor,
+            'sname' => $supervisor->name,
             'ayear' => $this->year($document->yearJoined),
             'meet' => $document->purpose_meet,
             'improve' => $document->purpose_improve,
@@ -626,9 +633,9 @@ class IdpShow extends Component
 
 
         //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
-        $templateProcessor->saveAs($document->name.'_Individual_Development_Plan'.'.docx');
+        $templateProcessor->saveAs($document->name.'_IDP_'.date('Y').'.docx');
         $this->dispatchBrowserEvent('closeIdp-modal');
-        return response()->download(public_path($document->name.'_Individual_Development_Plan'.'.docx'))->deleteFileAfterSend(true);
+        return response()->download(public_path($document->name.'_IDP_'.date('Y').'.docx'))->deleteFileAfterSend(true);
     }
 
     public function render()
@@ -642,7 +649,8 @@ class IdpShow extends Component
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
-                ->where('name', 'like', '%'.$this->search.'%')
+                ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
                 ->whereBetween('idps.created_at',[$start_date,$end_date])
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
@@ -653,6 +661,7 @@ class IdpShow extends Component
                 ->where($this->query[0],$this->query[1])
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
         }

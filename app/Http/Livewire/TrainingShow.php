@@ -568,6 +568,7 @@ class TrainingShow extends Component
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
