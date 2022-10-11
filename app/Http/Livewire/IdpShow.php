@@ -359,7 +359,7 @@ class IdpShow extends Component
     {
         Idp::find($this->idp_id)->delete();
         session()->flash('message','IDP Deleted Successfully');
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('closeIdp-modal');
     }
     public function edit($id){
         $idp = Idp::select('idps.id as idp_id','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at')
@@ -519,7 +519,7 @@ class IdpShow extends Component
         $list->submit_status = 'Pending';
         $list->save();
         session()->flash('message',$list->certificate_title.' Submitted');
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('closeIdp-modal');
             
 
     }
@@ -531,21 +531,22 @@ class IdpShow extends Component
         }
         if ($list->submit_status == 'Pending') {
             session()->flash('message','Removed the Submission of your IDP');
-            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatchBrowserEvent('closeIdp-modal');
             $list->submit_status = 'Not Submitted';
             $list->save();
         }else{
             session()->flash('message','You can no longer Remove the Submission');
-            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatchBrowserEvent('closeIdp-modal');
         }
     }
+
     public function reject(){
         $list = Idp::find($this->idp_id);
         $list->submit_status = 'Rejected';
         $list->comment = $this->comment;
         $list->save();
         $this->comment = '';
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('closeIdp-modal');
         session()->flash('message','Rejected the Submission');
         
     }
@@ -555,7 +556,7 @@ class IdpShow extends Component
         $list->comment = $this->comment;
         $list->save();
         $this->comment = '';
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('closeIdp-modal');
         session()->flash('message','Approved the Submission');
     }
     public function showComment(int $id){
@@ -626,7 +627,7 @@ class IdpShow extends Component
 
         //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
         $templateProcessor->saveAs($document->name.'_Individual_Development_Plan'.'.docx');
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('closeIdp-modal');
         return response()->download(public_path($document->name.'_Individual_Development_Plan'.'.docx'))->deleteFileAfterSend(true);
     }
 

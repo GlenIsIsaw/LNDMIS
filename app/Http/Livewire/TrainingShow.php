@@ -491,6 +491,9 @@ class TrainingShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
     }
+    public function close(){
+        $this->dispatchBrowserEvent('close-modal');
+    }
     public function removeSubmit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
         if($list->user_id != auth()->user()->id)
