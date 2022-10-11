@@ -568,7 +568,7 @@ class TrainingShow extends Component
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         }else{
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
@@ -577,7 +577,7 @@ class TrainingShow extends Component
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         }
 
                                     

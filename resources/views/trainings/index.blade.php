@@ -14,7 +14,7 @@
         $('#printAttendanceModal').modal('hide');
         $('#updateAttendanceModal').modal('hide');
         $('#showAttendanceModal').modal('hide');
-        $('#submitTrainingModal').modal('hide');
+        $('#submitTrainingModal').modal('hide'); 
         $('#submitTrainingModal').modal('hide');
         $('#approveTrainingModal').modal('hide');
         $('#rejectTrainingModal').modal('hide');

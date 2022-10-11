@@ -22,15 +22,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>
-                                @if (auth()->user()->role_as == 1)
-                                <select wire:model="table">
-                                    <option value="Approved IDPs">Approved IDP's</option>
-                                    <option value="My IDPs">My IDP's</option>
-                                    <option value="Submitted IDPs">Submitted IDP's</option>
-                                </select>
-                            @else
-                                My Individual Development Plan
-                            @endif
+                                {{$table}}
                                 <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
                             </h4>
                         </div>

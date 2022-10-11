@@ -168,6 +168,14 @@
                 
                  <li class=""><button wire:click="idpsIndex" class="text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-chart-line me-2"></i>IDP</button></li>
+                
+                @if (auth()->user()->role_as == 1)
+                  <select class="border border-info border-3 rounded" wire:model="string2" wire:click="pass">
+                      <option value="Approved IDPs">Approved IDP's</option>
+                      <option value="My IDPs">My IDP's</option>
+                      <option value="Submitted IDPs">Submitted IDP's</option>
+                  </select>
+                @endif
                 <li class=""><button wire:click="$emitTo('idp-show','createIDP')" class="text-decoration-none px-3 py-2 second-text fw-bold d-block">
                   <i class="fas fa-arrow-right"></i>
                    Create Individual Development Plan </button></li>

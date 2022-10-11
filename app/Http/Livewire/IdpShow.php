@@ -38,8 +38,13 @@ class IdpShow extends Component
 
     protected $listeners = [
         'createIDP' => 'createButton',
-        'clear' => 'backButton'
+        'clear' => 'backButton',
+        'pass' => 'passTable'
     ];
+
+    public function passTable($string2){
+        $this->table = $string2;
+    }
 
     public function after(){
         ++$this->next;
@@ -639,7 +644,7 @@ class IdpShow extends Component
                 ->where('name', 'like', '%'.$this->search.'%')
                 ->whereBetween('idps.created_at',[$start_date,$end_date])
                 ->orderBy('idps.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         } else {
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
@@ -648,7 +653,7 @@ class IdpShow extends Component
                 ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
                 ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
                 ->orderBy('idps.updated_at','desc')
-                ->paginate(10);
+                ->paginate(3);
         }
         
 

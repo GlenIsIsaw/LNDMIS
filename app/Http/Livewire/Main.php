@@ -8,10 +8,13 @@ class Main extends Component
 {
     public $trainingIndex = true;
     public $idpIndex = false;
-    public $string;
+    public $string, $string2;
 
     public function passData(){
         $this->emit('passTable', $this->string);
+    }
+    public function pass(){
+        $this->emit('pass', $this->string2);
     }
     public function trainIndex(){
         $this->emitTo('training-show','clear');
