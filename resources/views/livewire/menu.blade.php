@@ -43,20 +43,23 @@
   
   #sidebar-wrapper {
     min-height: 100vh;
+    min-width: 40vh;
     margin-left: -15rem;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
     -o-transition: margin 0.25s ease-out;
     transition: margin 0.25s ease-out;
+    
   }
   
   #sidebar-wrapper .sidebar-heading {
     padding: 0.775rem 1.25rem;
     font-size: 1.5rem; 
+    
   }
   
   #sidebar-wrapper .list-group {
-    width: 20rem;
+    width: 25rem;
 
   }
   
@@ -79,7 +82,7 @@
   }
   
   .list-group-item.active {
-    background-color: #eee;
+    background-color: rgb(238, 238, 238);
     color: var(--main-text-color);
     font-weight: bold;
     border-radius: 8px;
@@ -92,7 +95,7 @@
 
   .sidebar li.active{
 
-    background: #eee;
+    background: rgb(17, 188, 194);
     border-radius: 8px;
     
   }
@@ -109,8 +112,6 @@
     color:#fff;
   }
   
-
-
   #openPopup {
   padding: 20px 30px;
   background-color: #4cd2de00;
@@ -125,7 +126,36 @@
   background-color: #ffffff !important;
   border-color: #ffffff00 !important;
 }
+
+.sidenav a, .dropdown-btn {
   
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffffff;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s ease;
+}
+  
+
+
+.dropdown-container {
+  display: none;
+  background-color: none;
+  padding-left: 20px;
+  transition: 0.3s ease;
+}
+
+
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
   
   
   @media (min-width: 768px) {
@@ -156,7 +186,7 @@
     <div class="sidebar-heading text-center">
     </div>
     
-    <div class="sidebar-heading text-center py-4 primary-text fs-7 fw-bold text-uppercase">MENU</div>
+    
 
     <hr class="h-color mx-2">
     <div class="sidebar mx-auto">
@@ -164,12 +194,23 @@
        
         <ul class="list-unstyled px-2">
 
-        <li class=""><button wire:click="trainIndex" id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 fw-bold second-text d-block"><i
-                class="fas fa-tachometer-alt me-2"></i>Home</a></li>
+        <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 fw-bold second-text d-block"><i
+                class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
 
                 
-                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                 class="fas fa-project-diagram me-2"></i>Training</button></li>
+                <button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                 class="fas fa-project-diagram me-2"></i>My Training<i class="fa fa-caret-down"></i></button>
+
+                  <button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
+                    <i class="fas fa-arrow-right me-2"></i>
+                     Create Training </button></li>
+                     
+                     <button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
+                      <i class="fas fa-arrow-right me-2"></i>
+                       View My Training </button></li>
+                 
+                 
+
                  @if (auth()->user()->role_as == 1)
                  <select class="border border-info border-3 rounded" wire:model="string" wire:click="passData">
                      <option value="Approved Trainings">Approved Trainings</option>
@@ -177,14 +218,13 @@
                      <option value="Submitted Trainings">Submitted Trainings</option>
                  </select>
                @endif
-                 <li class=""><button wire:click="$emitTo('training-show','createTraining')" class="text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-arrow-right"></i>
-                   Create Training </button></li>
+                 
 
 
                 
-                 <li class=""><button wire:click="idpsIndex" id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-chart-line me-2"></i>IDP</button></li>
+                 <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                class="fas fa-chart-line me-2"></i>IDP<i class="fa fa-caret-down"></i></button></li>
+                
                 
                 @if (auth()->user()->role_as == 1)
                   <select class="border border-info border-3 rounded" wire:model="string2" wire:click="pass">
@@ -193,19 +233,24 @@
                       <option value="Submitted IDPs">Submitted IDP's</option>
                   </select>
                 @endif
-                <li class=""><button wire:click="$emitTo('idp-show','createIDP')" class="text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-arrow-right"></i>
-                   Create Individual Development Plan </button></li>
+                
+                <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-arrow-right me-2"></i>
+                   Create IDP </button></li>
 
-                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>
-
+                   <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-arrow-right me-2"></i>
+                     View My IDP </button></li>
+                 
+                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>
+                
                  </ul>
                
           <hr class="h-color mx-2">
           <ul class="list-unstyled px-2">
-          <li class=""><button wire:click="trainIndex" id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-trash me-2"></i>Recycles</a></li>
+          <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-trash me-2"></i>Trash</a></li>
               
-          <li class=""><button wire:click="trainIndex" id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+          <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
             class="fas fa-cog me-2"></i>Settings</a></li>
           </ul>
             
@@ -217,7 +262,7 @@
           <li class=""><button wire:click="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();"
-             {{ __('Logout') }} id="openPopup" class="btn btn-link-light text-decoration-none px-3 py-2 text-danger fw-bold d-block"><i class="fas fa-power-off me-2"></i>Log Out</a></li>
+             {{ __('Logout') }} id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 text-danger fw-bold d-block"><i class="fas fa-power-off me-2"></i>Log Out</a></li>
                 
     </div>
 </div>

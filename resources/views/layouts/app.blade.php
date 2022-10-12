@@ -103,7 +103,7 @@
       
     </div>
     
-
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -120,12 +120,26 @@
             $(".sidebar ul li.active").removeClass('active');
             $(this).addClass('active');
 
+            
 
     }) 
     </script>
+    
     <script>
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
 
-           
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
 
     </script>
 
