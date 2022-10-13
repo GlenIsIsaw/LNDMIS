@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-    <button type="button" wire:click="back">Back</button>
+    
     <h6>Part1-><b>Part2</b>->Part3</h6>
     <p>&nbsp; </p>
 </div>
@@ -30,7 +30,11 @@
     </select>
     @error('type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-<button type="button" class="btn btn-secondary" wire:click="backButton">Close</button>
+<button type="button" wire:click="back" class="btn btn-secondary mx-1">Back</button>
+
+<div class="float-end">
+<button type="button" class="btn btn-danger rounded-3" wire:click="backButton">Close</button>
 <button type="button" wire:click="next" class="btn btn-primary">Next</button>
+</div>
 
 

@@ -18,9 +18,12 @@
                 Uploaded Photo:
                 <img class="img-fluid rounded mx-auto d-block" width="500" height="500" src="{{ $photo->temporaryUrl() }}">
                 @endif
-                <button type="button" class="btn btn-secondary" wire:click="backButton">Close</button>
+                
+                <div class="float-end">
+                <button type="button" class="btn danger" wire:click="backButton">Close</button>
                 <button type="submit" class="btn btn-primary">Save</button>
             @endif
+                </div>
         
 
         </form>

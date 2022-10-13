@@ -27,10 +27,12 @@
                         @endif
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary" wire:click="backButton">Close</button>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-secondary" wire:click="back">Back</button>
+                <div class="float-end gap-2">
+                <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
+                <button type="submit" class="btn btn-primary px-8">Update</button>
             @endif
-
+                </div>
 
         </form>
     </div>
