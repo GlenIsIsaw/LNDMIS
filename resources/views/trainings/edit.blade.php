@@ -6,7 +6,6 @@
         
     </div>
     <div class="card-body">
-        <form wire:submit.prevent="update">
             @if ($next == 0)
                 @include('trainings.part.part1')
             @endif
@@ -30,10 +29,10 @@
                 <button type="button" class="btn btn-secondary" wire:click="back">Back</button>
                 <div class="float-end gap-2">
                 <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-                <button type="submit" class="btn btn-primary px-8">Update</button>
-            @endif
+                <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationTrainingModal" class="btn btn-primary">Update</button>
                 </div>
+                @endif
+                
 
-        </form>
     </div>
 </div>

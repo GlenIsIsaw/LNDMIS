@@ -11,7 +11,7 @@
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label>Comment:</label>
+                        <label>Comment:</label> 
                         <p>{{$comment}}</p>
                     </div>
                 </div>

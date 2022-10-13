@@ -7,9 +7,6 @@
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12 mr-3">
-                @if (session()->has('message'))
-                    <h5 class="alert alert-success">{{ session('message') }}</h5>
-                @endif
                 @if ($click)
                     <div class="card">
                         @if ($create)
@@ -155,6 +152,7 @@
         </div>
     </div>
     @include('livewire.training.training-modal')
+    @include('livewire.main-modal')
 </div>
     
     

@@ -5,7 +5,6 @@
         </h4>
     </div>
     <div class="card-body">
-        <form wire:submit.prevent="store">
             @if ($next == 0)
                 @include('trainings.part.part1')
             @endif
@@ -21,10 +20,9 @@
                 
                 <div class="float-end">
                 <button type="button" class="btn danger" wire:click="backButton">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            @endif
+                <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationTrainingModal" class="btn btn-primary">Save</button>
                 </div>
-        
+            @endif
+                
 
-        </form>
     </div>

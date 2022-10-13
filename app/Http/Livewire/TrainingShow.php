@@ -44,6 +44,12 @@ class TrainingShow extends Component
 
 
     public $next = 0;
+
+    public function notification(){
+        if (session()->has('message')) {
+            $this->dispatchBrowserEvent('show-notification');
+        }
+    }
     public function next(){
         ++$this->next;
     }
@@ -96,8 +102,7 @@ class TrainingShow extends Component
         $this->editAttendanceForm = false;
         $this->showAttendanceForm = true;
     }
-    public function backButton(){
-        $this->resetInput();
+    public function clear(){
         $this->next = 0;
         $this->check = true;
         $this->click = false;
@@ -106,6 +111,11 @@ class TrainingShow extends Component
         $this->createAttendanceForm = false;
         $this->editAttendanceForm = false;
         $this->showAttendanceForm = false;
+        $this->confirm = false;
+    }
+    public function backButton(){
+        $this->resetInput();
+        $this->clear();
     }
     
     public function checkCoord(){
@@ -122,12 +132,29 @@ class TrainingShow extends Component
     }
     public function checkTable(){
         if($this->table == 'My Trainings'){
+
             $this->query = ['users.id',auth()->user()->id];
         }
         if($this->table == 'Submitted Trainings'){
+
             $this->query = ['status','Pending'];
         }
         if($this->table == 'Approved Trainings'){
+
+            $this->query = ['status','Approved'];
+        }
+    }
+    public function checkUpdatedTable(){
+        if($this->table == 'My Trainings'){
+            $this->clear();
+            $this->query = ['users.id',auth()->user()->id];
+        }
+        if($this->table == 'Submitted Trainings'){
+            $this->clear();
+            $this->query = ['status','Pending'];
+        }
+        if($this->table == 'Approved Trainings'){
+            $this->clear();
             $this->query = ['status','Approved'];
         }
     }
@@ -151,38 +178,40 @@ class TrainingShow extends Component
     {
         $this->validateOnly($fields);
     }
-
+    
     public function store()
     {   
-        $this->next = 0;
-        $this->user_id = auth()->user()->id;
-        $validatedData = $this->validate();
-        $list = new ListOfTraining();
-        $list->user_id = $this->user_id;
-        $list->certificate_title = $this->certificate_title;
-        $list->level = $this->level;
-        $list->date_covered = $this->date_covered;
-        $list->certificate_type = $this->certificate_type;
-        $list->venue = $this->venue;
-        $list->sponsors = $this->sponsors;
-        $list->type = $this->type;
-        $list->num_hours = $this->num_hours;
-        $list->certificate = 'No Image';
-        $list->save();
+            $this->next = 0;
+            $this->user_id = auth()->user()->id;
+            $validatedData = $this->validate();
+            $list = new ListOfTraining();
+            $list->user_id = $this->user_id;
+            $list->certificate_title = $this->certificate_title;
+            $list->level = $this->level;
+            $list->date_covered = $this->date_covered;
+            $list->certificate_type = $this->certificate_type;
+            $list->venue = $this->venue;
+            $list->sponsors = $this->sponsors;
+            $list->type = $this->type;
+            $list->num_hours = $this->num_hours;
+            $list->certificate = 'No Image';
 
-        if($validatedData['photo']){
-            $user = User::find($this->user_id);
-            $lists = ListOfTraining::find($list->id);
-            $filename = date('Ymd').$lists->id;
-            $validatedData['photo']->storeAs('public/users/'.$user->name, $filename);
-            $lists->certificate = $filename;
-            $lists->save();
-        }
+            $list->save();
 
+            if($validatedData['photo']){
+                $user = User::find($this->user_id);
+                $lists = ListOfTraining::find($list->id);
+                $filename = date('Ymd').$lists->id;
+                $validatedData['photo']->storeAs('public/users/'.$user->name, $filename);
+                $lists->certificate = $filename;
+                $lists->save();
+            }
+
+            
+            session()->flash('message','Training Added Successfully');
+            $this->backButton();
+            $this->dispatchBrowserEvent('close-modal');
         
-        session()->flash('message','Training Added Successfully');
-        $this->backButton();
-        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function show(int $id)
@@ -556,24 +585,15 @@ class TrainingShow extends Component
                 ->first();
         $this->comment = $lists->comment;
     }
+    public function updatedTable($value){
+        $this->checkUpdatedTable();
+    }
 
     public function render()
     {
+        $this->notification();
         $this->checkTable();
-        if ($this->start_date || $this->end_date) {
-            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
-            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
-                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where($this->query[0],$this->query[1])
-                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
-                ->where('status', 'like', '%'.$this->filterStatus.'%')
-                ->whereBetween('date_covered',[$start_date,$end_date])
-                ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(3);
-        }else{
+
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
@@ -582,7 +602,7 @@ class TrainingShow extends Component
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(3);
-        }
+        
 
                                     
         return view('livewire.training-show', ['trainings' => $lists]);
