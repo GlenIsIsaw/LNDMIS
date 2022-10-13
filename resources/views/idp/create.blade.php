@@ -10,8 +10,9 @@
             </form>
         @endif
         @if ($next == 1)
-            <form wire:submit.prevent="store">
-                @include('idp.part.part2')
-            </form>
+
+            @include('idp.part.part2')
+            <button type="button" class="btn btn-secondary" wire:click="backButton" data-bs-dismiss="modal">Close</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationIdpModal" class="btn btn-primary">Save</button>
         @endif
 </div>

@@ -109,6 +109,4 @@
             </table>
         </div>
 
-        <button type="button" class="btn btn-secondary" wire:click="backButton"
-            data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+

@@ -27,7 +27,7 @@ class TrainingShow extends Component
     public $filterStatus = '';
 
     public $query = [];
-    public $table = 'My Trainings';
+    public $table = 'Approved Trainings';
 
     public $click = false;
     public $create = false;
@@ -131,6 +131,9 @@ class TrainingShow extends Component
         $this->table = $string;
     }
     public function checkTable(){
+        if($this->checkCoord()){
+            $this->table = 'My Trainings';
+        }
         if($this->table == 'My Trainings'){
 
             $this->query = ['users.id',auth()->user()->id];

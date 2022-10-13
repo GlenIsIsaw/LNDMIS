@@ -44,7 +44,9 @@
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr class="table-bordered">
-                                            <th scope="col">Name</th>
+                                            @if ($table != 'My IDPs')
+                                                <th scope="col">Name</th>
+                                            @endif
                                             <th scope="col">Competency</th>
                                             <th scope="col">Completion Status</th>
                                             <th scope="col">Created At</th>
@@ -56,7 +58,9 @@
                                     <tbody>
                                         @forelse ($idps as $idp)
                                             <tr>
-                                                <td>{{$idp->name}}</td>
+                                                @if ($table != 'My IDPs')
+                                                    <td>{{$idp->name}}</td>
+                                                @endif
                                                 <td>
                                                     <ol class="list-group list-group-numbered">
                                                         @foreach ($idp->competency as $item)

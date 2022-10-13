@@ -179,6 +179,54 @@
     </div>
 </div>
 
+<!-- Create Confirmation IDP Modal -->
+<div wire:ignore.self class="modal fade" id="createConfirmationIdpModal" tabindex="-1" aria-labelledby="createConfirmationIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createConfirmationIdpModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="store">
+                <div class="modal-body">
+                    <h6>Are you sure you want to save your input?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Confirmation IDP Modal -->
+<div wire:ignore.self class="modal fade" id="editConfirmationIdpModal" tabindex="-1" aria-labelledby="editConfirmationIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editConfirmationIdpModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="update">
+                <div class="modal-body">
+                    <h6>Are you sure you want to edit your IDP info?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- View Training Modal -->
 <div wire:ignore.self class="modal fade" id="getTrainingsModal" tabindex="-1" aria-labelledby="getTrainingsModalLabel"
     aria-hidden="true">
@@ -199,5 +247,7 @@
         </div>
     </div>
 </div>
+
+
 
 

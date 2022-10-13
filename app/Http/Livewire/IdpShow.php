@@ -30,7 +30,7 @@ class IdpShow extends Component
     public $end_date = '';
     public $filterStatus = '';
     public $query = [];
-    public $table = 'My IDPs';
+    public $table = 'Approved IDPs';
 
     public $click = false;
     public $create = false;
@@ -99,8 +99,19 @@ class IdpShow extends Component
     }
     
 
-
+    public function checkCoord(){
+        if(auth()->user()->role_as == 0)
+        {
+            return true;
+        }
+        else{ 
+            return false;
+        }
+    }
     public function checkTable(){
+        if ($this->checkCoord()) {
+            $this->table = 'My IDPs';
+        }
         if($this->table == 'My IDPs'){
             $this->query = ['users.id',auth()->user()->id];
         }
@@ -320,6 +331,7 @@ class IdpShow extends Component
         $this->getUser();
         session()->flash('message','IDP Added Successfully');
         $this->backButton();
+        $this->dispatchBrowserEvent('close-modal');
     }
     public static function year($year){
         $pieces = explode("-", $year);
@@ -532,6 +544,7 @@ class IdpShow extends Component
         $this->getUser();
         $idp->save();
         $this->backButton();
+        $this->dispatchBrowserEvent('close-modal');
         session()->flash('message','IDP Updated Successfully');
         
     }

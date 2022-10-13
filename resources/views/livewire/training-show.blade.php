@@ -101,7 +101,7 @@
                                                 
                                                 <td>
                                                     <div class="d-grid gap-2">
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">View Photo Certificate</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">View Certificate</button>
                                                     @if ($training->comment)
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info btn-lg rounded-pill shadow fw-bold px-5 py-10">View Comment</button>
                                                     @endif
