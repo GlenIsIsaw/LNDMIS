@@ -214,11 +214,15 @@
             
 
                  @if (auth()->user()->role_as == 1)
-                 <select id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block" wire:model="string" wire:click="passData">
-                     <option value="Approved Trainings">Approved Trainings</option>
-                     <option value="My Trainings">My Trainings</option>
-                     <option value="Submitted Trainings">Submitted Trainings</option>
-                 </select>
+                  <button wire:click="approvedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-arrow-right me-2"></i>
+                    Approved Trainings </button></li>
+                  <button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-arrow-right me-2"></i>
+                    My Trainings </button></li>
+                  <button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-arrow-right me-2"></i>
+                    Submitted Trainings </button></li>
                @endif
                  
 
@@ -227,15 +231,6 @@
                  <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-chart-line me-2"></i>IDP<i class="fa fa-caret-down"></i></button></li>
                 
-                
-                @if (auth()->user()->role_as == 1)
-                  <select class="border border-info border-3 rounded" wire:model="string2" wire:click="pass">
-                      <option value="Approved IDPs">Approved IDP's</option>
-                      <option value="My IDPs">My IDP's</option>
-                      <option value="Submitted IDPs">Submitted IDP's</option>
-                  </select>
-                @endif
-                
                 <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                   <i class="fas fa-arrow-right me-2"></i>
                    Create IDP </button></li>
@@ -243,6 +238,18 @@
                    <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-arrow-right me-2"></i>
                      View My IDP </button></li>
+
+                @if (auth()->user()->role_as == 1)
+                     <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                       <i class="fas fa-arrow-right me-2"></i>
+                       Approved IDP's </button></li>
+                     <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                       <i class="fas fa-arrow-right me-2"></i>
+                       My IDP's </button></li>
+                      <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                       <i class="fas fa-arrow-right me-2"></i>
+                       Submitted IDP's </button></li>
+                 @endif
                  
                 <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>
                 

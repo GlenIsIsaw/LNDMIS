@@ -10,10 +10,28 @@ class Main extends Component
     public $idpIndex = false;
     public $string, $string2;
 
-    public function passData(){
+    public function approvedTraining(){
+        $this->string = 'Approved Trainings';
         $this->emit('passTable', $this->string);
     }
-    public function pass(){
+    public function myTraining(){
+        $this->string = 'My Trainings';
+        $this->emit('passTable', $this->string);
+    }
+    public function submittedTraining(){
+        $this->string = 'Submitted Trainings';
+        $this->emit('passTable', $this->string);
+    }
+    public function approvedIDP(){
+        $this->string2 = 'Approved IDPs';
+        $this->emit('pass', $this->string2);
+    }
+    public function myIDP(){
+        $this->string2 = 'My IDPs';
+        $this->emit('pass', $this->string2);
+    }
+    public function submittedIDP(){
+        $this->string2 = 'Submitted IDPs';
         $this->emit('pass', $this->string2);
     }
     public function trainIndex(){
