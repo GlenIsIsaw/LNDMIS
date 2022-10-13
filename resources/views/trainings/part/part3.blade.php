@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-    <button type="button" wire:click="back">Back</button>
+    
     <h6>Part1->Part2-><b>Part3</b></h6>
     <p> </p>
 </div>
@@ -18,7 +18,8 @@
                 <progress max="100" x-bind:value="progress"></progress>
             </div>
         </div>
-
+        
     </div>
     @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
 </div> 
+

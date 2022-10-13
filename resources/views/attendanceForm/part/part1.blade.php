@@ -1,7 +1,8 @@
 <div class="d-flex justify-content-between">
-    <button type="button" wire:click="back">Back</button>
+    <div class="text-center">
     <h6><b>Part1</b>->Part2</h6>
     <p>&nbsp; </p>
+    </div>
 </div>
 <div class="mb-3">
     <label>Name</label>
@@ -29,5 +30,6 @@
     <textarea wire:model="knowledge_acquired" rows="4" cols="50" class="form-control"></textarea>
     @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-<button type="button" class="btn btn-secondary" wire:click="backButton">Close</button>
+
+<button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
 <button type="button" wire:click="next" class="btn btn-primary">Next</button>

@@ -114,6 +114,7 @@
   
   #openPopup {
   padding: 20px 30px;
+  display:block;
   background-color: #4cd2de00;
   border-color: #fcfcfc00;
   box-shadow: 1px 1px 1px rgba(255, 255, 255, 0);
@@ -198,10 +199,11 @@
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
 
                 
-                <button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                  class="fas fa-project-diagram me-2"></i>My Training<i class="fa fa-caret-down"></i></button>
 
-                  <button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
+                 
+                  <li class=""><button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
                     <i class="fas fa-arrow-right me-2"></i>
                      Create Training </button></li>
                      
@@ -209,10 +211,10 @@
                       <i class="fas fa-arrow-right me-2"></i>
                        View My Training </button></li>
                  
-                 
+            
 
                  @if (auth()->user()->role_as == 1)
-                 <select class="border border-info border-3 rounded" wire:model="string" wire:click="passData">
+                 <select id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block" wire:model="string" wire:click="passData">
                      <option value="Approved Trainings">Approved Trainings</option>
                      <option value="My Trainings">My Trainings</option>
                      <option value="Submitted Trainings">Submitted Trainings</option>
@@ -259,7 +261,7 @@
           <!-- Log Out -->
           <hr class="h-color mx-2">
           <ul class="list-unstyled px-2">
-          <li class=""><button wire:click="{{ route('logout') }}"
+          <li class=""><a href ="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();"
              {{ __('Logout') }} id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 text-danger fw-bold d-block"><i class="fas fa-power-off me-2"></i>Log Out</a></li>

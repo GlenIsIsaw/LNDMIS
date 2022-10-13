@@ -44,5 +44,8 @@
     <input type="date" wire:model="date_covered" class="form-control">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-<button type="button" class="btn btn-secondary" wire:click="backButton">Close</button>
-<button type="button" wire:click="next" class="btn btn-primary">Next</button>
+
+<div class="float-end">
+<button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
+<button type="button" wire:click="next" class="btn btn-primary">Next</button>   
+</div>
