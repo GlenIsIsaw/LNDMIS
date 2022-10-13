@@ -35,6 +35,7 @@
         $('#editConfirmationAttendanceModal').modal('hide');
         $('#createConfirmationIdpModal').modal('hide');
         $('#editConfirmationIdpModal').modal('hide');
+        $('#printTrainingModal').modal('hide');
         
     })
     window.addEventListener('show-notification', event => {

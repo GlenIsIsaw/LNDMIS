@@ -146,7 +146,7 @@ class TrainingShow extends Component
 
             $this->query = ['status','Approved'];
         }
-    }
+    } 
     public function checkUpdatedTable(){
         if($this->table == 'My Trainings'){
             $this->clear();
@@ -367,6 +367,7 @@ class TrainingShow extends Component
         $train->save();
         session()->flash('message','Attendance Form Added Successfully');
         $this->backButton();
+        $this->dispatchBrowserEvent('close-modal');
     }
     public function showAttendanceForm($id){
         $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form','status')
@@ -438,6 +439,7 @@ class TrainingShow extends Component
         $list->save();
         session()->flash('message','Attendance Form Updated Successfully');
         $this->backButton();
+        $this->dispatchBrowserEvent('close-modal');
     }
 
 
@@ -489,6 +491,9 @@ class TrainingShow extends Component
         $this->knowledge_acquired ='';
         $this->outcome ='';
         $this->personal_action ='';
+        $this->comment ='';
+        $this->start_date ='';
+        $this->end_date ='';
     }
     public function reject(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
@@ -587,6 +592,116 @@ class TrainingShow extends Component
                 ->where('list_of_trainings.id', $id)
                 ->first();
         $this->comment = $lists->comment;
+    }
+    public static function date($date){
+        $pieces = explode("-", $date);
+        return $pieces;
+    }
+    public function printAll(){
+
+        $s_date = Carbon::parse($this->start_date)->toDateTimeString();
+        $e_date = Carbon::parse($this->end_date)->toDateTimeString();
+        
+        $listObject = DB::table('list_of_trainings')
+                        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                        ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                        ->where('college_id',auth()->user()->college_id)
+                        ->whereBetween('list_of_trainings.date_covered',[$s_date,$e_date])
+                        ->where('teacher', 'Yes')
+                        ->orderBy('name','asc')
+                        ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
+                        ->get();
+        $grouped = $listObject->groupBy('name');
+        $list = $grouped->toArray();
+        $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
+
+        $templateProcessor->setValue('deptname',auth()->user()->college_name);
+        $templateProcessor->setValue('year',date('Y'));
+        $templateProcessor->setValue('daterange',strftime("%B",strtotime($this->start_date)).' to '.strftime("%B",strtotime($this->end_date)).' '.date('Y'));
+
+
+        $replacements = array();
+        $i = 0;
+        foreach($list as $name => $cert) {
+            $replacements[] = array(
+                'name' => $name,
+                'certificate_title' => '${certificate_title_'.$i.'}',
+                'date_covered' => '${date_covered_'.$i.'}',
+                'level' => '${level_'.$i.'}',
+                'num_hours' => '${num_hours_'.$i.'}'
+    );
+                $i++;
+}
+        $templateProcessor->cloneBlock('table', count($replacements), true, false, $replacements);
+
+        $i = 0;
+        foreach($list as $group) 
+        {
+            $values = array();
+            foreach($group as $row) 
+            {
+                $values[] = array(
+                    "certificate_title_{$i}" => $row->certificate_title,
+                    "date_covered_{$i}" => $row->date_covered,
+                    "level_{$i}" => $row->level,
+                    "num_hours_{$i}" => $row->num_hours);
+            }
+            $templateProcessor->cloneRowAndSetValues("certificate_title_{$i}", $values);
+
+            $i++;
+        }
+        $listObject = DB::table('users')
+                        ->join('list_of_trainings', 'users.id', '=', 'list_of_trainings.user_id')
+                        ->where('college_id',auth()->user()->college_id)
+                        ->whereBetween('list_of_trainings.date_covered',[$s_date,$e_date])
+                        ->where('teacher', 'No')
+                        ->orderBy('name','asc')
+                        ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
+                        ->get();
+
+        $grouped = $listObject->groupBy('name');
+
+        $list = $grouped->toArray();
+
+        $replacements = array();
+        $i = 0;
+        foreach($list as $name => $cert) {
+            $replacements[] = array(
+                'name2' => $name,
+                'certificate_title2' => '${certificate_title2_'.$i.'}',
+                'date_covered2' => '${date_covered2_'.$i.'}',
+                'level2' => '${level2_'.$i.'}',
+                'num_hours2' => '${num_hours2_'.$i.'}'
+    );
+                $i++;
+}
+        $templateProcessor->cloneBlock('table2', count($replacements), true, false, $replacements);
+
+        $i = 0;
+        foreach($list as $group) 
+        {
+            $values = array();
+            foreach($group as $row) 
+            {
+                $values[] = array(
+                    "certificate_title2_{$i}" => $row->certificate_title,
+                    "date_covered2_{$i}" => $row->date_covered,
+                    "level2_{$i}" => $row->level,
+                    "num_hours2_{$i}" => $row->num_hours);
+            }
+            $templateProcessor->cloneRowAndSetValues("certificate_title2_{$i}", $values);
+
+            $i++;
+        }
+        $templateProcessor->setValue('facultypercentage',100 .'%');
+        $templateProcessor->setValue('nonpercentage',100 .'%');
+        $templateProcessor->setValue('coordname',auth()->user()->name);
+
+        $templateProcessor->setValue('coordsignature'," ");
+        $templateProcessor->saveAs('ListOfTrainings.docx');
+        return response()->download(public_path('ListOfTrainings.docx'))->deleteFileAfterSend(true);
+        $this->resetInput();
+        $this->dispatchBrowserEvent('close-modal');
     }
     public function updatedTable($value){
         $this->checkUpdatedTable();

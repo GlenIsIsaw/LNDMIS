@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -26,7 +27,7 @@ class UserFactory extends Factory
             'yearJoined' => fake()->date(),
             'yearinPosition' => fake()->date(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$BLcdzo8WWNfprDSiPBUsbeEJF1Y0SwhCUH8EKyqKdTS.xy9gMsLKu', // password
+            'password' => Hash::make('12345678'), // password
             'remember_token' => Str::random(10),
         ];
     }

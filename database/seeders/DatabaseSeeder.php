@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\User;
 use App\Models\College;
 use App\Models\Competency;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +20,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         College::create([
-            'college_name' => 'Institute of Computer Studies'
+            'college_name' => 'Institute of Computer Studies',
+            'supervisor' => 2,
+            'coordinator' => 1
         ]);
         College::create([
             'college_name' => 'College of Arts and Sciences'
@@ -29,7 +33,30 @@ class DatabaseSeeder extends Seeder
         College::create([
             'college_name' => 'College of Business and Public Administration'
         ]);
-        
+        User::create([
+            'college_id' => 1,
+            'name' => 'Bryan Arellano',
+            'role_as' => 1,
+            'teacher' => 'Yes',
+            'position' => 'LND Coordinator',
+            'email' => 'bryanArellano@gmail.com',
+            'yearJoined' => fake()->date(),
+            'yearinPosition' => fake()->date(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'), // password
+        ]);
+        User::create([
+            'college_id' => 1,
+            'name' => 'Mam Jo',
+            'role_as' => 2,
+            'teacher' => 'Yes',
+            'position' => 'Supervisor',
+            'email' => 'mamJo@gmail.com',
+            'yearJoined' => fake()->date(),
+            'yearinPosition' => fake()->date(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'), // password
+        ]);
          \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

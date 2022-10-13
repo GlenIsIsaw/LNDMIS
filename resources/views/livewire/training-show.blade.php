@@ -31,6 +31,9 @@
                             <h4>
                                 {{$table}}
                                 <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
+                                @if (auth()->user()->role_as == 1)
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#printTrainingModal" class="btn btn-primary float-end">Print All</button>
+                                @endif
                             </h4>
                             
                         </div>
@@ -84,7 +87,7 @@
                                                 <td class="text-break">{{ $training->venue }}</td>
                                                 <td>{{ $training->sponsors }}</td>
                                                 <td>{{ $training->status }}</td>
-                                                
+                                                 
                                                 @if ($training->attendance_form == 0)
                                                     <td><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-warning btn-lg text-white rounded-pill shadow fw-bold px-5 py-10">Create</button></td>
                                                 @else

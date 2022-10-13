@@ -236,7 +236,7 @@
         </div>
     </div>
 </div>
-
+ 
 <!-- Approve Training Modal -->
 <div wire:ignore.self class="modal fade" id="approveTrainingModal" tabindex="-1" aria-labelledby="approveTraningModalLabel"
     aria-hidden="true">
@@ -312,6 +312,40 @@
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Printall Modal -->
+<div wire:ignore.self class="modal fade" id="printTrainingModal" tabindex="-1" aria-labelledby="printTraningModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printTrainingModalLabel">Print Approved Training</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="printAll">
+                <div class="modal-body">
+                    <h6>Range</h6>
+                    <div class="mb-3">
+                        <label>Start Date</label>
+                        <input type="date" wire:model="start_date" class="form-control">
+                        @error('start_date') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>End Date</label>
+                        <input type="date" wire:model="end_date" class="form-control">
+                        @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print All</button>
                 </div>
             </form>
         </div>
