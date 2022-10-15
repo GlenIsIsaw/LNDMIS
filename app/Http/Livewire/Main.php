@@ -53,7 +53,7 @@ class Main extends Component
         $this->emitTo('training-show','createTraining');
     }
     public function idpsIndex(){
-        $this->emitTo('idp-show','clearIdp');
+        $this->emitTo('idp-show','clearIDP');
         $this->trainingIndex = false;
         $this->idpIndex = true;
     }

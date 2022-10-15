@@ -41,7 +41,7 @@ class IdpShow extends Component
     protected $listeners = [
         'createIDP' => 'createButton',
         'clearIDP' => 'clear',
-        'passIdp' => 'passTable'
+        'passIdp' => 'pass'
     ];
     public function notification(){
         if (session()->has('message')) {
@@ -49,7 +49,7 @@ class IdpShow extends Component
         }
     }
 
-    public function passTable($string2){
+    public function pass($string2){
         $this->table = $string2;
     }
 
