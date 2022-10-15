@@ -48,10 +48,18 @@ class Main extends Component
         $this->trainingIndex = true;
         $this->idpIndex = false;
     }
+    public function createTraining(){
+        $this->trainIndex();
+        $this->emitTo('training-show','createTraining');
+    }
     public function idpsIndex(){
         $this->emitTo('idp-show','clearIdp');
         $this->trainingIndex = false;
         $this->idpIndex = true;
+    }
+    public function createIdp(){
+        $this->idpsIndex();
+        $this->emitTo('idp-show','createIDP');
     }
     public function render()
     {

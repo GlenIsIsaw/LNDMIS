@@ -203,7 +203,7 @@
                  class="fas fa-project-diagram me-2"></i>My Training<i class="fa fa-caret-down"></i></button>
 
                  
-                  <li class=""><button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
+                  <li class=""><button wire:click="createTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
                     <i class="fas fa-arrow-right me-2"></i>
                      Create Training </button></li>
                  
@@ -227,7 +227,7 @@
                  <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-chart-line me-2"></i>IDP<i class="fa fa-caret-down"></i></button></li>
                 
-                <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                   <i class="fas fa-arrow-right me-2"></i>
                    Create IDP </button></li>
 
