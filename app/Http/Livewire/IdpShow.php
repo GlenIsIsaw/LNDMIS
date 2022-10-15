@@ -224,6 +224,10 @@ class IdpShow extends Component
         $this->yearJoined = '';
         $this->supervisor = '';
         $this->comment = '';
+        $this->start_date ='';
+        $this->end_date ='';
+        $this->search = '';
+        $this->filterStatus = '';
     }
     public function keep(){
         $validatedData = $this->validate([
@@ -681,9 +685,9 @@ class IdpShow extends Component
     {
         $this->notification();
         $this->checkTable();
-        if (request()->start_date || request()->end_date) {
-            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
-            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)

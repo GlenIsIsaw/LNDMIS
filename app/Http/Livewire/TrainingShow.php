@@ -39,7 +39,8 @@ class TrainingShow extends Component
     protected $listeners = [
         'createTraining' => 'createButton',
         'clear' => 'backButton',
-        'passTable' => 'passTable'
+        'passTable' => 'passTable',
+        'refreshComponent' => '$refresh'
     ];
 
 
@@ -307,10 +308,12 @@ class TrainingShow extends Component
             $list->certificate = $filename;
         }
         $list->save();
+        
         session()->flash('message','ListOfTraining Updated Successfully');
         $this->backButton();
         
         $this->dispatchBrowserEvent('close-modal');
+        
     }
 
     public function delete(int $id)
@@ -494,6 +497,8 @@ class TrainingShow extends Component
         $this->comment ='';
         $this->start_date ='';
         $this->end_date ='';
+        $this->search = '';
+        $this->filterStatus = '';
     }
     public function reject(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
@@ -711,16 +716,29 @@ class TrainingShow extends Component
     {
         $this->notification();
         $this->checkTable();
-
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
                 ->where('status', 'like', '%'.$this->filterStatus.'%')
+                ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(3);
-        
+        }else {
+
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
+            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->where('college_id',auth()->user()->college_id)
+            ->where($this->query[0],$this->query[1])
+            ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
+            ->where('status', 'like', '%'.$this->filterStatus.'%')
+            ->orderBy('list_of_trainings.updated_at','desc')
+            ->paginate(3);
+        }
 
                                     
         return view('livewire.training-show', ['trainings' => $lists]);

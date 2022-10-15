@@ -2,8 +2,6 @@
 
 
 <div>
-
-
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12 mr-3">
@@ -30,25 +28,28 @@
                         <div class="card-header">
                             <h4>
                                 {{$table}}
+                                <button type="button" class="float-end" wire:click="resetInput"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                 <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                                @if (auth()->user()->role_as == 1)
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#printTrainingModal" class="btn btn-primary float-end">Print All</button>
-                                @endif
+                                
                             </h4>
                             
                         </div>
-
                         
                         <div class="card-header bg-transparent border-0">
                             <div class="float-end mx-2">
                                 <label>Sort By</label>
                                 <select wire:model="filterStatus" class="text-center text-center border border-dark border-2 rounded">
-                                    <option value="All">Default</option>
+                                    <option value="">Default</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Not Submitted">Not Submitted</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Pending">Pending</option>
                                 </select>
+                                <label>Start Date</label>
+                                <input type="date" wire:model="start_date">
+                                <label>End Date</label>
+                                <input type="date" wire:model="end_date">
+                                
                             </div>
                         </div>
                                 

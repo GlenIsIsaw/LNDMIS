@@ -20,6 +20,7 @@
                         <div class="card-header">
                             <h4>
                                 {{$table}}
+                                <button type="button" class="float-end" wire:click="resetInput"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                 <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
                             </h4>
                         </div>
@@ -36,6 +37,10 @@
                                         <option value="Rejected">Rejected</option>
                                         <option value="Pending">Pending</option>
                                     </select>
+                                    <label>Start Date</label>
+                                    <input type="date" wire:model="start_date">
+                                    <label>End Date</label>
+                                    <input type="date" wire:model="end_date">
                                 </div>
                                 </div>
 
