@@ -2,7 +2,7 @@
 <!-- Show Training Modal -->
 <div wire:ignore.self class="modal fade" id="showTrainingModal" tabindex="-1" aria-labelledby="showTrainingModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showTrainingModalLabel" class="text-break">Show {{$certificate_title}}</h5>
@@ -240,7 +240,7 @@
 <!-- Approve Training Modal -->
 <div wire:ignore.self class="modal fade" id="approveTrainingModal" tabindex="-1" aria-labelledby="approveTraningModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="approveTrainingModalLabel">Approve the Submitted Training</h5>
@@ -266,6 +266,7 @@
     </div>
 </div>
 
+<!-- Show Comment Training Modal -->
 <div wire:ignore.self class="modal fade" id="showCommentModal" tabindex="-1" aria-labelledby="showCommentModalModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -292,7 +293,7 @@
 <!-- Reject Training Modal -->
 <div wire:ignore.self class="modal fade" id="rejectTrainingModal" tabindex="-1" aria-labelledby="rejectTraningModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>

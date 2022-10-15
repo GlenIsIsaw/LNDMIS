@@ -40,8 +40,8 @@ class IdpShow extends Component
 
     protected $listeners = [
         'createIDP' => 'createButton',
-        'clear' => 'backButton',
-        'pass' => 'passTable'
+        'clearIDP' => 'clear',
+        'passIdp' => 'passTable'
     ];
     public function notification(){
         if (session()->has('message')) {

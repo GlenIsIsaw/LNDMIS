@@ -124,7 +124,7 @@
 <!-- Approve IDP Modal -->
 <div wire:ignore.self class="modal fade" id="approveIdpModal" tabindex="-1" aria-labelledby="approveIdpModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="approveIdpModalLabel">Approve the Submitted Idp</h5>
@@ -153,7 +153,7 @@
 <!-- Reject IDP Modal -->
 <div wire:ignore.self class="modal fade" id="rejectIdpModal" tabindex="-1" aria-labelledby="rejectIdpModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="rejectIdpModalLabel">Reject the Submitted Idp</h5>

@@ -38,8 +38,8 @@ class TrainingShow extends Component
 
     protected $listeners = [
         'createTraining' => 'createButton',
-        'clear' => 'backButton',
-        'passTable' => 'passTable',
+        'clearTraining' => 'clear',
+        'passTraining' => 'passTable',
         'refreshComponent' => '$refresh'
     ];
 

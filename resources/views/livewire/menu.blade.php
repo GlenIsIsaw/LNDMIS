@@ -206,10 +206,6 @@
                   <li class=""><button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
                     <i class="fas fa-arrow-right me-2"></i>
                      Create Training </button></li>
-                     
-                     <button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
-                      <i class="fas fa-arrow-right me-2"></i>
-                       View My Training </button></li>
                  
             
 
@@ -234,10 +230,6 @@
                 <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                   <i class="fas fa-arrow-right me-2"></i>
                    Create IDP </button></li>
-
-                   <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-arrow-right me-2"></i>
-                     View My IDP </button></li>
 
                 @if (auth()->user()->role_as == 1)
                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
