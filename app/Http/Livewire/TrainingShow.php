@@ -507,34 +507,62 @@ class TrainingShow extends Component
     }
     public function reject(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        $list->status = 'Rejected';
-        $list->comment = $this->comment;
-        $list->save();
-        session()->flash('message','Rejected the Submission');
-        $this->dispatchBrowserEvent('close-modal');
+        if(!$this->checkCoord())
+        {
+            if($list->status = 'Pending'){
+                $list->status = 'Rejected';
+                $list->comment = $this->comment;
+                $list->save();
+                session()->flash('message','Rejected the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }else{
+                session()->flash('message','The Training is not Submitted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else {
+            session()->flash('message','You do not have the authority to approve this');
+            $this->dispatchBrowserEvent('close-modal');
+        }
     }
     public function approve(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        
-        $list->status = 'Approved';
-        $list->comment = $this->comment;
-        $list->save();
-        session()->flash('message','Approved the Submission');
-        $this->dispatchBrowserEvent('close-modal');
+        if(!$this->checkCoord())
+        {
+            if($list->status = 'Pending'){
+                $list->status = 'Approved';
+                $list->comment = $this->comment;
+                $list->save();
+                session()->flash('message','Approved the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }else{
+                session()->flash('message','The Training is not Submitted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else{
+            session()->flash('message','You do not have the authority to approve this');
+            $this->dispatchBrowserEvent('close-modal');
+        }
     }
     public function submit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        if($list->user_id != auth()->user()->id)
+        if($list->user_id == auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
-        }
-        if ($list->attendance_form == 1) {
-            session()->flash('message',$list->certificate_title.' Submitted');
-            $this->dispatchBrowserEvent('close-modal');
-            $list->status = 'Pending';
-            $list->save();
+            if ($list->status == 'Not Submitted' || $list->status == 'Rejected'){
+                if ($list->attendance_form == 1) {
+                    session()->flash('message',$list->certificate_title.' Submitted');
+                    $this->dispatchBrowserEvent('close-modal');
+                    $list->status = 'Pending';
+                    $list->save();
+                }else{
+                    session()->flash('message','No Attendance Form/Cannot submit');
+                    $this->dispatchBrowserEvent('close-modal');
+                }
+            }else{
+                session()->flash('message','The training has already been submitted or accepted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }else{
-            session()->flash('message','No Attendance Form/Cannot submit');
+            session()->flash('message','You do not have the authority to submit this');
             $this->dispatchBrowserEvent('close-modal');
         }
     }
@@ -543,17 +571,19 @@ class TrainingShow extends Component
     }
     public function removeSubmit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        if($list->user_id != auth()->user()->id)
+        if($list->user_id == auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
-        }
-        if ($list->status == 'Pending') {
-            session()->flash('message','Removed the Submission of '.$list->certificate_title);
-            $this->dispatchBrowserEvent('close-modal');
-            $list->status = 'Not Submitted';
-            $list->save();
+            if ($list->status == 'Pending') {
+                session()->flash('message','Removed the Submission of '.$list->certificate_title);
+                $this->dispatchBrowserEvent('close-modal');
+                $list->status = 'Not Submitted';
+                $list->save();
+            }else{
+                session()->flash('message','You can no longer Remove the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }else{
-            session()->flash('message','You can no longer Remove the Submission');
+            session()->flash('message','You have no authority to Remove the Submission');
             $this->dispatchBrowserEvent('close-modal');
         }
     }

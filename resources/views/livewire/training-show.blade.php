@@ -116,19 +116,22 @@
                                                             @endif    
                                                         @endif
 
+                                                        @if($training->status != 'Pending')
+                                                            <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
+                                                        @endif
+                                                        
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 @if ($training->attendance_form == 1) 
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
                                                                 @endif
                                                                 
                                                             @endif
+                                                            
                                                             @if ($training->status == 'Pending')
                                                                 @if (auth()->user()->role_as == 0)
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class=" btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Remove Submission</button>
                                                                 @endif    
-                                                            @else
-                                                                <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
                                                             @endif
                                                     @endif
                                                 </div>

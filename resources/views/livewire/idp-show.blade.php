@@ -90,17 +90,17 @@
                                                         @endif
 
                                                             @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
-
-                                                                
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
                                                             @endif
+                                                            @if($idp->submit_status != 'Pending')
+                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
+                                                            @endif
+                                                            
                                                             @if ($idp->submit_status == 'Pending')
                                                                 @if (auth()->user()->role_as == 0)
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Remove Submission</button>
                                                                 @endif    
-                                                            @else
-                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
                                                             @endif
                                                     @endif
                                                     

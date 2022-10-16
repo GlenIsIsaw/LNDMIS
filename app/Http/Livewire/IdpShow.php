@@ -558,51 +558,70 @@ class IdpShow extends Component
         $list = Idp::find($this->idp_id);
         if($list->user_id != auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
+            $list->submit_status = 'Pending';
+            $list->save();
+            session()->flash('message',$list->certificate_title.' Submitted');
+            $this->dispatchBrowserEvent('close-modal');
+        }else {
+            session()->flash('message','You do not have the authority to Submit this IDP');
+            $this->dispatchBrowserEvent('close-modal');
         }
-
-        $list->submit_status = 'Pending';
-        $list->save();
-        session()->flash('message',$list->certificate_title.' Submitted');
-        $this->dispatchBrowserEvent('close-modal');
-            
 
     }
     public function removeSubmit(){
         $list = Idp::find($this->idp_id);
         if($list->user_id != auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
-        }
-        if ($list->submit_status == 'Pending') {
-            session()->flash('message','Removed the Submission of your IDP');
-            $this->dispatchBrowserEvent('close-modal');
-            $list->submit_status = 'Not Submitted';
-            $list->save();
+            if ($list->submit_status == 'Pending') {
+                session()->flash('message','Removed the Submission of your IDP');
+                $this->dispatchBrowserEvent('close-modal');
+                $list->submit_status = 'Not Submitted';
+                $list->save();
+            }else{
+                session()->flash('message','You can no longer Remove the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }else{
-            session()->flash('message','You can no longer Remove the Submission');
+            session()->flash('message','You do not have the authority to Remove the Submission');
             $this->dispatchBrowserEvent('close-modal');
         }
     }
 
     public function reject(){
-        $list = Idp::find($this->idp_id);
-        $list->submit_status = 'Rejected';
-        $list->comment = $this->comment;
-        $list->save();
-        $this->comment = '';
-        $this->dispatchBrowserEvent('close-modal');
-        session()->flash('message','Rejected the Submission');
-        
+        if(!$this->checkCoord())
+        {
+            $list = Idp::find($this->idp_id);
+            if ($list->submit_status == 'Pending') 
+            {
+                $list->submit_status = 'Rejected';
+                $list->comment = $this->comment;
+                $list->save();
+                $this->comment = '';
+                $this->dispatchBrowserEvent('close-modal');
+                session()->flash('message','Rejected the Submission');
+            }else{
+                $this->dispatchBrowserEvent('close-modal');
+                session()->flash('message','The IDP is not submitted');
+            }
+        }else {
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You do not have the authority to reject this Submission');
+        }
     }
     public function approve(){
-        $list = Idp::find($this->idp_id);
-        $list->submit_status = 'Approved';
-        $list->comment = $this->comment;
-        $list->save();
-        $this->comment = '';
-        $this->dispatchBrowserEvent('close-modal');
-        session()->flash('message','Approved the Submission');
+        if(!$this->checkCoord())
+        {
+            $list = Idp::find($this->idp_id);
+            $list->submit_status = 'Approved';
+            $list->comment = $this->comment;
+            $list->save();
+            $this->comment = '';
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','Approved the Submission');
+        }else {
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You do not have the authority to approve this Submission');
+        }
     }
     public function showComment(int $id){
         $lists = Idp::select('comment')
