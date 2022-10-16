@@ -28,8 +28,13 @@
                         <div class="card-header">
                             <h4>
                                 {{$table}}
-                                <button type="button" class="float-end" wire:click="resetInput"><i class='fas fa-redo' wire:click="resetInput"></i></button>
-                                <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
+                                <button type="button" class="float-end" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
+                                @if ($table == 'My Trainings')
+                                    <input type="search" wire:model="filter_certificate_title" class="form-control float-end mx-2" placeholder="Search by Certificate Title" style="width: 230px" />
+                                @else
+                                    <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search by Name" style="width: 230px" />
+                                @endif
+                                
                                 
                             </h4>
                             
@@ -37,19 +42,7 @@
                         
                         <div class="card-header bg-transparent border-0">
                             <div class="float-end mx-2">
-                                <label>Sort By</label>
-                                <select wire:model="filterStatus" class="text-center text-center border border-dark border-2 rounded">
-                                    <option value="">Default</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Not Submitted">Not Submitted</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Pending">Pending</option>
-                                </select>
-                                <label>Start Date</label>
-                                <input type="date" wire:model="start_date">
-                                <label>End Date</label>
-                                <input type="date" wire:model="end_date">
-                                
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterTrainingModal" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">Filter</button>
                             </div>
                         </div>
                                 
@@ -65,11 +58,13 @@
                                             @endif
                                             
                                             <th scope="col">Certificate Title</th>
+                                            <th scope="col">Certificate Type</th>
                                             <th scope="col">Date Covered</th>
                                             <th scope="col">Level</th>
                                             <th scope="col">Number of Hours</th>
                                             <th scope="col">Venue</th>
                                             <th scope="col">Sponsors</th>
+                                            <th scope="col">Type</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Attendance Report</th>
                                             <th scope="col" class="text-danger">Actions</th>
@@ -82,11 +77,13 @@
                                                     <td>{{$training->name}}</td>
                                                 @endif
                                                 <td class="text-break">{{$training->certificate_title}}</td>
+                                                <td class="text-break">{{$training->certificate_type}}</td>
                                                 <td class="text-break">{{ $training->date_covered }}</td>
                                                 <td>{{ $training->level }}</td>
                                                 <td class="text-break">{{ $training->num_hours }}</td>
                                                 <td class="text-break">{{ $training->venue }}</td>
                                                 <td>{{ $training->sponsors }}</td>
+                                                <td>{{ $training->type }}</td>
                                                 <td>{{ $training->status }}</td>
                                                  
                                                 @if ($training->attendance_form == 0)

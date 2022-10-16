@@ -269,7 +269,7 @@
 <!-- Show Comment Training Modal -->
 <div wire:ignore.self class="modal fade" id="showCommentModal" tabindex="-1" aria-labelledby="showCommentModalModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showCommentModalLabel">Comment</h5>
@@ -349,6 +349,91 @@
                     <button type="submit" class="btn btn-primary">Yes! Print All</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div wire:ignore.self class="modal fade" id="filterTrainingModal" tabindex="-1" aria-labelledby="filterTraningModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterTrainingModalLabel">Filter Training</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    @if ($table != 'My Trainings')
+                        <div class="mb-3">
+                            <label>Search by Certificate Title:</label>
+                            <input type="search" wire:model="filter_certificate_title" class="form-control" placeholder="Search..." />
+                        </div>
+                    @endif
+
+                    <div class="mb-3">
+                        <label>Sort by Status:</label>
+                        <select wire:model="filter_status" class="form-control">
+                            <option value="">...</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Not Submitted">Not Submitted</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Sort by Certificate Type:</label>
+                        <select type="text" wire:model="filter_certificate_type" class="form-control">
+                                    <option value="">...</option>
+                                    <option value="Certificate of Eligibility">Certificate of Eligibility</option>
+                                    <option value="Certificate of Training">Certificate of Training</option>
+                                    <option value="Certificate of Appreciation">Certificate of Appreciation</option>
+                                    <option value="Certificate of Attendance">Certificate of Attendance</option>
+                                    <option value="Certificate of Commendation">Certificate of Commendation</option>
+                                    <option value="Certificate of Completion">Certificate of Completion</option>
+                                    <option value="Certificate of Participation">Certificate of Participation</option>
+                                    <option value="Certificate of Recognition">Certificate of Recognition</option>
+                                    <option value="Membership Certificate">Membership Certificate</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sort by Level:</label>
+                        <select wire:model="filter_level" class="form-control">
+                            <option value="">...</option>
+                            <option value="International">International</option>
+                            <option value="Local">Local</option>
+                            <option value="N/A">N/A</option>
+                            <option value="National">National</option>
+                            <option value="Regional">Regional</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sort by Type:</label>
+                        <select wire:model="filter_type" class="form-control">
+                            <option value="">...</option>
+                            <option value="Eligibility">Eligibility</option>
+                            <option value="Event-Facilitator">Event-Facilitator</option>
+                            <option value="Membership">Membership</option>
+                            <option value="Seminar">Seminar</option>
+                            <option value="Seminar-Facilitator">Seminar-Facilitator</option>
+                        </select>
+                    </div>
+                    
+                    <h6>Sort by Date Covered:</h6>
+                    <div class="mb-3">
+                        <label>Start Date</label>
+                        <input type="date" wire:model="start_date">
+                        <label>End Date</label>
+                        <input type="date" wire:model="end_date">
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
         </div>
     </div>
 </div>

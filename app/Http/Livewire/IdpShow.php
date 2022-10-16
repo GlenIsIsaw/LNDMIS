@@ -25,10 +25,8 @@ class IdpShow extends Component
     public $responsible = [' ',' ',' '];
     public $support = [' ',' ',' '];
     public $status = [' ',' ',' '];
-    public $search = '';
-    public $start_date = '';
-    public $end_date = '';
-    public $filterStatus = '';
+    public $search,$start_date,$end_date,$filter_status, $filter_competency, $filter_completion_status;
+    protected $queryString = ['search','filter_status','filter_competency','filter_completion_status'];
     public $query = [];
     public $table = 'Approved IDPs';
 
@@ -224,10 +222,14 @@ class IdpShow extends Component
         $this->yearJoined = '';
         $this->supervisor = '';
         $this->comment = '';
-        $this->start_date ='';
-        $this->end_date ='';
-        $this->search = '';
-        $this->filterStatus = '';
+    }
+    public function resetFilter(){
+        $this->start_date = null;
+        $this->end_date = null;
+        $this->search = null;
+        $this->filter_status = null;
+        $this->filter_completion_status = null;
+        $this->filter_competency = null;
     }
     public function keep(){
         $validatedData = $this->validate([
@@ -681,6 +683,18 @@ class IdpShow extends Component
     public function updatedTable($value){
         $this->checkUpdatedTable();
     }
+    public function updatingSearch($value){
+        $this->resetPage();
+    }
+    public function updatingFilterStatus($value){
+        $this->resetPage();
+    }
+    public function updatingFilterCompetency($value){
+        $this->resetPage();
+    }
+    public function updatingFilterCompletionStatus($value){
+        $this->resetPage();
+    }
     public function render()
     {
         $this->notification();
@@ -692,9 +706,10 @@ class IdpShow extends Component
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
-                ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
-                ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->where('competency', 'like', '%'.$this->filter_competency.'%')
+                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
                 ->whereBetween('idps.created_at',[$start_date,$end_date])
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
@@ -703,9 +718,10 @@ class IdpShow extends Component
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
-                ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
-                ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->where('competency', 'like', '%'.$this->filter_competency.'%')
+                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
         }
