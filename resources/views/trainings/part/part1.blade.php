@@ -4,8 +4,10 @@
 </div>
 <div class="mb-3">
     <label>Name</label>
-    <p>{{auth()->user()->name}}</p>
+    <div class="fw-bold text-lg"><p>{{auth()->user()->name}}</p></div>
 </div>
+
+<hr class="h-color mx-2">
 <div class="mb-3">
     <label>Certificate Types</label>
     <select type="text" wire:model="certificate_type" class="form-control">

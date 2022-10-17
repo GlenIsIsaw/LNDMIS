@@ -43,7 +43,7 @@
   
   #sidebar-wrapper {
     min-height: 100vh;
-    min-width: 40vh;
+    min-width: 47vh;
     margin-left: -15rem;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
@@ -121,14 +121,15 @@
   white-space: normal;
   font-size: 15px;
   letter-spacing: 0.2px;
+  
 }
 
 #openPopup:hover, #openPopup:active, #openPopup:focus {
-  background-color: #ffffff !important;
+  background-color: #62bbbb !important;
   border-color: #ffffff00 !important;
 }
 
-.sidenav a, .dropdown-btn {
+ .dropdown-btn {
   
   text-decoration: none;
   font-size: 20px;
@@ -146,10 +147,10 @@
 
 
 .dropdown-container {
-  display: none;
+  
   background-color: none;
   padding-left: 20px;
-  transition: 0.3s ease;
+  transition: 0.3s ease !important;
 }
 
 
@@ -157,6 +158,8 @@
   float: right;
   padding-right: 8px;
 }
+
+
   
   
   @media (min-width: 768px) {
@@ -189,73 +192,94 @@
     
     
 
-    <hr class="h-color mx-2">
+    
     <div class="sidebar mx-auto">
-
+       
        
         <ul class="list-unstyled px-2">
+          <hr class="h-color mx-2"> 
 
         <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 fw-bold second-text d-block"><i
-                class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                class="fas fa-tv me-2"></i>Dashboard</a></li>
 
+               
+        </ul>
+        <ul class="list-unstyled px-2">
+          <hr class="h-color mx-2"> 
                 
-                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                <button wire:click="trainIndex" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block" data-bs-toggle="dropdown-btn" aria-expanded="false"><i
                  class="fas fa-project-diagram me-2"></i>My Training<i class="fa fa-caret-down"></i></button>
 
-                 
-                  <li class=""><button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
-                    <i class="fas fa-arrow-right me-2"></i>
+
+                 <div class="dropdown-container" aria-labelledby="openPopup">
+                  <button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="dropdown-btn btn  btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
+                    <i class="fas fa-file-signature me-2"></i> 
                      Create Training </button></li>
                      
                      <button wire:click="$emitTo('training-show','createTraining')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block ml-4">
-                      <i class="fas fa-arrow-right me-2"></i>
+                      <i class="fas fa-folder me-2"></i>
                        View My Training </button></li>
                  
-            
+              
+                      
 
                  @if (auth()->user()->role_as == 1)
-                  <button wire:click="approvedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-arrow-right me-2"></i>
+                 <li class=""> <button wire:click="approvedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-handshake me-2"></i>
                     Approved Trainings </button></li>
-                  <button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-arrow-right me-2"></i>
+                    <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-folder me-2"></i>
                     My Trainings </button></li>
-                  <button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-arrow-right me-2"></i>
+                    <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-paper-plane me-2"></i>
                     Submitted Trainings </button></li>
                @endif
-                 
+                    </div>    
 
-
+        </ul>
+        <ul class="list-unstyled px-2">
+          <hr class="h-color mx-2"> 
+               
                 
                  <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-chart-line me-2"></i>IDP<i class="fa fa-caret-down"></i></button></li>
                 
+                <div class="dropdown-container" data-bs-toggle="dropdown-container" aria-expanded="false">
                 <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-arrow-right me-2"></i>
+                  <i class="fas fa-file me-2"></i>
                    Create IDP </button></li>
 
                    <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-arrow-right me-2"></i>
+                    <i class="fas fa-clipboard-list me-2"></i>
                      View My IDP </button></li>
+
+                     <button wire:click="$emitTo('idp-show','createIDP')" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                      <i class="fas fa-paperclip me-2"></i>
+                       Core Competencies </button></li>
 
                 @if (auth()->user()->role_as == 1)
                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                       <i class="fas fa-arrow-right me-2"></i>
+                       <i class="fas fa-handshake me-2"></i>
                        Approved IDP's </button></li>
                      <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                       <i class="fas fa-arrow-right me-2"></i>
+                       <i class="fas fa-clipboard-list me-2"></i>
                        My IDP's </button></li>
                       <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                       <i class="fas fa-arrow-right me-2"></i>
+                       <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>
                  @endif
-                 
-                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-gift me-2"></i>Archives</a></li>
+                </div>
                 
-                 </ul>
+        </ul>
+
+        <ul class="list-unstyled px-2">
+          <hr class="h-color mx-2"> 
+
+                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-box me-2"></i>Archives</a></li>
+                
+                </ul>
                
-          <hr class="h-color mx-2">
+                <hr class="h-color mx-2">   
           <ul class="list-unstyled px-2">
           <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-trash me-2"></i>Trash</a></li>
               
@@ -279,7 +303,7 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
-        <button class="btn btn-outline-info border-3 mx-2 fas fa-align-left text-light fs-5 me-2 mx-2" type="button" id="menu-toggle"></button>
+        <button class="btn btn-outline-info border-3 mx-2 fas fa-bars text-light fs-5 me-2 mx-2" type="button" id="menu-toggle"></button>
           <h2 class="fs-4 me-3 mx-2 text-white text-uppercase">Menu</h2>
           
 
