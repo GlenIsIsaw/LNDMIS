@@ -25,10 +25,8 @@ class IdpShow extends Component
     public $responsible = [' ',' ',' '];
     public $support = [' ',' ',' '];
     public $status = [' ',' ',' '];
-    public $search = '';
-    public $start_date = '';
-    public $end_date = '';
-    public $filterStatus = '';
+    public $search,$start_date,$end_date,$filter_status, $filter_competency, $filter_completion_status;
+    protected $queryString = ['search','filter_status','filter_competency','filter_completion_status'];
     public $query = [];
     public $table = 'Approved IDPs';
 
@@ -40,8 +38,8 @@ class IdpShow extends Component
 
     protected $listeners = [
         'createIDP' => 'createButton',
-        'clear' => 'backButton',
-        'pass' => 'passTable'
+        'clearIDP' => 'clear',
+        'passIdp' => 'pass'
     ];
     public function notification(){
         if (session()->has('message')) {
@@ -49,7 +47,7 @@ class IdpShow extends Component
         }
     }
 
-    public function passTable($string2){
+    public function pass($string2){
         $this->table = $string2;
     }
 
@@ -224,6 +222,14 @@ class IdpShow extends Component
         $this->yearJoined = '';
         $this->supervisor = '';
         $this->comment = '';
+    }
+    public function resetFilter(){
+        $this->start_date = null;
+        $this->end_date = null;
+        $this->search = null;
+        $this->filter_status = null;
+        $this->filter_completion_status = null;
+        $this->filter_competency = null;
     }
     public function keep(){
         $validatedData = $this->validate([
@@ -552,51 +558,70 @@ class IdpShow extends Component
         $list = Idp::find($this->idp_id);
         if($list->user_id != auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
+            $list->submit_status = 'Pending';
+            $list->save();
+            session()->flash('message',$list->certificate_title.' Submitted');
+            $this->dispatchBrowserEvent('close-modal');
+        }else {
+            session()->flash('message','You do not have the authority to Submit this IDP');
+            $this->dispatchBrowserEvent('close-modal');
         }
-
-        $list->submit_status = 'Pending';
-        $list->save();
-        session()->flash('message',$list->certificate_title.' Submitted');
-        $this->dispatchBrowserEvent('close-modal');
-            
 
     }
     public function removeSubmit(){
         $list = Idp::find($this->idp_id);
         if($list->user_id != auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
-        }
-        if ($list->submit_status == 'Pending') {
-            session()->flash('message','Removed the Submission of your IDP');
-            $this->dispatchBrowserEvent('close-modal');
-            $list->submit_status = 'Not Submitted';
-            $list->save();
+            if ($list->submit_status == 'Pending') {
+                session()->flash('message','Removed the Submission of your IDP');
+                $this->dispatchBrowserEvent('close-modal');
+                $list->submit_status = 'Not Submitted';
+                $list->save();
+            }else{
+                session()->flash('message','You can no longer Remove the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }else{
-            session()->flash('message','You can no longer Remove the Submission');
+            session()->flash('message','You do not have the authority to Remove the Submission');
             $this->dispatchBrowserEvent('close-modal');
         }
     }
 
     public function reject(){
-        $list = Idp::find($this->idp_id);
-        $list->submit_status = 'Rejected';
-        $list->comment = $this->comment;
-        $list->save();
-        $this->comment = '';
-        $this->dispatchBrowserEvent('close-modal');
-        session()->flash('message','Rejected the Submission');
-        
+        if(!$this->checkCoord())
+        {
+            $list = Idp::find($this->idp_id);
+            if ($list->submit_status == 'Pending') 
+            {
+                $list->submit_status = 'Rejected';
+                $list->comment = $this->comment;
+                $list->save();
+                $this->comment = '';
+                $this->dispatchBrowserEvent('close-modal');
+                session()->flash('message','Rejected the Submission');
+            }else{
+                $this->dispatchBrowserEvent('close-modal');
+                session()->flash('message','The IDP is not submitted');
+            }
+        }else {
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You do not have the authority to reject this Submission');
+        }
     }
     public function approve(){
-        $list = Idp::find($this->idp_id);
-        $list->submit_status = 'Approved';
-        $list->comment = $this->comment;
-        $list->save();
-        $this->comment = '';
-        $this->dispatchBrowserEvent('close-modal');
-        session()->flash('message','Approved the Submission');
+        if(!$this->checkCoord())
+        {
+            $list = Idp::find($this->idp_id);
+            $list->submit_status = 'Approved';
+            $list->comment = $this->comment;
+            $list->save();
+            $this->comment = '';
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','Approved the Submission');
+        }else {
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You do not have the authority to approve this Submission');
+        }
     }
     public function showComment(int $id){
         $lists = Idp::select('comment')
@@ -656,6 +681,7 @@ class IdpShow extends Component
             $templateProcessor->setValue('supp'.$i, $document->support[$i]);
             $templateProcessor->setValue('complestat'.$i, $document->status[$i]);
         }
+            $pieces = explode("-", $document->created_at);
         
             $templateProcessor->setValue('esign'," ");
             $templateProcessor->setValue('edate'," ");
@@ -667,30 +693,44 @@ class IdpShow extends Component
             $templateProcessor->setValue('hdate'," ");
         
 
-
+        
+        
         //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
-        $templateProcessor->saveAs($document->name.'_IDP_'.date('Y').'.docx');
+        $templateProcessor->saveAs(storage_path('app/public/users/'.$document->name.'_IDP_'.$pieces[0].'.docx'));
         $this->dispatchBrowserEvent('close-modal');
-        return response()->download(public_path($document->name.'_IDP_'.date('Y').'.docx'))->deleteFileAfterSend(true);
+        return response()->download(storage_path('app/public/users/'.$document->name.'_IDP_'.$pieces[0].'.docx'))->deleteFileAfterSend(true);
     }
 
     public function updatedTable($value){
         $this->checkUpdatedTable();
     }
+    public function updatingSearch($value){
+        $this->resetPage();
+    }
+    public function updatingFilterStatus($value){
+        $this->resetPage();
+    }
+    public function updatingFilterCompetency($value){
+        $this->resetPage();
+    }
+    public function updatingFilterCompletionStatus($value){
+        $this->resetPage();
+    }
     public function render()
     {
         $this->notification();
         $this->checkTable();
-        if (request()->start_date || request()->end_date) {
-            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
-            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
-                ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
-                ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->where('competency', 'like', '%'.$this->filter_competency.'%')
+                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
                 ->whereBetween('idps.created_at',[$start_date,$end_date])
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
@@ -699,9 +739,10 @@ class IdpShow extends Component
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
-                ->where('submit_status', 'like', '%'.$this->filterStatus.'%')
-                ->WhereRaw("LOWER(competency) LIKE '%".strtolower($this->search)."%'")
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->where('competency', 'like', '%'.$this->filter_competency.'%')
+                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
         }

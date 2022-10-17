@@ -21,10 +21,9 @@ class TrainingShow extends Component
 
     public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
-    public $search = '';
-    public $start_date = '';
-    public $end_date = '';
-    public $filterStatus = '';
+    public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
+    protected $queryString = ['search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
+    
 
     public $query = [];
     public $table = 'Approved Trainings';
@@ -38,8 +37,9 @@ class TrainingShow extends Component
 
     protected $listeners = [
         'createTraining' => 'createButton',
-        'clear' => 'backButton',
-        'passTable' => 'passTable'
+        'clearTraining' => 'clear',
+        'passTraining' => 'passTable',
+        'refreshComponent' => '$refresh'
     ];
 
 
@@ -307,10 +307,12 @@ class TrainingShow extends Component
             $list->certificate = $filename;
         }
         $list->save();
+        
         session()->flash('message','ListOfTraining Updated Successfully');
         $this->backButton();
         
         $this->dispatchBrowserEvent('close-modal');
+        
     }
 
     public function delete(int $id)
@@ -492,39 +494,75 @@ class TrainingShow extends Component
         $this->outcome ='';
         $this->personal_action ='';
         $this->comment ='';
-        $this->start_date ='';
-        $this->end_date ='';
+    }
+    public function resetFilter(){
+        $this->start_date =null;
+        $this->end_date =null;
+        $this->search = null;
+        $this->filter_status = null;
+        $this->filter_certificate_type = null;
+        $this->filter_certificate_title = null;
+        $this->filter_level = null;
+        $this->filter_type = null;
     }
     public function reject(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        $list->status = 'Rejected';
-        $list->comment = $this->comment;
-        $list->save();
-        session()->flash('message','Rejected the Submission');
-        $this->dispatchBrowserEvent('close-modal');
+        if(!$this->checkCoord())
+        {
+            if($list->status = 'Pending'){
+                $list->status = 'Rejected';
+                $list->comment = $this->comment;
+                $list->save();
+                session()->flash('message','Rejected the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }else{
+                session()->flash('message','The Training is not Submitted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else {
+            session()->flash('message','You do not have the authority to approve this');
+            $this->dispatchBrowserEvent('close-modal');
+        }
     }
     public function approve(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        
-        $list->status = 'Approved';
-        $list->comment = $this->comment;
-        $list->save();
-        session()->flash('message','Approved the Submission');
-        $this->dispatchBrowserEvent('close-modal');
+        if(!$this->checkCoord())
+        {
+            if($list->status = 'Pending'){
+                $list->status = 'Approved';
+                $list->comment = $this->comment;
+                $list->save();
+                session()->flash('message','Approved the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }else{
+                session()->flash('message','The Training is not Submitted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else{
+            session()->flash('message','You do not have the authority to approve this');
+            $this->dispatchBrowserEvent('close-modal');
+        }
     }
     public function submit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        if($list->user_id != auth()->user()->id)
+        if($list->user_id == auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
-        }
-        if ($list->attendance_form == 1) {
-            session()->flash('message',$list->certificate_title.' Submitted');
-            $this->dispatchBrowserEvent('close-modal');
-            $list->status = 'Pending';
-            $list->save();
+            if ($list->status == 'Not Submitted' || $list->status == 'Rejected'){
+                if ($list->attendance_form == 1) {
+                    session()->flash('message',$list->certificate_title.' Submitted');
+                    $this->dispatchBrowserEvent('close-modal');
+                    $list->status = 'Pending';
+                    $list->save();
+                }else{
+                    session()->flash('message','No Attendance Form/Cannot submit');
+                    $this->dispatchBrowserEvent('close-modal');
+                }
+            }else{
+                session()->flash('message','The training has already been submitted or accepted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }else{
-            session()->flash('message','No Attendance Form/Cannot submit');
+            session()->flash('message','You do not have the authority to submit this');
             $this->dispatchBrowserEvent('close-modal');
         }
     }
@@ -533,17 +571,19 @@ class TrainingShow extends Component
     }
     public function removeSubmit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
-        if($list->user_id != auth()->user()->id)
+        if($list->user_id == auth()->user()->id)
         {
-            abort(403, 'Unauthorized Action');
-        }
-        if ($list->status == 'Pending') {
-            session()->flash('message','Removed the Submission of '.$list->certificate_title);
-            $this->dispatchBrowserEvent('close-modal');
-            $list->status = 'Not Submitted';
-            $list->save();
+            if ($list->status == 'Pending') {
+                session()->flash('message','Removed the Submission of '.$list->certificate_title);
+                $this->dispatchBrowserEvent('close-modal');
+                $list->status = 'Not Submitted';
+                $list->save();
+            }else{
+                session()->flash('message','You can no longer Remove the Submission');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }else{
-            session()->flash('message','You can no longer Remove the Submission');
+            session()->flash('message','You have no authority to Remove the Submission');
             $this->dispatchBrowserEvent('close-modal');
         }
     }
@@ -706,21 +746,62 @@ class TrainingShow extends Component
     public function updatedTable($value){
         $this->checkUpdatedTable();
     }
-
+    public function updatingSearch($value){
+        $this->resetPage();
+    }
+    public function updatingEndDate($value){
+        $this->resetPage();
+    }
+    public function updatingFilterStatus($value){
+        $this->resetPage();
+    }
+    public function updatingFilterLevel($value){
+        $this->resetPage();
+    }
+    public function updatingFilterCertificateType($value){
+        $this->resetPage();
+    }
+    public function updatingFilterCertificateTitle($value){
+        $this->resetPage();
+    }
+    public function updatingFilterType($value){
+        $this->resetPage();
+    }
     public function render()
     {
         $this->notification();
         $this->checkTable();
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where($this->query[0],$this->query[1])
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                ->where('status', 'like', '%'.$this->filter_status.'%')
+                ->where('level', 'like', '%'.$this->filter_level.'%')
+                ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('type', 'like', '%'.$this->filter_type.'%')
+                ->whereBetween('date_covered',[$start_date,$end_date])
+                ->orderBy('list_of_trainings.updated_at','desc')
+                ->paginate(3);
+        }else {
 
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
-                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->search)."%'")
-                ->where('status', 'like', '%'.$this->filterStatus.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                ->where('status', 'like', '%'.$this->filter_status.'%')
+                ->where('level', 'like', '%'.$this->filter_level.'%')
+                ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(3);
-        
+        }
 
                                     
         return view('livewire.training-show', ['trainings' => $lists]);

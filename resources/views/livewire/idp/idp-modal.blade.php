@@ -2,7 +2,7 @@
 <!-- Show Comment -->
 <div wire:ignore.self class="modal fade" id="showCommentModal" tabindex="-1" aria-labelledby="showCommentModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showCommentModalLabel">Comment</h5>
@@ -124,7 +124,7 @@
 <!-- Approve IDP Modal -->
 <div wire:ignore.self class="modal fade" id="approveIdpModal" tabindex="-1" aria-labelledby="approveIdpModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="approveIdpModalLabel">Approve the Submitted Idp</h5>
@@ -153,7 +153,7 @@
 <!-- Reject IDP Modal -->
 <div wire:ignore.self class="modal fade" id="rejectIdpModal" tabindex="-1" aria-labelledby="rejectIdpModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="rejectIdpModalLabel">Reject the Submitted Idp</h5>
@@ -227,18 +227,76 @@
     </div>
 </div>
 
-<!-- View Training Modal -->
-<div wire:ignore.self class="modal fade" id="getTrainingsModal" tabindex="-1" aria-labelledby="getTrainingsModalLabel"
+<!-- View Idp Modal -->
+<div wire:ignore.self class="modal fade" id="getIdpsModal" tabindex="-1" aria-labelledby="getIdpsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="getTrainingsModalLabel">Remove Submission of IDP</h5>
+                <h5 class="modal-title" id="getIdpsModalLabel">Remove Submission of IDP</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
                 <div class="modal-body">
                     {{$idp_id}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div wire:ignore.self class="modal fade" id="filterIdpModal" tabindex="-1" aria-labelledby="filterIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterIdpModalLabel">Filter Idp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Sort by Competency:</label>
+                        <select wire:model='filter_competency'>
+                            <option value=""></option>
+                            @foreach ($comps as $key => $comp)
+                            <optgroup label={{$key}}>
+                                @foreach ($comp as $item)
+                                <option value="{{$item->competency_name}}">{{$item->competency_name}}</option>
+                                @endforeach
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Sort by Completion Status:</label>
+                        <select wire:model="filter_completion_status" class="form-control">
+                            <option value="">...</option>
+                            <option value="Ongoing">Ongoing</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sort by Status:</label>
+                        <select wire:model="filter_status" class="form-control">
+                            <option value="">...</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Not Submitted">Not Submitted</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                    <h6>Sort by the Date Created:</h6>
+                    <div class="mb-3">
+                        <label>Start Date</label>
+                        <input type="date" wire:model="start_date">
+                        <label>End Date</label>
+                        <input type="date" wire:model="end_date">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"

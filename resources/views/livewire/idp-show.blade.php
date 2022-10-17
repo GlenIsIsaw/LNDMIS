@@ -20,7 +20,8 @@
                         <div class="card-header">
                             <h4>
                                 {{$table}}
-                                <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
+                                <button type="button" class="float-end" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
+                                <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search by Name" style="width: 230px" />
                             </h4>
                         </div>
 
@@ -28,16 +29,9 @@
                                 
                                 
                                 <div class="float-end mx-2">
-                                    <label>Sort By</label>
-                                    <select wire:model="filterStatus" class="text-center text-center border border-dark border-2 rounded">
-                                        <option value="All">Default</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Not Submitted">Not Submitted</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
-                                    </select>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">Filter</button>
                                 </div>
-                                </div>
+                        </div>
 
                                 <div class="card-body text-center">
                             <div class="table-responsive table-bordered">
@@ -96,17 +90,17 @@
                                                         @endif
 
                                                             @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
-
-                                                                
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
                                                             @endif
+                                                            @if($idp->submit_status != 'Pending')
+                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
+                                                            @endif
+                                                            
                                                             @if ($idp->submit_status == 'Pending')
                                                                 @if (auth()->user()->role_as == 0)
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Remove Submission</button>
                                                                 @endif    
-                                                            @else
-                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
                                                             @endif
                                                     @endif
                                                     
