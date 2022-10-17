@@ -4,7 +4,7 @@
 <div>
     <div class="container py-3 px-5">
         <div class="row">
-            <div class="col-md-12 mr-3">
+            <div class="col-md-12">
                 @if ($click)
                     <div class="card">
                         @if ($create)
@@ -76,23 +76,23 @@
                                                 @if ($table != "My Trainings")
                                                     <td>{{$training->name}}</td>
                                                 @endif
-                                                <td class="text-break">{{$training->certificate_title}}</td>
-                                                <td class="text-break">{{$training->certificate_type}}</td>
-                                                <td class="text-break">{{ $training->date_covered }}</td>
+                                                <td>{{$training->certificate_title}}</td>
+                                                <td>{{$training->certificate_type}}</td>
+                                                <td>{{ $training->date_covered }}</td>
                                                 <td>{{ $training->level }}</td>
-                                                <td class="text-break">{{ $training->num_hours }}</td>
-                                                <td class="text-break">{{ $training->venue }}</td>
+                                                <td>{{ $training->num_hours }}</td>
+                                                <td>{{ $training->venue }}</td>
                                                 <td>{{ $training->sponsors }}</td>
                                                 <td>{{ $training->type }}</td>
                                                 <td>{{ $training->status }}</td>
                                                  
                                                 @if ($training->attendance_form == 0)
-                                                    <td><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-warning btn-lg text-white rounded-pill shadow fw-bold px-5 py-10">Create</button></td>
+                                                    <td><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-warning text-white rounded-5 shadow fw-bold px-5 py-10">Create</button></td>
                                                 @else
                                                     <td>
-                                                        <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-info btn-lg rounded-pill shadow fw-bold  px-5 py-10">View</button>
+                                                        <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-info rounded-5 shadow fw-bold  px-5 py-10">View</button>
                                                         @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                            <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
+                                                            <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary btn-lg rounded-5 shadow fw-bold px-5 py-10">Edit</button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger px-5 py-10">Delete</button>
                                                         @endif
                                                     </td>
@@ -102,9 +102,9 @@
                                                 
                                                 <td>
                                                     <div class="d-grid gap-2">
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">View Certificate</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-5 shadow fw-bold text-sm px-5 py-10">View Certificate</button>
                                                     @if ($training->comment)
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info btn-lg rounded-pill shadow fw-bold px-5 py-10">View Comment</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info rounded-5 shadow fw-bold px-5 py-10">View Comment</button>
                                                     @endif
 
 

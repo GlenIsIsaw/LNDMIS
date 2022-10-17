@@ -1,34 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="images/favicon.ico" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
+@extends('layouts.app')
 
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            laravel: "#800000",
-                        },
-                    },
-                },
-            };
-        </script>
-        <title>LNDMIS Log In</title>
-
-
-    </head>
+@section('content')
     <nav class="fixed top-0 left-0 w-full bg-red-900 text-white h-24 flex justify-between items-center">
         <a href="/"
             ><img class="w-24 ml-7" src="images/cnsc.png" alt="" class="logo"
@@ -110,7 +82,8 @@
     </div>
 </div>
 </div>
-</div>  
+</div> 
+@endsection
 <footer
         class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
     >

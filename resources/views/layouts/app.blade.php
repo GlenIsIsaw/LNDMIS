@@ -25,11 +25,11 @@
     
 
     <div id="app">
-        <nav class="navbar blue-text navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <nav class="navbar blue-text navbar-expand-md shadow-sm" style="background-color:#800000;">
             <div class="container px-9">
                 
               
-                <a class="navbar-brand text-uppercase font-helvetica fw-bold" href="{{ url('/') }}">
+                <a class="navbar-brand text-uppercase font-helvetica fw-bold text-light" href="{{ url('/') }}">
                     Camarines Norte State College
                 </a>
                 
@@ -61,7 +61,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -124,6 +124,8 @@
 
     }) 
     </script>
+
+   
     
     <script>
 var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -150,4 +152,37 @@ for (i = 0; i < dropdown.length; i++) {
     @livewireScripts
     @yield('script')
 </body>
+
+<footer>
+    <div class="card text-center text-light" style="background-color:#800000;">
+        <div class="card-header">
+          Featured
+        </div>
+        <div class="card-body text-center">
+            <table class="table table-borderless table-hover text-light">
+                <thead>
+        <th scope="col" class="btn btn-link text-decoration-none text-light  px-3 py-2 "><i class="fab fa-facebook-square me-2"></i> CNSC Learning And Development Office</p>
+        <th scope="col" class="btn btn-link text-decoration-none text-light  px-3 py-2  "><i class="fas fa-globe me-2"></i>www.cnsclnd.com</p>
+        
+           
+        </tr>
+    </div>
+
+    <div class="card-body text-center">
+        <p><i class="far fa-copyright"></i> Camarines Norte State College. All Rights Reserved. </p>
+    </div>
+        <div class="card-footer text-muted text-light">
+          
+                <table class="table table-borderless table-hover text-light">
+                    <thead>
+                            <th scope="col" class="btn btn-link text-light">Terms of Services</th>
+                            <th scope="col" class="btn btn-link text-light">Privacy Notice</th>
+                            <th scope="col" class="btn btn-link text-light">Accessibility</th>
+                            <th scope="col" class="btn btn-link text-light">Cookie Preference</th>
+                            
+                        </tr>
+                    </thead>
+        </div>
+      </div>
+</footer>
 </html>
