@@ -681,6 +681,7 @@ class IdpShow extends Component
             $templateProcessor->setValue('supp'.$i, $document->support[$i]);
             $templateProcessor->setValue('complestat'.$i, $document->status[$i]);
         }
+            $pieces = explode("-", $document->created_at);
         
             $templateProcessor->setValue('esign'," ");
             $templateProcessor->setValue('edate'," ");
@@ -692,11 +693,12 @@ class IdpShow extends Component
             $templateProcessor->setValue('hdate'," ");
         
 
-
+        
+        
         //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
-        $templateProcessor->saveAs($document->name.'_IDP_'.date('Y').'.docx');
+        $templateProcessor->saveAs(storage_path('app/public/users/'.$document->name.'_IDP_'.$pieces[0].'.docx'));
         $this->dispatchBrowserEvent('close-modal');
-        return response()->download(public_path($document->name.'_IDP_'.date('Y').'.docx'))->deleteFileAfterSend(true);
+        return response()->download(storage_path('app/public/users/'.$document->name.'_IDP_'.$pieces[0].'.docx'))->deleteFileAfterSend(true);
     }
 
     public function updatedTable($value){
