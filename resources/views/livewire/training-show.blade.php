@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <h4>
                                 {{$table}}
-                                <button type="button" class="float-end" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
+                                <button type="button" class="float-end border-1 rounded-2" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                 @if ($table == 'My Trainings')
                                     <input type="search" wire:model="filter_certificate_title" class="form-control float-end mx-2" placeholder="Search by Certificate Title" style="width: 230px" />
                                 @else
@@ -42,13 +42,13 @@
                         
                         <div class="card-header bg-transparent border-0">
                             <div class="float-end mx-2">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterTrainingModal" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">Filter</button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterTrainingModal" class="btn-secondary text-white rounded-3 shadow text-lg px-5 py-10" style="background-color: #800;">Filter</button>
                             </div>
                         </div>
                                 
                             
 
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <div class="table-responsive table-bordered text-center">
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -86,44 +86,54 @@
                                                 <td>{{ $training->type }}</td>
                                                 <td>{{ $training->status }}</td>
                                                  
+
+                                                
                                                 @if ($training->attendance_form == 0)
-                                                    <td><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-warning text-white rounded-5 shadow fw-bold px-5 py-10">Create</button></td>
+                                               
+                                                    <td>
+                                                        <div class="d-grid gap-2">
+                                                        <button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold px-5 py-2">Create</button></td>
                                                 @else
                                                     <td>
-                                                        <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-info rounded-5 shadow fw-bold  px-5 py-10">View</button>
+                                                        <div class="d-grid gap-2">
+                                                        <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-sm fw-bold px-5 py-2">View</button>
                                                         @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                            <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary btn-lg rounded-5 shadow fw-bold px-5 py-10">Edit</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger px-5 py-10">Delete</button>
+                                                            <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary text-white rounded-3 shadow-sm fw-bold px-5 py-2">Edit</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger rounded-3 fw-bold px-5 py-2">Delete</button>
                                                         @endif
                                                     </td>
                                                 @endif
-                                                
+                                                </div>
+                        </div>
 
                                                 
                                                 <td>
                                                     <div class="d-grid gap-2">
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-5 shadow fw-bold text-sm px-5 py-10">View Certificate</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Certificate</button>
                                                     @if ($training->comment)
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info rounded-5 shadow fw-bold px-5 py-10">View Comment</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Comment</button>
                                                     @endif
 
-
+                                                    
                                                     @if ($training->status != 'Approved')
+                                                   
                                                         @if ($training->status == 'Pending')
                                                             @if (auth()->user()->role_as == 1)
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Approve</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Reject</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-sm px-5 py-2">Approve</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger rounded-3 shadow-sm fw-bold text-sm px-5 py-2">Reject</button>
                                                             @endif    
                                                         @endif
+                                                    
+                                                   
 
                                                         @if($training->status != 'Pending')
-                                                            <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
+                                                            <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary rounded-3 shadow fw-bold px-5 py-2">Edit</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger rounded-3 shadow-sm fw-bold px-5 py-2">Delete</button>
                                                         @endif
                                                         
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 @if ($training->attendance_form == 1) 
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow fw-bold px-5 py-2">Submit</button>
                                                                 @endif
                                                                 
                                                             @endif
@@ -140,7 +150,7 @@
                                         
                                         @empty    
                                             <tr>
-                                                <td colspan="10">No Record/s Found</td>
+                                                <td colspan="20">No Record/s Found</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

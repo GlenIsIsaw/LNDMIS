@@ -1,8 +1,14 @@
-<div class="d-flex justify-content-between">
+<div class="justify-content-center">
     
-    <h6>Part1->Part2-><b>Part3</b></h6>
-    <p> </p>
+    <div class="progress" style="height:25px; mx-4">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+          
+        </div>
+      </div>
 </div>
+
+<hr class="h-color mx-2 mt-3">
 <div class="mb-3">
     <label>Attach the Certificate Photo</label>
     <div

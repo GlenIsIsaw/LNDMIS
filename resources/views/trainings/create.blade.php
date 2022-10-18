@@ -1,7 +1,7 @@
 
     <div class="card-header">
         <h4>
-            Create Training    
+            Upload Training    
         </h4>
     </div>
     <div class="card-body">
@@ -17,10 +17,15 @@
                 Uploaded Photo:
                 <img class="img-fluid rounded mx-auto d-block" width="500" height="500" src="{{ $photo->temporaryUrl() }}">
                 @endif
-                
+
+                <div class="mt-3">
+                <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center">Back</i></button>
+
+
                 <div class="float-end">
-                <button type="button" class="btn danger" wire:click="backButton">Close</button>
+                <button type="button"  wire:click="backButton" class="btn btn-danger">Close</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationTrainingModal" class="btn btn-primary">Save</button>
+                </div>
                 </div>
             @endif
                 

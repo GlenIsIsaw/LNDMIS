@@ -1,13 +1,22 @@
 
-<div class="d-flex justify-content-center">
-    <h6><b>Part1</b>->Part2->Part3</h6>
+<div class="justify-content-center mt-4">
+
+    <div class="progress" style="height:25px; mx-4">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+          
+        </div>
+      </div>
 </div>
-<div class="mb-3">
+
+<hr class="h-color mx-2 mt-3">
+
+<div class="mb-3 mt-4">
     <label>Name</label>
     <div class="fw-bold text-lg"><p>{{auth()->user()->name}}</p></div>
 </div>
 
-<hr class="h-color mx-2">
+
 <div class="mb-3">
     <label>Certificate Types</label>
     <select type="text" wire:model="certificate_type" class="form-control">
