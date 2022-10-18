@@ -420,13 +420,16 @@
                         </select>
                     </div>
                     
+                    
                     <h6>Sort by Date Covered:</h6>
                     <div class="mb-3">
                         <label>Start Date</label>
                         <input type="date" wire:model="start_date">
+
                         <label>End Date</label>
                         <input type="date" wire:model="end_date">
                     </div>
+                    
 
 
                 </div>

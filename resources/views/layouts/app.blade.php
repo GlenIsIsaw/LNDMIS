@@ -26,22 +26,24 @@
 
     <div id="app">
         <nav class="navbar blue-text navbar-expand-md shadow-sm" style="background-color:#800000;">
-            <div class="container px-9">
+            <div class="container-fluid px-9">
                 
-              
-                <a class="navbar-brand text-uppercase font-helvetica fw-bold text-light" href="{{ url('/') }}">
-                    Camarines Norte State College
-                </a>
+                 
+                <img src="/images/cnsc.png" alt="CNSC" width="72" height="74" class="d-inline-block align-text-top mx-3">
+               
+                
                 
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="fas fa-bars text-light"></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                       
+                    <ul class="navbar-nav my-auto">
+                        <a class="navbar-brand text-uppercase font-helvetica fw-bold text-light">
+                            Camarines Norte State College<br>  Learning And Development Management Information System <br>
+                        </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -60,12 +62,16 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                       
+                        
+                                
+                            <li class="nav-item dropdown mx-5">
+                                
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end text-light" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -158,15 +164,15 @@ for (i = 0; i < dropdown.length; i++) {
         <div class="card-header">
           Featured
         </div>
-        <div class="card-body text-center">
-            <table class="table table-borderless table-hover text-light">
-                <thead>
+       
+            <table class="table table-borderless text-light">
+                
         <th scope="col" class="btn btn-link text-decoration-none text-light  px-3 py-2 "><i class="fab fa-facebook-square me-2"></i> CNSC Learning And Development Office</p>
         <th scope="col" class="btn btn-link text-decoration-none text-light  px-3 py-2  "><i class="fas fa-globe me-2"></i>www.cnsclnd.com</p>
         
            
         </tr>
-    </div>
+   
 
     <div class="card-body text-center">
         <p><i class="far fa-copyright"></i> Camarines Norte State College. All Rights Reserved. </p>
