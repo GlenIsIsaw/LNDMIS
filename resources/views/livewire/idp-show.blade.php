@@ -33,7 +33,7 @@
                                 </div>
                         </div>
 
-                                <div class="card-body text-center">
+                        <div class="card-body text-center">
                             <div class="table-responsive table-bordered">
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -103,9 +103,7 @@
                                                                 @endif    
                                                             @endif
                                                     @endif
-                                                    
                                                 </td>
-                                            </div>
                                             </tr>
                                         @empty
                                             <tr>
@@ -115,7 +113,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
+                        </div>
+                            <div class="d-flex justify-content-center">
                                 {{ $idps->links() }}
                             </div>
                         </div>

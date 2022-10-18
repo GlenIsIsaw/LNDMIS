@@ -290,7 +290,7 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
-        <button class="btn mx-2 fas fa-bars text-light fs-5 me-2 mx-2" type="button" id="menu-toggle"></button>
+        <button class="btn mx-2 fas fa-bars text-light fs-5 me-2 mx-2" type="button" id="menu-toggle" ></button>
           <h2 class="fs-4 me-3 mx-2 text-white text-uppercase"></h2>
           
 

@@ -9,6 +9,15 @@
 @section('script')
 <script>
 
+    let toggle = true;
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+        toggle = false; 
+        if (toggle) {
+            document.getElementById('trainings-card').className = 'w-100 p-3';
+        }else{
+            document.getElementById('trainings-card').className = 'vw-100 p-3 px-5';
+        }
+    });
     window.addEventListener('close-modal', event => {
 
         $('#deleteTrainingModal').modal('hide');
@@ -44,6 +53,7 @@
     window.addEventListener('confirmation-create-training', event => {
         $('#createConfirmationTrainingModal').modal('show');
     })
+
 
 </script>
 @endsection
