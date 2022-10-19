@@ -10,13 +10,13 @@
 
 <hr class="h-color mx-2 mt-3">
 <div class="mb-3">
-    <label>Outcome</label>
-    <textarea wire:model="outcome" rows="4" cols="50" class="form-control"></textarea>
+    <label class="fw-bold">Outcome</label>
+    <textarea wire:model="outcome" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
     @error('outcome') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Personal Action</label>
-    <textarea wire:model="personal_action" rows="4" cols="50" class="form-control"></textarea>
+    <label class="fw-bold">Personal Action</label>
+    <textarea wire:model="personal_action" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
     @error('personal_action') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <button type="button" class="btn btn-secondary" wire:click="back">Back</button>

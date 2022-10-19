@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
 
-                <img class="img-fluid" src="{{ url('storage/users/'.$name.'/'.$certificate) }}">
+                <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$name.'/'.$certificate) }}">
 
             </div>
         </div>
@@ -366,14 +366,14 @@
                 <div class="modal-body">
                     @if ($table != 'My Trainings')
                         <div class="mb-3">
-                            <label>Search by Certificate Title:</label>
-                            <input type="search" wire:model="filter_certificate_title" class="form-control" placeholder="Search..." />
+                            <label  class="fw-bold">Search by Certificate Title:</label>
+                            <input type="search" wire:model="filter_certificate_title" class="form-control border border-3 rounded-3" placeholder="Search..." />
                         </div>
                     @endif
 
                     <div class="mb-3">
-                        <label>Sort by Status:</label>
-                        <select wire:model="filter_status" class="form-control">
+                        <label class="fw-bold">Sort by Status:</label>
+                        <select wire:model="filter_status" class="form-control border border-3 rounded-3">
                             <option value="">...</option>
                             <option value="Approved">Approved</option>
                             <option value="Not Submitted">Not Submitted</option>
@@ -383,8 +383,8 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label>Sort by Certificate Type:</label>
-                        <select type="text" wire:model="filter_certificate_type" class="form-control">
+                        <label class="fw-bold">Sort by Certificate Type:</label>
+                        <select type="text" wire:model="filter_certificate_type" class="form-control border border-3 rounded-3">
                                     <option value="">...</option>
                                     <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                                     <option value="Certificate of Training">Certificate of Training</option>
@@ -398,8 +398,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label>Sort by Level:</label>
-                        <select wire:model="filter_level" class="form-control">
+                        <label class="fw-bold">Sort by Level:</label>
+                        <select wire:model="filter_level" class="form-control border border-3 rounded-3">
                             <option value="">...</option>
                             <option value="International">International</option>
                             <option value="Local">Local</option>
@@ -409,8 +409,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label>Sort by Type:</label>
-                        <select wire:model="filter_type" class="form-control">
+                        <label class="fw-bold">Sort by Type:</label>
+                        <select wire:model="filter_type" class="form-control border border-3 rounded-3">
                             <option value="">...</option>
                             <option value="Eligibility">Eligibility</option>
                             <option value="Event-Facilitator">Event-Facilitator</option>
@@ -421,13 +421,13 @@
                     </div>
                     
                     
-                    <h6>Sort by Date Covered:</h6>
-                    <div class="mb-3">
+                    <label class="fw-bold">Sort by Date Covered:</label>    
+                    <div class="mx-3 my-3">
                         <label>Start Date</label>
-                        <input type="date" wire:model="start_date">
+                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3"> 
 
                         <label>End Date</label>
-                        <input type="date" wire:model="end_date">
+                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
                     </div>
                     
 

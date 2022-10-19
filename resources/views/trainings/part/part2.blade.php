@@ -16,23 +16,23 @@
 
 <hr class="h-color mx-2 mt-3">
 <div class="mb-3">
-    <label>Venue</label>
-    <input type="text" wire:model="venue" class="form-control">
+    <label class="fw-bold">Venue</label>
+    <input type="text" wire:model="venue" class="form-control border border-3 border-secondary">
     @error('venue') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label>Sponsors</label>
-    <input type="text" wire:model="sponsors" class="form-control">
+    <input type="text" wire:model="sponsors" class="form-control border border-3 border-secondary">
     @error('sponsors') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Number of Hours</label>
-    <input type="number" wire:model="num_hours" class="form-control">
+    <label class="fw-bold">Number of Hours</label>
+    <input type="number" wire:model="num_hours" class="form-control border border-3 border-secondary">
     @error('num_hours') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Type</label>
-    <select wire:model="type" class="form-control">
+    <label class="fw-bold">Type</label>
+    <select wire:model="type" class="form-control border border-3 border-secondary">
         <option value="">...</option>
         <option value="Eligibility">Eligibility</option>
         <option value="Event-Facilitator">Event-Facilitator</option>
@@ -42,6 +42,8 @@
     </select>
     @error('type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
+
+<hr class="h-color mx-2 mt-3">
 <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center">Back</i></button>
 
 <div class="float-end">

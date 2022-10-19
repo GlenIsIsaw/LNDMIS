@@ -18,8 +18,8 @@
 
 
 <div class="mb-3">
-    <label>Certificate Types</label>
-    <select type="text" wire:model="certificate_type" class="form-control">
+    <label class="fw-bold">Certificate Types</label>
+    <select type="text" wire:model="certificate_type" class="form-control border border-3 border-secondary">
         <option value="">...</option>
                 <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                 <option value="Certificate of Training">Certificate of Training</option>
@@ -34,13 +34,13 @@
     @error('certificate_type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Certificate Name</label>
-    <input type="text" wire:model="certificate_title" class="form-control">
+    <label class="fw-bold">Certificate Name</label>
+    <input type="text" wire:model="certificate_title" class="form-control border border-3 border-secondary">
     @error('certificate_title') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Level</label>
-    <select wire:model="level" class="form-control">
+    <label class="fw-bold">Level</label>
+    <select wire:model="level" class="form-control border border-3 border-secondary">
         <option value="">...</option>
         <option value="International">International</option>
         <option value="Local">Local</option>
@@ -51,11 +51,11 @@
     @error('level') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Date Covered</label>
-    <input type="date" wire:model="date_covered" class="form-control">
+    <label class="fw-bold">Date Covered</label>
+    <input type="date" wire:model="date_covered" class="form-control border border-3 border-secondary">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-
+<hr class="h-color mx-2 mt-3">
 <div class="float-end">
 <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
 <button type="button" wire:click="next" class="btn btn-primary">Next</button>   

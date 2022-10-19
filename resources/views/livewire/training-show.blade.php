@@ -36,7 +36,7 @@
                             <div class="card-header">
                                 <h4>
                                     {{$table}}
-                                    <button type="button" class="float-end border-1 rounded-2" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
+                                    <button type="button" class="float-end border-3 rounded-3" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                     @if ($table == 'My Trainings')
                                         <input type="search" wire:model="filter_certificate_title" class="form-control float-end mx-2" placeholder="Search by Certificate Title" style="width: 230px" />
                                     @else
@@ -116,10 +116,14 @@
                                                     
                                                     <td>
                                                         <div class="d-grid gap-2">
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Certificate</button>
-                                                        @if ($training->comment)
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Comment</button>
+                                                        @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
+                                                        @if ($training->attendance_form == 1) 
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow fw-bold px-5 py-2">Submit</button>
                                                         @endif
+                                                        
+                                                    @endif
+
+                                                       
 
                                                         
                                                         @if ($training->status != 'Approved')
@@ -138,12 +142,12 @@
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger rounded-3 shadow-sm fw-bold px-5 py-2">Delete</button>
                                                             @endif
                                                             
-                                                                @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                                    @if ($training->attendance_form == 1) 
-                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow fw-bold px-5 py-2">Submit</button>
-                                                                    @endif
-                                                                    
+                                                            
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Certificate</button>
+                                                                @if ($training->comment)
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Comment</button>
                                                                 @endif
+                                                               
                                                                 
                                                                 @if ($training->status == 'Pending')
                                                                     @if (auth()->user()->role_as == 0)

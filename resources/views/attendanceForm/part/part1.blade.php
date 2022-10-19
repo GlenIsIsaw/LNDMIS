@@ -9,16 +9,16 @@
 
 <hr class="h-color mx-2 mt-3">
 <div class="mb-3">
-    <label>Name</label>
-    <select wire:model="ListOfTraining_id" class="form-control">
-        <option value="">Pick One</option>
+    <label class="fw-bold">Name</label>
+    <select wire:model="ListOfTraining_id" class="form-control border border-3 border-secondary">
+        <option value="">...</option>
         <option value="{{$ListOfTraining_id}}">{{$name}}</option>
     </select>
     @error('ListOfTraining_id') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Specific Competency Target to Enhance</label>
-    <select wire:model="competency" class="form-control">
+    <label class="fw-bold">Specific Competency Target to Enhance</label>
+    <select wire:model="competency" class="form-control border border-3 border-secondary">
         <option value="">...</option>
         @foreach ($comps as $key => $comp)
         <optgroup label={{$key}}>
@@ -30,8 +30,8 @@
     @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label>Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label>
-    <textarea wire:model="knowledge_acquired" rows="4" cols="50" class="form-control"></textarea>
+    <label class="fw-bold">Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label>
+    <textarea wire:model="knowledge_acquired" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
     @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 
