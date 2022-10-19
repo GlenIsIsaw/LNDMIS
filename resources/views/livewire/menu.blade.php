@@ -223,7 +223,7 @@
                     Approved Trainings </button></li>
                     <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-folder me-2"></i>
-                    My Trainings </button></li>
+                    Coordinator Trainings </button></li>
                     <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-paper-plane me-2"></i>
                     Submitted Trainings </button></li>
@@ -250,7 +250,7 @@
                        Approved IDP's </button></li>
                      <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-list me-2"></i>
-                       My IDP's </button></li>
+                       Coordinator IDP's </button></li>
                       <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>

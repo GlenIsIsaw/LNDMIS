@@ -1,9 +1,13 @@
-<div class="d-flex justify-content-between">
-    <div class="text-center">
-    <h6><b>Part1</b>->Part2</h6>
-    <p>&nbsp; </p>
-    </div>
+<div class="justify-content-center">
+    <div class="progress" style="height:25px; mx-4">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+          
+        </div>
+      </div>
 </div>
+
+<hr class="h-color mx-2 mt-3">
 <div class="mb-3">
     <label>Name</label>
     <select wire:model="ListOfTraining_id" class="form-control">
@@ -31,5 +35,7 @@
     @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 
+<div class="float-end">
 <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
 <button type="button" wire:click="next" class="btn btn-primary">Next</button>
+</div>

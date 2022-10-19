@@ -50,13 +50,13 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has(''))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            @if (Route::has(''))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
@@ -162,7 +162,7 @@ for (i = 0; i < dropdown.length; i++) {
 <footer>
     <div class="card text-center text-light" style="background-color:#800000;">
         <div class="card-header">
-          Featured
+         
         </div>
        
             <table class="table table-borderless text-light">

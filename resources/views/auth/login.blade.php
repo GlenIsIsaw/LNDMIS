@@ -1,21 +1,35 @@
-@extends('layouts.app')
 
-@section('content')
-    <nav class="fixed top-0 left-0 w-full bg-red-900 text-white h-24 flex justify-between items-center">
-        <a href="/"
-            ><img class="w-24 ml-7" src="images/cnsc.png" alt="" class="logo"
-        /></a>
-        <ul class="flex space-x-6 mr-6 text-lg">
-        
+   
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Camarines Norte State College Learning and Development</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    @livewireStyles
+
+</head>    
         
        
-        </nav>
+      
 
-    <div style="background-image: url('images/lnd.jpg')" class="w-full h-full bg-no-repeat bg-center bg-cover"> 
+<div style="background-image: url('images/lnd.jpg')" class="w-full h-full bg-no-repeat bg-center bg-cover"> 
 <div class="container">
     <div class="flex items-center justify-center h-screen w-screen">
         <div class="bg-gray-400 w-96 p-6 rounded shadow-sm">
-            <div class="card rounded shadow-sm">
+            <div class="card rounded-3 shadow-sm">
                 <div class="card-header text-center text-3xl mb-4">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -23,7 +37,7 @@
                         @csrf
 
                         <div class="row mb-7 text-left">
-                            <label for="email" class="col-md-4 col-form-label outline-white-900 text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="row mb-3">
                                 <input id="email" type="email" class="border-2 border-black w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -83,13 +97,5 @@
 </div>
 </div>
 </div> 
-@endsection
-<footer
-        class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
-    >
-        <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
 
-        
-        
-    </footer>
 

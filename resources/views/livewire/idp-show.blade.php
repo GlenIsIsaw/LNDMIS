@@ -29,7 +29,7 @@
                                 
                                 
                                 <div class="float-end mx-2">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal" class="btn-info text-white rounded-pill shadow fw-bold text-sm px-5 py-10">Filter</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal" class="btn-secondary text-white rounded-3 shadow text-lg px-5 py-10" style="background-color: #800;">Filter</button>
                                 </div>
                         </div>
 
@@ -46,7 +46,7 @@
                                             <th scope="col">Created At</th>
                                             <th scope="col">Updated At</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" class="text-danger">Action</th>
+                                            <th scope="col" class="text-danger">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -74,8 +74,8 @@
                                                 <td>{{ $idp->submit_status }}</td>
                                                 <td>
                                                     <div class="d-grid gap-3">
-                                                    <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info  btn-lg rounded-pill shadow fw-bold text-white px-5 py-10">View</button>
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Print</button>
+                                                    <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info rounded-3 shadow-sm fw-bold text-white px-3 py-2">View</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2">Print</button>
                                                     @if ($idp->comment)
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info btn-lg rounded-pill shadow fw-bold px-5 py-10 ">View Comment</button>
                                                     @endif
@@ -90,11 +90,11 @@
                                                         @endif
 
                                                             @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-lg rounded-pill shadow fw-bold px-5 py-10">Submit</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2">Submit</button>
                                                             @endif
                                                             @if($idp->submit_status != 'Pending')
-                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary btn-lg rounded-pill shadow fw-bold px-5 py-10">Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Delete</button>
+                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary rounded-3 shadow-sm fw-bold px-3 py-2">Edit</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger rounded-3 shadow-sm px-3 py-2">Delete</button>
                                                             @endif
                                                             
                                                             @if ($idp->submit_status == 'Pending')

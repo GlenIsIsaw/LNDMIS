@@ -44,7 +44,7 @@
         </tbody>
     </table>
 </div>
-    <div class="card-footer">
+    <div class="card-footer float-end">
         <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Print</button>
         <button type="button" class="btn btn-secondary" wire:click="backButton">Close</button>
     </div>

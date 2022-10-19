@@ -10,7 +10,9 @@
         @endif
         @if ($next == 1)
             @include('attendanceForm.part.part2')
+            <div class="float-end">
             <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationAttendanceModal" class="btn btn-primary">Save</button>
+            </div>
         @endif         
 
 </div>
