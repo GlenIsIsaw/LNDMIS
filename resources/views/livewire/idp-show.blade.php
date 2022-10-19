@@ -4,6 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 @if ($click)
+                <div id="main-card" style="padding-right: 5%">
                     <div class="card">
                         @if($create)
                             @include('idp.create')
@@ -15,7 +16,12 @@
                             @include('idp.show')
                         @endif
                     </div>
+                </div>
+
                 @else
+                <div id="main-card">
+
+                
                     <div class="card">
                         <div class="card-header">
                             <h4>
@@ -122,6 +128,7 @@
                                 {{ $idps->links() }}
                             </div>
                         </div>
+                    </div>
                     </div>
                 @endif
             </div>

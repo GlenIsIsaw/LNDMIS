@@ -175,7 +175,7 @@
     }
   
     #wrapper.toggled #sidebar-wrapper {
-      margin-left: -23rem;
+      margin-left: -29rem;
     }
   }
 
@@ -289,7 +289,7 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
         <button class="btn btn-light mx-2 text-light fw-bold text-center text-uppercase my-2 mx-2" style="background-color: #800000 " type="button" id="menu-toggle">☰ Menu </button>

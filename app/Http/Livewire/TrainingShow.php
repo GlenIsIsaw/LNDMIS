@@ -568,6 +568,7 @@ class TrainingShow extends Component
     }
     public function close(){
         $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('toggle-condition');
     }
     public function removeSubmit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
@@ -771,6 +772,7 @@ class TrainingShow extends Component
     {
         $this->notification();
         $this->checkTable();
+        $this->dispatchBrowserEvent('toggle');
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();

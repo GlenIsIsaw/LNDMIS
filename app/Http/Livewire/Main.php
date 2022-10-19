@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class Main extends Component
 {
+
     public $trainingIndex = true;
     public $idpIndex = false;
     public $string, $string2;

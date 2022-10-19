@@ -720,6 +720,7 @@ class IdpShow extends Component
     {
         $this->notification();
         $this->checkTable();
+        $this->dispatchBrowserEvent('toggle');
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();

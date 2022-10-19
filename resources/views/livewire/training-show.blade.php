@@ -6,32 +6,34 @@
                     <div class="container py-3 px-5">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="card">
-                                    @if ($create)
-                                        @include('trainings.create')
-                                    @endif
-                                    @if ($update)
-                                        @include('trainings.edit')
-                                    @endif
-                                    @if ($createAttendanceForm)
-                                        @include('attendanceForm.create')
-                                    @endif
-                                    @if ($editAttendanceForm)
-                                        @include('attendanceForm.edit')
-                                    @endif
-                                    @if ($showAttendanceForm)
-                                        @include('attendanceForm.show')
-                                    @endif
+                                <div id="main-card">
+                                    <div class="card">
+                                        @if ($create)
+                                            @include('trainings.create')
+                                        @endif
+                                        @if ($update)
+                                            @include('trainings.edit')
+                                        @endif
+                                        @if ($createAttendanceForm)
+                                            @include('attendanceForm.create')
+                                        @endif
+                                        @if ($editAttendanceForm)
+                                            @include('attendanceForm.edit')
+                                        @endif
+                                        @if ($showAttendanceForm)
+                                            @include('attendanceForm.show')
+                                        @endif
+                                    </div>
                                 </div>
+                                
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 @else
-
-        <div class="container-fluid">
+        <div class="container py-3 px-5">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="trainings-card">
+                    <div id="main-card" style="padding-right: 5%">
                         <div class="card" >
                             <div class="card-header">
                                 <h4>
@@ -116,12 +118,16 @@
                                                     
                                                     <td>
                                                         <div class="d-grid gap-2">
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Certificate</button>
+                                                            @if ($training->comment)
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Comment</button>
+                                                            @endif
                                                         @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                        @if ($training->attendance_form == 1) 
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow fw-bold px-5 py-2">Submit</button>
-                                                        @endif
+                                                            @if ($training->attendance_form == 1) 
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow fw-bold px-5 py-2">Submit</button>
+                                                            @endif
                                                         
-                                                    @endif
+                                                        @endif
 
                                                        
 
@@ -143,10 +149,7 @@
                                                             @endif
                                                             
                                                             
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Certificate</button>
-                                                                @if ($training->comment)
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm fw-bold px-3 py-2">View Comment</button>
-                                                                @endif
+                                                                
                                                                
                                                                 
                                                                 @if ($training->status == 'Pending')
