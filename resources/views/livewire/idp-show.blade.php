@@ -122,7 +122,8 @@
                 @endif
             </div>
         </div>
+        @include('livewire.idp.idp-modal')
+        @include('livewire.main-modal')
     </div>
-    @include('livewire.idp.idp-modal')
-    @include('livewire.main-modal')
-</div>
+
+
