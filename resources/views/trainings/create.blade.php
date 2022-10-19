@@ -19,9 +19,10 @@
                 @endif
 
                 <div class="mt-3">
+                    <hr class="h-color mx-2 mt-3">
                 <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center">Back</i></button>
 
-                <hr class="h-color mx-2 mt-3">
+                
                 <div class="float-end">
                 <button type="button"  wire:click="backButton" class="btn btn-danger">Close</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationTrainingModal" class="btn btn-primary">Save</button>
