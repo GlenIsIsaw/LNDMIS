@@ -1,8 +1,11 @@
 
         <div class="mb-3">
             <label><h6>Name:</h6></label>
+            <div class="fw-bold">
             <p>{{auth()->user()->name}}</p>
+            </div>
         </div>
+        <hr class="h-color mx-2 mt-3">
         <div class="mb-3">
             <label><h6>Purpose:</h6></label><br>
             <label>
@@ -11,7 +14,7 @@
             </label><br>
             <label>
                 <input type="checkbox" id="purpose_improve" wire:model="purpose_improve" value="/">
-                To improve the current level position’s level of competencies.
+                To improve the current level position's level of competencies.
             </label><br>
             <label>
                 <input type="checkbox" id="purpose_obtain" wire:model="purpose_obtain" value="/">
@@ -20,9 +23,10 @@
             <label>
                 <input type="checkbox" id="purpose_others" wire:model="purpose_others" value="/">
                     Others, please specify:
-                <input type="text" wire:model="purpose_explain"/>
+                <input type="text" class="border border-2 rounded-3 border-dark" wire:model="purpose_explain"/>
             </label>
         </div>
+        <hr class="h-color mx-2 mt-3">
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -37,7 +41,7 @@
                     @for ($i = 0; $i < 3; $i++)
                         <tr>
                             <td>
-                                <select wire:model='competency.{{$i}}'>
+                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark">
                                     <option value=""></option>
                                     @foreach ($comps as $key => $comp)
                                     <optgroup label={{$key}}>
@@ -51,7 +55,7 @@
                                 @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="sug.{{$i}}" id="sug">
+                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark">
                                     <option value=""></option>
                                     <option value="S">S</option>
                                     <option value="U">U</option>
@@ -61,23 +65,23 @@
                                 @error('sug') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="text" wire:model="dev_act.{{$i}}">
+                                <input type="text" wire:model="dev_act.{{$i}}" class="border border-2 rounded-3 border-dark">
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             
                             <td>
-                                <input type="date" wire:model="target_date.{{$i}}">
+                                <input type="date" wire:model="target_date.{{$i}}" class="border border-2 rounded-3 border-dark">
                                 @error('target_date.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('target_date') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="text" wire:model="responsible.{{$i}}">
+                                <input type="text" wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark">
                                 @error('responsible.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('responsible') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="support" wire:model="support.{{$i}}">
+                                <input type="support" wire:model="support.{{$i}}" class="border border-2 rounded-3 border-dark">
                                 @error('support.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('support') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
@@ -86,6 +90,9 @@
                 </tbody>
             </table>
         </div>
-    <button type="button" class="btn btn-secondary" wire:click="backButton"
+        <hr class="h-color mx-2 mt-3">
+        <div class="float-start mx-2 my-2">
+    <button type="button" class="btn btn-danger" wire:click="backButton"
         data-bs-dismiss="modal">Close</button>
     <button type="submit" class="btn btn-primary">Next</button>
+        </div>

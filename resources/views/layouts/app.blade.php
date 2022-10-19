@@ -30,6 +30,7 @@
                 
                  
                 <img src="/images/cnsc.png" alt="CNSC" width="72" height="74" class="d-inline-block align-text-top mx-3">
+                
                
                 
                 
@@ -41,22 +42,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav my-auto">
-                        <a class="navbar-brand text-uppercase font-helvetica fw-bold text-light">
+
+                        <div class="navbar-brand text-uppercase font-helvetica fw-bold text-light fs-6">
                             Camarines Norte State College<br>  Learning And Development Management Information System <br>
-                        </a>
+                        </div>
+                       
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has(''))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            @if (Route::has(''))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
@@ -162,7 +165,7 @@ for (i = 0; i < dropdown.length; i++) {
 <footer>
     <div class="card text-center text-light" style="background-color:#800000;">
         <div class="card-header">
-          Featured
+         
         </div>
        
             <table class="table table-borderless text-light">

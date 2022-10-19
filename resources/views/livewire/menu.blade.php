@@ -49,6 +49,7 @@
     -o-transition: margin 0.25s ease-out;
     transition: margin 0.25s ease-out;
     
+    
   }
   
   #sidebar-wrapper .sidebar-heading {
@@ -159,6 +160,7 @@
 }
 
 
+
   
   
   @media (min-width: 768px) {
@@ -173,7 +175,7 @@
     }
   
     #wrapper.toggled #sidebar-wrapper {
-      margin-left: -29rem;
+      margin-left: -23rem;
     }
   }
 
@@ -223,7 +225,7 @@
                     Approved Trainings </button></li>
                     <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-folder me-2"></i>
-                    My Trainings </button></li>
+                    Coordinator Trainings </button></li>
                     <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-paper-plane me-2"></i>
                     Submitted Trainings </button></li>
@@ -250,7 +252,7 @@
                        Approved IDP's </button></li>
                      <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-list me-2"></i>
-                       My IDP's </button></li>
+                       Coordinator IDP's </button></li>
                       <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>
@@ -287,10 +289,10 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
-        <button class="btn mx-2 fas fa-bars text-light fs-5 me-2 mx-2" type="button" id="menu-toggle" ></button>
+        <button class="btn btn-light mx-2 text-light fw-bold text-center text-uppercase my-2 mx-2" style="background-color: #800000 " type="button" id="menu-toggle">☰ Menu </button>
           <h2 class="fs-4 me-3 mx-2 text-white text-uppercase"></h2>
           
 

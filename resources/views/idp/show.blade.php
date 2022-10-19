@@ -6,7 +6,7 @@
 <div class="card-body">
     <table class="table">
         <tr>
-            <td><p >Employee Name: {{$name}}</p></td>
+            <td><p>Employee Name: {{$name}}</p></td>
             <td><p>Position: {{$position}}</p></td>
             <td><p>Years in the Position: {{$yearinPosition}}</p></td>
         </tr>
