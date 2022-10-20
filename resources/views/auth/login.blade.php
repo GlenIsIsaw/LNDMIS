@@ -25,28 +25,36 @@
        
       
 
-<div style="background-image: url('images/lnd.jpg')" class="w-full h-full bg-no-repeat bg-center bg-cover"> 
-<div class="container">
-    <div class="flex items-center justify-center h-screen w-screen">
-        <div class="bg-gray-400 w-96 p-6 rounded shadow-sm">
-            <div class="card rounded-3 shadow-sm">
-                <div class="card-header text-center text-3xl mb-4">{{ __('Login') }}</div>
+<div style="background-image: linear-gradient(
+    to right, #1a2a6c,
+    #b21f1f, #fdbb2d);" class="vh-50 py-5"> 
 
-                <div class="card-body">
+
+<div class="container py-5 px-3 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-20 col-md-10 col-lg-7 col-xl-6 h-100">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <img src="/images/cnsc.png" class="rounded mx-auto mt-4 mb-1 d-block" alt="..." width="100" height="100">
+                <div class="card-title text-center fw-bold fs-2 text-uppercase mt-2 mb-4">{{ __('Log in') }}</div>
+
+                <div class="card-body ">
+                  
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                       
                         <div class="row mb-7 text-left">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
-                            <div class="row mb-3">
-                                <input id="email" type="email" class="border-2 border-black w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="border-3 border-secondary w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
+                               
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                               
                             </div>
                         </div>
 
@@ -54,7 +62,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="border-2 border-black w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="border-3 border-secondary w-full py-2 bg-gray-100 text-gray-900 px-1 outline-none mb-4 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +75,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <input class="form-check-input border-3" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
@@ -77,17 +85,22 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary bg-red-900 w-full text-white py-2 rounded hover:bg-yellow-500 transition-colors mb-7">
-                                    {{ __('Login') }}
+                            <div class="d-grid gap-2 col-md-5 offset-md-4 mb-4" >
+                                <button type="submit" style="background-image: linear-gradient(
+                                    to right, #1a2a6c,
+                                    #b21f1f, #fdbb2d);" class="btn btn-secondary bg-red-900 w-full text-white text-uppercase fw-bold py-2 rounded-pill hover:bg-yellow-500 transition-colors mb-7">
+                                    {{ __('log In') }}
                                 </button>
-
+                            </div>
+                            <hr class="px-5">
+                                <div class="col-md-auto offset-md-auto">
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn btn-link text-secondary" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
                             </div>
+                            
                         </div>
                     </form>
                 </div>
@@ -97,5 +110,10 @@
 </div>
 </div>
 </div> 
+<footer>
+
+    
+
+</footer>
 
 

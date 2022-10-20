@@ -38,11 +38,11 @@
                             <div class="card-header">
                                 <h4>
                                     {{$table}}
-                                    <button type="button" class="float-end border-3 rounded-3" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
+                                    <button type="button"style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                     @if ($table == 'My Trainings')
-                                        <input type="search" wire:model="filter_certificate_title" class="form-control float-end mx-2" placeholder="Search by Certificate Title" style="width: 230px" />
+                                        <input type="search" wire:model="filter_certificate_title" class="form-control float-end mx-2 border-3" placeholder="Search by Certificate Title" style="width: 230px" />
                                     @else
-                                        <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search by Name" style="width: 230px" />
+                                        <input type="search" wire:model="search" class="form-control float-end mx-2 border-3" placeholder="Search by Name" style="width: 230px" />
                                     @endif
                                     
                                     

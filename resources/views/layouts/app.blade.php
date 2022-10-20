@@ -43,7 +43,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav my-auto">
 
-                        <div class="navbar-brand text-uppercase font-helvetica fw-bold text-light fs-6">
+                        <div class="d-flex justify-content-center text-uppercase font-helvetica fw-bold text-light fs-6 mx-2">
                             Camarines Norte State College<br>  Learning And Development Management Information System <br>
                         </div>
                        
