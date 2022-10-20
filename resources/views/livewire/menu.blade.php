@@ -32,8 +32,8 @@
     overflow-x: hidden;
     background-image: linear-gradient(
       to right,
-      #EB5757,
-      #000000
+      #8E0E00,
+      #1F1C18
       
       
       
