@@ -15,10 +15,56 @@ class UserShow extends Component
     protected $paginationTheme = 'bootstrap';
 
 
-    public $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id;
-    public $search = '';
-    public $updateMode = false;
+    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name;
 
+    public $click = false;
+    public $create = false;
+    public $update = false;
+    public $next = 0;
+
+    
+    protected $listeners = [
+        'createUser' => 'createButton',
+        'clearUser' => 'clear',
+        //'passUser' => 'pass',
+        //'refreshComponent' => '$refresh'
+    ];
+    public function next(){
+        ++$this->next;
+    }
+    public function back(){
+        --$this->next;
+    }
+    public function createButton(){
+            $this->click = true;
+            $this->create = true;
+            $this->update = false;
+        }
+
+    public function updateButton(){
+        $this->click = true;
+        $this->create = false;
+        $this->update = true;
+
+
+    }
+    public function clear(){
+        $this->next = 0;
+        $this->click = false;
+        $this->create = false;
+        $this->update = false;
+        $this->show = false;
+    }
+    public function backButton(){
+        $this->resetInput();
+        $this->clear();
+    }
+    
+    public function notification(){
+        if (session()->has('message')) {
+            $this->dispatchBrowserEvent('show-notification');
+        }
+    }
     protected function rules()
     {
         return [
@@ -46,7 +92,7 @@ class UserShow extends Component
         
         $user = new User();
 
-            $user->college_id = $this->college_id;
+            $user->college_id = auth()->user()->college_id;
             $user->name = $this->name;
             $user->email = $this->email;
             $user->teacher = $this->teacher;
@@ -62,7 +108,7 @@ class UserShow extends Component
             }*/
         $user->save();
         session()->flash('message','User Added Successfully');
-        $this->resetInput();
+        $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
     }
 
@@ -82,18 +128,15 @@ class UserShow extends Component
             $this->yearinPosition = $User->yearinPosition;
             $this->yearJoined = $User->yearJoined;
 
+            $this->updateButton();
         }else{
-            return redirect()->to('/Users');
+            session()->flash('message','No Results');
         }
     }
 
     public function updateUser()
     {
-
-
-    
         $validatedData = $this->validate();
-
         $user = User::find($this->User_id);
 
             $user->name = $this->name;
@@ -106,7 +149,7 @@ class UserShow extends Component
             
         $user->save();
         session()->flash('message','User Updated Successfully');
-        $this->resetInput();
+        $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
     }
 
@@ -139,11 +182,14 @@ class UserShow extends Component
         $this->yearJoined = '';
         $this->college = '';
         $this->supervisor = '';
+        $this->supervisor_name = '';
+        $this->college_name = '';
     }
-
+    
     public function render()
     {
-        $this->college_id = auth()->user()->college_id;
+        $this->notification();
+        $this->dispatchBrowserEvent('toggle');
         $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('college_id',auth()->user()->college_id)

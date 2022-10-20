@@ -261,6 +261,14 @@
                
                 
         </ul>
+        @if (auth()->user()->role_as == 1)
+        <ul class="list-unstyled px-2">
+          <hr class="h-color mx-2">
+          <li class=""><button wire:click="userIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-box me-2"></i>Users</a></li>
+            <button wire:click="createUser" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+              <i class="fas fa-file me-2"></i>Add New Users </button></li>
+        </ul>
+        @endif
 
         <ul class="list-unstyled px-2">
           <hr class="h-color mx-2"> 

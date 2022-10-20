@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         View::composer(['livewire.idp-show','livewire.training-show'], function ($view) {
 
             if(auth()->user()->teacher == 'Yes')
@@ -47,5 +49,23 @@ class AppServiceProvider extends ServiceProvider
             
             $view->with('comps', $comp);
         });
+
+        View::composer('livewire.User-show', function ($view) {
+
+            $users = User::select('users.id As user_id','supervisor','college_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->first();
+            $supervisor = User::select('name','college_name')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->where('users.id','=',$users->supervisor)
+                ->first();
+
+
+            $view->with('info', $supervisor);
+        });
+
+
+        
     }
 }
