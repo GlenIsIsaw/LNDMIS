@@ -32,8 +32,8 @@
     overflow-x: hidden;
     background-image: linear-gradient(
       to right,
-      #EB5757,
-      #000000
+      #8E0E00,
+      #1F1C18
       
       
       
@@ -43,11 +43,12 @@
   #sidebar-wrapper {
     min-height: 100vh;
     min-width: 47vh;
-    margin-left: -15rem;
+    margin-left: -20rem;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
     -o-transition: margin 0.25s ease-out;
     transition: margin 0.25s ease-out;
+    
     
     
   }
@@ -175,7 +176,7 @@
     }
   
     #wrapper.toggled #sidebar-wrapper {
-      margin-left: -29rem;
+      margin-left: -26rem;
     }
   }
 

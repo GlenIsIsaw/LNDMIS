@@ -21,7 +21,8 @@
     <p>({{$purpose_obtain}}) To obtain new level of competencies from position and different functions.</p>
     <p>({{$purpose_others}}) Others, please specify: {{$purpose_explain}}</p>
 
-    <table class="table">
+    <div class="table-responsive table-bordered text-center">
+    <table class="table table-bordered table-hover">
         <th>Target Competency</th>
         <th>S/U/G Priorities</th>
         <th>Development Activity</th>
@@ -33,7 +34,7 @@
             @for ($i = 0; $i < 3; $i++)
                 <tr>
                     <td>
-                        <p><button type="button" data-bs-toggle="modal" data-bs-target="#getTrainingsModal" wire:click="getId({{$idp_id}})">{{$competency[$i]}}</button></p>
+                        <p><button type="button" class="btn btn-link text-decoration-none text-dark" data-bs-toggle="modal" data-bs-target="#getTrainingsModal" wire:click="getId({{$idp_id}})">{{$competency[$i]}}</button></p>
                     </td>
                     <td>
                         <p>{{$sug[$i]}}</p>
@@ -52,7 +53,7 @@
                     </td>
                     <td>
                         @if (auth()->user()->role_as == 1)
-                            <select wire:model="status.{{$i}}">
+                            <select wire:model="status.{{$i}}" class="border border-3 rounded-3 border-secondary">
                                 <option value="Ongoing">Ongoing</option>
                                 <option value="Completed">Completed</option>
                             </select>
@@ -83,3 +84,4 @@
     <p>{{$career}}</p>
 
 <button type="button" class="btn btn-secondary" wire:click="backButton" >Close</button>
+    </div>
