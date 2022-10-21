@@ -1,7 +1,7 @@
 <div class="card-header">
     <h4>
         {{$name}}'s Profile
-        <button type="button" wire:click="editUser({{$User_id}})" class="btn-primary rounded-3 shadow fw-bold px-5 py-2 float-end">Edit</button>
+        <button type="button" wire:click="editUser({{$User_id}})" class="btn-secondary text-white rounded-3 shadow text-sm text-uppercase fw-bold px-5 py-10 float-end" style="background-color: #800">Edit</button>
     </h4>
 </div>
 <div class="card-body">

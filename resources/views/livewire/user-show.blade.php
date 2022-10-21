@@ -42,7 +42,7 @@
                                                     <th scope="col">College</th>
                                                 @endif
                                                 <th scope="col">Supervisor</th>
-                                                <th scope="col">Actions</th>
+                                                <th class="text-danger"scope="col">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,11 +61,11 @@
                                                     
                                                     <td>{{ $info->name }}</td>
                                                     <td>
-                                                        <div class="btn-group" role="group">
-                                                            <button type="button" wire:click="editUser({{$user->user_id}})" class="btn btn-primary">
+                                                        <div class="d-grid gap-3">
+                                                            <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-primary text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">
                                                                 Edit
                                                             </button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn btn-danger">Delete</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">Delete</button>
                                                         </div>
                                                     </td>
                                                 </tr>

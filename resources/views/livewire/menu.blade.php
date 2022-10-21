@@ -206,20 +206,19 @@
           <hr class="h-color mx-2"> 
 
         <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-tv me-2"></i>Dashboard</a></li>
+                class="fas fa-laptop-house me-2"></i>Dashboard</a></li>
 
                
         </ul>
         <ul class="list-unstyled px-2">
           
                 
-                <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                 class="fas fa-project-diagram me-2"></i><i class="fas fa-caret-down"></i>Trainings</button>
+                <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-clone me-2"></i><i class="fas fa-caret-down"></i>Trainings</button>
 
                  
                  <div class="dropdown-container">
                   <li class=""><button wire:click="createTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
-                    <i class="fas fa-pen me-2"></i>
+                    <i class="fas fa-upload me-2"></i>
                      Upload Trainings </button></li>
 
                      <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
@@ -249,7 +248,7 @@
                
                 
                  <button id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-chart-line me-2"></i><i class="fas fa-caret-down"></i>IDP</button>
+                class="fas fa-sitemap me-2"></i><i class="fas fa-caret-down"></i>IDP</button>
                 
 
                 <div class="dropdown-container">
@@ -277,15 +276,18 @@
         </ul>
         @if (auth()->user()->role_as == 1)
         <ul class="list-unstyled px-2">
-          <hr class="h-color mx-2">
-          <li class=""><button wire:click="userIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-box me-2"></i>Users</a></li>
+          
+          <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Users</button>
+            <div class="dropdown-container">
+          <li class=""><button wire:click="userIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>List of Users</a></li>
             <button wire:click="createUser" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-              <i class="fas fa-file me-2"></i>Add New Users </button></li>
+              <i class="fas fa-user-plus me-2"></i>Add New Users </button></li>
+            </div>
         </ul>
         @endif
 
         <ul class="list-unstyled px-2">
-          
+          <hr class="h-color mx-2">
 
                 <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-box me-2"></i>Archives</a></li>
                 
