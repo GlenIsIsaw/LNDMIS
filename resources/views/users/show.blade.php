@@ -2,6 +2,7 @@
     <h4>
         {{$name}}'s Profile
         <button type="button" wire:click="editUser({{$User_id}})" class="btn-secondary text-white rounded-3 shadow text-sm text-uppercase fw-bold px-5 py-10 float-end" style="background-color: #800">Edit</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#changePassUserModal" class="btn btn-danger">Change Password</button>
     </h4>
 </div>
 <div class="card-body">
@@ -18,11 +19,11 @@
                 </tr>
                 <tr>
                     <th>College</th>
-                    <td class="text-center">{{$info->college_name}}</td>
+                    <td class="text-center">{{$info['college_name']}}</td>
                 </tr>
                 <tr>
                     <th>Supervisor</th>
-                    <td class="text-center">{{$info->name}}</td>
+                    <td class="text-center">{{$info['name']}}</td>
                 </tr>
                 <tr>
                     <th>Teacher</th>

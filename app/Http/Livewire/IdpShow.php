@@ -366,7 +366,11 @@ class IdpShow extends Component
             $this->yearinPosition = $this->year($idp->yearinPosition);
             $this->yearJoined = $this->year($idp->yearJoined);
             $this->college = $idp->college_name;
-            $this->supervisor = $supervisor->name;
+            if($supervisor){
+                $this->supervisor = $supervisor->name;
+            }else{
+                $this->supervisor = 'No Supervisor';
+            }
             $this->purpose_meet = $idp->purpose_meet;  
             $this->purpose_improve = $idp->purpose_improve;
             $this->purpose_obtain = $idp->purpose_obtain;
@@ -639,14 +643,13 @@ class IdpShow extends Component
                     ->join('colleges', 'colleges.id', '=', 'users.college_id')
                     ->where('users.id','=',$document->supervisor)
                     ->first();
-
+        
                 
         $array = [
             'college' => $document->college,
             'ename' => $document->name,
             'position' => $document->position,
             'pyear' => $this->year($document->yearinPosition),
-            'sname' => $supervisor->name,
             'ayear' => $this->year($document->yearJoined),
             'meet' => $document->purpose_meet,
             'improve' => $document->purpose_improve,
@@ -671,6 +674,11 @@ class IdpShow extends Component
         $templateProcessor = new TemplateProcessor(storage_path('IDP.docx'));
         foreach($array as $varname=>$value){
             $templateProcessor->setValue($varname, $value);
+        }
+        if($supervisor){
+            $templateProcessor->setValue('sname', $supervisor->name);
+        }else{
+            $templateProcessor->setValue('sname', 'No Supervisor');
         }
         for ($i=0; $i < 3; $i++) { 
             $templateProcessor->setValue('compe'.$i, $document->competency[$i]);

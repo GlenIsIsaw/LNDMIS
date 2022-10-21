@@ -26,13 +26,8 @@
     <input type="date" wire:model="yearJoined" class="form-control">
     @error('yearJoined') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-<div class="mb-3">
-    <label>
-        <input type="checkbox" wire:model="supervisor" value="1">
-        Supervisor
-    </label><br>
-    <h6>{{$supervisor}}</h6>
-</div>
+
+
 <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center">Back</i></button>
 
 <div class="float-end">

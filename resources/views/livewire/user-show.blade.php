@@ -22,7 +22,7 @@
                         @if (auth()->user()->role_as == 1)
                         <div class="card">
                             <div class="card-header">
-                                <h4> Employees of {{$info->college_name}}
+                                <h4> Employees of {{$info['college_name']}}
                                     <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
                                 </h4>
                             </div>
@@ -59,14 +59,22 @@
                                                         <td>{{ $college_name }}</td>
                                                     @endif
                                                     
-                                                    <td>{{ $info->name }}</td>
+                                                    <td>{{ $info['name'] }}</td>
                                                     <td>
                                                         <div class="d-grid gap-3">
                                                             <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-primary text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">
                                                                 Edit
                                                             </button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">Delete</button>
+                                                            @if ($info['name'] == 'No Supervisor')
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-primary text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">Make a Supervisor</button>
+                                                            @endif
+                                                            @if ($user->user_id == $info['supId'])
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">Make not a Supervisor</button>
+                                                            @endif
                                                         </div>
+
+                                                        
                                                     </td>
                                                 </tr>
                                             @empty

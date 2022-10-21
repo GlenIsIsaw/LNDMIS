@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\College;
 use App\Models\User;
+use App\Models\College;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class UserShow extends Component
 {
@@ -15,7 +16,7 @@ class UserShow extends Component
     protected $paginationTheme = 'bootstrap';
 
 
-    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature;
+    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password;
 
     public $click = false;
     public $create = false;
@@ -116,14 +117,8 @@ class UserShow extends Component
             $user->position = $this->position;
             $user->yearinPosition = $this->yearinPosition;
             $user->yearJoined = $this->yearJoined;
-            /*
-            if($this->supervisor == 1){
-                $user->role_as = 2;
-                $coll = College::find($this->college_id);
-                $coll->supervisor = $this->name;
-                $coll->save();
-            }*/
-        $user->save();
+            $user->save();
+
         session()->flash('message','User Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
@@ -196,10 +191,55 @@ class UserShow extends Component
             $user->position = $this->position;
             $user->yearinPosition = $this->yearinPosition;
             $user->yearJoined = $this->yearJoined;
-
             
-        $user->save();
+            $user->save();
         session()->flash('message','User Updated Successfully');
+        if (auth()->user()->id == $this->User_id) {
+            $this->show($this->User_id);
+        }else{
+            $this->backButton();
+        }
+        $this->dispatchBrowserEvent('close-modal');
+    }
+    public function makeSup(){
+        //dd($this->college_id.'.'.$this->User_id);
+        $coll = College::find($this->college_id);
+        if(!$coll->supervisor){
+            $user = User::find($this->User_id);
+            $user->role_as = 2;
+            $coll->supervisor = $this->User_id;
+            $coll->save();
+            $user->save();
+        }
+        $this->dispatchBrowserEvent('close-modal');
+    }
+    public function makeNotSup(){
+        $coll = College::find($this->college_id);
+        if($coll->supervisor){
+            $user = User::find($this->User_id);
+            $user->role_as = 0;
+            $coll->supervisor = null;
+            $coll->save();
+            $user->save();
+        }
+        $this->dispatchBrowserEvent('close-modal');
+    }
+    public function closePass(){
+        $this->password = null;
+        $this->password_confirmation = null;
+        $this->current_password = null;
+        $this->resetErrorBag();
+    }
+    public function changePass(){
+        $validatedData = $this->validate([
+            'current_password' => 'required|current_password',
+            'password' => 'required|confirmed'
+        ]);
+        $user = User::find($this->User_id);
+        $user->password = Hash::make($validatedData['password']);
+        $user->save();
+        session()->flash('message','Password Updated Successfully');
+
         if (auth()->user()->id == $this->User_id) {
             $this->show($this->User_id);
         }else{
@@ -211,6 +251,11 @@ class UserShow extends Component
     public function deleteUser(int $User_id)
     {
         $this->User_id = $User_id;
+    }
+    public function getIds(int $user_id,int $college_id)
+    {
+        $this->User_id = $user_id;
+        $this->college_id = $college_id;
     }
 
     public function destroyUser()
@@ -245,7 +290,7 @@ class UserShow extends Component
     {
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
-        $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at')
+        $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('college_id',auth()->user()->college_id)
                         ->where('name', 'like', '%'.$this->search.'%')

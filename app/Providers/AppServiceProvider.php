@@ -56,13 +56,28 @@ class AppServiceProvider extends ServiceProvider
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->first();
-            $supervisor = User::select('name','college_name')
+            if($users->supervisor){
+                $list = User::select('name','college_name')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
-                ->where('users.id','=',$users->supervisor)
+                ->where('college_id',auth()->user()->college_id)
+                ->where('users.id','=', $users->supervisor)
+                ->first();
+                $info = $list->toArray();
+                $info += ['supId' => $users->supervisor];
+            }else{
+                $list = User::select('college_name')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->where('college_id',auth()->user()->college_id)
                 ->first();
 
+                $info = $list->toArray();
+                $info += ['name' => 'No Supervisor'];
+                $info += ['supId' => null];
+            }
 
-            $view->with('info', $supervisor);
+
+
+            $view->with('info', $info);
         });
 
 

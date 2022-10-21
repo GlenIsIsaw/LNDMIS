@@ -55,6 +55,10 @@
         $('#deleteuserModal').modal('hide');
         $('#createConfirmationUserModal').modal('hide');
         $('#editConfirmationUserModal').modal('hide');
+        $('#changePassUserModal').modal('hide');
+        $('#supervisorModal').modal('hide');
+        $('#supervisorNotModal').modal('hide');
+        
 
         $('#notificationModal').modal('hide');
         
