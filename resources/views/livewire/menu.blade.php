@@ -142,16 +142,19 @@
   text-align: left;
   cursor: pointer;
   outline: none;
-  transition: 0.3s ease;
+  transition:  0.5s ease;
 }
   
 
 
 .dropdown-container {
   
+  display:none;
   background-color: none;
   padding-left: 20px;
-  transition: 0.3s ease !important;
+  transition: 0.5s ease !important;
+  
+  
 }
 
 
@@ -159,6 +162,7 @@
   float: right;
   padding-right: 8px;
 }
+
 
 
 
@@ -192,10 +196,10 @@
     <div class="sidebar-heading text-center">
     </div>
     
-    
+    <div class="sidebar mx-auto">
 
     
-    <div class="sidebar mx-auto">
+    
        
        
         <ul class="list-unstyled px-2">
@@ -207,16 +211,21 @@
                
         </ul>
         <ul class="list-unstyled px-2">
-          <hr class="h-color mx-2"> 
+          
                 
-                <button wire:click="trainIndex" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block" data-bs-toggle="dropdown-btn" aria-expanded="false"><i
-                 class="fas fa-project-diagram me-2"></i>Trainings</button>
+                <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                 class="fas fa-project-diagram me-2"></i><i class="fas fa-caret-down"></i>Trainings</button>
 
-                  
-                  <li class=""><button wire:click="createTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-file me-2"></i>
-                     Upload Training </button></li>
                  
+                 <div class="dropdown-container">
+                  <li class=""><button wire:click="createTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
+                    <i class="fas fa-pen me-2"></i>
+                     Upload Trainings </button></li>
+
+                     <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                      <i class="fas fa-file me-2"></i>
+                       View Trainings</button></li>
+                      
               
                       
 
@@ -231,21 +240,26 @@
                     <i class="fas fa-paper-plane me-2"></i>
                     Submitted Trainings </button></li>
                @endif
+                 </div>
                    
 
         </ul>
         <ul class="list-unstyled px-2">
-          <hr class="h-color mx-2"> 
+          
                
                 
-                 <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-chart-line me-2"></i>IDP</button></li>
+                 <button id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+                class="fas fa-chart-line me-2"></i><i class="fas fa-caret-down"></i>IDP</button>
                 
 
-                
-                <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-file me-2"></i>
+                <div class="dropdown-container">
+                <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
+                  <i class="fas fa-pen-alt me-2"></i>
                    Create IDP </button></li>
+
+                   <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-file-alt me-2"></i>
+                     View IDP </button></li>
 
                 @if (auth()->user()->role_as == 1)
                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
@@ -258,21 +272,23 @@
                        <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>
                  @endif
-               
+                </div>
                 
         </ul>
 
         <ul class="list-unstyled px-2">
-          <hr class="h-color mx-2"> 
+          
 
                 <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-box me-2"></i>Archives</a></li>
                 
                 </ul>
                
-                <hr class="h-color mx-2">   
+                 
           <ul class="list-unstyled px-2">
           <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-trash me-2"></i>Trash</a></li>
-              
+          </ul>
+          
+          <ul class="list-unstyled px-2">
           <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
             class="fas fa-cog me-2"></i>Settings</a></li>
           </ul>
@@ -280,17 +296,21 @@
       
 
           <!-- Log Out -->
-          <hr class="h-color mx-2">
+         
           <ul class="list-unstyled px-2">
           <li class=""><a href ="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();"
              {{ __('Logout') }} id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 text-danger fw-bold d-block"><i class="fas fa-power-off me-2"></i>Log Out</a></li>
-                
+          
+             <hr class="h-color mx-2"> 
     </div>
 </div>
 
 <div class="container">
+  
+  
+
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
       <div class="d-flex align-items-center">
         <button class="btn btn-light mx-2 text-light fw-bold text-center text-uppercase my-2 mx-2" style="background-color: #800000 " type="button" id="menu-toggle">☰ Menu </button>
@@ -303,5 +323,6 @@
 
   </nav>
 
+ 
 
 </body>
