@@ -7,16 +7,28 @@ use Livewire\Component;
 class Main extends Component
 {
 
+    public $dashboard = false;
     public $trainingIndex = true;
     public $idpIndex = false;
     public $userIndex = false;
     public $string, $string2;
  
+    protected $listeners = [
+        'MyProfile' => 'showUser',
+        'home' => 'dashboard'
+    ];
+    public function dashboard(){
+        $this->dashboard = true;
+        $this->trainingIndex = false;
+        $this->idpIndex = false;
+        $this->userIndex = false;
+    }
     public function trainIndex(){
         $this->emitTo('training-show','clearTraining');
         $this->trainingIndex = true;
         $this->idpIndex = false;
         $this->userIndex = false;
+        $this->dashboard = false;
     }
     public function createTraining(){
         $this->trainIndex();
@@ -27,6 +39,7 @@ class Main extends Component
         $this->trainingIndex = false;
         $this->idpIndex = true;
         $this->userIndex = false;
+        $this->dashboard = false;
     }
     public function createIdp(){
         $this->idpsIndex();
@@ -34,18 +47,19 @@ class Main extends Component
     }
     public function userIndex(){
         $this->emitTo('user-show','clearUser');
-        if(auth()->user()->role_as == 0){
-            session()->flash('message','You do not have the authority to access this page');
-        }else{
             $this->trainingIndex = false;
             $this->idpIndex = false;
             $this->userIndex = true;
-        }
-
+            $this->dashboard = false;
     }
+
     public function createUser(){
         $this->userIndex();
         $this->emitTo('user-show','createUser');
+    }
+    public function showUser(){
+        $this->userIndex();
+        $this->emit('showUser',auth()->user()->id);
     }
 
     public function approvedTraining(){

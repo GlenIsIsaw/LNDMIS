@@ -1,5 +1,8 @@
 <div>
     @include('livewire.menu')
+    @if ($dashboard)
+        @include('dashboard')
+    @endif
     @if ($trainingIndex)
         @include('trainings.index')
     @endif
@@ -7,10 +10,10 @@
     @if ($idpIndex)
         @include('idp.index')
     @endif
-    @if (auth()->user()->role_as == 1)
-        @if ($userIndex)
-            @include('users.index')
-        @endif
+
+    @if ($userIndex)
+        @include('users.index')
     @endif
+
 
 </div>

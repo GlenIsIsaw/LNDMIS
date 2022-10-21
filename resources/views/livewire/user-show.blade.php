@@ -13,15 +13,17 @@
                             @if($update)
                                 @include('users.edit')
                             @endif
+
+                            @if($show)
+                                @include('users.show')
+                            @endif
                         </div>
                     @else
+                        @if (auth()->user()->role_as == 1)
                         <div class="card">
                             <div class="card-header">
                                 <h4> Employees of {{$info->college_name}}
                                     <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                                    <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#collegeModal">
-                                        Edit College Info
-                                    </button>
                                 </h4>
                             </div>
                             <div class="card-body">
@@ -80,6 +82,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     @endif    
                 </div>
             </div>
