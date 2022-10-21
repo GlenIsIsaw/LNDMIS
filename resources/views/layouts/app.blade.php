@@ -26,7 +26,7 @@
 
     <div id="app">
         <nav class="navbar blue-text navbar-expand-md shadow-sm" style="background-color:#800000;">
-            <div class="container-fluid px-9">
+            <div class="container-fluid px-5">
                 
                  
                 <img src="/images/cnsc.png" alt="CNSC" width="72" height="74" class="d-inline-block align-text-top mx-3">
@@ -160,12 +160,15 @@ var i;
 for (i = 0; i < dropdown.length; i++) {
   dropdown[i].addEventListener("click", function() {
     this.classList.toggle("active");
+
     var dropdownContent = this.nextElementSibling;
+    
 
     if (dropdownContent.style.display === "block") {
       dropdownContent.style.display = "none";
+      
     } else {
-      dropdownContent.style.display = "block";
+      dropdownContent.style.display = "block";  
     }
   });
 }
