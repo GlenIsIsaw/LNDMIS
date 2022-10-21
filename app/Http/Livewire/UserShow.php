@@ -15,10 +15,73 @@ class UserShow extends Component
     protected $paginationTheme = 'bootstrap';
 
 
-    public $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id;
-    public $search = '';
-    public $updateMode = false;
+    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature;
 
+    public $click = false;
+    public $create = false;
+    public $update = false;
+    public $show = false;
+    public $next = 0;
+
+    
+    protected $listeners = [
+        'createUser' => 'createButton',
+        'clearUser' => 'clear',
+        'showUser' => 'show',
+        //'passUser' => 'pass',
+        //'refreshComponent' => '$refresh'
+    ];
+    public function next(){
+        ++$this->next;
+    }
+    public function back(){
+        --$this->next;
+    }
+    public function createButton(){
+            $this->click = true;
+            $this->create = true;
+            $this->update = false;
+            $this->show = false;
+        }
+
+    public function updateButton(){
+        $this->click = true;
+        $this->create = false;
+        $this->update = true;
+        $this->show = false;
+    }
+    public function showButton(){
+        $this->click = true;
+        $this->create = false;
+        $this->update = false;
+        $this->show = true;
+
+
+    }
+    public function clear(){
+        $this->next = 0;
+        $this->click = false;
+        $this->create = false;
+        $this->update = false;
+        $this->show = false;
+    }
+    public function backButton(){
+
+        if($this->checkCoord()){
+            $this->resetInput();
+            $this->clear();
+            $this->emitTo('main', 'home');
+        }else{
+            $this->resetInput();
+            $this->clear();
+        }
+    }
+    
+    public function notification(){
+        if (session()->has('message')) {
+            $this->dispatchBrowserEvent('show-notification');
+        }
+    }
     protected function rules()
     {
         return [
@@ -46,7 +109,7 @@ class UserShow extends Component
         
         $user = new User();
 
-            $user->college_id = $this->college_id;
+            $user->college_id = auth()->user()->college_id;
             $user->name = $this->name;
             $user->email = $this->email;
             $user->teacher = $this->teacher;
@@ -62,13 +125,20 @@ class UserShow extends Component
             }*/
         $user->save();
         session()->flash('message','User Added Successfully');
-        $this->resetInput();
+        $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
     }
-
-    public function editUser(int $User_id)
+    public function checkCoord(){
+        if(auth()->user()->role_as == 0)
+        {
+            return true;
+        }
+        else{ 
+            return false;
+        }
+    }
+    public function show(int $User_id)
     {
-
         $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
                     ->find($User_id);
         
@@ -81,19 +151,43 @@ class UserShow extends Component
             $this->position = $User->position;
             $this->yearinPosition = $User->yearinPosition;
             $this->yearJoined = $User->yearJoined;
+            $this->signature = $User->signature;
+            
 
+            $this->showButton();
         }else{
-            return redirect()->to('/Users');
+            session()->flash('message','No Results');
+        }
+    }
+
+    public function editUser(int $User_id)
+    {
+        $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
+                    ->find($User_id);
+        
+        if($User){
+            
+            $this->User_id = $User_id;
+            $this->name = $User->name;
+            $this->email = $User->email;
+            $this->teacher = $User->teacher;
+            $this->position = $User->position;
+            $this->yearinPosition = $User->yearinPosition;
+            $this->yearJoined = $User->yearJoined;
+            
+
+            $this->updateButton();
+            
+            
+            
+        }else{
+            session()->flash('message','No Results');
         }
     }
 
     public function updateUser()
     {
-
-
-    
         $validatedData = $this->validate();
-
         $user = User::find($this->User_id);
 
             $user->name = $this->name;
@@ -106,7 +200,11 @@ class UserShow extends Component
             
         $user->save();
         session()->flash('message','User Updated Successfully');
-        $this->resetInput();
+        if (auth()->user()->id == $this->User_id) {
+            $this->show($this->User_id);
+        }else{
+            $this->backButton();
+        }
         $this->dispatchBrowserEvent('close-modal');
     }
 
@@ -139,11 +237,14 @@ class UserShow extends Component
         $this->yearJoined = '';
         $this->college = '';
         $this->supervisor = '';
+        $this->supervisor_name = '';
+        $this->college_name = '';
     }
-
+    
     public function render()
     {
-        $this->college_id = auth()->user()->college_id;
+        $this->notification();
+        $this->dispatchBrowserEvent('toggle');
         $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('college_id',auth()->user()->college_id)

@@ -1,6 +1,5 @@
 
 
-
 <div>
                 @if ($click)
                     <div class="container py-3 px-5">

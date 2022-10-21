@@ -31,7 +31,7 @@
             <table class="table">
                 <thead>
                     <th>Target Competency</th>
-                    <th>S/U/G Priorities</th>
+                    <th>S/U/G</th>
                     <th>Development Activity</th>
                     <th>Target Completion Date</th>
                     <th>Person Responsible</th>

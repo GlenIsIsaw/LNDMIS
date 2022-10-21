@@ -6,6 +6,7 @@
     <livewire:main />
 </div>
 
+@endsection
 @section('script')
 <script>
 
@@ -32,20 +33,31 @@
         $('#approveTrainingModal').modal('hide');
         $('#rejectTrainingModal').modal('hide');
         $('#removeSubmissionTrainingModal').modal('hide');
+        $('#printTrainingModal').modal('hide');
+        $('#createConfirmationTrainingModal').modal('hide');
+        $('#editConfirmationTrainingModal').modal('hide');
+        $('#createConfirmationAttendanceModal').modal('hide');
+        $('#editConfirmationAttendanceModal').modal('hide');
+
+        
         $('#deleteIdpModal').modal('hide');
         $('#submitIdpModal').modal('hide');
         $('#printIdpModal').modal('hide');
         $('#approveIdpModal').modal('hide');
         $('#rejectIdpModal').modal('hide');
         $('#removeSubmissionIdpModal').modal('hide');
-        $('#notificationModal').modal('hide');
-        $('#createConfirmationTrainingModal').modal('hide');
-        $('#editConfirmationTrainingModal').modal('hide');
-        $('#createConfirmationAttendanceModal').modal('hide');
-        $('#editConfirmationAttendanceModal').modal('hide');
         $('#createConfirmationIdpModal').modal('hide');
         $('#editConfirmationIdpModal').modal('hide');
-        $('#printTrainingModal').modal('hide');
+        
+
+        $('#userModal').modal('hide');
+        $('#updateuserModal').modal('hide');
+        $('#deleteuserModal').modal('hide');
+        $('#createConfirmationUserModal').modal('hide');
+        $('#editConfirmationUserModal').modal('hide');
+
+        $('#notificationModal').modal('hide');
+        
         
     })
     window.addEventListener('show-notification', event => {
@@ -59,5 +71,5 @@
 
 
 </script>
-@endsection
+
 @endsection
