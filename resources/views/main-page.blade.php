@@ -72,6 +72,9 @@
 
         $('#createConfirmationTrainingModal').modal('show');
     })
+    window.addEventListener('reload-page', event => {
+        window.location.reload();
+    })
 
 
 </script>

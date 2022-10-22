@@ -17,7 +17,7 @@ class IdpShow extends Component
 
     protected $paginationTheme = 'bootstrap';
     
-    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at,$submit_status;
+    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at,$submit_status, $mySignaturem,$checkmySignature;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
@@ -222,6 +222,8 @@ class IdpShow extends Component
         $this->yearJoined = '';
         $this->supervisor = '';
         $this->comment = '';
+        $this->mySignature = '';
+        $this->checkmySignature = '';
     }
     public function resetFilter(){
         $this->start_date = null;
@@ -633,11 +635,24 @@ class IdpShow extends Component
                 ->first();
         $this->comment = $lists->comment;
     }
+    public function signature(int $id){
+        $this->idp_id = $id;
+        $idp = Idp::select('signature')
+                        ->join('users', 'users.id', '=', 'idps.user_id')
+                        ->where('idps.id', $id)
+                        ->first();
 
+            if($idp->signature){
+                $this->checkmySignature = true;
+            }else{
+                $this->checkmySignature = false;
+            }
+    }
     public function print(){
         $document = Idp::join('users', 'users.id', '=', 'idps.user_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
                 ->where('idps.id', $this->idp_id)
+                
                 ->first();
         $supervisor = User::select('name')
                     ->join('colleges', 'colleges.id', '=', 'users.college_id')
@@ -690,9 +705,14 @@ class IdpShow extends Component
             $templateProcessor->setValue('complestat'.$i, $document->status[$i]);
         }
             $pieces = explode("-", $document->created_at);
-        
-            $templateProcessor->setValue('esign'," ");
-            $templateProcessor->setValue('edate'," ");
+
+            if($this->mySignature == '1'){
+                $templateProcessor->setImageValue('esign', array('path' => public_path('storage/users/'.$document->user_id.'/'.$document->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
+                $templateProcessor->setValue('edate',date('F j, Y'));
+            }else{
+                $templateProcessor->setValue('esign'," ");
+                $templateProcessor->setValue('edate'," ");
+            }
        
             $templateProcessor->setValue('ssign'," ");
             $templateProcessor->setValue('sdate'," ");

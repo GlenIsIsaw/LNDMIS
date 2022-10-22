@@ -8,15 +8,16 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Livewire\WithFileUploads;
 
 class UserShow extends Component
 {
-    use WithPagination;
+    use WithPagination,WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
 
 
-    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password;
+    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password,$photo;
 
     public $click = false;
     public $create = false;
@@ -122,6 +123,27 @@ class UserShow extends Component
         session()->flash('message','User Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
+    }
+    public function addSignature(){
+        $validatedData = $this->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+        $user = User::find($this->User_id);
+        if($validatedData['photo']){
+            $filename = $this->User_id.'.signature';
+            $validatedData['photo']->storeAs('public/users/'.$this->User_id, $filename);
+            $user->signature = $filename;
+            $user->save();
+        }
+        $this->show($this->User_id);
+
+    }
+    public function editSignature(){
+        $user = User::find($this->User_id);
+        $user->signature = null;
+        $user->save();
+        $this->show($this->User_id);
+
     }
     public function checkCoord(){
         if(auth()->user()->role_as == 0)
@@ -284,6 +306,7 @@ class UserShow extends Component
         $this->supervisor = '';
         $this->supervisor_name = '';
         $this->college_name = '';
+        $this->photo = '';
     }
     
     public function render()

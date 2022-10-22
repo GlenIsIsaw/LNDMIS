@@ -110,6 +110,12 @@
             <form wire:submit.prevent="print">
                 <div class="modal-body">
                     <h4>Are you sure you want to print this Idp ?</h4>
+                    @if ($checkmySignature)
+                        <label>
+                            <input type="checkbox" wire:model="mySignature">
+                            Include My Signature
+                        </label>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"

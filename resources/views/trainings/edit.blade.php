@@ -19,7 +19,7 @@
                     <div class="p-2 flex-fill bd-highlight">
                        
                         <label for="current" class="fw-bold float-start">Current Certificate:</label>
-                        <img class="img-thumbnail img-fluid rounded float-start mt-4" id="current" width="400" height="400" src="{{ url('storage/users/'.$name.'/'.$certificate) }}">
+                        <img class="img-thumbnail img-fluid rounded float-start mt-4" id="current" width="400" height="400" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
                                 
                           
                     </div>

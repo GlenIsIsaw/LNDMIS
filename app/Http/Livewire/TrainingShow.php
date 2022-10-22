@@ -19,7 +19,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo;
+    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
     protected $queryString = ['search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
@@ -205,7 +205,7 @@ class TrainingShow extends Component
                 $user = User::find($this->user_id);
                 $lists = ListOfTraining::find($list->id);
                 $filename = date('Ymd').$lists->id;
-                $validatedData['photo']->storeAs('public/users/'.$user->name, $filename);
+                $validatedData['photo']->storeAs('public/users/'.$this->user_id, $filename);
                 $lists->certificate = $filename;
                 $lists->save();
             }
@@ -301,10 +301,11 @@ class TrainingShow extends Component
 
         if($this->photo){
             $user = User::find($this->user_id);
-            File::delete(storage_path('app/public/users/'.$user->name.'/'.$list->certificate));
+            File::delete(storage_path('app/public/users/'.$this->user_id.'/'.$list->certificate));
             $filename = date('Ymd').$list->id;
-            $this->photo->storeAs('public/users/'.$user->name, $filename);
+            $this->photo->storeAs('public/users/'.$this->user_id, $filename);
             $list->certificate = $filename;
+
         }
         $list->save();
         
@@ -312,6 +313,7 @@ class TrainingShow extends Component
         $this->backButton();
         
         $this->dispatchBrowserEvent('close-modal');
+
         
     }
 
@@ -494,6 +496,8 @@ class TrainingShow extends Component
         $this->outcome ='';
         $this->personal_action ='';
         $this->comment ='';
+        $this->mySignature = '';
+        $this->checkmySignature = '';
     }
     public function resetFilter(){
         $this->start_date =null;
@@ -504,6 +508,7 @@ class TrainingShow extends Component
         $this->filter_certificate_title = null;
         $this->filter_level = null;
         $this->filter_type = null;
+        $this->emitSelf('refreshComponent');
     }
     public function reject(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
@@ -568,7 +573,6 @@ class TrainingShow extends Component
     }
     public function close(){
         $this->dispatchBrowserEvent('close-modal');
-        $this->dispatchBrowserEvent('toggle-condition');
     }
     public function removeSubmit(){
         $list = ListOfTraining::find($this->ListOfTraining_id);
@@ -588,6 +592,19 @@ class TrainingShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
     }
+    public function signature(int $id){
+        $this->ListOfTraining_id = $id;
+        $training = AttendanceForm::join('list_of_trainings', 'list_of_trainings.id', '=', 'attendance_forms.list_of_training_id')
+                            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                            ->where('list_of_trainings.id', $id)
+                            ->first();
+
+            if($training->signature){
+                $this->checkmySignature = true;
+            }else{
+                $this->checkmySignature = false;
+            }
+    }
     
     public function printAttendanceForm(){
 
@@ -597,7 +614,7 @@ class TrainingShow extends Component
         ->join('colleges', 'colleges.id', '=', 'users.college_id')
         ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
         ->where('list_of_trainings.id', $this->ListOfTraining_id)
-        ->select('name', 'certificate_title', 'date_covered','college_name', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action')
+        ->select('name', 'certificate_title', 'date_covered','college_name', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action','users.id As user_id','signature')
         ->first();
         
 
@@ -619,14 +636,22 @@ class TrainingShow extends Component
         }
             $templateProcessor->setValue('college',$training->college_name);
 
+
+            if($this->mySignature == '1'){
+                $templateProcessor->setImageValue('esign', array('path' => public_path('storage/users/'.$training->user_id.'/'.$training->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
+                $templateProcessor->setValue('edate',date('F j, Y'));
+            }else{
                 $templateProcessor->setValue('esign'," ");
                 $templateProcessor->setValue('edate'," ");
+            }
+                
+                
                 $templateProcessor->setValue('ssign'," ");
                 $templateProcessor->setValue('sdate'," ");
 
         $templateProcessor->saveAs($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
         $this->dispatchBrowserEvent('close-modal');
-        return response()->download(public_path($training->name.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
+        return response()->download(public_path($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
     }
     public function showComment(int $id){
         $lists = ListOfTraining::select('comment')

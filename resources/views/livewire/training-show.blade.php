@@ -106,6 +106,7 @@
                                                         <td>
                                                             <div class="d-grid gap-2">
                                                             <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-sm fw-bold px-5 py-2">View</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn btn-success">Print</button>
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary text-white rounded-3 shadow-sm fw-bold px-5 py-2">Edit</button>
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger rounded-3 fw-bold px-5 py-2">Delete</button>

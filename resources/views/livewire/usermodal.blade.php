@@ -278,22 +278,39 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closePass"
                     aria-label="Close"></button>
             </div>
-            <form wire:submit.prevent="changePass">
+            <form wire:submit.prevent="changeSignature">
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label>Current Password</label>
-                        <input type="password" wire:model="current_password" class="form-control">
-                        @error('current_password') <span class="text-danger">{{ $message }}</span> @enderror
+                    <div
+                    x-data="{ isUploading: false, progress: 0 }"
+                    x-on:livewire-upload-start="isUploading = true"
+                    x-on:livewire-upload-finish="isUploading = false"
+                    x-on:livewire-upload-error="isUploading = false"
+                    x-on:livewire-upload-progress="progress = $event.detail.progress"
+                    >
+                        <input type="file" wire:model="photo" accept="image/*" class="form-control border border-3 border-secondary">
+                        <div wire:loading wire:target="photo">
+                            <div x-show="isUploading">
+                                <progress max="100" x-bind:value="progress"></progress>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="mb-3">
-                        <label>New Password</label>
-                        <input type="password" wire:model="password" class="form-control">
-                        @error('password') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label>Confirm New Password</label>
-                        <input type="password" wire:model="password_confirmation" class="form-control">
-                        @error('password_confirmation') <span class="text-danger">{{ $message }}</span> @enderror
+                    @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
+
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 flex-fill bd-highlight">
+                           
+                            <label for="current" class="fw-bold float-start">Current Signature:</label>
+                            <img class="img-thumbnail img-fluid rounded float-start mt-4" id="current" width="400" height="400" src="{{ url('storage/users/'.$User_id.'/'.$signature) }}?{{ rand() }}">
+                                    
+                              
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">
+                            @if ($photo)
+                            <label for="uploaded" class="fw-bold ml-5">Updated Signature:</label>
+                            <img class="img-thumbnail img-fluid rounded mt-4" id="uploaded" width="400" height="400" src="{{ $photo->temporaryUrl() }}">
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -305,3 +322,4 @@
         </div>
     </div>
 </div>
+

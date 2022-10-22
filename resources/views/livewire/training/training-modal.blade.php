@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
 
-                <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$name.'/'.$certificate) }}">
+                <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
 
             </div>
         </div>
@@ -171,13 +171,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteAttendanceModalLabel">Print Attendance Form</h5>
+                <h5 class="modal-title" id="printAttendanceModalLabel">Print Attendance Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="printAttendanceForm">
                 <div class="modal-body">
                     <h4>Are you sure you want to print this Attendance Form ?</h4>
+                    @if ($checkmySignature)
+                        <label>
+                            <input type="checkbox" wire:model="mySignature">
+                            Include My Signature
+                        </label>
+                    @endif
+
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"

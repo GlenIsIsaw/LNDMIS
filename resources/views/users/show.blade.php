@@ -45,7 +45,33 @@
         </div>
         <div class="col">
           <h6>Signature</h6>
-          <img class="img-fluid" src="{{ url('storage/users/'.$name.'/'.$signature) }}" alt="No Signature">
+          
+            @if ($signature)
+                <button type="button" wire:click="editSignature" class="float-end">Delete Signature</button>
+                <img class="img-fluid" src="{{ url('storage/users/'.$User_id.'/'.$signature) }}?{{ rand() }}" alt="No Signature">
+            @else
+            <form wire:submit.prevent="addSignature">
+                <div
+                x-data="{ isUploading: false, progress: 0 }"
+                x-on:livewire-upload-start="isUploading = true"
+                x-on:livewire-upload-finish="isUploading = false"
+                x-on:livewire-upload-error="isUploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                >
+                    <input type="file" wire:model="photo" accept="image/*" class="form-control border border-3 border-secondary">
+                    <div wire:loading wire:target="photo">
+                        <div x-show="isUploading">
+                            <progress max="100" x-bind:value="progress"></progress>
+                        </div>
+                    </div>
+                    
+                </div>
+                @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
+                    
+                <button type="submit" class="btn btn-primary">Upload Signature</button>
+            </form>
+            @endif
+          
         </div>
 
       </div>

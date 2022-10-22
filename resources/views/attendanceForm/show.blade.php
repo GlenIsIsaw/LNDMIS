@@ -47,6 +47,5 @@
 
     <div class="card-footer" style="float-end">
         <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="delete({{$ListOfTraining_id}})" class="btn btn-success">Print</button>
     </div>
 </div>

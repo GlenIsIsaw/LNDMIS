@@ -85,7 +85,7 @@
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2">Submit</button>
                                                         @endif
                                                         <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info rounded-3 shadow-sm fw-bold text-white px-3 py-2">View</button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2">Print</button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2">Print</button>
                                                         @if ($idp->comment)
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info btn-lg rounded-pill shadow fw-bold px-5 py-10 ">View Comment</button>
                                                         @endif
