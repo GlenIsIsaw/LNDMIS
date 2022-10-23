@@ -1,17 +1,17 @@
 <div>
     @include('livewire.menu')
-    @if ($dashboard)
+    @if ($page == 'dashboard')
         @include('dashboard')
     @endif
-    @if ($trainingIndex)
+    @if ($page == 'training')
         @include('trainings.index')
     @endif
 
-    @if ($idpIndex)
+    @if ($page == 'idp')
         @include('idp.index')
     @endif
 
-    @if ($userIndex)
+    @if ($page == 'user')
         @include('users.index')
     @endif
 

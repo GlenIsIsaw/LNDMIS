@@ -1,25 +1,25 @@
 
 
 <div>
-                @if ($click)
+                @if ($state)
                     <div class="container py-3 px-5">
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="main-card">
                                     <div class="card">
-                                        @if ($create)
+                                        @if ($state == 'createTraining')
                                             @include('trainings.create')
                                         @endif
-                                        @if ($update)
+                                        @if ($state == 'editTraining')
                                             @include('trainings.edit')
                                         @endif
-                                        @if ($createAttendanceForm)
+                                        @if ($state == 'createAttendance')
                                             @include('attendanceForm.create')
                                         @endif
-                                        @if ($editAttendanceForm)
+                                        @if ($state == 'editAttendance')
                                             @include('attendanceForm.edit')
                                         @endif
-                                        @if ($showAttendanceForm)
+                                        @if ($state == 'showAttendance')
                                             @include('attendanceForm.show')
                                         @endif
                                     </div>

@@ -22,18 +22,14 @@ class TrainingShow extends Component
     public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
-    protected $queryString = ['search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
+    protected $queryString = ['table','state','next','search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
     
 
     public $query = [];
     public $table = 'Approved Trainings';
 
-    public $click = false;
-    public $create = false;
-    public $update = false;
-    public $createAttendanceForm = false;
-    public $editAttendanceForm = false;
-    public $showAttendanceForm = false;
+    public $state = null;
+    public $next = null;
 
     protected $listeners = [
         'createTraining' => 'createButton',
@@ -43,7 +39,7 @@ class TrainingShow extends Component
     ];
 
 
-    public $next = 0;
+    
 
     public function notification(){
         if (session()->has('message')) {
@@ -62,55 +58,29 @@ class TrainingShow extends Component
 
     public function createButton(){
         $this->next = 0;
-        $this->click = true;
-        $this->create = true;
-        $this->update = false;
-        $this->createAttendanceForm = false;
-        $this->editAttendanceForm = false;
-        $this->showAttendanceForm = false;
+        $this->state = 'createTraining';
     }
     public function updateButton(){
         $this->next = 0;
-        $this->click = true;
-        $this->create = false;
-        $this->update = true;
-        $this->createAttendanceForm = false;
-        $this->editAttendanceForm = false;
-        $this->showAttendanceForm = false;
+        $this->state = 'editTraining';
     }
     public function createAttButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = false;
-        $this->createAttendanceForm = true;
-        $this->editAttendanceForm = false;
-        $this->showAttendanceForm = false;
+        $this->next = 0;
+        $this->state = 'createAttendance';
+
     }
     public function editAttButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = false;
-        $this->createAttendanceForm = false;
-        $this->editAttendanceForm = true;
-        $this->showAttendanceForm = false;
+        $this->next = 0;
+        $this->state = 'editAttendance';
+
     }
     public function showAttButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = false;
-        $this->createAttendanceForm = false;
-        $this->editAttendanceForm = false;
-        $this->showAttendanceForm = true;
+        $this->state = 'showAttendance';
+
     }
     public function clear(){
-        $this->next = 0;
-        $this->check = true;
-        $this->click = false;
-        $this->create = false;
-        $this->update = false;
-        $this->createAttendanceForm = false;
-        $this->editAttendanceForm = false;
-        $this->showAttendanceForm = false;
+        $this->next = null;
+        $this->state = null;
         $this->confirm = false;
     }
     public function backButton(){

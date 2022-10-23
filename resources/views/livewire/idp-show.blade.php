@@ -3,16 +3,16 @@
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12">
-                @if ($click)
+                @if ($state)
                 <div id="main-card" style="padding-right: 5%">
                     <div class="card">
-                        @if($create)
+                        @if($state == 'create')
                             @include('idp.create')
                         @endif
-                        @if($update)
+                        @if($state == 'edit')
                             @include('idp.edit')
                         @endif
-                        @if($show)
+                        @if($state == 'show')
                             @include('idp.show')
                         @endif
                     </div>

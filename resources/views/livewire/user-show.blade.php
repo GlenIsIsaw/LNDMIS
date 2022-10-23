@@ -4,17 +4,17 @@
         <div class="row">
             <div class="col-md-12 mr-3">
                 <div id="main-card">
-                    @if ($click)
+                    @if ($state)
                         <div class="card">
-                            @if($create)
+                            @if($state == 'create')
                                 @include('users.create')
                             @endif
 
-                            @if($update)
+                            @if($state == 'edit')
                                 @include('users.edit')
                             @endif
 
-                            @if($show)
+                            @if($state == 'show')
                                 @include('users.show')
                             @endif
                         </div>

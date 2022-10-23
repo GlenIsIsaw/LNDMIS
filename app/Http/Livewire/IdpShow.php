@@ -26,15 +26,12 @@ class IdpShow extends Component
     public $support = [' ',' ',' '];
     public $status = [' ',' ',' '];
     public $search,$start_date,$end_date,$filter_status, $filter_competency, $filter_completion_status;
-    protected $queryString = ['search','filter_status','filter_competency','filter_completion_status'];
+    protected $queryString = ['next','state','table','search','filter_status','filter_competency','filter_completion_status'];
     public $query = [];
     public $table = 'Approved IDPs';
 
-    public $click = false;
-    public $create = false;
-    public $update = false;
-    public $show = false;
-    public $next = 0;
+    public $state = null;
+    public $next = null;
 
     protected $listeners = [
         'createIDP' => 'createButton',
@@ -63,33 +60,24 @@ class IdpShow extends Component
         if($idpYear){
             session()->flash('message','You already have an IDP this year');
         }else{
-            $this->click = true;
-            $this->create = true;
-            $this->update = false;
-            $this->show = false;
+            $this->next = 0;
+            $this->state = 'create';
+
         }
 
     }
     public function updateButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = true;
-        $this->show = false;
+        $this->next = 0;
+        $this->state = 'edit';
 
     }
     public function showButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = false;
-        $this->show = true;
+        $this->state = 'show';
 
     }
     public function clear(){
-        $this->next = 0;
-        $this->click = false;
-        $this->create = false;
-        $this->update = false;
-        $this->show = false;
+        $this->next = null;
+        $this->state = null;
     }
     public function backButton(){
         $this->resetInput();

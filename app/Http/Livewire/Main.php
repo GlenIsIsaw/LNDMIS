@@ -7,28 +7,21 @@ use Livewire\Component;
 class Main extends Component
 {
 
-    public $dashboard = false;
-    public $trainingIndex = true;
-    public $idpIndex = false;
-    public $userIndex = false;
+    public $page = 'training';
     public $string, $string2;
- 
+    
+    protected $queryString = ['page'];
     protected $listeners = [
         'MyProfile' => 'showUser',
         'home' => 'dashboard'
     ];
     public function dashboard(){
-        $this->dashboard = true;
-        $this->trainingIndex = false;
-        $this->idpIndex = false;
-        $this->userIndex = false;
+        $this->page = 'dashboard';
+
     }
     public function trainIndex(){
         $this->emitTo('training-show','clearTraining');
-        $this->trainingIndex = true;
-        $this->idpIndex = false;
-        $this->userIndex = false;
-        $this->dashboard = false;
+        $this->page = 'training';
     }
     public function createTraining(){
         $this->trainIndex();
@@ -36,10 +29,7 @@ class Main extends Component
     }
     public function idpsIndex(){
         $this->emitTo('idp-show','clearIDP');
-        $this->trainingIndex = false;
-        $this->idpIndex = true;
-        $this->userIndex = false;
-        $this->dashboard = false;
+        $this->page = 'idp';
     }
     public function createIdp(){
         $this->idpsIndex();
@@ -47,10 +37,7 @@ class Main extends Component
     }
     public function userIndex(){
         $this->emitTo('user-show','clearUser');
-            $this->trainingIndex = false;
-            $this->idpIndex = false;
-            $this->userIndex = true;
-            $this->dashboard = false;
+            $this->page = 'user';
     }
 
     public function createUser(){

@@ -19,11 +19,10 @@ class UserShow extends Component
 
     public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password,$photo;
 
-    public $click = false;
-    public $create = false;
-    public $update = false;
-    public $show = false;
-    public $next = 0;
+    public $state = null;
+    public $next = null;
+    public $table = null;
+    protected $queryString = ['next','state','search','table'];
 
     
     protected $listeners = [
@@ -40,32 +39,22 @@ class UserShow extends Component
         --$this->next;
     }
     public function createButton(){
-            $this->click = true;
-            $this->create = true;
-            $this->update = false;
-            $this->show = false;
+            $this->state = 'create';
+            $this->next = 0;
         }
 
     public function updateButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = true;
-        $this->show = false;
+        $this->state = 'edit';
+        $this->next = 0;
     }
     public function showButton(){
-        $this->click = true;
-        $this->create = false;
-        $this->update = false;
-        $this->show = true;
+        $this->state = 'show';
 
 
     }
     public function clear(){
-        $this->next = 0;
-        $this->click = false;
-        $this->create = false;
-        $this->update = false;
-        $this->show = false;
+        $this->next = null;
+        $this->state = null;
     }
     public function backButton(){
 
@@ -267,6 +256,7 @@ class UserShow extends Component
         }else{
             $this->backButton();
         }
+        $this->closePass();
         $this->dispatchBrowserEvent('close-modal');
     }
 

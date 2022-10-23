@@ -205,7 +205,7 @@
         <ul class="list-unstyled px-2">
           <hr class="h-color mx-2"> 
 
-        <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+        <li class=""><button wire:click="dashboard" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-laptop-house me-2"></i>Dashboard</a></li>
 
                
@@ -221,9 +221,7 @@
                     <i class="fas fa-upload me-2"></i>
                      Upload Trainings </button></li>
 
-                     <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                      <i class="fas fa-file me-2"></i>
-                       View Trainings</button></li>
+
                       
               
                       
@@ -234,11 +232,15 @@
                     Approved Trainings </button></li>
                     <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-folder me-2"></i>
-                    Coordinator Trainings </button></li>
+                    My Trainings </button></li>
                     <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-paper-plane me-2"></i>
                     Submitted Trainings </button></li>
-               @endif
+                @else
+                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-file me-2"></i>
+                   View Trainings</button></li>
+                @endif
                  </div>
                    
 
@@ -256,9 +258,7 @@
                   <i class="fas fa-pen-alt me-2"></i>
                    Create IDP </button></li>
 
-                   <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-file-alt me-2"></i>
-                     View IDP </button></li>
+
 
                 @if (auth()->user()->role_as == 1)
                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
@@ -266,11 +266,15 @@
                        Approved IDP's </button></li>
                      <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-list me-2"></i>
-                       Coordinator IDP's </button></li>
+                       My IDP's </button></li>
                       <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>
-                 @endif
+                 @else
+                  <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-file-alt me-2"></i>
+                    View IDP </button></li>
+                @endif
                 </div>
                 
         </ul>
