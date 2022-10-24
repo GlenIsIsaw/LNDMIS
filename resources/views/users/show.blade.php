@@ -1,14 +1,23 @@
 <div class="card-header">
     <h4>
         {{$name}}'s Profile
-        <button type="button" wire:click="editUser({{$User_id}})" class="btn-secondary text-white rounded-3 shadow text-sm text-uppercase fw-bold px-5 py-10 float-end" style="background-color: #800">Edit</button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#changePassUserModal" class="btn btn-danger">Change Password</button>
+        
     </h4>
 </div>
+<div class="card-title d-grid gap-2 d-md-flex justify-content-md-end my-5 mx-5">
+
+    <button type="button" wire:click="editUser({{$User_id}})" class="btn-secondary text-white rounded-3 shadow text-sm text-uppercase fw-bold px-5 py-10" style="background-color: #800"><i class="fas fa-user-edit me-2"></i>Edit your profile</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#changePassUserModal" class="btn-secondary  text-white rounded-3 shadow-lg text-sm text-uppercase fw-bold px-5 py-10" style="background-color: #800"><i class="fas fa-edit me-2"></i></i>Change Password</button>
+
+
+</div>
 <div class="card-body">
-    <div class="row">
+    
+    <h5 class ="my-3"> General Profile Section </h5>
+    <hr class="hr-color mx-3">
+    <div class="row table-responsive-sm">
         <div class="col">
-            <table class="table table-sm table-bordered border border-2 border-dark">
+            <table class="table table-sm table-borderless table-hover rounded-3">
                 <tr>
                     <th>Name</th>
                     <td class="text-center">{{$name}}</td>
@@ -43,11 +52,11 @@
                 </tr>
             </table>
         </div>
-        <div class="col">
-          <h6>Signature</h6>
+        <div class="col my-2">
+          <h6 class="fw-bold">Signature</h6>
           
             @if ($signature)
-                <button type="button" wire:click="editSignature" class="float-end">Delete Signature</button>
+                <button type="button" wire:click="editSignature" class="text-center btn-danger rounded-3 shadow-sm px-3 py-2 mx-4 float-end"><i class="fas fa-trash-alt"></i></button>
                 <img class="img-fluid" src="{{ url('storage/users/'.$User_id.'/'.$signature) }}?{{ rand() }}" alt="No Signature">
             @else
             <form wire:submit.prevent="addSignature">
@@ -68,11 +77,12 @@
                 </div>
                 @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
                     
-                <button type="submit" class="btn btn-primary">Upload Signature</button>
+                <button type="submit" class="btn btn-primary my-3"><i class="fas fa-upload me-2"></i>Upload</button>
             </form>
             @endif
-          
+            <hr class="hr-color mx-3">
         </div>
-
+        
       </div>
+      <hr class="hr-color mx-3">
 </div>
