@@ -27,7 +27,7 @@
 
 <div style="background-image: linear-gradient(
     to right, #1a2a6c,
-    #b21f1f, #fdbb2d);" class="vh-100 py-5"> 
+    #b21f1f, #fdbb2d);" class="vh-50 py-5"> 
 
 
 <div class="container py-5 px-3 h-100">
