@@ -26,7 +26,7 @@ class IdpShow extends Component
     public $support = [' ',' ',' '];
     public $status = [' ',' ',' '];
     public $search,$start_date,$end_date,$filter_status, $filter_competency, $filter_completion_status;
-    protected $queryString = ['next','state','table','search','filter_status','filter_competency','filter_completion_status'];
+    protected $queryString = ['search','filter_status','filter_competency','filter_completion_status'];
     public $query = [];
     public $table = 'Approved IDPs';
 

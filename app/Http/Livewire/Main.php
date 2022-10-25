@@ -7,10 +7,10 @@ use Livewire\Component;
 class Main extends Component
 {
 
-    public $page = 'training';
+    public $page = 'reports';
     public $string, $string2;
     
-    protected $queryString = ['page'];
+    //protected $queryString = ['page'];
     protected $listeners = [
         'MyProfile' => 'showUser',
         'home' => 'dashboard'
@@ -47,6 +47,9 @@ class Main extends Component
     public function showUser(){
         $this->userIndex();
         $this->emit('showUser',auth()->user()->id);
+    }
+    public function reports(){
+        $this->page = 'reports';
     }
 
     public function approvedTraining(){

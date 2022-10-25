@@ -15,5 +15,11 @@
         @include('users.index')
     @endif
 
+    @if ($page == 'reports')
+        <div>
+            <livewire:idp-reports />
+        </div>
+    @endif
+
 
 </div>

@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'), // password
         ]);
          \App\Models\User::factory(10)->create();
+         \App\Models\Idp::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
