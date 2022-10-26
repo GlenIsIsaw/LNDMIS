@@ -17,7 +17,7 @@ class IdpShow extends Component
 
     protected $paginationTheme = 'bootstrap';
     
-    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at,$submit_status, $mySignaturem,$checkmySignature;
+    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
@@ -52,10 +52,11 @@ class IdpShow extends Component
         ++$this->next;
     }
     public function createButton(){
-        $idpYear = Idp::select('idps.created_at')
+        $nextYear = date('Y') + 1;
+        $idpYear = Idp::select('year')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('users.id',auth()->user()->id)
-            ->where('idps.created_at', 'like', '%'.date('Y').'%')
+            ->where('year', 'like', '%'.$nextYear.'%')
             ->first();
         if($idpYear){
             session()->flash('message','You already have an IDP this year');
@@ -231,21 +232,18 @@ class IdpShow extends Component
             'competency' => 'required',
             'sug' => 'required',
             'dev_act' => 'required',
-            'target_date' => 'required',
             'responsible' => 'required',
             'support' => 'required',
 
             'competency.0' => 'required|distinct',
             'sug.0' => 'required',
             'dev_act.0' => 'required',
-            'target_date.0' => 'required',
             'responsible.0' => 'required',
             'support.0' => 'required',
 
             'competency.1' => 'required|distinct',
             'sug.1' => 'required',
             'dev_act.1' => 'required',
-            'target_date.1' => 'required',
             'responsible.1' => 'required',
             'support.1' => 'required',
 
@@ -253,7 +251,6 @@ class IdpShow extends Component
             'competency.2' => 'required|distinct',
             'sug.2' => 'required',
             'dev_act.2' => 'required',
-            'target_date.2' => 'required',
             'responsible.2' => 'required',
             'support.2' => 'required',
 
@@ -269,7 +266,6 @@ class IdpShow extends Component
         $this->competency = $validatedData['competency'];
         $this->sug = $validatedData['sug'];
         $this->dev_act = $validatedData['dev_act'];
-        $this->target_date = $validatedData['target_date'];
         $this->responsible = $validatedData['responsible'];
         $this->support = $validatedData['support'];
         $this->status = ["Ongoing","Ongoing","Ongoing"];
@@ -306,11 +302,13 @@ class IdpShow extends Component
             $idp->purpose_others = $this->purpose_others;
             $idp->purpose_explain = $this->purpose_explain;
         }
+        $this->year = date('Y') + 1;
+        $idp->year = $this->year;
         $idp->user_id = auth()->user()->id;
         $idp->competency = $this->competency;
         $idp->sug = $this->sug;
         $idp->dev_act = $this->dev_act;
-        $idp->target_date = $this->target_date;
+        $idp->target_date = ["December ".$this->year,"December ".$this->year,"December ".$this->year];
         $idp->responsible = $this->responsible;
         $idp->support = $this->support;
         $idp->status = $this->status;
@@ -336,7 +334,7 @@ class IdpShow extends Component
     }
 
     public function show($id){
-        $idp = Idp::select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit_status')
+        $idp = Idp::select('idps.id as idp_id','name','position','yearinPosition','yearJoined','supervisor','user_id','purpose_meet','purpose_improve','purpose_obtain','purpose_others','purpose_explain','competency','sug','dev_act','target_date','responsible','support','status','compfunction0','compfunctiondesc0','compfunction1','compfunctiondesc1','diffunction0','diffunctiondesc0','diffunction1','diffunctiondesc1','career','idps.created_at','submit_status','year')
                         ->join('users', 'users.id', '=', 'idps.user_id')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('idps.id', $id)
@@ -350,6 +348,7 @@ class IdpShow extends Component
             $this->idp_id = $idp->idp_id;
             $pieces = explode("-", $idp->created_at);
             $this->created_at = $pieces[0];
+            $this->year = $idp->year;
             $this->user_id = $idp->user_id;
             $this->name = $idp->name;
             $this->position = $idp->position;
@@ -550,7 +549,8 @@ class IdpShow extends Component
     }
     public function submit(){
         $list = Idp::find($this->idp_id);
-        if($list->user_id != auth()->user()->id)
+        //dd(auth()->user()->id);
+        if($list->user_id == auth()->user()->id)
         {
             $list->submit_status = 'Pending';
             $list->save();
@@ -564,7 +564,7 @@ class IdpShow extends Component
     }
     public function removeSubmit(){
         $list = Idp::find($this->idp_id);
-        if($list->user_id != auth()->user()->id)
+        if($list->user_id == auth()->user()->id)
         {
             if ($list->submit_status == 'Pending') {
                 session()->flash('message','Removed the Submission of your IDP');
@@ -608,6 +608,7 @@ class IdpShow extends Component
             $list = Idp::find($this->idp_id);
             $list->submit_status = 'Approved';
             $list->comment = $this->comment;
+            $list->status = ["Completed","Completed","Completed"];
             $list->save();
             $this->comment = '';
             $this->dispatchBrowserEvent('close-modal');
@@ -740,7 +741,7 @@ class IdpShow extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
@@ -752,7 +753,7 @@ class IdpShow extends Component
                 ->orderBy('idps.updated_at','desc')
                 ->paginate(3);
         } else {
-            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment')
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])

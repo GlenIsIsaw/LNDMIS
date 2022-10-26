@@ -13,14 +13,23 @@
                     <label class="fw-bold">Sort by Name:</label>
                     <select wire:model='name' class="form-control border border-3 rounded-3" style="width: 100%; height: 500%">
                         <option value=""></option>
-                        @foreach ($arrays as $name => $item)
-                            <option value="{{$name}}">{{$name}}</option>
+                        @foreach ($Idp as $idp)
+                            <option value="{{$idp->name}}">{{$idp->name}}</option>
                         @endforeach
                         
 
                     </select>
                 </div>
-                <div class="modal-body">
+                <div class="mb-3">
+                    <label class="fw-bold">Sort by Person Responsible:</label>
+                    <select wire:model='responsible' class="form-control border border-3 rounded-3" style="width: 100%; height: 500%">
+                        <option value=""></option>
+                        <option value="Immediate Supervisor">Immediate Supervisor</option>
+                        <option value="VPAA">VPAA</option>
+                        <option value="VPAF">VPAF</option>
+                        <option value="VPRE">VPRE</option>
+                    </select>
+                </div>
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Competency:</label>
                         <select wire:model='competency' class="form-control border border-3 rounded-3" style="width: 100%; height: 500%">
@@ -42,14 +51,6 @@
                             <option value="G">G</option>
                         </select>
                     </div>
-                    <!-- <label class="fw-bold"> Sort by the Date Created:</label>
-                    <div class="mx-3 my-3">
-                        <label>Start Date</label>
-                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3">
-                        <label>End Date</label>
-                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
-                    </div>
-                    -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"

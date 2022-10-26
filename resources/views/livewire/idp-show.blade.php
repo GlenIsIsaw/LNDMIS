@@ -49,6 +49,7 @@
                                             @endif
                                             <th scope="col">Competency</th>
                                             <th scope="col">Completion Status</th>
+                                            <th scope="col">Year</th>
                                             <th scope="col">Created At</th>
                                             <th scope="col">Updated At</th>
                                             <th scope="col">Status</th>
@@ -75,6 +76,7 @@
                                                         @endforeach
                                                     </ol>
                                                 </td>
+                                                <td>{{ $idp->year }}</td>
                                                 <td>{{ $idp->created_at }}</td>
                                                 <td>{{ $idp->updated_at }}</td>
                                                 <td>{{ $idp->submit_status }}</td>

@@ -7,7 +7,16 @@
                     <div class="card" >
                         <div class="card-header">
                             <h4>
-                                IDP Summary    
+                                IDP Summary of Year
+                                <select wire:model='year'>
+                                    <option value=""></option>
+                                    @for ($i = 2015; $i <= date('Y') + 1; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                    
+        
+                                </select>
+                                <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
                                 <button data-bs-toggle="modal" data-bs-target="#filterSummaryIdpModal" class="float-end mx-2">Filter</button>                        
                             </h4>
                             
