@@ -1,5 +1,6 @@
 
 <div>
+
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12">
@@ -17,7 +18,9 @@
         
                                 </select>
                                 <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
-                                <button data-bs-toggle="modal" data-bs-target="#filterSummaryIdpModal" class="float-end mx-2">Filter</button>                        
+                                <button data-bs-toggle="modal" data-bs-target="#filterSummaryIdpModal" class="float-end mx-2">Filter</button>     
+                                <button data-bs-toggle="modal" data-bs-target="#printSummaryIdpModal" class="float-end mx-2">Print</button>
+                                <button data-bs-toggle="modal" data-bs-target="#compSummaryIdpModal" wire:click="countCompetency" class="float-end mx-2">Competency Count</button>                       
                             </h4>
                             
                         </div>

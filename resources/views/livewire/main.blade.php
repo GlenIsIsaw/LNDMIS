@@ -70,6 +70,9 @@
             $('#changePassUserModal').modal('hide');
             $('#supervisorModal').modal('hide');
             $('#supervisorNotModal').modal('hide');
+
+            $('#printSummaryIdpModal').modal('hide');
+            
             
 
             $('#notificationModal').modal('hide');

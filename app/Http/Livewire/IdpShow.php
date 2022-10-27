@@ -641,7 +641,6 @@ class IdpShow extends Component
         $document = Idp::join('users', 'users.id', '=', 'idps.user_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
                 ->where('idps.id', $this->idp_id)
-                
                 ->first();
         $supervisor = User::select('name')
                     ->join('colleges', 'colleges.id', '=', 'users.college_id')
