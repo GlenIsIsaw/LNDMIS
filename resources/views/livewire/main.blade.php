@@ -15,8 +15,12 @@
         @include('users.index')
     @endif
 
-    @if ($page == 'reports')
+    @if ($page == 'idpSummary')
         @include('idp.summary')
+    @endif
+
+    @if ($page == 'attendanceSummary')
+        @include('attendanceForm.summary')
     @endif
 
     @section('script')
@@ -72,6 +76,8 @@
             $('#supervisorNotModal').modal('hide');
 
             $('#printSummaryIdpModal').modal('hide');
+
+            $('#printSummaryAttendanceModal').modal('hide');
             
             
 
@@ -92,4 +98,6 @@
     </script>
 
     @endsection
+
+    @include('livewire.main-modal')
 </div>

@@ -238,10 +238,9 @@ class IdpReports extends Component
         $college = College::select('college_name', 'supervisor')
                         ->where('id',auth()->user()->college_id)
                         ->first();
-
         //dd($list);
         $templateProcessor = new TemplateProcessor(storage_path('Local-Learning-Development-Plan.docx'));
-        $templateProcessor->setValue("college", $college->name);
+        $templateProcessor->setValue("college", $college->college_name);
         $templateProcessor->setValue("year", $this->year);
         $templateProcessor->cloneRow('ename', count($list));
         $i = 1;
@@ -340,9 +339,10 @@ class IdpReports extends Component
 
         $templateProcessor->setValue('coorname',auth()->user()->name);
         $templateProcessor->setValue('sname',$supervisor->name);
+        $this->dispatchBrowserEvent('close-modal');
         $templateProcessor->saveAs(public_path('Local-Learning-Development-Plan_2023'.'.docx'));
         return response()->download(public_path('Local-Learning-Development-Plan_2023'.'.docx'))->deleteFileAfterSend(true);
-        $this->dispatchBrowserEvent('close-modal');
+        
         $this->resetInput();
         $this->resetFilter();
         }else {
