@@ -7,7 +7,7 @@ use Livewire\Component;
 class Main extends Component
 {
 
-    public $page = 'attendanceSummary';
+    public $page = 'trainingSummary';
     public $string, $string2;
     
     //protected $queryString = ['page'];
@@ -73,6 +73,15 @@ class Main extends Component
     public function attendanceSummary(){
         if ($this->checkCoord()) {
             $this->page = 'attendanceSummary';
+        } else {
+            session()->flash('message','You do not have the authority to access this page');
+        }
+        
+       
+    }
+    public function trainingSummary(){
+        if ($this->checkCoord()) {
+            $this->page = 'trainingSummary';
         } else {
             session()->flash('message','You do not have the authority to access this page');
         }

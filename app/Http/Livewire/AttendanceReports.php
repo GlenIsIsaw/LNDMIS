@@ -45,14 +45,14 @@ class AttendanceReports extends Component
         $pieces = explode("-", $date);
         return $pieces[0];
     }
-    public function userTeachTrainNum(){
+    public function userTeachTrainNum($choice){
         $check = '';
         $count = 0;
         $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','venue','sponsors','competency','attendance_forms.id as att_id','status')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
-            ->where('teacher','Yes')
+            ->where('teacher',$choice)
             ->where('status','Approved')
             ->get();
         foreach ($lists as $key => $value) {
@@ -65,35 +65,9 @@ class AttendanceReports extends Component
         }
         return $count;
     }
-    public function userNonTeachTrainNum(){
-        $check = '';
-        $count = 0;
-        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','venue','sponsors','competency','attendance_forms.id as att_id','status')
-            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-            ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-            ->where('college_id',auth()->user()->college_id)
-            ->where('teacher','No')
-            ->where('status','Approved')
-            ->get();
-        foreach ($lists as $key => $value) {
-            if ($check == $value->name) {
-                continue;
-            }else {
-                $check = $value->name;
-                $count++;
-            }
-        }
-        return $count;
-    }
-    public function userTeachNum(){
+    public function userTeachNum($choice){
         $user = User::where('college_id',auth()->user()->college_id)
-                    ->where('teacher','Yes')
-                    ->get();
-        return count($user->toArray());
-    }
-    public function userNonTeachNum(){
-        $user = User::where('college_id',auth()->user()->college_id)
-                    ->where('teacher','No')
+                    ->where('teacher',$choice)
                     ->get();
         return count($user->toArray());
     }
@@ -108,10 +82,10 @@ class AttendanceReports extends Component
             'end_date' => 'required|date|after:start_date'
         ]);
 
-        if ($this->start_date && $this->end_date) {
+
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-        $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered','competency')
+            $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered','competency')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
@@ -120,7 +94,7 @@ class AttendanceReports extends Component
             ->whereBetween('date_covered',[$start_date,$end_date])
             ->where('status','Approved')
             ->get();
-        }
+        
 
         //dd($lists->toArray());
 
@@ -152,8 +126,8 @@ class AttendanceReports extends Component
             $i++;
         }
 
-        $templateProcessor->setValue('facultyPercentage', $this->percentage($this->userTeachTrainNum(),$this->userTeachNum()));
-        $templateProcessor->setValue('nonPercentage', $this->percentage($this->userNonTeachTrainNum(),$this->userNonTeachNum()));
+        $templateProcessor->setValue('facultyPercentage', $this->percentage($this->userTeachTrainNum('Yes'),$this->userTeachNum('Yes')));
+        $templateProcessor->setValue('nonPercentage', $this->percentage($this->userTeachTrainNum('No'),$this->userTeachNum('No')));
 
         if($this->mySignature == '1'){
             if(auth()->user()->signature){

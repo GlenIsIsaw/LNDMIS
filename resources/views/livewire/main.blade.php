@@ -23,6 +23,12 @@
         @include('attendanceForm.summary')
     @endif
 
+    @if ($page == 'trainingSummary')
+        <div>
+            <livewire:training-reports />
+        </div>
+    @endif
+
     @section('script')
     <script>
 
