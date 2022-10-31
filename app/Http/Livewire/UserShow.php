@@ -22,7 +22,7 @@ class UserShow extends Component
     public $state = null;
     public $next = null;
     public $table = null;
-    protected $queryString = ['next','state','search','table'];
+    protected $queryString = ['search'];
 
     
     protected $listeners = [

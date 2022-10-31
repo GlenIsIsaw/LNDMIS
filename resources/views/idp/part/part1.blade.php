@@ -33,7 +33,6 @@
                     <th>Target Competency</th>
                     <th>S/U/G</th>
                     <th>Development Activity</th>
-                    <th>Target Completion Date</th>
                     <th>Person Responsible</th>
                     <th>Support Needed </th>
                 </thead>
@@ -69,14 +68,14 @@
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
-                            
                             <td>
-                                <input type="date" wire:model="target_date.{{$i}}" class="border border-2 rounded-3 border-dark">
-                                @error('target_date.*') <span class="text-danger">{{ $message }}</span> @enderror
-                                @error('target_date') <span class="text-danger">{{ $message }}</span> @enderror
-                            </td>
-                            <td>
-                                <input type="text" wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark">
+                                <select wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark" style="width: 100%; height: 500%">
+                                    <option value=""></option>
+                                    <option value="Immediate Supervisor">Immediate Supervisor</option>
+                                    <option value="VPAA">VPAA</option>
+                                    <option value="VPAF">VPAF</option>
+                                    <option value="VPRE">VPRE</option>
+                                </select>
                                 @error('responsible.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('responsible') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>

@@ -109,7 +109,7 @@
     
 
         <main class="py-9">
-            @yield('content')
+            {{$slot}}
            
             
         </main>

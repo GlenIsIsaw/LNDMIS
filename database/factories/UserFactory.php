@@ -19,7 +19,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'college_id' => fake()->randomElement([1,2,3,4]),
+            'college_id' => 1, //fake()->randomElement([1,2,3,4]),
             'name' => fake()->name(),
             'teacher' => fake()->randomElement(['Yes','No']),
             'position' => fake()->jobTitle(),

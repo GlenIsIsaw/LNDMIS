@@ -7,14 +7,20 @@ use Livewire\Component;
 class Main extends Component
 {
 
-    public $page = 'training';
+    public $page = 'trainingSummary';
     public $string, $string2;
     
-    protected $queryString = ['page'];
+    //protected $queryString = ['page'];
     protected $listeners = [
         'MyProfile' => 'showUser',
         'home' => 'dashboard'
     ];
+
+    public function notification(){
+        if (session()->has('message')) {
+            $this->dispatchBrowserEvent('show-notification');
+        }
+    }
     public function dashboard(){
         $this->page = 'dashboard';
 
@@ -47,6 +53,40 @@ class Main extends Component
     public function showUser(){
         $this->userIndex();
         $this->emit('showUser',auth()->user()->id);
+    }
+    public function checkCoord(){
+        if (auth()->user()->role_as == 1) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    public function idpSummary(){
+        if ($this->checkCoord()) {
+            $this->page = 'idpSummary';
+        } else {
+            session()->flash('message','You do not have the authority to access this page');
+        }
+        
+    }
+    public function attendanceSummary(){
+        if ($this->checkCoord()) {
+            $this->page = 'attendanceSummary';
+        } else {
+            session()->flash('message','You do not have the authority to access this page');
+        }
+        
+       
+    }
+    public function trainingSummary(){
+        if ($this->checkCoord()) {
+            $this->page = 'trainingSummary';
+        } else {
+            session()->flash('message','You do not have the authority to access this page');
+        }
+        
+       
     }
 
     public function approvedTraining(){
@@ -85,6 +125,7 @@ class Main extends Component
     
     public function render()
     {
+        $this->notification();
         return view('livewire.main');
     }
 }

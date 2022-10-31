@@ -1,6 +1,6 @@
 <div class="card-header">
     <h4>
-        {{$name}}'s Individual Development Plan of Year {{$created_at}}
+        {{$name}}'s Individual Development Plan of Year {{$year}}
     </h4>
 </div>
 <div class="card-body">
