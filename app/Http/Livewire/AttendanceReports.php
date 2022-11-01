@@ -97,6 +97,11 @@ class AttendanceReports extends Component
         
 
         //dd($lists->toArray());
+        if ($lists->isEmpty()) {
+            $this->resetFilter();
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You have no data to print');
+        } else {        
 
         $start_month = strftime("%B",strtotime($this->start_date));
         $end_month = strftime("%B",strtotime($this->end_date));
@@ -146,7 +151,7 @@ class AttendanceReports extends Component
         $this->resetFilter();
         $this->dispatchBrowserEvent('close-modal');
         return response()->download(public_path('LND-Monitoring_'.$daterange.'.docx'))->deleteFileAfterSend(true);
-
+        }
     }
 
     public function updatedName($value){

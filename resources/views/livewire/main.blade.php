@@ -28,6 +28,11 @@
             <livewire:training-reports />
         </div>
     @endif
+    @if ($page == 'certificateSummary')
+    <div>
+        <livewire:certificate-reports />
+    </div>
+@endif
 
     @section('script')
     <script>
@@ -55,7 +60,6 @@
             $('#approveTrainingModal').modal('hide');
             $('#rejectTrainingModal').modal('hide');
             $('#removeSubmissionTrainingModal').modal('hide');
-            $('#printTrainingModal').modal('hide');
             $('#createConfirmationTrainingModal').modal('hide');
             $('#editConfirmationTrainingModal').modal('hide');
             $('#createConfirmationAttendanceModal').modal('hide');
@@ -84,6 +88,9 @@
             $('#printSummaryIdpModal').modal('hide');
 
             $('#printSummaryAttendanceModal').modal('hide');
+
+            $('#printTrainingModal').modal('hide');
+            $('#printCertificateModal').modal('hide');
             
             
 
