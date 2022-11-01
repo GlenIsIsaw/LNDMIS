@@ -340,8 +340,9 @@ class IdpReports extends Component
         $templateProcessor->setValue('coorname',auth()->user()->name);
         $templateProcessor->setValue('sname',$supervisor->name);
         $this->dispatchBrowserEvent('close-modal');
-        $templateProcessor->saveAs(public_path('Local-Learning-Development-Plan_2023'.'.docx'));
-        return response()->download(public_path('Local-Learning-Development-Plan_2023'.'.docx'))->deleteFileAfterSend(true);
+        $path = 'app/public/users/'.auth()->user()->id.'/Local-Learning-Development-Plan_'.$year.'.docx';
+        $templateProcessor->saveAs(storage_path($path));
+        return response()->download(storage_path($path))->deleteFileAfterSend(true);
         
         $this->resetInput();
         $this->resetFilter();

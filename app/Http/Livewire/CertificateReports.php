@@ -116,10 +116,11 @@ class CertificateReports extends Component
             $templateProcessor->setImageValue("certificate#$i", array('path' => public_path('storage/users/'.$value['user_id'].'/'.$value['certificate']), 'width' => 800, 'height' => 450, 'ratio' => false));
             $i++;
         }
-        $templateProcessor->saveAs('Certificate_'.$name.$certificate_title.$daterange.'.docx');
+        $path = 'app/public/users/'.auth()->user()->id.'/Certificate_'.$name.$certificate_title.$daterange.'.docx';
+        $templateProcessor->saveAs(storage_path($path));
             $this->dispatchBrowserEvent('close-modal');
             $this->resetFilter();
-            return response()->download(public_path('Certificate_'.$name.$certificate_title.$daterange.'.docx'))->deleteFileAfterSend(true);
+            return response()->download(storage_path($path))->deleteFileAfterSend(true);
     }
     public function resetFilter(){
 

@@ -208,10 +208,11 @@ class TrainingReports extends Component
             }else{
                 $templateProcessor->setValue('coordsignature'," ");
             }
-            $templateProcessor->saveAs('ListOfTrainings_'.$daterange.'.docx');
+            $path = 'app/public/users/'.auth()->user()->id.'/ListOfTrainings_'.$daterange.'.docx';
+            $templateProcessor->saveAs(storage_path($path));
             $this->resetFilter();
             $this->dispatchBrowserEvent('close-modal');
-            return response()->download(public_path('ListOfTrainings_'.$daterange.'.docx'))->deleteFileAfterSend(true);
+            return response()->download(storage_path($path))->deleteFileAfterSend(true);
         } else {
             $this->resetFilter();
             $this->dispatchBrowserEvent('close-modal');
