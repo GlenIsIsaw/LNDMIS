@@ -180,6 +180,7 @@ for (i = 0; i < dropdown.length; i++) {
 
 
     @livewireScripts
+     @yield('script')
   
 </body>
 
