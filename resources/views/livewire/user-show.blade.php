@@ -22,9 +22,9 @@
                         @if (auth()->user()->role_as == 1)
                         <div class="card">
                             <div class="card-header">
-                                <h4> Employees of {{$info['college_name']}}
+                                <div class="fw-bold fs-5 text-uppercase"> Employees of {{$info['college_name']}}
                                     <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
-                                </h4>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive table-bordered text-center">
@@ -49,7 +49,7 @@
                                             @forelse ($users as $user)
                                                 <tr>
                                                     <td>{{ $user->user_id }}</td>
-                                                    <td>{{ $user->name }}</td>
+                                                    <td class=" fw-bold text-uppercase">{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ $user->teacher }}</td>
                                                     <td>{{ $user->position }}</td>

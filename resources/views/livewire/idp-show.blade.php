@@ -35,7 +35,7 @@
                                 
                                 
                                 <div class="float-end mx-2">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal" class="btn-secondary text-white rounded-3 shadow text-lg px-5 py-10" style="background-color: #800;">Filter</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                 </div>
                         </div>
 

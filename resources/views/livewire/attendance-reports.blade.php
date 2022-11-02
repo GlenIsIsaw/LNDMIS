@@ -6,12 +6,12 @@
                 <div id="main-card" style="padding-right: 5%">
                     <div class="card" >
                         <div class="card-header">
-                            <h4>
-                                Attendance Summary
+                            
+                            <div class="fw-bolder fs-3 float-start text-uppercase">Attendance Summary</div>
                                 <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
-                                <button data-bs-toggle="modal" data-bs-target="#filterSummaryAttendanceModal" class="float-end mx-2">Filter</button>     
-                                <button data-bs-toggle="modal" data-bs-target="#printSummaryAttendanceModal" class="float-end mx-2">Print</button>                  
-                            </h4>
+                                <button data-bs-toggle="modal" data-bs-target="#filterSummaryAttendanceModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>     
+                                <button data-bs-toggle="modal" data-bs-target="#printSummaryAttendanceModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-print me-2"></i>Print</button>                  
+                           
                             
                         </div>
                         <div class="card-body text-center">

@@ -1,7 +1,7 @@
 <div class="card-header">
-	<h4>
+    <div class="fw-bolder fs-3 float-start text-uppercase">
         Edit Attendance Form    
-    </h4>
+    </div>
 </div>
 <div class="card-body">
     <form wire:submit.prevent="updateAttendanceForm">

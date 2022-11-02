@@ -13,17 +13,17 @@
 
 <div class="mb-3">
     <label>Position</label>
-    <input type="text" wire:model="position" class="form-control">
+    <input type="text" wire:model="position" class="form-control border border-3 border-dark rounded-3">
     @error('position') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label>Year In Position</label>
-    <input type="date" wire:model="yearinPosition" class="form-control">
+    <input type="date" wire:model="yearinPosition" class="form-control border border-3 border-dark rounded-3">
     @error('yearinPosition') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label>Year Joined</label>
-    <input type="date" wire:model="yearJoined" class="form-control">
+    <input type="date" wire:model="yearJoined" class="form-control border border-3 border-dark rounded-3">
     @error('yearJoined') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 

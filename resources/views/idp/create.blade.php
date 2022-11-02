@@ -1,7 +1,7 @@
 <div class="card-header">
-    <h4>
+    <div class="fw-bolder fs-3 float-start text-uppercase">
         Create Individual Development Plan    
-    </h4>
+    </div>
 </div>
 <div class="card-body">
         @if ($next == 0)

@@ -1,8 +1,8 @@
 <div class="card-header">
-    <h4>
+    <div class="fw-bold fs-4 text-uppercase">
         {{$name}}'s Profile
         
-    </h4>
+    </div>
 </div>
 <div class="card-title d-grid gap-2 d-md-flex justify-content-md-end my-5 mx-5">
 

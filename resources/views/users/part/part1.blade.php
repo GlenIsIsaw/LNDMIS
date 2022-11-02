@@ -11,17 +11,17 @@
 <hr class="h-color mx-2 mt-3">
         <div class="mb-3">
             <label>Name</label>
-            <input type="text" wire:model="name" class="form-control">
+            <input type="text" wire:model="name" class="form-control border border-3 border-dark rounded-3">
             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
             <label>Email</label>
-            <input type="text" wire:model="email" class="form-control">
+            <input type="text" wire:model="email" class="form-control border border-3 border-dark rounded-3">
             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
             <label>Teacher</label>
-            <select wire:model="teacher" class="form-control">
+            <select wire:model="teacher" class="form-control border border-3 border-dark rounded-3">
                 <option value=""></option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>

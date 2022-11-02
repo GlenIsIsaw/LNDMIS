@@ -51,7 +51,7 @@
                             
                             <div class="card-header bg-transparent border-0">
                                 <div class="float-end mx-2">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterTrainingModal" class="btn-secondary text-white rounded-3 shadow text-lg px-5 py-10" style="background-color: #800;">Filter</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterTrainingModal" class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                 </div>
                             </div>
                                     
@@ -101,12 +101,12 @@
                                                 
                                                         <td>
                                                             <div class="d-grid gap-2">
-                                                            <button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold px-5 py-2">Create</button></td>
+                                                            <button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="button btn-danger text-white rounded-3 shadow-sm fw-bold px-5 py-2">Create</button></td>
                                                     @else
                                                         <td>
                                                             <div class="d-grid gap-2">
                                                             <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-sm fw-bold px-5 py-2">View</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn btn-success">Print</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-5 py-2">Print</button>
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary text-white rounded-3 shadow-sm fw-bold px-5 py-2">Edit</button>
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger rounded-3 fw-bold px-5 py-2">Delete</button>
