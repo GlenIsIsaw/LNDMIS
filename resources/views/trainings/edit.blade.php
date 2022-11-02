@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-header">
-        <h4>
+        <div class="fw-bold fs-5 text-uppercase">
             Update {{$certificate_title}}   
-        </h4>
+        </div>
         
     </div>
     <div class="card-body">

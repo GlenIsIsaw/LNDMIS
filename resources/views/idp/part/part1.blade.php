@@ -30,17 +30,17 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                    <th>Target Competency</th>
-                    <th>S/U/G</th>
-                    <th>Development Activity</th>
-                    <th>Person Responsible</th>
-                    <th>Support Needed </th>
+                    <th class="text-center">Target Competency</th>
+                    <th class="text-center">S/U/G</th>
+                    <th class="text-center">Development Activity</th>
+                    <th class="text-center">Person Responsible</th>
+                    <th class="text-center">Support Needed </th>
                 </thead>
                 <tbody>
                     @for ($i = 0; $i < 3; $i++)
                         <tr>
                             <td>
-                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark">
+                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark" style="height: 50px; width:300px;">
                                     <option value=""></option>
                                     @foreach ($comps as $key => $comp)
                                     <optgroup label={{$key}}>
@@ -54,8 +54,8 @@
                                 @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark">
-                                    <option value=""></option>
+                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark" style="height: 50px; width:40px;">
+                                    <option value="">...</option>
                                     <option value="S">S</option>
                                     <option value="U">U</option>
                                     <option value="G">G</option>
@@ -64,13 +64,13 @@
                                 @error('sug') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="text" wire:model="dev_act.{{$i}}" class="border border-2 rounded-3 border-dark">
+                                <input type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;">
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark" style="width: 100%; height: 500%">
-                                    <option value=""></option>
+                                <select wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark" style="height: 50px; width:90px;">
+                                    <option value="">...</option>
                                     <option value="Immediate Supervisor">Immediate Supervisor</option>
                                     <option value="VPAA">VPAA</option>
                                     <option value="VPAF">VPAF</option>
@@ -80,7 +80,7 @@
                                 @error('responsible') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="support" wire:model="support.{{$i}}" class="border border-2 rounded-3 border-dark">
+                                <input type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;">
                                 @error('support.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('support') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
@@ -90,7 +90,7 @@
             </table>
         </div>
         <hr class="h-color mx-2 mt-3">
-        <div class="float-start mx-2 my-2">
+        <div class="float-end mx-2 my-2">
     <button type="button" class="btn btn-danger" wire:click="backButton"
         data-bs-dismiss="modal">Close</button>
     <button type="submit" class="btn btn-primary">Next</button>

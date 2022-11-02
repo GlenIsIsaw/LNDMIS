@@ -26,6 +26,7 @@
 
     <div id="app">
         <nav class="navbar blue-text navbar-expand-md shadow-sm" style="background-color:#800000;">
+            
             <div class="container-fluid px-5">
                 
                  
@@ -75,10 +76,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end text-light" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" onclick="window.livewire.emit('MyProfile')">
+                                    <button class="dropdown-item" onclick="window.livewire.emit('MyProfile')">
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <button class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -179,7 +180,7 @@ for (i = 0; i < dropdown.length; i++) {
 
 
     @livewireScripts
-    @yield('script')
+  
 </body>
 
 <footer>

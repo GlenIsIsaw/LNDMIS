@@ -1,8 +1,8 @@
 
     <div class="card-header">
-        <h4>
+        <div class="fw-bold fs-5 text-uppercase">
             Upload Training    
-        </h4>
+        </div>
     </div>
     <div class="card-body">
             @if ($next == 0)

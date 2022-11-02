@@ -1,7 +1,7 @@
 <div class="card-header">
-    <h4>
+   <div class="fw-bold fs-4 text-uppercase">
         Edit {{$name}}'s Infomation  
-    </h4>
+   </div>
 </div>
 <div class="card-body">
     @if ($next == 0)
