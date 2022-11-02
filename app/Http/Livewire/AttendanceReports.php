@@ -89,14 +89,19 @@ class AttendanceReports extends Component
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
-            ->where('name', 'like', '%'.$this->name.'%')
-            ->where('competency', 'like', '%'.$this->competency.'%')
+            //->where('name', 'like', '%'.$this->name.'%')
+            //->where('competency', 'like', '%'.$this->competency.'%')
             ->whereBetween('date_covered',[$start_date,$end_date])
             ->where('status','Approved')
             ->get();
         
 
         //dd($lists->toArray());
+        if ($lists->isEmpty()) {
+            $this->resetFilter();
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You have no data to print');
+        } else {        
 
         $start_month = strftime("%B",strtotime($this->start_date));
         $end_month = strftime("%B",strtotime($this->end_date));
@@ -141,12 +146,13 @@ class AttendanceReports extends Component
             $templateProcessor->setValue('coorsign'," ");
         }
         $templateProcessor->setValue("coorname", auth()->user()->name);
+        $path = 'app/public/users/'.auth()->user()->id.'/LND-Monitoring_'.$daterange.'.docx';
+        $templateProcessor->saveAs(storage_path($path));
 
-        $templateProcessor->saveAs(public_path('LND-Monitoring_'.$daterange.'.docx'));
         $this->resetFilter();
         $this->dispatchBrowserEvent('close-modal');
-        return response()->download(public_path('LND-Monitoring_'.$daterange.'.docx'))->deleteFileAfterSend(true);
-
+        return response()->download(storage_path($path))->deleteFileAfterSend(true);
+        }
     }
 
     public function updatedName($value){

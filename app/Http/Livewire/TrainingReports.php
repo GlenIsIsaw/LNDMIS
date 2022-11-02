@@ -10,6 +10,8 @@ use App\Models\ListOfTraining;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\TemplateProcessor;
 
+use function PHPUnit\Framework\isEmpty;
+
 class TrainingReports extends Component
 {
     use WithPagination;
@@ -29,7 +31,7 @@ class TrainingReports extends Component
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->get();
 
         $this->seminar = $lists;
@@ -90,130 +92,139 @@ class TrainingReports extends Component
             'end_date' => 'required|date|after:start_date'
         ]);
         $listObject = $this->printquery('Yes');
-        //dd($listObject);
-        
-        $grouped = $listObject->groupBy('name');
-        $list = $grouped->toArray();
-        //dd($list);
-        foreach ($list as $name => $value) {
-            foreach ($value as $key => $item) {
-                $list[$name][$key]['date_covered'] = strftime("%B %e,%G",strtotime($item['date_covered']));
-            }
-            
-        }
-        //dd($list);
-        $start_month = strftime("%B",strtotime($this->start_date));
-        $end_month = strftime("%B",strtotime($this->end_date));
-        $year = $this->year($this->end_date);
-        $daterange = '';
-        $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
-        if ($start_month == $end_month) {
-            $daterange = $start_month.' '.$this->year($this->end_date);
-        }else {
-            $daterange = $start_month.' - '.$end_month.' '.$year;
-        }
-        $templateProcessor->setValue('deptname',auth()->user()->college_name);
-        $templateProcessor->setValue('year',$year);
-        $templateProcessor->setValue('daterange', $daterange);
-
-
-        $replacements = array();
-        $i = 0;
-        foreach($list as $name => $cert) {
-            $replacements[] = array(
-                'name' => $name,
-                'certificate_title' => '${certificate_title_'.$i.'}',
-                'date_covered' => '${date_covered_'.$i.'}',
-                'level' => '${level_'.$i.'}',
-                'num_hours' => '${num_hours_'.$i.'}'
-    );
-                $i++;
-}
-        $templateProcessor->cloneBlock('table', count($replacements), true, false, $replacements);
-
-        $i = 0;
-        foreach($list as $group) 
-        {
-            $values = array();
-            foreach($group as $row) 
-            {
-                $values[] = array(
-                    "certificate_title_{$i}" => $row['certificate_title'],
-                    "date_covered_{$i}" => $row['date_covered'],
-                    "level_{$i}" => $row['level'],
-                    "num_hours_{$i}" => $row['num_hours']);
-            }
-            $templateProcessor->cloneRowAndSetValues("certificate_title_{$i}", $values);
-
-            $i++;
-        }
         $listObject2 = $this->printquery('No');
+        //dd($listObject);
+        if (!$listObject->isEmpty() && !$listObject2->isEmpty()) {
+        
+            $grouped = $listObject->groupBy('name');
+            $list = $grouped->toArray();
+            //dd($list);
+            foreach ($list as $name => $value) {
+                foreach ($value as $key => $item) {
+                    $list[$name][$key]['date_covered'] = strftime("%B %e,%G",strtotime($item['date_covered']));
+                }
+                
+            }
+            //dd($list);
+            $start_month = strftime("%B",strtotime($this->start_date));
+            $end_month = strftime("%B",strtotime($this->end_date));
+            $year = $this->year($this->end_date);
+            $daterange = '';
+            $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
+            if ($start_month == $end_month) {
+                $daterange = $start_month.' '.$this->year($this->end_date);
+            }else {
+                $daterange = $start_month.' - '.$end_month.' '.$year;
+            }
+            $templateProcessor->setValue('deptname',auth()->user()->college_name);
+            $templateProcessor->setValue('year',$year);
+            $templateProcessor->setValue('daterange', $daterange);
 
-        $grouped = $listObject2->groupBy('name');
 
-        $list = $grouped->toArray();
-        foreach ($list as $name => $value) {
-            foreach ($value as $key => $item) {
-                $list[$name][$key]['date_covered'] = strftime("%B %e,%G",strtotime($item['date_covered']));
+            $replacements = array();
+            $i = 0;
+            foreach($list as $name => $cert) {
+                $replacements[] = array(
+                    'name' => $name,
+                    'certificate_title' => '${certificate_title_'.$i.'}',
+                    'date_covered' => '${date_covered_'.$i.'}',
+                    'level' => '${level_'.$i.'}',
+                    'num_hours' => '${num_hours_'.$i.'}'
+                );
+                    $i++;
+            }
+            $templateProcessor->cloneBlock('table', count($replacements), true, false, $replacements);
+
+            $i = 0;
+            foreach($list as $group) 
+            {
+                $values = array();
+                foreach($group as $row) 
+                {
+                    $values[] = array(
+                        "certificate_title_{$i}" => $row['certificate_title'],
+                        "date_covered_{$i}" => $row['date_covered'],
+                        "level_{$i}" => $row['level'],
+                        "num_hours_{$i}" => $row['num_hours']);
+                }
+                $templateProcessor->cloneRowAndSetValues("certificate_title_{$i}", $values);
+
+                $i++;
             }
             
-        }
 
-        $replacements = array();
-        $i = 0;
-        foreach($list as $name => $cert) {
-            $replacements[] = array(
-                'name2' => $name,
-                'certificate_title2' => '${certificate_title2_'.$i.'}',
-                'date_covered2' => '${date_covered2_'.$i.'}',
-                'level2' => '${level2_'.$i.'}',
-                'num_hours2' => '${num_hours2_'.$i.'}'
-    );
-                $i++;
-}
-        $templateProcessor->cloneBlock('table2', count($replacements), true, false, $replacements);
+            $grouped = $listObject2->groupBy('name');
 
-        $i = 0;
-        foreach($list as $group) 
-        {
-            $values = array();
-            foreach($group as $row) 
-            {
-                $values[] = array(
-                    "certificate_title2_{$i}" => $row['certificate_title'],
-                    "date_covered2_{$i}" => $row['date_covered'],
-                    "level2_{$i}" => $row['level'],
-                    "num_hours2_{$i}" => $row['num_hours']);
+            $list = $grouped->toArray();
+            foreach ($list as $name => $value) {
+                foreach ($value as $key => $item) {
+                    $list[$name][$key]['date_covered'] = strftime("%B %e,%G",strtotime($item['date_covered']));
+                }
+                
             }
-            $templateProcessor->cloneRowAndSetValues("certificate_title2_{$i}", $values);
 
-            $i++;
-        }
-        $templateProcessor->setValue('facultypercentage', $this->percentage($this->userTeachTrainNum('Yes'),$this->userTeachNum('Yes')).'%');
-        $templateProcessor->setValue('nonpercentage', $this->percentage($this->userTeachTrainNum('No'),$this->userTeachNum('No')). '%');
-        $templateProcessor->setValue('coordname',auth()->user()->name);
-        
-        if($this->mySignature == '1'){
-            if(auth()->user()->signature){
-                $templateProcessor->setImageValue('coordsignature', array('path' => public_path('storage/users/'.auth()->user()->id.'/'.auth()->user()->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
+            $replacements = array();
+            $i = 0;
+            foreach($list as $name => $cert) {
+                $replacements[] = array(
+                    'name2' => $name,
+                    'certificate_title2' => '${certificate_title2_'.$i.'}',
+                    'date_covered2' => '${date_covered2_'.$i.'}',
+                    'level2' => '${level2_'.$i.'}',
+                    'num_hours2' => '${num_hours2_'.$i.'}'
+                );
+                    $i++;
+            }
+            $templateProcessor->cloneBlock('table2', count($replacements), true, false, $replacements);
+
+            $i = 0;
+            foreach($list as $group) 
+            {
+                $values = array();
+                foreach($group as $row) 
+                {
+                    $values[] = array(
+                        "certificate_title2_{$i}" => $row['certificate_title'],
+                        "date_covered2_{$i}" => $row['date_covered'],
+                        "level2_{$i}" => $row['level'],
+                        "num_hours2_{$i}" => $row['num_hours']);
+                }
+                $templateProcessor->cloneRowAndSetValues("certificate_title2_{$i}", $values);
+
+                $i++;
+            }
+            $templateProcessor->setValue('facultypercentage', $this->percentage($this->userTeachTrainNum('Yes'),$this->userTeachNum('Yes')).'%');
+            $templateProcessor->setValue('nonpercentage', $this->percentage($this->userTeachTrainNum('No'),$this->userTeachNum('No')). '%');
+            $templateProcessor->setValue('coordname',auth()->user()->name);
+            
+            if($this->mySignature == '1'){
+                if(auth()->user()->signature){
+                    $templateProcessor->setImageValue('coordsignature', array('path' => public_path('storage/users/'.auth()->user()->id.'/'.auth()->user()->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
+                }else{
+                    session()->flash('message','You have no signature');
+                    $templateProcessor->setValue('coordsignature'," ");
+                }
+                
             }else{
-                session()->flash('message','You have no signature');
                 $templateProcessor->setValue('coordsignature'," ");
             }
-            
-        }else{
-            $templateProcessor->setValue('coordsignature'," ");
+            $path = 'app/public/users/'.auth()->user()->id.'/ListOfTrainings_'.$daterange.'.docx';
+            $templateProcessor->saveAs(storage_path($path));
+            $this->resetFilter();
+            $this->dispatchBrowserEvent('close-modal');
+            return response()->download(storage_path($path))->deleteFileAfterSend(true);
+        } else {
+            $this->resetFilter();
+            $this->dispatchBrowserEvent('close-modal');
+            session()->flash('message','You have no data to print');
         }
-        $templateProcessor->saveAs('ListOfTrainings_'.$daterange.'.docx');
-        $this->resetFilter();
-        $this->dispatchBrowserEvent('close-modal');
-        return response()->download(public_path('ListOfTrainings_'.$daterange.'.docx'))->deleteFileAfterSend(true);
     }
     public function resetFilter(){
         $this->filter_status = null;
         $this->filter_certificate_type = null;
         $this->filter_level = null;
         $this->start_date = null;
+        $this->end_date = null;
         $this->filter_certificate_title = null;
         $this->name = null;
         $this->mySignature = null;

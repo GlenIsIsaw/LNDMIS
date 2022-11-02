@@ -294,9 +294,10 @@
           
           <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Reports</button>
             <div class="dropdown-container">
-              <li class=""><button wire:click="trainingSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Training Reports</a></li>
-              <li class=""><button wire:click="idpSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Idp Reports</a></li>
-              <li class=""><button wire:click="attendanceSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Attendance Reports</a></li>
+              <li class=""><button wire:click="trainingSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Training Summary</a></li>
+              <li class=""><button wire:click="idpSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Idp Summary</a></li>
+              <li class=""><button wire:click="attendanceSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Attendance Summary</a></li>
+                <li class=""><button wire:click="certificateSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>Certificate Summary</a></li>
             </div>
         </ul>
 
