@@ -10,7 +10,7 @@
             <tr>
                 <td>
                     <select wire:model="compfunction0" id="compfunctiondesc" class="border border-3 border-dark rounded-3" style="width: 95%">
-                        <option value=""></option>
+                        <option value="">...</option>
                         @foreach ($comps as $key => $comp)
                         <optgroup label={{$key}}>
                             @foreach ($comp as $item)
@@ -22,7 +22,7 @@
                 </td>
                 <td>
                     <select wire:model="compfunction1" id="compfunctiondesc" class="border border-3 border-dark rounded-3" style="width: 95%">
-                        <option value=""></option>
+                        <option value="">...</option>
                         @foreach ($comps as $key => $comp)
                         <optgroup label={{$key}}>
                             @foreach ($comp as $item)
@@ -65,7 +65,7 @@
         <tr>
             <td>
                 <select wire:model="diffunction0" id="diffunctiondesc" class="border border-3 border-dark rounded-3" style="width: 95%">
-                    <option value=""></option>
+                    <option value="">...</option>
                     @foreach ($comps as $key => $comp)
                     <optgroup label={{$key}}>
                         @foreach ($comp as $item)
@@ -78,7 +78,7 @@
             </td>
             <td>
                 <select wire:model="diffunction1" id="diffunctiondesc" class="border border-3 border-dark rounded-3" style="width: 95%">
-                    <option value=""></option>
+                    <option value="">...</option>
                     @foreach ($comps as $key => $comp)
                     <optgroup label={{$key}}>
                         @foreach ($comp as $item)

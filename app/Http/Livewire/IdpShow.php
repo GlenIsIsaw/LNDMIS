@@ -51,6 +51,9 @@ class IdpShow extends Component
     public function after(){
         ++$this->next;
     }
+    public function back(){
+        --$this->next;
+    }
     public function createButton(){
         $nextYear = date('Y') + 1;
         $idpYear = Idp::select('year')
