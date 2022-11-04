@@ -1,5 +1,5 @@
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mb-3">
     <div class="col">
       <div class="card h-100 border border-5 border-light shadow-lg">
         <img src="/images/training.png" class="card-img-top" alt="Training">
@@ -23,13 +23,25 @@
         </div>
       </div>
     </div>
+
+
     <div class="col">
-      <div class="card h-100">
+      <div class="card h-100 border border-5 border-light shadow-lg">
         <img src="/images/idp.png" class="card-img-top" alt="IDP">
         <div class="card-body">
           <h5 class="card-title">Individual Development Plan</h5>
           <p class="card-text">Good Day! Start to upload your Training/s by clicking the button below. Plan your work and work your plan. “If you don't know where you are going, you'll end up someplace else.” </p>
-          
+          <button class="btn-secondary text-uppercase fw-bold fs-6 border-3 rounded-pill border-white px-4 py-2 text-white dropdown-toggle mt-3" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-image: linear-gradient(to right, #c31432, #240b36); ">
+            IDP
+           </button>
+ 
+           <ul class="dropdown-menu rounded-3 border-light border-3" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);">
+            <li><button class="dropdown-item fw-bolder text-dark" wire:click="createIdp">Create IDP</a></li>
+            <li><button class="dropdown-item fw-bolder text-dark" wire:click="myIDP">My IDP</a></li>
+            
+          </ul>
+
+
         </div>
         <div class="card-footer">
           <small class="text-muted fst-italic">"Justice, will be served."</small>
@@ -37,7 +49,7 @@
       </div>
     </div>
     <div class="col">
-      <div class="card h-100">
+      <div class="card h-100  border border-5 border-light shadow-lg">
         <img src="/images/sample.png" class="card-img-top" alt="Rick Roll">
         <div class="card-body">
           <h5 class="card-title">Under Construction</h5>

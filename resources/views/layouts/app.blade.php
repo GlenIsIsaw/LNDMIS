@@ -26,11 +26,13 @@
 
     <div id="app">
         <nav class="navbar blue-text navbar-expand-md shadow-sm" style="background-color:#800000;">
-            
-            <div class="container-fluid px-5">
+           
+            <div class="container-fluid">
                 
-                 
-                <img src="/images/cnsc.png" alt="CNSC" width="72" height="74" class="d-inline-block align-text-top mx-3">
+                <button class="btn btn-link rounded-circle text-light fw-bold text-uppercase" style="background-color: #800000;" type="button" id="menu-toggle"><i class="fas fa-bars fa-lg"></i></button>
+               
+                <img src="/images/cnsc.png" alt="CNSC" width="62" height="64" class="d-inline-block align-text-top mx-2">
+               
                 
                
                 
@@ -75,11 +77,11 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end text-light" aria-labelledby="navbarDropdown">
-                                    <button class="dropdown-item" onclick="window.livewire.emit('MyProfile')">
+                                <div class="dropdown-menu dropdown-menu-end rounded-3 border-light border-3" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
+                                    <button class="dropdown-item fw-bolder" onclick="window.livewire.emit('MyProfile')">
                                         Profile
                                     </a>
-                                    <button class="dropdown-item" href="{{ route('logout') }}"
+                                    <button class="dropdown-item fw-bolder" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
