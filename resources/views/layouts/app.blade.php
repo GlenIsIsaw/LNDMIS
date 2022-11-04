@@ -30,10 +30,10 @@
             <div class="container-fluid">
                 
                 <button class="btn btn-link rounded-circle text-light fw-bold text-uppercase" style="background-color: #800000;" type="button" id="menu-toggle"><i class="fas fa-bars fa-lg"></i></button>
-               
+               <a href="/">
                 <img src="/images/cnsc.png" alt="CNSC" width="62" height="64" class="d-inline-block align-text-top mx-2">
                
-                
+               </a>
                
                 
                 

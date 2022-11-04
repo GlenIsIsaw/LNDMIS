@@ -41,7 +41,7 @@
 
                         <div class="card-body text-center">
                             <div class="table-responsive table-bordered">
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped table-bordered border-dark table-hover">
                                     <thead>
                                         <tr class="table-bordered">
                                             @if ($table != 'My IDPs')

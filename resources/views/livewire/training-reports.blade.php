@@ -16,8 +16,8 @@
                             
                         </div>
                         <div class="card-body text-center">
-                            <div class="table-responsive table-bordered text-center">
-                                <table class="table table-bordered table-hover">
+                            <div class="table-responsive table-bordered border-dark text-center">
+                                <table class="table table-bordered border-dark table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>
