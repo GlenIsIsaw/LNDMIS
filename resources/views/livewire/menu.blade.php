@@ -249,7 +249,10 @@
                 class="fas fa-sitemap me-2"></i><i class="fas fa-caret-down"></i>IDP</button>
                 
 
-                <div class="dropdown-container">
+                <div class="dropdown-container" >
+                  <button wire:click="currentIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                    <i class="fas fa-clipboard-check me-2"></i>
+                    Current IDP </button></li>
                 <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
                   <i class="fas fa-pen-alt me-2"></i>
                    Create IDP </button></li>
@@ -257,10 +260,8 @@
 
 
                 @if (auth()->user()->role_as == 1)
-                <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-clipboard-list me-2"></i>
-                  My IDP's </button></li>
-                     <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+
+                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-handshake me-2"></i>
                        Approved IDP's </button></li>
                     
@@ -268,7 +269,7 @@
                        <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>
                  @else
-                  <button wire:click="idpsIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-file-alt me-2"></i>
                     View IDP </button></li>
                 @endif

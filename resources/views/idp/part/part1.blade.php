@@ -69,15 +69,24 @@
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark">
-                                    <option value="">...</option>
-                                    <option value="Immediate Supervisor">Immediate Supervisor</option>
-                                    <option value="VPAA">VPAA</option>
-                                    <option value="VPAF">VPAF</option>
-                                    <option value="VPRE">VPRE</option>
-                                </select>
-                                @error('responsible.*') <span class="text-danger">{{ $message }}</span> @enderror
-                                @error('responsible') <span class="text-danger">{{ $message }}</span> @enderror
+                                <label>
+                                    <input type="checkbox" wire:model="input.{{$i}}.{{'Immediate Supervisor'}}" value="Immediate Supervisor">
+                                    Immediate Supervisor
+                                </label><br>
+                                <label>
+                                    <input type="checkbox" wire:model="input.{{$i}}.{{'VPAA'}}" value="VPAA">
+                                    VPAA
+                                </label><br>
+                                <label>
+                                    <input type="checkbox" wire:model="input.{{$i}}.{{'VPAF'}}" value="VPAF">
+                                    VPAF
+                                </label><br>
+                                <label>
+                                    <input type="checkbox" wire:model="input.{{$i}}.{{'VPRE'}}" value="VPRE">
+                                    VPRE
+                                </label><br>
+                                @error('input') <span class="text-danger">{{ $message }}</span> @enderror
+                                @error('input.*') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
                                 <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;"></textarea>
@@ -88,6 +97,23 @@
                     @endfor
                 </tbody>
             </table>
+            @php
+            $i = 0;
+            foreach ($input as $item) { 
+                foreach ($item as $key => $value) {
+                    if(!$value){
+                        unset($input[$i][$key]);
+                    }
+                    if (empty($input[$i])) {
+                        unset($input[$i]);
+                    }
+                    
+                }
+                $i++;
+            }
+
+            @endphp
+            <div>Input : @json($input)</div>
         </div>
         <hr class="h-color mx-2 mt-3">
         <div class="float-end mx-2 my-2">
