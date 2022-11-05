@@ -17,7 +17,7 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="table-responsive table-bordered text-center">
-                                <table class="table table-bordered table-hover">
+                                <table class="table table-striped border-dark table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>

@@ -28,7 +28,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive table-bordered text-center">
-                                    <table class="table table-borderd table-striped">
+                                    <table class="table table-bordered border-dark table-striped">
                                         <thead>
                                             <tr>
                                                 <th scope="col">ID</th>

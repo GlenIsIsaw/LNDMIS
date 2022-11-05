@@ -94,7 +94,7 @@ class TrainingReports extends Component
         $listObject = $this->printquery('Yes');
         $listObject2 = $this->printquery('No');
         //dd($listObject);
-        if (!$listObject->isEmpty() && !$listObject2->isEmpty()) {
+        //if (!$listObject->isEmpty() && !$listObject2->isEmpty()) {
         
             $grouped = $listObject->groupBy('name');
             $list = $grouped->toArray();
@@ -213,11 +213,12 @@ class TrainingReports extends Component
             $this->resetFilter();
             $this->dispatchBrowserEvent('close-modal');
             return response()->download(storage_path($path))->deleteFileAfterSend(true);
-        } else {
+            /*} else {
             $this->resetFilter();
             $this->dispatchBrowserEvent('close-modal');
             session()->flash('message','You have no data to print');
-        }
+            
+        }*/
     }
     public function resetFilter(){
         $this->filter_status = null;

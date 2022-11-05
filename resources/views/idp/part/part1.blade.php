@@ -40,7 +40,7 @@
                     @for ($i = 0; $i < 3; $i++)
                         <tr>
                             <td>
-                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark" style="height: 50px; width:300px;">
+                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark">
                                     <option value=""></option>
                                     @foreach ($comps as $key => $comp)
                                     <optgroup label={{$key}}>
@@ -54,7 +54,7 @@
                                 @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark" style="height: 50px; width:40px;">
+                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark">
                                     <option value="">...</option>
                                     <option value="S">S</option>
                                     <option value="U">U</option>
@@ -64,12 +64,12 @@
                                 @error('sug') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;">
+                                <textarea type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;"></textarea>
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark" style="height: 50px; width:90px;">
+                                <select wire:model="responsible.{{$i}}" class="border border-2 rounded-3 border-dark">
                                     <option value="">...</option>
                                     <option value="Immediate Supervisor">Immediate Supervisor</option>
                                     <option value="VPAA">VPAA</option>
@@ -80,7 +80,7 @@
                                 @error('responsible') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <input type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;">
+                                <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;"></textarea>
                                 @error('support.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('support') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
