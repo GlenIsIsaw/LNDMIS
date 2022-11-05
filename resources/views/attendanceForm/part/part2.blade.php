@@ -19,10 +19,9 @@
     <textarea wire:model="personal_action" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
     @error('personal_action') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-<button type="button" class="btn btn-secondary" wire:click="back">Back</button>
 
+<div class="float-start">
 
-<button type="button" class="btn btn-danger" wire:click="backButton"
-    data-bs-dismiss="modal">Close</button>
+</div>
 
 

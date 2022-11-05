@@ -25,16 +25,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteTrainingModalLabel">Delete {{$certificate_title}}</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="deleteTrainingModalLabel">Delete {{$certificate_title}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="destroy">
-                <div class="modal-body">
+                <div class="modal-body text-uppercase fw-bold">
                     <h4>Are you sure you want to delete this data ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Delete</button>
                 </div>
@@ -58,7 +58,7 @@
                     <h6>Are you sure you want to save your Input?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -73,16 +73,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editConfirmationTrainingModalLabel">Confirmation</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="editConfirmationTrainingModalLabel">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" 
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="update">
-                <div class="modal-body">
+                <div class="modal-body fw-bold text-uppercase">
                     <h6>Are you sure you want to edit your training info?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -97,16 +97,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="submitTrainingModalLabel">Submit {{$certificate_title}}</h5>
+                <h5 class="modal-title fw-bold text-uppercase" id="submitTrainingModalLabel">Submit {{$certificate_title}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="submit">
-                <div class="modal-body">
+                <div class="modal-body fw-bold text-uppercase">
                     <h4>Are you sure you want to submit your input ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Submit</button>
                 </div>
@@ -141,7 +141,7 @@
 
 
 
-<!-- Delete Atendance Modal -->
+<!-- Delete Attendance Modal -->
 <div wire:ignore.self class="modal fade" id="deleteAttendanceModal" tabindex="-1" aria-labelledby="deleteAttendanceModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -171,13 +171,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printAttendanceModalLabel">Print Attendance Form</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="printAttendanceModalLabel">Print Attendance Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="printAttendanceForm">
-                <div class="modal-body">
+                <div class="modal-body text-uppercase fw-bold">
                     <h4>Are you sure you want to print this Attendance Form ?</h4>
+                    <hr class="h-color mx-2">
                     @if ($checkmySignature)
                         <label>
                             <input type="checkbox" wire:model="mySignature">
@@ -188,7 +189,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Print</button>
                 </div>
@@ -203,16 +204,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createConfirmationAttendanceModalLabel">Confirmation</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="createConfirmationAttendanceModalLabel">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" 
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="storeAttendanceForm">
-                <div class="modal-body">
+                <div class="modal-body text-uppercase fw-bold">
                     <h6>Are you sure you want to save your Input?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -227,7 +228,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editConfirmationAttendanceModalLabel">Confirmation</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="editConfirmationAttendanceModalLabel">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" 
                     aria-label="Close"></button>
             </div>
@@ -236,7 +237,7 @@
                     <h6>Are you sure you want to edit your Attendance Form info?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -251,7 +252,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="approveTrainingModalLabel">Approve the Submitted Training</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="approveTrainingModalLabel">Approve the Submitted Training</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
@@ -259,13 +260,14 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <h4>Are you sure you want to Approve this Submission ?</h4>
-                        <label>Comment:</label>
-                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        <hr class="h-color mx-2 mt-3">
+                        <label class="mb-3 fw-bold text-uppercase">Comment:</label>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control border-3 border-dark"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Approve</button>
                 </div>
@@ -280,18 +282,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="showCommentModalLabel">Comment</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="showCommentModalLabel">Comment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label>Comment:</label>
-                        <p>{{$comment}}</p>
+                        
+                        <p class="fs-4 lh-base text-md-start">{{$comment}}</p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
@@ -304,7 +306,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
@@ -312,13 +314,14 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <h4>Are you sure you want to Reject this Submission ?</h4>
-                        <label>Comment:</label>
-                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        <hr class="h-color mx-2 mt-3">
+                        <label class="fw-bold text-uppercase mb-3">Comment:</label>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control border-3 border-dark"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Reject</button>
                 </div>
@@ -410,7 +413,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>

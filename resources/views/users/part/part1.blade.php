@@ -29,7 +29,7 @@
             @error('teacher') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="float-end">
-            <button type="button" class="btn btn-danger rounded-3" wire:click="backButton">Close</button>
-            <button type="button" wire:click="next" class="btn btn-primary">Next</button>
+            <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="backButton">Close</button>
+            <button type="button" wire:click="next" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>
         </div>
 

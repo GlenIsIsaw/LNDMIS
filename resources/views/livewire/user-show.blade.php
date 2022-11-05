@@ -62,10 +62,10 @@
                                                     <td>{{ $info['name'] }}</td>
                                                     <td>
                                                         <div class="d-grid gap-3">
-                                                            <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-primary text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">
+                                                            <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-primary text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"><i class="fas fa-pen"></i><br>
                                                                 Edit
                                                             </button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">Delete</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"><i class="fas fa-trash"></i><br>Delete</button>
                                                             @if ($info['name'] == 'No Supervisor')
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-primary text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2">Make a Supervisor</button>
                                                             @endif

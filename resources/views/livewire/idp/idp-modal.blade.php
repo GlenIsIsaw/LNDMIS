@@ -11,7 +11,7 @@
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label>Comment:</label> 
+                        <label class = "form-control border border-3 border-dark rounded-3">Comment:</label> 
                         <p>{{$comment}}</p>
                     </div>
                 </div>
@@ -38,9 +38,9 @@
                     <h4>Are you sure you want to delete this IDP ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Delete IDP</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Delete IDP</button>
                 </div>
             </form>
         </div>
@@ -64,9 +64,9 @@
                     <h4>Are you sure you want to submit your input ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Submit</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Submit</button>
                 </div>
             </form>
         </div>
@@ -88,9 +88,9 @@
                     <h4>Are you sure you want to remove your submission ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Remove Submission</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Remove Submission</button>
                 </div>
             </form>
         </div>
@@ -118,9 +118,9 @@
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Print</button>
                 </div>
             </form>
         </div>
@@ -166,14 +166,14 @@
                     <div class="mb-3">
                         <h4>Are you sure you want to Approve this Submission ?</h4>
                         <label>Comment:</label>
-                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control border border-3 border-dark rouned-3"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Approve</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Approve</button>
                 </div>
             </form>
         </div>
@@ -195,14 +195,14 @@
                     <div class="mb-3">
                         <h4>Are you sure you want to Reject this Submission ?</h4>
                         <label>Comment:</label>
-                        <textarea wire:model="comment" rows="4" cols="50" class="form-control"></textarea>
+                        <textarea wire:model="comment" rows="4" cols="50" class="form-control border border-3 border-dark rounded-3"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Reject</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Reject</button>
                 </div>
             </form>
         </div>
@@ -224,9 +224,9 @@
                     <h6>Are you sure you want to save your input?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Save Input</button>
                 </div>
             </form>
         </div>
@@ -248,9 +248,9 @@
                     <h6>Are you sure you want to edit your IDP info?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Save Input</button>
                 </div>
             </form>
         </div>
@@ -271,7 +271,7 @@
                     {{$idp_id}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
@@ -333,7 +333,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
