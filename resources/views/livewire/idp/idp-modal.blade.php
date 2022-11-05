@@ -107,7 +107,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
-            <form wire:submit.prevent="print">
+            <form wire:submit.prevent="download">
                 <div class="modal-body">
                     <h4>Are you sure you want to print this Idp ?</h4>
                     @if ($checkmySignature)
@@ -116,6 +116,30 @@
                             Include My Signature
                         </label>
                     @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Print All IDP Modal -->
+<div wire:ignore.self class="modal fade" id="printAllIdpModal" tabindex="-1" aria-labelledby="printAllIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printAllIdpModalLabel">Print IDP</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="printall">
+                <div class="modal-body">
+                    <h4>Are you sure you want to print all of this Idp ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
@@ -296,12 +320,16 @@
                             <option value="Pending">Pending</option>
                         </select>
                     </div>
-                    <label class="fw-bold"> Sort by the Date Created:</label>
+                    <label class="fw-bold"> Sort by the Year:</label>
                     <div class="mx-3 my-3">
-                        <label>Start Date</label>
-                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3">
-                        <label>End Date</label>
-                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
+                        <select wire:model='year_table' class="border border-3 border-dark rounded-3">
+                            <option value=""></option>
+                            @for ($i = 2015; $i <= date('Y') + 1; $i++)
+                            <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                            
+
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

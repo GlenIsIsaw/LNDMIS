@@ -51,6 +51,14 @@
                             <option value="G">G</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label class="fw-bold">Sort by Status:</label>
+                        <select wire:model="filter_status" class="form-control border border-3 rounded-3">
+                            <option value="">...</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"

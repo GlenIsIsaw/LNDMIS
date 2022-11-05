@@ -44,9 +44,17 @@ class TrainingReports extends Component
     public function userTeachTrainNum($choice){
         $check = '';
         $count = 0;
-        $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
+            $s_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $e_date = Carbon::parse($this->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
+                ->where('name', 'like', '%'.$this->name.'%')
+                ->where('certificate_title', 'like', '%'.$this->filter_certificate_title.'%')
+                ->where('level', 'like', '%'.$this->filter_level.'%')
+                ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('type', 'like', '%'.$this->filter_type.'%')
+                ->whereBetween('list_of_trainings.date_covered',[$s_date,$e_date])
                 ->where('status','Approved')
                 ->where('teacher',$choice)
                 ->orderBy('name','asc')
@@ -73,17 +81,22 @@ class TrainingReports extends Component
         return round($percentage, 2);
     }
     public function printquery($choice){
-        $s_date = Carbon::parse($this->start_date)->toDateTimeString();
-        $e_date = Carbon::parse($this->end_date)->toDateTimeString();
-    
-        $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
+            $s_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $e_date = Carbon::parse($this->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
+                ->where('name', 'like', '%'.$this->name.'%')
+                ->where('certificate_title', 'like', '%'.$this->filter_certificate_title.'%')
+                ->where('level', 'like', '%'.$this->filter_level.'%')
+                ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('list_of_trainings.date_covered',[$s_date,$e_date])
                 ->where('status','Approved')
                 ->where('teacher',$choice)
                 ->orderBy('name','asc')
                 ->get();
+
             return $lists;
     }
     public function printAll(){

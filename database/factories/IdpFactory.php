@@ -35,7 +35,7 @@ class IdpFactory extends Factory
             'target_date' => [fake()->date(),fake()->date(),fake()->date()],
             'responsible' => [fake()->randomElement(['Immediate Supervisor', 'VPAA','VPAF','VPRE']),fake()->randomElement(['Immediate Supervisor', 'VPAA','VPAF','VPRE']),fake()->randomElement(['Immediate Supervisor', 'VPAA','VPAF','VPRE'])],
             'support' => ["December ". date('Y') + 1,"December ". date('Y') + 1,"December ". date('Y') + 1],
-            'status' => ["Completed","Completed","Completed"],
+            'status' => ["Ongoing","Ongoing","Ongoing"],
             'compfunction0' => fake()->randomElement(['Core', 'Functional','LeaderShip']).' - '. fake()->word(),
             'compfunctiondesc0' => fake()->sentence(),
             'compfunction1' => fake()->randomElement(['Core', 'Functional','LeaderShip']).' - '. fake()->word(),
@@ -46,7 +46,7 @@ class IdpFactory extends Factory
             'diffunctiondesc1' => fake()->sentence(),
             'career' => fake()->sentence(),
             'year' => date('Y') + 1,
-            'submit_status' => 'Approved'
+            'submit_status' => 'Pending'
         ];
     }
     

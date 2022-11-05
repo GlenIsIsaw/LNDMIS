@@ -39,6 +39,8 @@
                                         <th>Employee Name</th>
                                         <th>Person Responsible</th>
                                         <th>Support Needed</th>
+                                        <th>Status</th>
+                                        <th>Submit Status</th>
                                     </thead>
                                     <tbody>
                                         @forelse ($arrays as $key => $array)
@@ -51,6 +53,8 @@
                                                         <td>{{$key}}</td>
                                                         <td>{{$item['responsible']}}</td>
                                                         <td>{{$item['support']}}</td>
+                                                        <td>{{$item['status']}}</td>
+                                                        <td>{{$item['submit_status']}}</td>
                                                     </tr>
                                                 @endforeach
 

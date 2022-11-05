@@ -18,7 +18,7 @@ class IdpReports extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $Idp;
-    public $competency, $sug, $dev_act, $responsible, $support, $arrays, $name, $year, $mySignature, $supSignature;
+    public $competency, $sug, $dev_act, $responsible, $support, $arrays, $name, $year, $mySignature, $supSignature, $filter_status;
     public $competencies = [];
     public $pageNum = 3;
     public $count = 0;
@@ -94,7 +94,24 @@ class IdpReports extends Component
                 $j++;
             }
         }
-
+        $j = 0;
+        foreach ($idps as $idp) {
+    
+            foreach ($idp->support as $item) {
+                
+                $arrays[$idp->name][$j]['submit_status'] = $idp->submit_status;
+                $j++;
+            }
+        }
+        $j = 0;
+        foreach ($idps as $idp) {
+    
+            foreach ($idp->status as $item) {
+                
+                $arrays[$idp->name][$j]['status'] = $item;
+                $j++;
+            }
+        }
         return $arrays;
     }
     public function countCompetency(){
@@ -107,7 +124,7 @@ class IdpReports extends Component
             ->where('sug', 'like', '%'.$this->sug.'%')
             ->where('responsible', 'like', '%'.$this->responsible.'%')
             ->where('year',$this->year)
-            ->where('submit_status','Approved')
+            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
             ->orderBy('idps.created_at','asc')
             ->get();
         $lists = $object->toArray();
@@ -177,6 +194,7 @@ class IdpReports extends Component
         $this->responsible = null;
         $this->support = null;
         $this->name = null;
+        $this->filter_status = null;
         //$this->pageNum = 3;
         $this->count = 0;
     }
@@ -228,7 +246,7 @@ class IdpReports extends Component
             ->where('competency', 'like', '%'.$this->competency.'%')
             ->where('sug', 'like', '%'.$this->sug.'%')
             ->where('responsible', 'like', '%'.$this->responsible.'%')
-            ->where('submit_status','Approved')
+            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
             ->orderBy('idps.created_at','asc')
             ->get();
         if(!$lists->isEmpty()){
@@ -374,18 +392,22 @@ class IdpReports extends Component
     public function updatedYear($value){
         $this->resetPage();
     }
+    public function updatedFilterStatus($value){
+        $this->resetPage();
+    }
     public function mount(){
         $this->year = date('Y') + 1;
+        $this->filter_status = 'Pending';
     }
     public function render()
     {
         $this->notification();
         $this->getInfo();
         $this->dispatchBrowserEvent('toggle');
-            $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status', 'idps.created_at As created_date')
+            $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
-                ->where('submit_status','Approved')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
                 ->where('name', 'like', '%'.$this->name.'%')
                 ->where('competency', 'like', '%'.$this->competency.'%')
                 ->where('sug', 'like', '%'.$this->sug.'%')

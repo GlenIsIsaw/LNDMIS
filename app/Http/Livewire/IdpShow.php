@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use ZipArchive;
 use Carbon\Carbon;
 use App\Models\Idp;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Livewire\WithPagination;
 use App\Models\AttendanceForm;
 use App\Models\ListOfTraining;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class IdpShow extends Component
@@ -18,7 +20,7 @@ class IdpShow extends Component
 
     protected $paginationTheme = 'bootstrap';
     
-    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature, $yearTable;
+    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature, $year_table, $id_array;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
@@ -84,7 +86,6 @@ class IdpShow extends Component
     public function clear(){
         $this->next = null;
         $this->state = null;
-        $this->yearTable = null;
     }
     public function backButton(){
         $this->resetInput();
@@ -107,13 +108,15 @@ class IdpShow extends Component
         }
         if($this->table == 'Submitted IDPs'){
             $this->query = ['submit_status','Pending'];
+
         }
         if($this->table == 'Approved IDPs'){
             $this->query = ['submit_status','Approved'];
+
         }
         if($this->table == 'Current IDP'){
             $this->query = ['users.id',auth()->user()->id];
-            $this->yearTable = date('Y');
+            //$this->year = date('Y');
             
         }
     }
@@ -121,20 +124,23 @@ class IdpShow extends Component
         if($this->table == 'My IDPs'){
             $this->clear();
             $this->query = ['users.id',auth()->user()->id];
+
         }
         if($this->table == 'Submitted IDPs'){
             $this->clear();
             $this->query = ['submit_status','Pending'];
+
         }
         if($this->table == 'Approved IDPs'){
             $this->clear();
             $this->query = ['submit_status','Approved'];
+
             
         }
         if($this->table == 'Current IDP'){
             $this->clear();
-            $this->yearTable = date('Y');
             $this->query = ['users.id',auth()->user()->id];
+            $this->year_table = date('Y');
         }
     }
     
@@ -338,8 +344,7 @@ class IdpShow extends Component
             $idp->purpose_others = $this->purpose_others;
             $idp->purpose_explain = $this->purpose_explain;
         }
-        $this->year = date('Y') + 1;
-        $idp->year = $this->year;
+        $idp->year = date('Y') + 1;
         $idp->user_id = auth()->user()->id;
         $idp->competency = $this->competency;
         $idp->sug = $this->sug;
@@ -753,15 +758,56 @@ class IdpShow extends Component
             $templateProcessor->setValue('hdate'," ");
         
 
-        
-        
-        //$templateProcessor->setImageValue('signature', array('path' => $document->signature, 'width' => 100, 'height' => 50, 'ratio' => false));
-        $templateProcessor->saveAs(storage_path('app/public/users/'.$document->name.'_IDP_'.$pieces[0].'.docx'));
+        $foldername = storage_path('app/public/users/'.auth()->user()->id.'/Idp');
+        $path = storage_path('app/public/users/'.auth()->user()->id.'/Idp/'.$document->name.'_IDP_'.$document->year.'.docx');
+        if(!is_dir($foldername))
+		{
+			mkdir($foldername, 0777, true);
+		}
+        $templateProcessor->saveAs($path);
         $this->dispatchBrowserEvent('close-modal');
-        return response()->download(storage_path('app/public/users/'.$document->name.'_IDP_'.$pieces[0].'.docx'))->deleteFileAfterSend(true);
+        return $path;
+        //return response()->download(storage_path('app/public/users/'.auth()->user()->id.'/Idp'.$document->name.'_IDP_'.$pieces[0].'.docx'))->deleteFileAfterSend(true);
+    }
+    public function download(){
+        $path = $this->print();
+        return response()->download($path)->deleteFileAfterSend(true);
+    }
+    public function printall(){
+        $id = [];
+        $filename = [];
+        $i = 0;
+        foreach ($this->allIdp() as $value) {
+           $id[$i] = $value['idp_id'];
+           $filename[$i] = storage_path('app/public/users/'.auth()->user()->id.'/Idp/'.$value['name'].'_IDP_'.$value['year'].'.docx');
+           $i++;
+        }
+        //dd($filename);
+        foreach ($id as $item) {
+            $this->idp_id = $item;
+            //dd($this->idp_id);
+            $this->print();
+        }
+        $zipname = storage_path('app/public/users/'.auth()->user()->id.'/Idp/Idp.zip');
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
+        foreach ($filename as $file) {
+        $path = $file;
+        if(file_exists($path)){
+            $zip->addFromString(basename($path),  file_get_contents($path));  
+            }
+            File::delete($path);
+        }
+
+        $zip->close();
+        return response()->download($zipname)->deleteFileAfterSend(true);
+        
     }
 
     public function updatedTable($value){
+        $this->checkUpdatedTable();
+    }
+    public function updatedYear_table($value){
         $this->checkUpdatedTable();
     }
     public function updatingSearch($value){
@@ -776,67 +822,53 @@ class IdpShow extends Component
     public function updatingFilterCompletionStatus($value){
         $this->resetPage();
     }
+    public function allIdp(){
+                $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where($this->query[0],$this->query[1])
+                ->where('year', 'like', '%'.$this->year_table.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+                ->where('competency', 'like', '%'.$this->filter_competency.'%')
+                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
+                ->orderBy('idps.updated_at','desc')
+                ->get();
+
+        return $lists;
+    }
     public function render()
     {
         $this->notification();
         $this->checkTable();
         $this->dispatchBrowserEvent('toggle');
-        if ($this->start_date && $this->end_date) {
-            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
-            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            if ($this->yearTable) {
-                $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
-                ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where($this->query[0],$this->query[1])
-                ->where('year',$this->yearTable)
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
-                ->where('competency', 'like', '%'.$this->filter_competency.'%')
-                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
-                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-                ->whereBetween('idps.created_at',[$start_date,$end_date])
-                ->orderBy('idps.updated_at','desc')
-                ->paginate(3);
-            }else{
-                $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
-                ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where($this->query[0],$this->query[1])
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
-                ->where('competency', 'like', '%'.$this->filter_competency.'%')
-                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
-                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-                ->whereBetween('idps.created_at',[$start_date,$end_date])
-                ->orderBy('idps.updated_at','desc')
-                ->paginate(3);
-            }
-            
-        } else {
-            if ($this->yearTable) {
-                $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
-                ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where($this->query[0],$this->query[1])
-                ->where('year',$this->yearTable)
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
-                ->where('competency', 'like', '%'.$this->filter_competency.'%')
-                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
-                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-                ->orderBy('idps.updated_at','desc')
-                ->paginate(3);
-            }else{
-                $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
-                ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where($this->query[0],$this->query[1])
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
-                ->where('competency', 'like', '%'.$this->filter_competency.'%')
-                ->where('status', 'like', '%'.$this->filter_completion_status.'%')
-                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-                ->orderBy('idps.updated_at','desc')
-                ->paginate(3);
-            }
+        if($this->table == 'Current IDP'){
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('college_id',auth()->user()->college_id)
+            ->where($this->query[0],$this->query[1])
+            ->where('year', 'like', '%'.date('Y').'%')
+            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+            ->where('competency', 'like', '%'.$this->filter_competency.'%')
+            ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
+            ->orderBy('idps.updated_at','desc')
+            ->paginate(3);
+        }else{
+            $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('college_id',auth()->user()->college_id)
+            ->where($this->query[0],$this->query[1])
+            ->where('year', 'like', '%'.$this->year_table.'%')
+            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->search)."%'")
+            ->where('competency', 'like', '%'.$this->filter_competency.'%')
+            ->where('status', 'like', '%'.$this->filter_completion_status.'%')
+            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
+            ->orderBy('idps.updated_at','desc')
+            ->paginate(3);
         }
+
+
         
 
             return view('livewire.idp-show', [

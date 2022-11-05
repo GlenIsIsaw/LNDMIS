@@ -52,6 +52,8 @@ class AttendanceReports extends Component
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
+            ->where('name', 'like', '%'.$this->name.'%')
+            ->where('competency', 'like', '%'.$this->competency.'%')
             ->where('teacher',$choice)
             ->where('status','Approved')
             ->get();
@@ -89,8 +91,8 @@ class AttendanceReports extends Component
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
-            //->where('name', 'like', '%'.$this->name.'%')
-            //->where('competency', 'like', '%'.$this->competency.'%')
+            ->where('name', 'like', '%'.$this->name.'%')
+            ->where('competency', 'like', '%'.$this->competency.'%')
             ->whereBetween('date_covered',[$start_date,$end_date])
             ->where('status','Approved')
             ->get();
