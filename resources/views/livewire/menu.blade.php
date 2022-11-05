@@ -250,12 +250,12 @@
                 
 
                 <div class="dropdown-container" >
-                  <button wire:click="currentIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <button wire:click="currentIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
                     <i class="fas fa-clipboard-check me-2"></i>
                     Current IDP </button></li>
-                <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
+                <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                   <i class="fas fa-pen-alt me-2"></i>
-                   Create IDP </button></li>
+                  Create IDP</button></li>
 
 
 
