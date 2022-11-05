@@ -57,6 +57,6 @@
 </div>
 <hr class="h-color mx-2 mt-3">
 <div class="float-end">
-<button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-<button type="button" wire:click="next" class="btn btn-primary">Next</button>   
+<button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
+<button type="button" wire:click="next" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>   
 </div>

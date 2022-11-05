@@ -201,7 +201,7 @@
           <hr class="h-color mx-2"> 
 
         <li class=""><button wire:click="dashboard" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-laptop-house me-2"></i>Dashboard</a></li>
+                class="fas fa-laptop-house me-2"></i>Home</a></li>
 
                
         </ul>
@@ -222,12 +222,13 @@
                       
 
                  @if (auth()->user()->role_as == 1)
+                 <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-folder me-2"></i>
+                  My Trainings </button></li>
                  <li class=""> <button wire:click="approvedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-handshake me-2"></i>
                     Approved Trainings </button></li>
-                    <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-folder me-2"></i>
-                    My Trainings </button></li>
+                    
                     <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-paper-plane me-2"></i>
                     Submitted Trainings </button></li>
@@ -256,12 +257,13 @@
 
 
                 @if (auth()->user()->role_as == 1)
+                <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-clipboard-list me-2"></i>
+                  My IDP's </button></li>
                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-handshake me-2"></i>
                        Approved IDP's </button></li>
-                     <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                       <i class="fas fa-clipboard-list me-2"></i>
-                       My IDP's </button></li>
+                    
                       <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                        <i class="fas fa-clipboard-check me-2"></i>
                        Submitted IDP's </button></li>
@@ -333,9 +335,9 @@
   
   
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
       <div class="d-flex align-items-center">
-          <h2 class="fs-4 me-3 mx-2 text-white text-uppercase"></h2>
+          
           
 
           

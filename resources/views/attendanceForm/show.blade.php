@@ -1,7 +1,13 @@
 <div class="card-header">
     <div class="fw-bolder fs-3 float-start text-uppercase">
-        View Attendance Form    
+        View Attendance Form
     </div>
+    <div class="float-end">   
+        <button type="button" class="btn btn-danger float-end" wire:click="backButton"><i class="fas fa-times fa-4"></i></button></div>
+    
+        
+  
+
 </div>
 <div class="card-body">
     <table class="table table-borderd table-striped">
@@ -45,7 +51,5 @@
     </table>
 </div>
 
-    <div class="card-footer" style="float-end">
-        <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-    </div>
+   
 </div>

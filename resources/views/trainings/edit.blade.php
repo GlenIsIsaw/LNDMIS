@@ -31,10 +31,10 @@
                     </div>
                 </div>
                 <hr class="h-color mx-2 mt-3">
-                <button type="button" class="btn btn-secondary" wire:click="back">Back</button>
                 <div class="float-end gap-2">
+                <button type="button" class="btn btn-secondary" wire:click="back">Back</button>
                 <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationTrainingModal" class="btn btn-primary">Update</button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationTrainingModal" class="btn btn-primary"><i class="fas fa-check me-2"></i>Update</button>
                 </div>
                 @endif
                 

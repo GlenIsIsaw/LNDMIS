@@ -12,7 +12,7 @@
                     <h5 class="alert alert-success">{{ session('message') }}</h5>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
