@@ -26,7 +26,7 @@ class TrainingShow extends Component
     
 
     public $query = [];
-    public $table = 'Approved Trainings';
+    public $table = 'My Trainings';
 
     public $state = null;
     public $next = null;

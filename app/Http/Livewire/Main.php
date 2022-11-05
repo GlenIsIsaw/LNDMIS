@@ -129,6 +129,11 @@ class Main extends Component
         $this->idpsIndex();
         $this->emit('passIdp', $this->string2);
     }
+    public function currentIDP(){
+        $this->string2 = 'Current IDP';
+        $this->idpsIndex();
+        $this->emit('passIdp', $this->string2);
+    }
 
 
     
