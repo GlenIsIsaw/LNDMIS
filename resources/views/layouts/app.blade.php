@@ -168,11 +168,11 @@ for (i = 0; i < dropdown.length; i++) {
     var dropdownContent = this.nextElementSibling;
     
 
-    if (dropdownContent.style.display === "block") {
-      dropdownContent.style.display = "none";
+    if (dropdownContent.style.display === "none") {
+      dropdownContent.style.display = "block";
       
     } else {
-      dropdownContent.style.display = "block";  
+      dropdownContent.style.display = "none";  
     }
   });
 }

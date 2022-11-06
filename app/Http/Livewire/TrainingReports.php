@@ -275,6 +275,11 @@ class TrainingReports extends Component
     public function updatingFilterType($value){
         $this->resetPage();
     }
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
+        //dd($this->currentUrl);
+    }
     public function render()
     {
         $this->getInfo();

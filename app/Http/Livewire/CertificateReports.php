@@ -157,6 +157,10 @@ class CertificateReports extends Component
     public function updatingEndDate($value){
         $this->resetPage();
     }
+    public function mount(){
+        $this->currentUrl = url()->current();
+            //dd($this->currentUrl);
+    }
     public function render()
     {
         $this->getInfo();

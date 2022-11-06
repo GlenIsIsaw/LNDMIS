@@ -408,6 +408,8 @@ class IdpReports extends Component
     public function mount(){
         $this->year = date('Y') + 1;
         $this->filter_status = 'Pending';
+        $this->currentUrl = url()->current();
+            //dd($this->currentUrl);
     }
     public function render()
     {
