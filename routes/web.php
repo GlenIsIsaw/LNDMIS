@@ -2,6 +2,8 @@
 
 use App\Http\Livewire\Main;
 use App\Http\Livewire\IdpShow;
+use App\Http\Livewire\Profile;
+use App\Http\Livewire\UserShow;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\IdpReports;
 use App\Http\Livewire\TrainingShow;
@@ -10,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TrainingReports;
 use App\Http\Livewire\AttendanceReports;
 use App\Http\Livewire\CertificateReports;
-use App\Http\Livewire\UserShow;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class);
     Route::get('/training', TrainingShow::class);
     Route::get('/idp', IdpShow::class);
+    Route::get('/profile', Profile::class);
+
     /*Route::get('/trainings', function(){
         return view('trainings.index');
     }); */

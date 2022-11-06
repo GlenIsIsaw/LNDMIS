@@ -14,10 +14,6 @@
                             @if($state == 'edit')
                                 @include('users.edit')
                             @endif
-
-                            @if($state == 'show')
-                                @include('users.show')
-                            @endif
                         </div>
                     @else
                         @if (auth()->user()->role_as == 1)

@@ -55,11 +55,6 @@ class UserShow extends Component
         $this->state = 'edit';
         $this->next = 0;
     }
-    public function showButton(){
-        $this->state = 'show';
-
-
-    }
     public function clear(){
         $this->next = null;
         $this->state = null;
@@ -81,6 +76,7 @@ class UserShow extends Component
             $this->dispatchBrowserEvent('show-notification');
         }
     }
+
     protected function rules()
     {
         return [
@@ -92,7 +88,6 @@ class UserShow extends Component
             'yearJoined' => 'required',
         ];
     }
-
 
     public function saveUser()
     {   
@@ -214,7 +209,7 @@ class UserShow extends Component
             $user->save();
         session()->flash('message','User Updated Successfully');
         if (auth()->user()->id == $this->User_id) {
-            $this->show($this->User_id);
+            return redirect('/profile')->with('message', "Profile Updated Successfully");
         }else{
             $this->backButton();
         }

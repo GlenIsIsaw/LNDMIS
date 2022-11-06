@@ -78,7 +78,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end rounded-3 border-light border-3" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
-                                    <a role="button" class="dropdown-item fw-bolder" onclick="window.livewire.emit('showUser')" href="/user">
+                                    <a role="button" class="dropdown-item fw-bolder" href="/profile">
                                         Profile
                                     </a>
                                     <button class="dropdown-item fw-bolder" href="{{ route('logout') }}"

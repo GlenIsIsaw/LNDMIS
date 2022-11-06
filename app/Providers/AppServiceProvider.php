@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('comps', $comp);
         });
 
-        View::composer('livewire.User-show', function ($view) {
+        View::composer(['livewire.User-show', 'livewire.profile'], function ($view) {
 
             $users = User::select('users.id As user_id','supervisor','college_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
