@@ -19,7 +19,17 @@ class TrainingReports extends Component
     protected $paginationTheme = 'bootstrap';
     public $seminar;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $start_date, $end_date, $filter_certificate_title, $name, $mySignature;
-
+    public $toggle, $currentUrl;
+    protected $listeners = [
+        'toggle' => 'open'
+    ];
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');

@@ -19,7 +19,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature;
+    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
     protected $queryString = ['search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
@@ -35,10 +35,29 @@ class TrainingShow extends Component
         'createTraining' => 'createButton',
         'clearTraining' => 'clear',
         'passTraining' => 'passTable',
-        'refreshComponent' => '$refresh'
+        'refreshComponent' => '$refresh',
+        'toggle' => 'open'
     ];
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
 
-
+    public function approvedTraining(){
+        $this->clear();
+        $this->table = 'Approved Trainings';
+    }
+    public function myTraining(){
+        $this->clear();
+        $this->table = 'My Trainings';
+    }
+    public function submittedTraining(){
+        $this->clear();
+        $this->table = 'Submitted Trainings';
+    }
     
 
     public function notification(){
@@ -762,6 +781,12 @@ class TrainingShow extends Component
     }
     public function updatingFilterType($value){
         $this->resetPage();
+    }
+
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
+        //dd($this->currentUrl);
     }
     public function render()
     {

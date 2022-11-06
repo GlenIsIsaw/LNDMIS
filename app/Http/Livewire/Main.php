@@ -54,6 +54,7 @@ class Main extends Component
         $this->userIndex();
         $this->emit('showUser',auth()->user()->id);
     }
+     
     public function checkCoord(){
         if (auth()->user()->role_as == 1) {
             return true;

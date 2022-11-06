@@ -78,7 +78,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end rounded-3 border-light border-3" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
-                                    <button class="dropdown-item fw-bolder" onclick="window.livewire.emit('MyProfile')">
+                                    <a role="button" class="dropdown-item fw-bolder" onclick="window.livewire.emit('showUser')" href="/user">
                                         Profile
                                     </a>
                                     <button class="dropdown-item fw-bolder" href="{{ route('logout') }}"
@@ -129,6 +129,7 @@
             var toggleButton = document.getElementById("menu-toggle");
             toggleButton.onclick = function () {
             el.classList.toggle("toggled"); 
+            window.livewire.emit('toggle');
             if(el.classList.contains("toggled")){
 
                 document.getElementById('main-card').className = 'vw-100';

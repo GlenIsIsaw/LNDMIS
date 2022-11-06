@@ -20,7 +20,7 @@ class IdpShow extends Component
 
     protected $paginationTheme = 'bootstrap';
     
-    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature, $year_table, $id_array;
+    public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature, $year_table, $id_array, $currentUrl, $toggle;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
@@ -40,18 +40,43 @@ class IdpShow extends Component
     protected $listeners = [
         'createIDP' => 'createButton',
         'clearIDP' => 'clear',
-        'passIdp' => 'pass'
+        'passIdp' => 'pass',
+        'toggle' => 'open'
     ];
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
+
+    public function approvedIDP(){
+        $this->clear();
+        $this->table = 'Approved IDPs';
+
+    }
+    public function myIDP(){
+        $this->clear();
+        $this->table = 'My IDPs';
+
+    }
+    public function submittedIDP(){
+        $this->clear();
+        $this->table = 'Submitted IDPs';
+
+    }
+    public function currentIDP(){
+        $this->clear();
+        $this->table = 'Current IDP';
+
+    }
+
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');
         }
     }
-
-    public function pass($string2){
-        $this->table = $string2;
-    }
-
     public function after(){
         ++$this->next;
     }
@@ -836,6 +861,11 @@ class IdpShow extends Component
                 ->get();
 
         return $lists;
+    }
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
+        //dd($this->currentUrl);
     }
     public function render()
     {

@@ -1,9 +1,16 @@
 <?php
 
 use App\Http\Livewire\Main;
+use App\Http\Livewire\IdpShow;
+use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\IdpReports;
+use App\Http\Livewire\TrainingShow;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\TrainingReports;
+use App\Http\Livewire\AttendanceReports;
+use App\Http\Livewire\CertificateReports;
+use App\Http\Livewire\UserShow;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +25,22 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth','isCoordinator'])->group(function () {
-    //Route::get('/IdpReports', IdpReports::class);
+    Route::get('/idp/Reports', IdpReports::class);
+    Route::get('/training/Reports', TrainingReports::class);
+    Route::get('/attendance/Reports', AttendanceReports::class);
+    Route::get('/certificate/Reports', CertificateReports::class);
+    Route::get('/user', UserShow::class);
+
 });
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', Main::class);
+    Route::get('/', Dashboard::class);
+    Route::get('/training', TrainingShow::class);
+    Route::get('/idp', IdpShow::class);
+    /*Route::get('/trainings', function(){
+        return view('trainings.index');
+    }); */
 
 
 });

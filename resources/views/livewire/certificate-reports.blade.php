@@ -1,10 +1,11 @@
 
 
 <div>
+    @include('livewire.menu')
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12">
-                <div id="main-card" style="padding-right: 5%">
+                <div id="main-card">
                     <div class="card" >
                         <div class="card-header">
                            
@@ -63,6 +64,42 @@
 
     @include('livewire.training.certificate-summary')
     @include('livewire.main-modal')
+    @section('script')
+    <script>
+
+        window.addEventListener('toggle', event => {
+            if(document.getElementById("wrapper").classList.contains('toggled')){
+
+                document.getElementById('main-card').className = 'vw-100';
+                document.getElementById('main-card').style.paddingRight = '15%';
+            }else{
+                document.getElementById('main-card').className = 'w-100';
+                document.getElementById('main-card').style.paddingRight = '0%';
+            }
+        })
+        window.addEventListener('close-modal', event => {
+
+            $('#printCertificateModal').modal('hide');
+            
+            
+
+            $('#notificationModal').modal('hide');
+            
+            
+        })
+        window.addEventListener('show-notification', event => {
+
+            $('#notificationModal').modal('show');
+        })
+        window.addEventListener('confirmation-create-training', event => {
+
+            $('#createConfirmationTrainingModal').modal('show');
+        })
+
+
+    </script>
+
+    @endsection
 </div>
 
 

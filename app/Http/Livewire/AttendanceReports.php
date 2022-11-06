@@ -17,7 +17,17 @@ class AttendanceReports extends Component
     public $attendance;
     public $count = 1;
     public $name, $start_date, $end_date, $competency, $mySignature;
-
+    public $toggle , $currentUrl;
+    protected $listeners = [
+        'toggle' => 'open'
+    ];
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');
@@ -166,6 +176,7 @@ class AttendanceReports extends Component
     public function updatingEndDate($value){
         $this->resetPage();
     }
+    
     public function render()
     {   
         $this->attendance();

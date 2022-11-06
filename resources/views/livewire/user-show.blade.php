@@ -1,5 +1,6 @@
 
 <div>
+    @include('livewire.menu')
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12 mr-3">
@@ -96,9 +97,54 @@
             </div>
         </div>
     </div>
-    
+     
     @include('livewire.usermodal')
     @include('livewire.main-modal')
+
+    @section('script')
+    <script>
+
+        window.addEventListener('toggle', event => {
+            if(document.getElementById("wrapper").classList.contains('toggled')){
+
+                document.getElementById('main-card').className = 'vw-100';
+                document.getElementById('main-card').style.paddingRight = '15%';
+            }else{
+                document.getElementById('main-card').className = 'w-100';
+                document.getElementById('main-card').style.paddingRight = '0%';
+            }
+        })
+        window.addEventListener('close-modal', event => {
+
+            $('#userModal').modal('hide');
+            $('#updateuserModal').modal('hide');
+            $('#deleteuserModal').modal('hide');
+            $('#createConfirmationUserModal').modal('hide');
+            $('#editConfirmationUserModal').modal('hide');
+            $('#changePassUserModal').modal('hide');
+            $('#supervisorModal').modal('hide');
+            $('#supervisorNotModal').modal('hide');
+
+            
+            
+
+            $('#notificationModal').modal('hide');
+            
+            
+        })
+        window.addEventListener('show-notification', event => {
+
+            $('#notificationModal').modal('show');
+        })
+        window.addEventListener('confirmation-create-training', event => {
+
+            $('#createConfirmationTrainingModal').modal('show');
+        })
+
+
+    </script>
+
+    @endsection
 </div>
 
 

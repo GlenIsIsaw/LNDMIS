@@ -184,7 +184,7 @@
   </style>
 
 <body>
-    <div class="d-flex" id="wrapper">
+    <div class="d-flex {{$toggle}}" id="wrapper">
    <!-- Sidebar -->
    
    <div class="shadow navbar-expand-md" style="background-color:#FCFBF4;" id="sidebar-wrapper">
@@ -200,102 +200,127 @@
         <ul class="list-unstyled px-2">
           <hr class="h-color mx-2"> 
 
-        <li class=""><button wire:click="dashboard" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+        <li class=""><a href="/" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
                 class="fas fa-laptop-house me-2"></i>Home</a></li>
 
                
         </ul>
         <ul class="list-unstyled px-2">
-          
-                
-                <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-clone me-2"></i><i class="fas fa-caret-down"></i>Trainings</button>
-
-                 
-                 <div class="dropdown-container">
-                  <li class=""><button wire:click="createTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
-                    <i class="fas fa-upload me-2"></i>
-                     Upload Trainings </button></li>
-
-
-                      
+        @if ($currentUrl == 'http://127.0.0.1:8000/training')
+            
               
-                      
-
-                 @if (auth()->user()->role_as == 1)
-                 <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-folder me-2"></i>
-                  My Trainings </button></li>
-                 <li class=""> <button wire:click="approvedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-handshake me-2"></i>
-                    Approved Trainings </button></li>
                     
-                    <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                    <i class="fas fa-paper-plane me-2"></i>
-                    Submitted Trainings </button></li>
-                @else
-                <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-file me-2"></i>
-                   View Trainings</button></li>
-                @endif
-                 </div>
-                   
+              <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-clone me-2"></i><i class="fas fa-caret-down"></i>Trainings</button>
 
+              
+              <div class="dropdown-container">
+                <li class=""><button wire:click="createButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
+                  <i class="fas fa-upload me-2"></i>
+                  Upload Trainings </button></li>
+
+
+                    
+            
+                    
+
+              @if (auth()->user()->role_as == 1)
+              <li class=""><button wire:click="myTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                <i class="fas fa-folder me-2"></i>
+                My Trainings </button></li>
+              <li class=""> <button wire:click="approvedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-handshake me-2"></i>
+                  Approved Trainings </button></li>
+                  
+                  <li class=""><button wire:click="submittedTraining" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-paper-plane me-2"></i>
+                  Submitted Trainings </button></li>
+              @else
+              <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                <i class="fas fa-file me-2"></i>
+                View Trainings</button></li>
+              @endif
+              </div>
+                
+
+            
+        @else
+        <a href="/training" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-clone me-2"></i><i class="fas fa-caret-down"></i>Trainings</a>
+        @endif
         </ul>
+
         <ul class="list-unstyled px-2"> 
+        @if ($currentUrl == 'http://127.0.0.1:8000/idp')
           
-               
+            
                 
-                 <button id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
-                class="fas fa-sitemap me-2"></i><i class="fas fa-caret-down"></i>IDP</button>
-                
+                  
+            <button id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+          class="fas fa-sitemap me-2"></i><i class="fas fa-caret-down"></i>IDP</button>
+          
 
-                <div class="dropdown-container" >
-                  <button wire:click="currentIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
-                    <i class="fas fa-clipboard-check me-2"></i>
-                    Current IDP </button></li>
-                <button wire:click="createIdp" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                  <i class="fas fa-pen-alt me-2"></i>
-                  Create IDP</button></li>
+          <div class="dropdown-container" >
+            <button wire:click="currentIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block">
+              <i class="fas fa-clipboard-check me-2"></i>
+              Current IDP </button></li>
+          <button wire:click="createButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+            <i class="fas fa-pen-alt me-2"></i>
+            Create IDP</button></li>
 
 
 
-                @if (auth()->user()->role_as == 1)
+          @if (auth()->user()->role_as == 1)
 
-                      <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                       <i class="fas fa-handshake me-2"></i>
-                       Approved IDP's </button></li>
-                    
-                      <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-                       <i class="fas fa-clipboard-check me-2"></i>
-                       Submitted IDP's </button></li>
-                 @else
+                <button wire:click="approvedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-handshake me-2"></i>
+                  Approved IDP's </button></li>
+              
+                <button wire:click="submittedIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                  <i class="fas fa-clipboard-check me-2"></i>
+                  Submitted IDP's </button></li>
                   <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
                     <i class="fas fa-file-alt me-2"></i>
                     View IDP </button></li>
-                @endif
-                </div>
-                
-        </ul>
+            @else
+            <button wire:click="myIDP" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+              <i class="fas fa-file-alt me-2"></i>
+              View IDP </button></li>
+          @endif
+          </div>
+          
+          
+        @else
+        <a href="/idp" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i
+          class="fas fa-sitemap me-2"></i><i class="fas fa-caret-down"></i>IDP</a>
+        @endif
+      </ul>
+
         @if (auth()->user()->role_as == 1)
         <ul class="list-unstyled px-2">
+        @if ($currentUrl == 'http://127.0.0.1:8000/user')
           
-          <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Users</button>
-            <div class="dropdown-container">
-          <li class=""><button wire:click="userIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>List of Users</a></li>
-            <button wire:click="createUser" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
-              <i class="fas fa-user-plus me-2"></i>Add New Users </button></li>
-            </div>
-        </ul>
+            
+            <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Users</button>
+              <div class="dropdown-container">
+            <li class=""><button wire:click="backButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-users me-2"></i>List of Users</a></li>
+              <button wire:click="createButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block">
+                <i class="fas fa-user-plus me-2"></i>Add New Users </button></li>
+              </div>
+          
+        @else
+          <a href="/user" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Users</a>
+        @endif
+      </ul>
+        
         
 
         <ul class="list-unstyled px-2">
           
           <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-folder-open me-2"></i><i class="fas fa-caret-down"></i>Reports</button>
             <div class="dropdown-container">
-              <li class=""><button wire:click="trainingSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-chalkboard-teacher me-2"></i>Training Summary</a></li>
-              <li class=""><button wire:click="idpSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-stamp me-2"></i>IDP Summary</a></li>
-              <li class=""><button wire:click="attendanceSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-ticket-alt me-2"></i>Attendance Summary</a></li>
-                <li class=""><button wire:click="certificateSummary" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-certificate me-2"></i>Certificate Summary</a></li>
+              <li class=""><a href="/training/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-chalkboard-teacher me-2"></i>Training Summary</a></li>
+              <li class=""><a href="/idp/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-stamp me-2"></i>IDP Summary</a></li>
+              <li class=""><a href="/attendance/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-ticket-alt me-2"></i>Attendance Summary</a></li>
+                <li class=""><a href="/certificate/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"><i class="fas fa-certificate me-2"></i>Certificate Summary</a></li>
             </div>
         </ul>
 

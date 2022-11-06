@@ -15,7 +15,17 @@ class CertificateReports extends Component
     protected $paginationTheme = 'bootstrap';
     public $certificate;
     public $start_date, $end_date, $filter_certificate_title, $name, $certificate_name, $certificate_title, $user_id;
-
+    public $toggle, $currentUrl;
+    protected $listeners = [
+        'toggle' => 'open'
+    ];
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');

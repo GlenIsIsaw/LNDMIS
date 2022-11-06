@@ -23,7 +23,17 @@ class IdpReports extends Component
     public $pageNum = 3;
     public $count = 0;
 
-
+    public $toggle, $currentUrl;
+    protected $listeners = [
+        'toggle' => 'open'
+    ];
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');

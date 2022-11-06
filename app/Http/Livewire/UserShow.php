@@ -23,12 +23,20 @@ class UserShow extends Component
     public $next = null;
     public $table = null;
     protected $queryString = ['search'];
-
-    
+    public $toggle, $currentUrl;
+    public function open(){
+        if (!$this->toggle) {
+            $this->toggle = 'toggled';
+        }else{
+            $this->toggle = null;
+        }
+    }
+     
     protected $listeners = [
         'createUser' => 'createButton',
         'clearUser' => 'clear',
         'showUser' => 'show',
+        'toggle' => 'open'
         //'passUser' => 'pass',
         //'refreshComponent' => '$refresh'
     ];
@@ -143,14 +151,14 @@ class UserShow extends Component
             return false;
         }
     }
-    public function show(int $User_id)
+    public function show()
     {
         $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
-                    ->find($User_id);
+                    ->find(auth()->user()->id);
         
         if($User){
             
-            $this->User_id = $User_id;
+            $this->User_id = auth()->user()->id;
             $this->name = $User->name;
             $this->email = $User->email;
             $this->teacher = $User->teacher;
@@ -298,7 +306,12 @@ class UserShow extends Component
         $this->college_name = '';
         $this->photo = '';
     }
-    
+
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
+        //dd($this->currentUrl);
+    }
     public function render()
     {
         $this->notification();
