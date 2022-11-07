@@ -20,7 +20,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="card-title d-grid gap-2 d-md-flex justify-content-md-end my-5 mx-5">
+                            <div class="card-title d-grid gap-2 d-md-flex justify-content-center my-5 mx-5">
                             
                                 <button type="button" wire:click="editUser({{$User_id}})" class="btn-secondary text-white rounded-3 shadow text-sm text-uppercase fw-bold px-5 py-10" style="background-color: #800"><i class="fas fa-user-edit me-2"></i>Edit your profile</button>
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#changePassUserModal" class="btn-secondary  text-white rounded-3 shadow-lg text-sm text-uppercase fw-bold px-5 py-10" style="background-color: #800"><i class="fas fa-edit me-2"></i></i>Change Password</button>

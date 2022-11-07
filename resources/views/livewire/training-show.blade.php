@@ -103,17 +103,29 @@
                                                 
                                                         <td>
                                                             <div class="d-grid gap-2 mx-4">
-                                                            <button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2"><i class="fas fa-pen"></i><br>Create</button>
+                                                            <button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #870000,
+                                                                #190A05);"><i class="fas fa-pen"></i><br>Create</button>
                                                         </td>
                                                     @else
                                                         <td>
                                                             <div class="d-grid gap-2 mx-4">
                                                         
-                                                            <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2"><i class="fas fa-eye"></i><br>View</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2"><i class="fas fa-print"></i><br>Print</button>
+                                                            <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #52c234,
+                                                                #061700);"><i class="fas fa-eye"></i><br>View</button>
+
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #52c234,
+                                                                 #061700);"><i class="fas fa-print"></i><br>Print</button>
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                                <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-primary text-white rounded-3 shadow-sm fw-bold text-uppercase px-4 py-2"><i class="fas fa-edit"></i><br>Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger rounded-3 fw-bold px-3 py-2 text-uppercase"><i class="fas fa-trash fa-sm"></i><br>Delete</button>
+                                                                <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-info text-light rounded-3 shadow-lg fw-bold text-uppercase px-4 py-2" style="background-image: linear-gradient(
+                                                                    to bottom, #000046, 
+                                                                    #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
+
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-light text-white rounded-3 fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                    to bottom, #870000,
+                                                                    #190A05);"><i class="fas fa-trash fa-sm"></i><br>Delete</button>
                                                             @endif
                                                         </td>
                                                     @endif
@@ -122,13 +134,19 @@
                                                     
                                                     <td>
                                                         <div class="d-grid gap-2 mx-4">
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center px-3 py-2"><i class="fas fa-certificate"></i>Certificate</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #43C6AC,
+                                                                #191654);"><i class="fas fa-certificate"></i>Certificate</button>
                                                             @if ($training->comment)
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-sm text-sm text-uppercase fw-bold px-3 py-2"><i class="fas fa-comments"></i>Comment</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg text-sm text-uppercase fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                    to bottom, #43C6AC,
+                                                                    #191654);"><i class="fas fa-comments"></i>Comment</button>
                                                             @endif
                                                         @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                             @if ($training->attendance_form == 1) 
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow text-uppercase fw-bold px-2 py-2"><i class="fas fa-paper-plane"></i><br>Submit</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-light text-white rounded-3 shadow text-uppercase fw-bold px-2 py-2" style="background-image: linear-gradient(
+                                                                    to top, #000000,
+                                                                    #0f9b0f);"><i class="fas fa-paper-plane"></i><br>Submit</button>
                                                             @endif
                                                         
                                                         @endif
@@ -140,16 +158,25 @@
                                                     
                                                             @if ($training->status == 'Pending')
                                                                 @if (auth()->user()->role_as == 1)
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2"><i class="fas fa-thumbs-up "></i><br>Approve</button>
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger rounded-3 shadow-sm fw-bold text-sm text-uppercase px-3 py-2"><i class="fas fa-thumbs-down "></i><br>Reject</button>
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2"  style="background-image: linear-gradient(
+                                                                        to top, #000000,
+                                                                        #0f9b0f);"><i class="fas fa-thumbs-up "></i><br>Approve</button>
+
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-sm fw-bold text-sm text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                        to bottom, #870000,
+                                                                        #190A05);"><i class="fas fa-thumbs-down "></i><br>Reject</button>
                                                                 @endif    
                                                             @endif
                                                         
                                                     
 
                                                             @if($training->status != 'Pending')
-                                                                <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary rounded-3 shadow fw-bold text-uppercase px-3 py-2"><i class="fas fa-edit"></i><br>Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase"><i class="fas fa-trash"></i><br>Delete</button>
+                                                                <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary rounded-3 shadow fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                    to bottom, #000046, 
+                                                                    #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                    to bottom, #870000,
+                                                                    #190A05"><i class="fas fa-trash"></i><br>Delete</button>
                                                             @endif
                                                             
                                                             
@@ -158,7 +185,9 @@
                                                                 
                                                                 @if ($training->status == 'Pending')
                                                                     @if (auth()->user()->role_as == 0)
-                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class=" btn-danger btn-lg rounded-pill shadow fw-bold px-5 py-10">Remove Submission</button>
+                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                            to bottom, #870000,
+                                                                            #190A05" >Remove Submission</button>
                                                                     @endif    
                                                                 @endif
                                                         @endif
