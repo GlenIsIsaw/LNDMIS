@@ -25,7 +25,7 @@
     
 
     <div id="app">
-        <nav class="navbar blue-text navbar-expand-md shadow-sm" style="background-color:#800000;">
+        <nav class="navbar blue-text navbar-expand-md shadow-sm py-3" style="background-color:#800000;">
            
             <div class="container-fluid">
                 
@@ -73,7 +73,7 @@
                                 
                             <li class="nav-item dropdown mx-5">
                                 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link rounded-pill px-4 dropdown-toggle text-light fw-bold text-center" style="background-color: #926F34" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

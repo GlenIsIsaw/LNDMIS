@@ -1,7 +1,12 @@
 <div class="card-header">
+    <div class="float-start my-2">
     <h4>
         {{$name}}'s Individual Development Plan of Year {{$year}}
     </h4>
+    </div>
+    <div class="float-end my-2">
+        <button type="button" class="btn btn-danger" wire:click="backButton"><i class="fas fa-times px-2 py-1"></i></button>
+    </div>
 </div>
 <div class="card-body">
     <table class="table">
@@ -83,5 +88,5 @@
     </h4>
     <p>{{$career}}</p>
 
-<button type="button" class="btn btn-secondary" wire:click="backButton" >Close</button>
+
     </div>
