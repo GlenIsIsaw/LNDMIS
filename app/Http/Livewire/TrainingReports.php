@@ -59,8 +59,8 @@ class TrainingReports extends Component
             $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
-                ->where('name', 'like', '%'.$this->name.'%')
-                ->where('certificate_title', 'like', '%'.$this->filter_certificate_title.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
@@ -91,13 +91,17 @@ class TrainingReports extends Component
         return round($percentage, 2);
     }
     public function printquery($choice){
+        $validatedData = $this->validate([            
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date'
+        ]);
             $s_date = Carbon::parse($this->start_date)->toDateTimeString();
             $e_date = Carbon::parse($this->end_date)->toDateTimeString();
             $lists = ListOfTraining::select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
-                ->where('name', 'like', '%'.$this->name.'%')
-                ->where('certificate_title', 'like', '%'.$this->filter_certificate_title.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
@@ -291,8 +295,8 @@ class TrainingReports extends Component
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
-                ->where('name', 'like', '%'.$this->name.'%')
-                ->where('certificate_title', 'like', '%'.$this->filter_certificate_title.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
@@ -301,7 +305,7 @@ class TrainingReports extends Component
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(10);
         }else {
-
+ 
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)

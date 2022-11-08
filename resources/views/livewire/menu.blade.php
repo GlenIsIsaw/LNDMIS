@@ -235,7 +235,7 @@
                   <i class="fas fa-paper-plane me-2"></i>
                   Submitted Trainings </button></li>
               @else
-              <li class=""><button wire:click="trainIndex" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
+              <li class=""><button wire:click="backButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                 <i class="fas fa-file me-2"></i>
                 View Trainings</button></li>
               @endif

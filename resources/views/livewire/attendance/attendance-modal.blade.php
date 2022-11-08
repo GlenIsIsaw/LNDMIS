@@ -10,26 +10,8 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="fw-bold">Sort by Name:</label>
-                    <select wire:model='name' class="form-control border border-3 rounded-3" style="width: 100%; height: 500%">
-                        <option value=""></option>
-                        @php
-                            $check = '';
-                        @endphp
-                        @forelse ($attendance as $item)
-                            @if ($check == $item->name)
-                                @continue
-                            @else
-                                {{$check = $item->name}}
-                            @endif
-                            <option value="{{$item->name}}">{{$item->name}}</option>
-                        @empty
-                        <option value="">Nothing</option>
-                        @endforelse 
-                            
-                        
-
-                    </select>
+                    <label  class="fw-bold">Search by Name:</label>
+                    <input wire:model="name" class="form-control border border-3 rounded-3" placeholder="Search..." />
                 </div>
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Competency:</label>

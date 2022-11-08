@@ -349,7 +349,7 @@
                             <input type="search" wire:model="filter_certificate_title" class="form-control border border-3 rounded-3" placeholder="Search..." />
                         </div>
                     @endif
-
+ 
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Status:</label>
                         <select wire:model="filter_status" class="form-control border border-3 rounded-3">

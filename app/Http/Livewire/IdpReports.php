@@ -126,10 +126,11 @@ class IdpReports extends Component
     }
     public function countCompetency(){
         $comp = [];
-        $object = Idp::select('competency')
+        if ($this->filter_status) {
+            $object = Idp::select('competency')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('college_id',auth()->user()->college_id)
-            ->where('name', 'like', '%'.$this->name.'%')
+            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
             ->where('competency', 'like', '%'.$this->competency.'%')
             ->where('sug', 'like', '%'.$this->sug.'%')
             ->where('responsible', 'like', '%'.$this->responsible.'%')
@@ -137,6 +138,24 @@ class IdpReports extends Component
             ->where('submit_status', 'like', '%'.$this->filter_status.'%')
             ->orderBy('idps.created_at','asc')
             ->get();
+        } else {
+            $object = Idp::select('competency')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('college_id',auth()->user()->college_id)
+            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+            ->where('competency', 'like', '%'.$this->competency.'%')
+            ->where('sug', 'like', '%'.$this->sug.'%')
+            ->where('responsible', 'like', '%'.$this->responsible.'%')
+            ->where('year',$this->year)
+            ->where(function($query) {
+                $query->where('submit_status', 'Approved')
+                      ->orwhere('submit_status', 'Pending');
+            })
+            ->orderBy('idps.created_at','asc')
+            ->get();
+        }
+        
+        
         $lists = $object->toArray();
         $i = 0;
         foreach ($lists as $name => $list) {
@@ -247,18 +266,37 @@ class IdpReports extends Component
         return $arrays;
     }
     public function printall(){
-        $lists = Idp::select('user_id','name','competency','sug','dev_act','year','supervisor','college_name','coordinator')
-            ->join('users', 'users.id', '=', 'idps.user_id')
-            ->join('colleges', 'colleges.id', '=', 'users.college_id')
-            ->where('college_id',auth()->user()->college_id)
-            ->where('year',$this->year)
-            ->where('name', 'like', '%'.$this->name.'%')
-            ->where('competency', 'like', '%'.$this->competency.'%')
-            ->where('sug', 'like', '%'.$this->sug.'%')
-            ->where('responsible', 'like', '%'.$this->responsible.'%')
-            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-            ->orderBy('idps.created_at','asc')
-            ->get();
+        if ($this->filter_status) {
+            $lists = Idp::select('user_id','name','competency','sug','dev_act','year','supervisor','college_name','coordinator')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('year',$this->year)
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->where('competency', 'like', '%'.$this->competency.'%')
+                ->where('sug', 'like', '%'.$this->sug.'%')
+                ->where('responsible', 'like', '%'.$this->responsible.'%')
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
+                ->orderBy('idps.created_at','asc')
+                ->get();
+        }else{
+            $lists = Idp::select('user_id','name','competency','sug','dev_act','year','supervisor','college_name','coordinator')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('year',$this->year)
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->where('competency', 'like', '%'.$this->competency.'%')
+                ->where('sug', 'like', '%'.$this->sug.'%')
+                ->where('responsible', 'like', '%'.$this->responsible.'%')
+                ->where(function($query) {
+                    $query->where('submit_status', 'Approved')
+                          ->orwhere('submit_status', 'Pending');
+                })
+                ->orderBy('idps.created_at','asc')
+                ->get();
+        }
+
         if(!$lists->isEmpty()){
         //dd($lists);
         //dd($list);
@@ -407,7 +445,6 @@ class IdpReports extends Component
     }
     public function mount(){
         $this->year = date('Y') + 1;
-        $this->filter_status = 'Pending';
         $this->currentUrl = url()->current();
             //dd($this->currentUrl);
     }
@@ -416,17 +453,37 @@ class IdpReports extends Component
         $this->notification();
         $this->getInfo();
         $this->dispatchBrowserEvent('toggle');
-            $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
+            if ($this->filter_status) {
+                $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-                ->where('name', 'like', '%'.$this->name.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->where('competency', 'like', '%'.$this->competency.'%')
                 ->where('sug', 'like', '%'.$this->sug.'%')
                 ->where('responsible', 'like', '%'.$this->responsible.'%')
                 ->where('year', 'like', '%'.$this->year.'%')
                 ->orderBy('idps.created_at','asc')
                 ->paginate(3);
+            } else {
+                $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where(function($query) {
+                    $query->where('submit_status', 'Approved')
+                          ->orwhere('submit_status', 'Pending');
+                })
+                //->where('submit_status', 'like', '%'.$this->filter_status.'%')
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->where('competency', 'like', '%'.$this->competency.'%')
+                ->where('sug', 'like', '%'.$this->sug.'%')
+                ->where('responsible', 'like', '%'.$this->responsible.'%')
+                ->where('year', 'like', '%'.$this->year.'%')
+                ->orderBy('idps.created_at','asc')
+                ->paginate(3);
+            }
+            
+           
 
             if($this->competency){
                 $this->arrays = $this->filterCompetency($this->separate($lists->items()));

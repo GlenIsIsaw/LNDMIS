@@ -10,15 +10,8 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="fw-bold">Sort by Name:</label>
-                    <select wire:model='name' class="form-control border border-3 rounded-3" style="width: 100%; height: 500%">
-                        <option value=""></option>
-                        @foreach ($Idp as $idp)
-                            <option value="{{$idp->name}}">{{$idp->name}}</option>
-                        @endforeach
-                        
-
-                    </select>
+                    <label  class="fw-bold">Search by Name:</label>
+                    <input type="search" wire:model="name" class="form-control border border-3 rounded-3" placeholder="Search..." />
                 </div>
                 <div class="mb-3">
                     <label class="fw-bold">Sort by Person Responsible:</label>
