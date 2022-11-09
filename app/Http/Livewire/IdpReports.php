@@ -464,7 +464,7 @@ class IdpReports extends Component
                 ->where('responsible', 'like', '%'.$this->responsible.'%')
                 ->where('year', 'like', '%'.$this->year.'%')
                 ->orderBy('idps.created_at','asc')
-                ->paginate(3);
+                ->paginate(2);
             } else {
                 $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
                 ->join('users', 'users.id', '=', 'idps.user_id')
@@ -480,7 +480,7 @@ class IdpReports extends Component
                 ->where('responsible', 'like', '%'.$this->responsible.'%')
                 ->where('year', 'like', '%'.$this->year.'%')
                 ->orderBy('idps.created_at','asc')
-                ->paginate(3);
+                ->paginate(2);
             }
             
            

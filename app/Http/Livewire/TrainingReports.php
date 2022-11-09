@@ -303,7 +303,7 @@ class TrainingReports extends Component
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->where('status','Approved')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+                ->paginate(5);
         }else {
  
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate')
@@ -316,7 +316,7 @@ class TrainingReports extends Component
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->where('status','Approved')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+                ->paginate(5);
         }
         return view('livewire.training-reports', ['trainings' => $lists]);
     }
