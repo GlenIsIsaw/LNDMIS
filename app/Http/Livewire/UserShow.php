@@ -316,7 +316,7 @@ class UserShow extends Component
                         ->where('college_id',auth()->user()->college_id)
                         ->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy('users.updated_at','DESC')
-                        ->paginate(10);
+                        ->paginate(3);
         return view('livewire.User-show', ['users' => $Users]);
     }
 }

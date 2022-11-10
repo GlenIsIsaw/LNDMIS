@@ -1,6 +1,6 @@
 <div>
     @include('livewire.menu')
-    <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mb-3">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mb-3 mt-2">
         <div class="col">
           <div class="card h-100 border border-5 border-light shadow-lg">
             <img src="/images/training.png" class="card-img-top" alt="Training">

@@ -99,6 +99,7 @@ class Profile extends Component
             $user->signature = $filename;
             $user->save();
         }
+        return redirect('/profile');
         
 
     }
@@ -106,6 +107,7 @@ class Profile extends Component
         $user = User::find($this->User_id);
         $user->signature = null;
         $user->save();
+        return redirect('/profile');
 
     }
 

@@ -28,19 +28,19 @@
         </div>
         <hr class="h-color mx-2 mt-3">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table align-middle">
                 <thead>
                     <th class="text-center">Target Competency</th>
                     <th class="text-center">S/U/G</th>
                     <th class="text-center">Development Activity</th>
-                    <th class="text-center">Person Responsible</th>
+                    <th class="text-center px-4">Person Responsible</th>
                     <th class="text-center">Support Needed </th>
                 </thead>
                 <tbody>
                     @for ($i = 0; $i < 3; $i++)
                         <tr>
                             <td>
-                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark">
+                                <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark py-1">
                                     <option value=""></option>
                                     @foreach ($comps as $key => $comp)
                                     <optgroup label={{$key}}>
@@ -54,7 +54,7 @@
                                 @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark">
+                                <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark py-1">
                                     <option value="">...</option>
                                     <option value="S">S</option>
                                     <option value="U">U</option>
@@ -64,13 +64,13 @@
                                 @error('sug') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <textarea type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;"></textarea>
+                                <textarea type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 100px; width:300px;"></textarea>
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
                                 <label>
-                                    <input type="checkbox" wire:model="input.{{$i}}.{{'Immediate Supervisor'}}" value="Immediate Supervisor">
+                                    <input type="checkbox" wire:model="input.{{$i}}.{{'Immediate Supervisor'}}" value="Immediate Supervisor" class="border border-dark border-3">
                                     Immediate Supervisor
                                 </label><br>
                                 <label>
@@ -89,7 +89,7 @@
                                 @error('input.*') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:300px;"></textarea>
+                                <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 100px; width:300px;"></textarea>
                                 @error('support.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('support') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
@@ -113,7 +113,6 @@
             }
 
             @endphp
-            <div>Input : @json($input)</div>
         </div>
         <hr class="h-color mx-2 mt-3">
         <div class="float-end mx-2 my-2">

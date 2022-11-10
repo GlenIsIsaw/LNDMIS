@@ -186,6 +186,8 @@
             $('#createConfirmationIdpModal').modal('hide');
             $('#editConfirmationIdpModal').modal('hide');
             $('#printSummaryIdpModal').modal('hide');
+            $('#printAllIdpModal').modal('hide');
+            
 
 
             

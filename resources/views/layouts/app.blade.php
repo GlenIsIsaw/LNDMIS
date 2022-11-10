@@ -25,7 +25,7 @@
     
 
     <div id="app">
-        <nav class="navbar blue-text navbar-expand-md shadow-sm py-3" style="background-color:#800000;">
+        <nav class="navbar blue-text navbar-expand-md shadow-sm py-3 px-4" style="background-color:#800000;">
            
             <div class="container-fluid">
                 
@@ -186,38 +186,118 @@ for (i = 0; i < dropdown.length; i++) {
     @livewireScripts
      @yield('script')
   
-</body>
 
-<footer>
-    <div class="card text-center text-light" style="background-color:#800000;">
-        <div class="card-header">
-         
-        </div>
-       
-            <table class="table table-borderless text-light">
+
+<footer class="text-white pt-5 pb-4" style="background-color:#800000;">
+
+    <div class="container text-left text-md-left">
+
+        <div class="row text-left text-md-left">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+
+              
+                <h5 class="text-uppercase mb-4 fw-bold text-warning">Learning and Development Office</h5>
+                <p class="lh-base fs-6">The Camarines Norte State College shall provide higher and advance studies in the field of education, arts and science, economics, health, engineering, management, finace, accounting, business and public administration, fisheries, agriculture, natural resources development and management and ladderized courses. 
+                    It shall also respond to research, extension and production services adherent to progressive leadership towards sustainable development. </p>
                 
-        <th scope="col" class="btn btn-link text-decoration-none text-light  px-3 py-2 "><i class="fab fa-facebook-square me-2"></i> CNSC Learning And Development Office</p>
-        <th scope="col" class="btn btn-link text-decoration-none text-light  px-3 py-2  "><i class="fas fa-globe me-2"></i>www.cnsclnd.com</p>
-        
-           
-        </tr>
-   
 
-    <div class="card-body text-center">
-        <p><i class="far fa-copyright"></i> Camarines Norte State College. All Rights Reserved. </p>
-    </div>
-        <div class="card-footer text-muted text-light">
-          
-                <table class="table table-borderless table-hover text-light">
-                    <thead>
-                            <th scope="col" class="btn btn-link text-light">Terms of Services</th>
-                            <th scope="col" class="btn btn-link text-light">Privacy Notice</th>
-                            <th scope="col" class="btn btn-link text-light">Accessibility</th>
-                            <th scope="col" class="btn btn-link text-light">Cookie Preference</th>
-                            
-                        </tr>
-                    </thead>
+            </div>
+
+            <div class="col-md-12 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-5 fw-bold text-warning">Main College</h5>
+                <p> 
+                    <a href="#" class="text-white lh-base" style="text-decoration: none;"> Institute of Computer Studies </a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white lh-base" style="text-decoration: none;"> College of Arts and Sciences </a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white lh-base" style="text-decoration: none;"> College of Business and Public Administration</a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white lh-base" style="text-decoration: none;"> College of Engineering</a>
+                </p>
+
+              
         </div>
-      </div>
+
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3 ">
+
+                <h5 class="text-uppercase mb-4 fw-bold text-warning"> Satellite Campuses </h5>
+
+                <p> 
+                    <a href="#" class="text-white" style="text-decoration: none;"> College of Natural Resources</a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white" style="text-decoration: none;"> College of Trades and Technology </a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white" style="text-decoration: none;"> College of Education </a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white" style="text-decoration: none;"> Institute of Fisheries and Marine Sciences </a>
+                </p>
+
+                <p> 
+                    <a href="#" class="text-white" style="text-decoration: none;"> Entienza Campus </a>
+                </p>
+
+
+
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3 ">
+
+                <h5 class="text-uppercase mb-5 fw-bold text-warning"> Information </h5>
+
+                <p class="fs-6"> <i class="fas fa-university me-3"></i> F. Pimentel Avenue, Daet, 4600 Camarines Norte, Philippines </p>
+                <p class="fs-6"> <i class="fas fa-tty me-2"></i> (054) 721-2672  or 440-1199 </p>
+                <p class="fs-6"> <i class="fas fa-mobile-alt me-3"></i> 09190042141 </p>
+                <p class="fs-6"> <i class="fas fa-envelope me-2"></i> icstrifecta@gmail.com </p>
+
+            </div>
+
+
+    </div>
+
+    <hr class="mb-4">
+
+    <div class="row align-items-center">
+        <div class="col-md-7 col-lg-8">
+            <p> Copyright 2022 All Rights Reserved By: <a href="#" style="text-decoration: none;"><strong class="text-warning"> Trifecta Prog </strong> </p>
+
+        </div>
+
+        <div class="col-md-5 col-lg-4">
+            <div class="text-right text-md-right">
+
+                <ul class="list-unstyled list-inline"> 
+
+                <li class="list-inline-item"> <a href="#" class="text-white btn-floating btn-sm" style="font:23px;"><i class="fab fa-facebook-square"></i> </a> </li>
+
+                <li class="list-inline-item"> <a href="#" class="text-white btn-floating btn-sm" style="font:23px;"><i class="fab fa-google"></i></i> </a> </li>
+
+                <li class="list-inline-item"> <a href="#" class="text-white btn-floating btn-sm" style="font:23px;"><i class="fab fa-twitter-square"></i> </a> </li>
+
+                <li class="list-inline-item"> <a href="#" class="text-white btn-floating btn-sm" style="font:23px;"><i class="fab fa-linkedin"></i> </a> </li>
+
+            </ul>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    </div>
+    
 </footer>
+
+</body>
 </html>
