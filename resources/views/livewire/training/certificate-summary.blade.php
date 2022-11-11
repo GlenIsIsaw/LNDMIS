@@ -50,7 +50,25 @@
             </div>
             <div class="modal-body">
 
+                @if ($fileType == "pdf")
+                    <div class="container" style="  position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    padding-top: 56.25%; /* 16:9 Aspect Ratio */">
+                        <iframe class="responsive-iframe" style="  position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        width: 100%;
+                        height: 100%;
+                        border: none;" src="{{ url('storage/users/'.$user_id.'/'.$certificate_name) }}?{{ rand() }}"></iframe>
+                    </div>
+
+                @else
                 <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate_name) }}?{{ rand() }}">
+                @endif
+                
 
             </div>
         </div>

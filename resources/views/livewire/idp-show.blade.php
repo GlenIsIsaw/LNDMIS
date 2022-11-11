@@ -37,7 +37,7 @@
                                 
                                 <div class="float-end mx-2">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
-                                    @if ($table == 'Submitted IDPs')
+                                    @if ($table == 'Submitted IDPs' || $table == 'Approved IDPs')
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#printAllIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Print All</button>
                                     @endif
                                 </div>

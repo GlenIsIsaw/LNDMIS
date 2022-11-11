@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use ZipArchive;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ListOfTraining;
+use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class CertificateReports extends Component
@@ -14,7 +16,7 @@ class CertificateReports extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $certificate;
-    public $start_date, $end_date, $filter_certificate_title, $name, $certificate_name, $certificate_title, $user_id;
+    public $start_date, $end_date, $filter_certificate_title, $name, $certificate_name, $certificate_title, $user_id, $training_id, $fileType;
     public $toggle, $currentUrl;
     protected $listeners = [
         'toggle' => 'open'
@@ -57,6 +59,8 @@ class CertificateReports extends Component
         ->orderBy('list_of_trainings.updated_at','desc')
         ->first();
 
+        
+        $this->fileType = $this->fileType($lists->certificate);
         $this->certificate_name = $lists->certificate;
         $this->certificate_title = $lists->certificate_title;
         $this->user_id = $lists->user_id;
@@ -67,7 +71,7 @@ class CertificateReports extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('user_id','name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
@@ -77,7 +81,7 @@ class CertificateReports extends Component
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->get();
         }else {
-            $lists = ListOfTraining::select('user_id','name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
@@ -93,10 +97,64 @@ class CertificateReports extends Component
         $pieces = explode("-", $date);
         return $pieces[0];
     }
-    public function printAll(){
-        $certificates = $this->printquery();
-        //dd($certificates);
+    public function print(){
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('list_of_trainings.id',$this->training_id)
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                ->whereBetween('date_covered',[$start_date,$end_date])
+                ->where('status','Approved')
+                ->orderBy('list_of_trainings.updated_at','desc')
+                ->first();
+        }else {
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('list_of_trainings.id',$this->training_id)
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                ->where('status','Approved')
+                ->orderBy('list_of_trainings.updated_at','desc')
+                ->first();
+        }
 
+
+        //dd($lists);
+        $ext = $this->fileType($lists->certificate);
+        $foldername = storage_path('app/public/users/'.auth()->user()->id.'/Certificates');
+        $originalPath = storage_path('app/public/users/'.$lists->user_id.'/'.$lists->certificate);
+        $path = storage_path('app/public/users/'.auth()->user()->id.'/Certificates/'.$lists->name.'_'.$lists->certificate_title.'.'.$ext);
+
+        if(!is_dir($foldername))
+		{
+			mkdir($foldername, 0777, true);
+		}
+        File::copy($originalPath, $path);
+        
+    }
+    public function printAll(){
+        $id = [];
+        $filename = [];
+        $i = 0;
+        foreach ($this->printquery() as $value) {
+           $id[$i] = $value['training_id'];
+           $ext = $this->fileType($value['certificate']);
+           $filename[$i] = storage_path('app/public/users/'.auth()->user()->id.'/Certificates/'.$value['name'].'_'.$value['certificate_title'].'.'.$ext);
+           $i++;
+        }
+        //dd($id);
+        //dd($filename);
+        foreach ($id as $item) {
+            $this->training_id = $item;
+            //dd($this->idp_id);
+            $this->print();
+        }
+        $daterange = '';
         if ($this->start_date && $this->end_date) {
             $start_month = strftime("%B",strtotime($this->start_date));
             $end_month = strftime("%B",strtotime($this->end_date));
@@ -111,31 +169,21 @@ class CertificateReports extends Component
         }else{
             $daterange = 'All';
         }
-        if ($this->name) {
-            $name = $this->name;
-        }else {
-            $name = '';
+        
+        $zipname = storage_path('app/public/users/'.auth()->user()->id.'/Certificates/Certificate_'.$daterange.'.zip');
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
+        foreach ($filename as $file) {
+        $path = $file;
+        if(file_exists($path)){
+            $zip->addFromString(basename($path),  file_get_contents($path));  
+            }
+            File::delete($path);
         }
-        if ($this->filter_certificate_title) {
-            $certificate_title = $this->filter_certificate_title;
-        }else {
-            $certificate_title = '';
-        }
-        $templateProcessor = new TemplateProcessor(storage_path('Certificate Summary.docx'));
-        $templateProcessor->cloneBlock('section', count($certificates), true, true);
-        $i = 1;
-        foreach ($certificates as $key => $value) {
-            $templateProcessor->setValue("name#$i", $value['name']);
-            $templateProcessor->setValue("certificate_title#$i", $value['certificate_title']);
-            $templateProcessor->setValue("date_covered#$i", strftime("%B %e,%G",strtotime($value['date_covered'])));
-            $templateProcessor->setImageValue("certificate#$i", array('path' => public_path('storage/users/'.$value['user_id'].'/'.$value['certificate']), 'width' => 800, 'height' => 450, 'ratio' => false));
-            $i++;
-        }
-        $path = 'app/public/users/'.auth()->user()->id.'/Certificate_'.$name.$certificate_title.$daterange.'.docx';
-        $templateProcessor->saveAs(storage_path($path));
-            $this->dispatchBrowserEvent('close-modal');
-            $this->resetFilter();
-            return response()->download(storage_path($path))->deleteFileAfterSend(true);
+
+        $zip->close();
+        return response()->download($zipname)->deleteFileAfterSend(true);
+        
     }
     public function resetFilter(){
 

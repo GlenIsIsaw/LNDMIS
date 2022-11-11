@@ -801,6 +801,7 @@ class IdpShow extends Component
         $path = $this->print();
         return response()->download($path)->deleteFileAfterSend(true);
     }
+    
     public function printall(){
         $id = [];
         $filename = [];
