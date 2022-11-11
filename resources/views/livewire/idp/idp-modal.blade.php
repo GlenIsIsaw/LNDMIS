@@ -278,6 +278,55 @@
     </div>
 </div>
 
+<!-- Guide Idp Modal -->
+<div wire:ignore.self class="modal fade" id="guideIdpModal" tabindex="-1" aria-labelledby="guideIdpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="guideIdpModalLabel">Guide in Accomplishing Individual Development Plan (IDP)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <p>
+                        Based on the competency assessment of individual, there are options for the purpose in doing the IDP so that the College Dean or Head of the Office will be able to focus on the appropriate learning and development interventions that employees may undertake.
+                    </p>
+                    <p>
+                        Target Competency (IDP Column 1) - This refers to the areas of competencies for development in their field of specialization as seen by the employees. Maximum of three target competencies shall be indicated to measure that they will be attained within the given period, however, if the one of the target interventions is directly needed for the designated position, there is no need to indicate it in the said document (IDP).
+                    </p>
+                    <p>
+                        S/U/G Priorities (IDP Column 2) - approved set of criteria stated in the Learning and Development Plan (S-seriousness, U-urgency, G-growth priorities)
+                        Seriousness - refers to the direct impact of learning need to organization's strategic directions
+                        Urgency - answers the question of how immediate must the learning need be addressed
+                        Growth Potential - pertains to the extent to which the learning need may give rise to more problems it not addressed
+                        
+                    </p>
+                    <p>
+                        Development Activity (IDP Column 3) - it considers a variety of developmental approaches of one or more specific actions to take to meet the individual's objective
+
+                        
+                    </p>
+                    <p>
+                        Target Completion Date (IDP Column 4) - refers to the schedule or completion date of the development activity
+                    </p>
+
+                    <p>
+                        Person Responsible (IDP Column 5) - Indicates a person or an office, whether internal or external, to assist in the chosen Development Activity.
+                    </p>
+                    <p>
+                        Support Needed (IDP Column 6) - identifies the resources and assistance needed by an employee to accomplish the L&D intervention.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+        </div>
+    </div>
+</div>
+
 <!-- Filter Modal -->
 <div wire:ignore.self class="modal fade" id="filterIdpModal" tabindex="-1" aria-labelledby="filterIdpModalLabel"
     aria-hidden="true">

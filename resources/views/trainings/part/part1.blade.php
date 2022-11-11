@@ -20,7 +20,7 @@
 <div class="mb-3">
     <label class="fw-bold">Certificate Types</label>
     <select type="text" wire:model="certificate_type" class="form-control border border-3 border-secondary">
-        <option value="">...</option>
+        <option value="{{$certificate_type}}">{{$certificate_type}}</option>
                 <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                 <option value="Certificate of Training">Certificate of Training</option>
                 <option value="Certificate of Appreciation">Certificate of Appreciation</option>
@@ -30,7 +30,13 @@
                 <option value="Certificate of Participation">Certificate of Participation</option>
                 <option value="Certificate of Recognition">Certificate of Recognition</option>
                 <option value="Membership Certificate">Membership Certificate</option>
+                <option value="Others">Others</option>
     </select>
+    @if ($certificate_type == 'Others')
+        <label>Specifiy:</label>
+        <input type="text" wire:model="certificate_type_others" class="border border-3 border-secondary">
+    @endif
+    @error('certificate_type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('certificate_type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
@@ -41,13 +47,19 @@
 <div class="mb-3">
     <label class="fw-bold">Level</label>
     <select wire:model="level" class="form-control border border-3 border-secondary">
-        <option value="">...</option>
+        <option value="{{$level}}">{{$level}}</option>
         <option value="International">International</option>
         <option value="Local">Local</option>
         <option value="N/A">N/A</option>
         <option value="National">National</option>
         <option value="Regional">Regional</option>
+        <option value="Others">Others</option>
     </select>
+    @if ($level == 'Others')
+        <label>Specifiy:</label>
+        <input type="text" wire:model="level_others" class="border border-3 border-secondary">
+    @endif
+    @error('level_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('level') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
@@ -55,8 +67,9 @@
     <input type="date" wire:model="date_covered" class="form-control border border-3 border-secondary">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
+
 <hr class="h-color mx-2 mt-3">
 <div class="float-end">
-<button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
-<button type="button" wire:click="next" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>   
+    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
+    <button type="button" wire:click="part1" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>   
 </div>

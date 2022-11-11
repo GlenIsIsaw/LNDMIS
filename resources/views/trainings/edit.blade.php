@@ -17,17 +17,9 @@
                 
                 <div class="d-flex bd-highlight">
                     <div class="p-2 flex-fill bd-highlight">
-                       
-                        <label for="current" class="fw-bold float-start">Current Certificate:</label>
-                        <img class="img-thumbnail img-fluid rounded float-start mt-4" id="current" width="400" height="400" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
-                                
-                          
-                    </div>
-                    <div class="p-2 flex-fill bd-highlight">
-                        @if ($photo)
-                        <label for="uploaded" class="fw-bold ml-5">Updated Photo:</label>
-                        <img class="img-thumbnail img-fluid rounded mt-4" id="uploaded" width="400" height="400" src="{{ $photo->temporaryUrl() }}">
-                        @endif
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$ListOfTraining_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center px-3 py-2" style="background-image: linear-gradient(
+                            to bottom, #43C6AC,
+                            #191654);"><i class="fas fa-certificate"></i>Current Certificate</button>
                     </div>
                 </div>
                 <hr class="h-color mx-2 mt-3">

@@ -94,7 +94,8 @@ class Profile extends Component
         ]);
         $user = User::find($this->User_id);
         if($validatedData['photo']){
-            $filename = $this->User_id.'.signature';
+            $ext = $this->photo->getClientOriginalExtension();
+            $filename = $this->User_id.'signature.'.$ext;
             $validatedData['photo']->storeAs('public/users/'.$this->User_id, $filename);
             $user->signature = $filename;
             $user->save();

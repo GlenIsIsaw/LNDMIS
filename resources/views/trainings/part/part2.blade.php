@@ -33,24 +33,32 @@
 <div class="mb-3">
     <label class="fw-bold">Type</label>
     <select wire:model="type" class="form-control border border-3 border-secondary">
-        <option value="">...</option>
+        <option value="{{$type}}">{{$type}}</option>
         <option value="Eligibility">Eligibility</option>
         <option value="Event-Facilitator">Event-Facilitator</option>
         <option value="Membership">Membership</option>
         <option value="Seminar">Seminar</option>
         <option value="Seminar-Facilitator">Seminar-Facilitator</option>
+        <option value="Others">Others</option>
     </select>
+    @if ($type == 'Others')
+        <label>Specifiy:</label>
+        <input type="text" wire:model="type_others" class="border border-3 border-secondary">
+    @endif
+    @error('type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-
-
 
 <hr class="h-color mx-2 mt-3">
 
 <div class="float-end">
-<button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center me-1">Back</button>
-<button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
-<button type="button" wire:click="next" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>
+    <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center me-1">Back</button>
+    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
+    <button type="button" wire:click="part2" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>
 </div>
+
+
+
+
 
 

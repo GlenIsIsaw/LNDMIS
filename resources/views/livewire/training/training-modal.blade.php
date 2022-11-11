@@ -6,12 +6,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showTrainingModalLabel" class="text-break">Show {{$certificate_title}}</h5>
-                <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
+                <button type="button" wire:click="downloadCert"><i class="fas fa-download"></i></button>
+                @if ($state == 'editTraining')
+                    <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
+                    ></button>
+                @else
+                    <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
                     wire:click="closeModal"></button>
+                @endif
+
             </div>
             <div class="modal-body">
+                @if ($fileType == "pdf")
+                    <div class="container" style="  position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    padding-top: 56.25%; /* 16:9 Aspect Ratio */">
+                        <iframe class="responsive-iframe" style="  position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        width: 100%;
+                        height: 100%;
+                        border: none;" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}"></iframe>
+                    </div>
 
-                <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
+                @else
+                    <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
+                @endif
+                
 
             </div>
         </div>

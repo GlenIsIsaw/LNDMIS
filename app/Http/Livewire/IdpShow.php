@@ -25,7 +25,7 @@ class IdpShow extends Component
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
     public $target_date = [' ',' ',' '];
-    public $responsible = ['',' ',' '];
+    public $responsible, $others = ['',' ',' '];
     public $input = [];
     public $support = [' ',' ',' '];
     public $status = [' ',' ',' '];
@@ -333,7 +333,7 @@ class IdpShow extends Component
             
             foreach ($value as $key => $item) {
                 if($item){
-                    $array[$j] = $key;
+                    $array[$j] = $item;
                     $j++;
                 }
             }
@@ -392,6 +392,7 @@ class IdpShow extends Component
         session()->flash('message','IDP Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
+
     }
     public static function year($year){
         $pieces = explode("-", $year);
@@ -453,9 +454,6 @@ class IdpShow extends Component
             return redirect()->to('/empIDP')->with('message','No results found');
         }
     }
-    public function getTraining(){
-        
-    }
     public function getId($id){
         $this->idp_id = $id;
     }
@@ -494,7 +492,12 @@ class IdpShow extends Component
             foreach ($idp->responsible as $key => $value) {
                 $string = explode(", ", $value);
                 foreach ($string as $item) {
-                    $this->input[$key][$item] = $item;
+                    if ($item != "Immediate Supervisor" && $item != "VPAA" && $item != "VPAF" && $item != "VPAA" && $item != "VPRE") {
+                        $this->input[$key]['Others'] = $item;
+                    }else{
+                        $this->input[$key][$item] = $item;
+                    }
+                    
                 }
                 
                 $i++;
@@ -519,7 +522,7 @@ class IdpShow extends Component
             $this->career = $idp->career;
             $this->updateButton();
         }else{
-            return redirect()->to('/IDP')->with('message','No results found');
+            return redirect()->to('/idp')->with('message','No results found');
         }
     }
     public function next(){

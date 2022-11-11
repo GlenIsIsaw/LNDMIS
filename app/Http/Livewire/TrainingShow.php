@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\AttendanceForm;
 use App\Models\ListOfTraining;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -19,7 +20,8 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle;
+    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType;
+    public $certificate_type_others, $level_others, $type_others;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
     protected $queryString = ['search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
@@ -150,50 +152,68 @@ class TrainingShow extends Component
             $this->query = ['status','Approved'];
         }
     }
-    protected function rules()
-    {
-        return [
+
+    public function part1(){
+        $validatedData = $this->validate([
             'certificate_title' => 'required',
             'level' => 'required',
+            'level_others' => Rule::requiredIf($this->level == 'Others'),
             'date_covered' => 'required',
+            'certificate_type' => 'required',
+            'certificate_type_others' => Rule::requiredIf($this->certificate_type == 'Others'),
+        ]);
+        ++$this->next;
+    }
+    public function part2(){
+        $validatedData = $this->validate([
             'num_hours' => 'required',
             'venue' => 'required',
             'sponsors' => 'required',
             'type' => 'required',
-            'certificate_type' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
-
-        ];
-    }
-
-    public function updated($fields)
-    {
-        $this->validateOnly($fields);
+            'type_others' => Rule::requiredIf($this->type == 'Others'),
+            
+        ]);
+        ++$this->next;
     }
     
     public function store()
     {   
+        $validatedData = $this->validate([
+            'photo' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf'
+        ]);
             $this->next = 0;
             $this->user_id = auth()->user()->id;
-            $validatedData = $this->validate();
             $list = new ListOfTraining();
             $list->user_id = $this->user_id;
+            if($this->certificate_type == 'Others'){
+                $list->certificate_type = "Others: ".$this->certificate_type_others;
+            }else {
+                $list->certificate_type = $this->certificate_type;
+            }
+            if($this->level == 'Others'){
+                $list->level = "Others: ".$this->level_others;
+            }else {
+                $list->level = $this->level;
+            }
+            if($this->type == 'Others'){
+                $list->type = "Others: ".$this->type_others;
+            }else {
+                $list->type = $this->type;
+            }
             $list->certificate_title = $this->certificate_title;
-            $list->level = $this->level;
             $list->date_covered = $this->date_covered;
-            $list->certificate_type = $this->certificate_type;
             $list->venue = $this->venue;
             $list->sponsors = $this->sponsors;
-            $list->type = $this->type;
             $list->num_hours = $this->num_hours;
             $list->certificate = 'No Image';
 
             $list->save();
 
             if($validatedData['photo']){
+                $ext = $this->photo->getClientOriginalExtension();
                 $user = User::find($this->user_id);
                 $lists = ListOfTraining::find($list->id);
-                $filename = date('Ymd').$lists->id;
+                $filename = date('Ymd').$lists->id.".".$ext;
                 $validatedData['photo']->storeAs('public/users/'.$this->user_id, $filename);
                 $lists->certificate = $filename;
                 $lists->save();
@@ -206,6 +226,11 @@ class TrainingShow extends Component
         
     }
 
+    public function fileType($filename){
+        $array = explode(".", $filename);
+        return strtolower(end($array));
+
+    }
     public function show(int $id)
     {
         $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status')
@@ -214,24 +239,32 @@ class TrainingShow extends Component
                                             ->first();
         
         if($lists){
-            
-            $this->name = $lists->name;
             $this->certificate_type = $lists->certificate_type;
-            $this->certificate_title = $lists->certificate_title;
+
             $this->level = $lists->level;
+
+            $this->type = $lists->type;
+
+            $this->name = $lists->name;
+            $this->certificate_title = $lists->certificate_title;
+            
             $this->date_covered = $lists->date_covered;
             $this->venue = $lists->venue;
             $this->sponsors = $lists->sponsors;
             $this->num_hours = $lists->num_hours;
-            $this->type = $lists->type;
+            $this->fileType = $this->fileType($lists->certificate);
             $this->certificate = $lists->certificate;
             $this->status = $lists->status;
             $this->attendance_form = $lists->attendance_form;
             $this->ListOfTraining_id = $lists->training_id;
             $this->user_id = $lists->user_id;
         }else{
-            return redirect()->to('/empTraining')->with('message','No results found');
+            return redirect()->to('/training')->with('message','No results found');
         }
+    }
+    public function downloadCert(){
+        $ext = explode(".", $this->certificate);
+        return response()->download(storage_path("app/public/users/".$this->user_id."/".$this->certificate), $this->certificate_title.".".end($ext));
     }
     public function edit(int $id)
     {
@@ -253,6 +286,7 @@ class TrainingShow extends Component
             $this->num_hours = $lists->num_hours;
             $this->type = $lists->type;
             $this->certificate = $lists->certificate;
+            $this->fileType = $this->fileType($lists->certificate);
             $this->status = $lists->status;
             $this->attendance_form = $lists->attendance_form;
             $this->ListOfTraining_id = $lists->training_id;
@@ -263,20 +297,10 @@ class TrainingShow extends Component
             return redirect()->to('/empTraining')->with('message','No results found');
         }
     }
-
+ 
     public function update()
     {
-        $validatedData = $this->validate([            
-            'user_id' => 'required',
-            'certificate_title' => 'required',
-            'level' => 'required',
-            'date_covered' => 'required',
-            'num_hours' => 'required',
-            'venue' => 'required',
-            'sponsors' => 'required',
-            'type' => 'required',
-            'certificate_type' => 'required',
-        ]);
+        //dd($this->user_id);
         $list = ListOfTraining::find($this->ListOfTraining_id);
         $list->user_id = $this->user_id;
         $list->certificate_title = $this->certificate_title;
@@ -289,9 +313,9 @@ class TrainingShow extends Component
         $list->num_hours = $this->num_hours;
 
         if($this->photo){
-            $user = User::find($this->user_id);
+            $ext = $this->photo->getClientOriginalExtension();
             File::delete(storage_path('app/public/users/'.$this->user_id.'/'.$list->certificate));
-            $filename = date('Ymd').$list->id;
+            $filename = date('Ymd').$list->id.".".$ext;
             $this->photo->storeAs('public/users/'.$this->user_id, $filename);
             $list->certificate = $filename;
 
@@ -467,13 +491,16 @@ class TrainingShow extends Component
     {
         $this->name = '';
         $this->certificate_type = '';
+        $this->certificate_type_others = '';
         $this->certificate_title = '';
         $this->level = '';
+        $this->level_others = '';
         $this->date_covered = '';
         $this->venue = '';
         $this->sponsors = '';
         $this->num_hours = '';
         $this->type = '';
+        $this->type_others = '';
         $this->certificate = '';
         $this->status = '';
         $this->attendance_form = '';
@@ -487,6 +514,8 @@ class TrainingShow extends Component
         $this->comment ='';
         $this->mySignature = '';
         $this->checkmySignature = '';
+        $this->fileType = '';
+        $this->resetErrorBag();
     }
     public function resetFilter(){
         $this->start_date =null;

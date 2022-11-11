@@ -31,6 +31,11 @@ class CertificateReports extends Component
             $this->dispatchBrowserEvent('show-notification');
         }
     }
+    public function fileType($filename){
+        $array = explode(".", $filename);
+        return strtolower(end($array));
+
+    }
     public function getInfo(){
 
             $lists = ListOfTraining::select('name', 'certificate_title','date_covered','certificate')
