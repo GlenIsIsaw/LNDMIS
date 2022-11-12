@@ -64,7 +64,7 @@
 </div>
 <div class="mb-3">
     <label class="fw-bold">Date Covered</label>
-    <input type="date" wire:model="date_covered" class="form-control border border-3 border-secondary">
+    <input type="input" wire:model="date_covered" class="form-control border border-3 border-secondary">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 

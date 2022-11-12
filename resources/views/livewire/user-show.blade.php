@@ -39,6 +39,7 @@
                                                     <th scope="col">College</th>
                                                 @endif
                                                 <th scope="col">Supervisor</th>
+                                                <th scope="col">Status</th>
                                                 <th class="text-danger"scope="col">Actions</th>
                                             </tr>
                                         </thead>
@@ -58,15 +59,28 @@
                                                     
                                                     <td>{{ $info['name'] }}</td>
                                                     <td>
+                                                        @php
+                                                            $array =  [1=>'Active', 0=>'Disabled'];
+                                                        @endphp
+                                                        {{$array[$user->user_status]}}
+                                                    </td>
+                                                    <td>
                                                         <div class="d-grid gap-3">
                                                             <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #000046, 
                                                                 #1CB5E0);"><i class="fas fa-pen"></i><br>
                                                                 Edit
                                                             </button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
-                                                                to bottom, #870000,
-                                                                #190A05);"><i class="fas fa-trash"></i><br>Delete</button>
+                                                            @if ($user->user_status)
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                    to bottom, #870000,
+                                                                    #190A05);"><i class="fas fa-trash"></i><br>Disable</button>
+                                                            @else
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                    to bottom, #008000,
+                                                                    #190A05);"><i class="fas fa-trash"></i><br>Enable</button>
+                                                            @endif
+
                                                             @if ($info['name'] == 'No Supervisor')
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #000046, 

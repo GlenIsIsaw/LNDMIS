@@ -12,12 +12,12 @@
             </div>
             <form wire:submit.prevent="destroyUser">
                 <div class="modal-body">
-                    <h4>Are you sure you want to delete this data ?</h4>
+                    <h4>Are you sure?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                    <button type="submit" class="btn btn-primary">Yes!</button>
                 </div>
             </form>
         </div>

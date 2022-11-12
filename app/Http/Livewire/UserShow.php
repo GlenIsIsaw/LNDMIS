@@ -275,7 +275,15 @@ class UserShow extends Component
 
     public function destroyUser()
     {
-        User::find($this->User_id)->delete();
+        $user = User::find($this->User_id);
+        if ($user->user_status) {
+            $user->user_status = 0;
+            $user->save();
+        } else {
+            $user->user_status = 1;
+            $user->save();
+        }
+        
         session()->flash('message','User Deleted Successfully');
         $this->dispatchBrowserEvent('close-modal');
     }
@@ -311,7 +319,7 @@ class UserShow extends Component
     {
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
-        $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id')
+        $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('college_id',auth()->user()->college_id)
                         ->where('name', 'like', '%'.$this->search.'%')

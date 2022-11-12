@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('yearJoined');
             $table->string('email')->unique();
             $table->string('signature')->nullable();
+            $table->integer('user_status')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default('$2y$10$BLcdzo8WWNfprDSiPBUsbeEJF1Y0SwhCUH8EKyqKdTS.xy9gMsLKu');
             $table->rememberToken();

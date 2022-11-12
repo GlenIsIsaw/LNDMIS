@@ -56,7 +56,13 @@
                                 @enderror
                                
                             </div>
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                    {{ session('error') }}
+                            </div>
+                        @endif
                         </div>
+
 
                         <div class="row mb-7 text-left">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
