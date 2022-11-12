@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Attendance;
 
 use Carbon\Carbon;
 use App\Models\College;
@@ -213,6 +213,6 @@ class AttendanceReports extends Component
             $this->count = 1;
         }
         
-        return view('livewire.attendance-reports' ,['trainings' => $lists]);
+        return view('livewire.attendance.attendance-reports' ,['trainings' => $lists]);
     }
 }

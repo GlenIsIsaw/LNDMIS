@@ -118,7 +118,7 @@
         </div>
     </div>
      
-    @include('livewire.usermodal')
+    @include('livewire.user.usermodal')
     @include('livewire.main-modal')
 
     @section('script')

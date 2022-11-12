@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Idp;
 
 use App\Models\College;
 use App\Models\Idp;
@@ -499,7 +499,7 @@ class IdpReports extends Component
             }
             
             //dd($this->arrays);
-            return view('livewire.idp-reports', [
+            return view('livewire.idp.idp-reports', [
             'idps' => $lists
         ]);
     }

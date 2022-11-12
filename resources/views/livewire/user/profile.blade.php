@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-    @include('livewire.profile-modal')
+    @include('livewire.user.profile-modal')
     @include('livewire.main-modal')
 
     @section('script')

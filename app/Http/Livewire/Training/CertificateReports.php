@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Training;
 
 use ZipArchive;
 use Carbon\Carbon;
@@ -242,6 +242,6 @@ class CertificateReports extends Component
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(10);
         }
-        return view('livewire.certificate-reports', ['trainings' => $lists]);
+        return view('livewire.training.certificate-reports', ['trainings' => $lists]);
     }
 }

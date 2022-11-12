@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Idp;
 
 use ZipArchive;
 use Carbon\Carbon;
@@ -905,7 +905,7 @@ class IdpShow extends Component
 
         
 
-            return view('livewire.idp-show', [
+            return view('livewire.idp.idp-show', [
             'idps' => $lists
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
@@ -203,6 +203,6 @@ class Profile extends Component
         
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
-        return view('livewire.profile');
+        return view('livewire.user.profile');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Training;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -318,6 +318,6 @@ class TrainingReports extends Component
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(5);
         }
-        return view('livewire.training-reports', ['trainings' => $lists]);
+        return view('livewire.training.training-reports', ['trainings' => $lists]);
     }
 }

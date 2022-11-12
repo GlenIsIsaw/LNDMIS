@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Training;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -855,6 +855,6 @@ class TrainingShow extends Component
         }
 
                                     
-        return view('livewire.training-show', ['trainings' => $lists]);
+        return view('livewire.training.training-show', ['trainings' => $lists]);
     }
 }

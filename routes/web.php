@@ -1,17 +1,19 @@
 <?php
 
 use App\Http\Livewire\Main;
-use App\Http\Livewire\IdpShow;
-use App\Http\Livewire\Profile;
-use App\Http\Livewire\UserShow;
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\IdpReports;
-use App\Http\Livewire\TrainingShow;
+use App\Http\Livewire\idp\IdpShow;
+
+use App\Http\Livewire\user\Profile;
+use App\Http\Livewire\User\UserShow;
+
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\idp\IdpReports;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\TrainingReports;
-use App\Http\Livewire\AttendanceReports;
-use App\Http\Livewire\CertificateReports;
+use App\Http\Livewire\Training\TrainingShow;
+use App\Http\Livewire\Training\TrainingReports;
+use App\Http\Livewire\Training\CertificateReports;
+use App\Http\Livewire\attendance\AttendanceReports;
 
 /*
 |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\User;
 
 use App\Models\User;
 use App\Models\College;
@@ -325,6 +325,6 @@ class UserShow extends Component
                         ->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy('users.updated_at','DESC')
                         ->paginate(3);
-        return view('livewire.User-show', ['users' => $Users]);
+        return view('livewire.user.User-show', ['users' => $Users]);
     }
 }
