@@ -53,7 +53,7 @@
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-pen"></i><br>Create</button>
                                                         @else
-                                                            <button type="button" wire:click="showButton({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="show({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-pen"></i><br>Show</button>
                                                             

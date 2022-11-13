@@ -17,7 +17,7 @@ class QemShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $currentUrl, $toggle, $training_id, $name, $certificate_title, $date_covered, $date_eval, $venue, $sponsors, $remarks, $total_average, $rating, $qem_id;
+    public $currentUrl, $toggle, $training_id, $name, $certificate_title, $date_covered, $date_eval, $venue, $sponsors, $remarks, $total_average, $rating, $qem_id, $supervisor;
     public $content, $benefits, $realization = [];
     public $state = null;
     public $next = null;
@@ -64,7 +64,6 @@ class QemShow extends Component
         $this->training_id = $lists->training_id;
         $this->name = $lists->name;
         $this->certificate_title = $lists->certificate_title;
-        $this->date_eval =  date("Y-m-d");
 
         //dd($lists);
 
@@ -292,6 +291,39 @@ class QemShow extends Component
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
     }
+    public function show(int $id){
+        $qem = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency', 'content','benefits', 'realization', 'supervisor','total_average', 'remarks', 'qems.created_at As date_eval')
+                    ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->where('list_of_trainings.status','Approved')
+                    ->where('list_of_trainings.id',$id)
+                    ->first();
+        //dd($qem);
+        if ($qem) {
+            $this->qem_id = $qem->qem_id;
+            $this->name = $qem->name;
+            $this->certificate_title = $qem->certificate_title;
+            $this->remarks = $qem->remarks;
+            $this->date_covered = $qem->date_covered;
+            $this->date_eval = $qem->date_eval;
+            $this->venue = $qem->venue;
+            $this->sponsors = $qem->sponsors;
+            $this->content = json_decode($qem->content, true);
+            $this->benefits = json_decode($qem->benefits, true);
+            $this->realization = json_decode($qem->realization, true);
+            $this->total_average = $qem->total_average;
+            $this->supervisor = $qem->supervisor;
+            $this->rating();
+            //dd($this->content);
+            $this->showButton();
+        } else {
+            session()->flash('message','No Data');
+            $this->backButton();
+        }
+
+    }
     public function closeModal()
     {
         $this->resetInput();
@@ -300,6 +332,7 @@ class QemShow extends Component
     public function resetInput()
     {
         $this->training_id = null;
+        $this->qem_id = null;
         $this->name = null;
         $this->certificate_title = null;
         $this->date_covered = null;
@@ -311,6 +344,7 @@ class QemShow extends Component
         $this->content = [];
         $this->benefits = [];
         $this->realization = [];
+        $this->supervisor = null;
         $this->resetErrorBag();
     }
     public function resetFilter(){
