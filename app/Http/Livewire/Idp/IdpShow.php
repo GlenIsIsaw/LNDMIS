@@ -19,7 +19,7 @@ class IdpShow extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    
+     
     public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature, $year_table, $id_array, $currentUrl, $toggle;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];

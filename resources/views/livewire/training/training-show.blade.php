@@ -97,7 +97,7 @@
                                                     <td>{{ $training->type }}</td>
                                                     <td>{{ $training->status }}</td>
                                                     
-
+ 
                                                     
                                                     @if ($training->attendance_form == 0)
                                                 
