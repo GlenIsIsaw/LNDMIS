@@ -22,7 +22,7 @@
                     @else
                         <div class="card">
                             <div class="card-header">
-                                <h6>QEM</h6>
+                                <h6>{{$table}}</h6>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive table-bordered text-center">
@@ -35,6 +35,10 @@
                                                 <th scope="col">Date Conducted</th>
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
+                                                @if ($table != 'Training Need QEM')
+                                                    <th scope="col">Status</th>
+                                                @endif
+
                                                 <th class="text-danger"scope="col">Actions</th>
                                             </tr>
                                         </thead>
@@ -47,12 +51,28 @@
                                                     <td>{{$training->date_covered}}</td>
                                                     <td>{{$training->venue}}</td>
                                                     <td>{{$training->sponsors}}</td>
+                                                    @if ($table != 'Training Need QEM')
+                                                        <td>{{$training->confirmation_status}}</td>
+                                                    @endif
+
                                                     <td>
                                                         @if ($training->qem == 0)
                                                             <button type="button" wire:click="createButton({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-pen"></i><br>Create</button>
                                                         @else
+                                                            @if ($table != 'Training Need QEM')
+                                                                @if ($training->confirmation_status == 'Not Submitted')
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                        to bottom, #870000,
+                                                                        #190A05);"><i class="fas fa-pen"></i><br>Submit</button>
+                                                                @endif
+                                                                @if ($training->confirmation_status == 'Pending')
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#approveQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                        to bottom, #870000,
+                                                                        #190A05);"><i class="fas fa-pen"></i><br>Approve</button>
+                                                                @endif
+                                                            @endif
                                                             <button type="button" wire:click="show({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-pen"></i><br>Show</button>
@@ -63,6 +83,9 @@
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getId({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-pen"></i><br>Delete</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getId({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #870000,
+                                                                #190A05);"><i class="fas fa-pen"></i><br>Download</button>
                                                         @endif
 
 
@@ -111,7 +134,8 @@
             $('#editConfirmationQemModal').modal('hide');
             $('#createConfirmationQemModal').modal('hide');
             $('#deleteQemModal').modal('hide');
-            
+            $('#submitQemModal').modal('hide');
+            $('#approveQemModal').modal('hide');
 
             $('#notificationModal').modal('hide');
             

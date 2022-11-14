@@ -69,3 +69,51 @@
         </div>
     </div>
 </div>
+
+<!-- Submit Qem Modal -->
+<div wire:ignore.self class="modal fade" id="submitQemModal" tabindex="-1" aria-labelledby="submitQemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-uppercase" id="submitQemModalLabel">Submit QEM</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="submit">
+                <div class="modal-body fw-bold text-uppercase">
+                    <h4>Are you sure you want to submit your QEM ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Qem Modal -->
+<div wire:ignore.self class="modal fade" id="approveQemModal" tabindex="-1" aria-labelledby="approveQemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-uppercase" id="approveQemModalLabel">Submit QEM</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="approve">
+                <div class="modal-body fw-bold text-uppercase">
+                    <h4>Are you sure you want to approve this QEM ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th>Particulars</th>
-                <th colspan="3">Rating</th>
+                <th colspan="4">Rating</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +18,7 @@
                 <td>Very Effective - 3</td>
                 <td>Effective - 2</td>
                 <td>Not Effective - 1</td>
+                <td>N/A</td>
             </tr>
 
             <tr>
@@ -33,6 +34,9 @@
                 <td>
                     <input class="form-check-input" type="radio" wire:model="content.0" value="1" >
                 </td>
+                <td>
+                    <input class="form-check-input" type="radio" wire:model="content.0">
+                </td>
             </tr>
             <tr>
                 <td>
@@ -47,6 +51,9 @@
                 <td>
                     <input class="form-check-input" type="radio" wire:model="content.1" value="1" >
                 </td>
+                <td>
+                    <input class="form-check-input" type="radio" wire:model="content.1" >
+                </td>
             </tr>
             <tr>
                 <td>
@@ -60,6 +67,9 @@
                 </td>
                 <td>
                     <input class="form-check-input" type="radio" wire:model="content.2" value="1" >
+                </td>
+                <td>
+                    <input class="form-check-input" type="radio" wire:model="content.2" >
                 </td>
             </tr>
 

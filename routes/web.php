@@ -36,6 +36,10 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::get('/attendance/Reports', AttendanceReports::class);
     Route::get('/certificate/Reports', CertificateReports::class);
     Route::get('/user', UserShow::class);
+
+});
+
+Route::middleware(['auth','isSupervisor'])->group(function () {
     Route::get('/qem/trainings', QemShow::class);
 
 });

@@ -19,6 +19,8 @@ class QemShow extends Component
 
     public $currentUrl, $toggle, $training_id, $name, $certificate_title, $date_covered, $date_eval, $venue, $sponsors, $remarks, $total_average, $rating, $qem_id, $supervisor;
     public $content, $benefits, $realization = [];
+    public $query = [];
+    public $table = 'Training Need QEM';
     public $state = null;
     public $next = null;
 
@@ -44,6 +46,34 @@ class QemShow extends Component
     public function back(){
         $this->total_average = null;
         --$this->next;
+    }
+
+    public function checkTable(){
+        if($this->table == 'Pending QEM'){
+
+            $this->query = ['qems.status','Pending'];
+        }
+        if($this->table == 'Approved QEM'){
+
+            $this->query = ['qems.status','Approved'];
+        }
+
+    } 
+    public function SubmitQEM(){
+        $this->backButton();
+        $this->table = 'Not Submitted QEM';
+    }
+    public function trainingNeedQem(){
+        $this->backButton();
+        $this->table = 'Training Need QEM';
+    }
+    public function PendingQem(){
+        $this->backButton();
+        $this->table = 'Pending QEM';
+    }
+    public function ApprovedQem(){
+        $this->backButton();
+        $this->table = 'Approved QEM';
     }
 
     public function createButton($id){
@@ -120,15 +150,25 @@ class QemShow extends Component
             'content.1' => 'required',
             'content.2' => 'required',
         ]);
-
+        
         $sum = 0;
+        $count = 0;
             for ($i=0; $i < 3; $i++) { 
-                $sum += $this->content[$i];
+                if ($this->content[$i] != 'on') {
+                    $sum += $this->content[$i];
+                    $count++;
+                }
+                
             }
         $this->content['total'] = $sum;
-        $this->content['average'] = round($sum/3, 2);
+        if ($count) {
+            $this->content['average'] = round($sum/$count, 2);
+        }else {
+            $this->content['average'] = 0;
+        }
+        
+        
         //dd($this->content);
-
         ++$this->next;
     }
     public function part2(){
@@ -141,11 +181,20 @@ class QemShow extends Component
 
 
         $sum = 0;
-        for ($i=0; $i < 4; $i++) { 
-            $sum += $this->benefits[$i];
-        }
+        $count = 0;
+            for ($i=0; $i < 3; $i++) { 
+                if ($this->benefits[$i] != 'on') {
+                    $sum += $this->benefits[$i];
+                    $count++;
+                }
+                
+            }
         $this->benefits['total'] = $sum;
-        $this->benefits['average'] = round($sum/4, 2);
+        if ($count) {
+            $this->benefits['average'] = round($sum/$count, 2);
+        }else {
+            $this->benefits['average'] = 0;
+        }
 
         //dd($this->benefits);
         ++$this->next;
@@ -160,16 +209,42 @@ class QemShow extends Component
 
 
         $sum = 0;
-        for ($i=0; $i < 3; $i++) { 
-            $sum += $this->realization[$i];
-        }
+        $count = 0;
+            for ($i=0; $i < 3; $i++) { 
+                if ($this->realization[$i] != 'on') {
+                    $sum += $this->realization[$i];
+                    $count++;
+                }
+                
+            }
         $this->realization['total'] = $sum;
-        $this->realization['average'] = round($sum/3, 2);
+        if ($count) {
+            $this->realization['average'] = round($sum/$count, 2);
+        }else {
+            $this->realization['average'] = 0;
+        }
+        //dd($this->realization);
+        $count = 0;
+        if ($this->realization['average']) {
+            $count++;
+        }
+        if ($this->benefits['average']) {
+            $count++;
+        }
+        if ($this->content['average']) {
+            $count++;
+        }
 
-        $this->total_average = round(($this->realization['average'] + $this->benefits['average'] + $this->content['average']) / 3, 2);
+        $rateSum = $this->realization['average'] + $this->benefits['average'] + $this->content['average'];
+        if ($count) {
+            $this->total_average = round($rateSum / $count, 2);
+        }else {
+            $this->total_average = 0;
+        }
+        //dd($this->total_average);
         $this->rating();
         ++$this->next;
-        //dd($this->realization);
+        
 
     }
     public function rating(){
@@ -182,6 +257,9 @@ class QemShow extends Component
         }
         if($this->total_average >= 1.0 && $this->total_average <= 1.80){
             $this->rating = 'Not Effective';
+        }
+        if(!$this->total_average){
+            $this->rating = 'No Rating';
         }
 
 
@@ -219,14 +297,26 @@ class QemShow extends Component
             $qem->remarks = ' ';
         }
 
-        $qem->save();
+        $check = Qem::where('list_of_training_id', $this->training_id)
+                    ->first();
+        if($check){
+            session()->flash('message','The Training already has a QEM');
+            $this->backButton();
+            $this->dispatchBrowserEvent('close-modal');
+        }else {
 
-        $training = ListOfTraining::find($this->training_id);
-        $training->qem = 1;
-        $training->save();
-        session()->flash('message','QEM Created Successfuly');
-        $this->backButton();
-        $this->dispatchBrowserEvent('close-modal');
+            if (auth()->user()->role_as == 2) {
+                $qem->status = 'Approved';
+            }
+            $qem->save();
+            $training = ListOfTraining::find($this->training_id);
+            $training->qem = 1;
+            $training->save();
+            session()->flash('message','QEM Created Successfuly');
+            $this->backButton();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
 
     }
     public function edit($id){
@@ -324,6 +414,49 @@ class QemShow extends Component
         }
 
     }
+    public function getQemId(int $id){
+        $this->qem_id = $id;
+    }
+    public function submit(){
+        $list = Qem::find($this->qem_id);
+        if(auth()->user()->role_as == 1)
+        {
+            if ($list->status == 'Not Submitted'){
+                    session()->flash('message','Qem Submitted');
+                    $list->status = 'Pending';
+                    $list->save();
+                    $this->backButton();
+                    $this->dispatchBrowserEvent('close-modal');
+
+
+            }else{
+                session()->flash('message','The training has already been submitted or accepted');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else{
+            session()->flash('message','You do not have the authority to submit this');
+            $this->dispatchBrowserEvent('close-modal');
+        }
+    }
+    public function approve(){
+        $list = Qem::find($this->qem_id);
+        if(auth()->user()->role_as == 2)
+        {
+            if ($list->status == 'Pending'){
+                    session()->flash('message','Qem Approved');
+                    $list->status = 'Approved';
+                    $list->save();
+                    $this->backButton();
+                    $this->dispatchBrowserEvent('close-modal');
+            }else{
+                session()->flash('message','The training has already been approved');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else{
+            session()->flash('message','You do not have the authority to approve this');
+            $this->dispatchBrowserEvent('close-modal');
+        }
+    }
     public function closeModal()
     {
         $this->resetInput();
@@ -370,16 +503,44 @@ class QemShow extends Component
     public function render()
     {
         $this->notification();
+        $this->checkTable();
         $this->dispatchBrowserEvent('toggle');
 
-        $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency', 'qem')
-            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-            ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-            ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
-            ->where('college_id',auth()->user()->college_id)
-            ->where('list_of_trainings.status','Approved')
-            ->orderBy('list_of_trainings.updated_at','desc')
-            ->paginate(10);
+        if ($this->table == 'Training Need QEM') {
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('list_of_trainings.status','Approved')
+                ->where('qem',0)
+                ->orderBy('list_of_trainings.updated_at','desc')
+                ->paginate(10);
+        }elseif ($this->table == 'Not Submitted QEM') {
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('qems.status','Not Submitted')
+                ->where('list_of_trainings.status','Approved')
+                ->orderBy('list_of_trainings.updated_at','desc')
+                ->paginate(10);
+
+        }
+        else{
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where($this->query[0],$this->query[1])
+                ->where('list_of_trainings.status','Approved')
+                ->orderBy('list_of_trainings.updated_at','desc')
+                ->paginate(10);
+        }
+
+
 
         return view('livewire.qem.qem-show', ['trainings' => $lists]);
     }

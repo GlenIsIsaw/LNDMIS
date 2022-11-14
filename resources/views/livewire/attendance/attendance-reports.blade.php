@@ -25,6 +25,8 @@
                                         <th>Venue</th>
                                         <th>Sponsors</th>
                                         <th>Competency</th>
+                                        <th>Date Created</th>
+
                                     </thead>
                                     <tbody>
                                         @forelse ($trainings as $training)
@@ -36,6 +38,7 @@
                                                 <td>{{$training->venue}}</td>
                                                 <td>{{$training->sponsors}}</td>
                                                 <td>{{$training->competency}}</td>
+                                                <td>{{$training->date_created}}</td>
                                             </tr>
                                         @empty
                                         <tr>

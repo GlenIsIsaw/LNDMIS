@@ -55,7 +55,7 @@
 
                 <tr>
                     <th>Particulars</th>
-                    <th colspan="4">Rating</th>
+                    <th colspan="5">Rating</th>
                 </tr>
 
                 <tr>
@@ -65,6 +65,7 @@
                     <td>Very Effective - 3</td>
                     <td>Effective - 2</td>
                     <td>Not Effective - 1</td>
+                    <td>N/A</td>
                     <td>Numerical & Adjectival Rating</td>
                 </tr>
     
@@ -82,7 +83,15 @@
                         <input class="form-check-input" type="radio" wire:model="content.0" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$content[0]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="content.0" disabled>
+                    </td>
+                    <td>
+                        @if ($content[0] == 'on')
+                        <p>N/A</p>
+                        @else
+                            <p>{{$content[0]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
@@ -99,7 +108,15 @@
                         <input class="form-check-input" type="radio" wire:model="content.1" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$content[1]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="content.1" disabled>
+                    </td>
+                    <td>
+                        @if ($content[1] == 'on')
+                        <p>N/A</p>
+                        @else
+                            <p>{{$content[1]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
@@ -116,15 +133,23 @@
                         <input class="form-check-input" type="radio" wire:model="content.2" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$content[2]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="content.2" disabled>
+                    </td>
+                    <td>
+                        @if ($content[2] == 'on')
+                        <p>N/A</p>
+                        @else
+                            <p>{{$content[2]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="4">SUB-TOTAL RATING</th>
+                    <th colspan="5">SUB-TOTAL RATING</th>
                     <td><p>{{$content['total']}}</p></td>
                 </tr>
                 <tr>
-                    <th colspan="4">AVERAGE RATING</th>
+                    <th colspan="5">AVERAGE RATING</th>
                     <td><p>{{$content['average']}}</p></td>
                 </tr>
     
@@ -133,7 +158,7 @@
 
                 <tr>
                     <th>Particulars</th>
-                    <th colspan="4">Rating</th>
+                    <th colspan="5">Rating</th>
                 </tr>
 
                 <tr>
@@ -143,6 +168,7 @@
                     <td>Very Effective - 3</td>
                     <td>Effective - 2</td>
                     <td>Not Effective - 1</td>
+                    <td>N/A</td>
                     <td>Numerical & Adjectival Rating</td>
                 </tr>
     
@@ -160,7 +186,15 @@
                         <input class="form-check-input" type="radio" wire:model="benefits.0" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$benefits[0]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="benefits.0" disabled>
+                    </td>
+                    <td>
+                        @if ($benefits[0] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$benefits[0]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
@@ -177,7 +211,15 @@
                         <input class="form-check-input" type="radio" wire:model="benefits.1" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$benefits[1]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="benefits.1" disabled>
+                    </td>
+                    <td>
+                        @if ($benefits[1] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$benefits[1]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
@@ -194,7 +236,15 @@
                         <input class="form-check-input" type="radio" wire:model="benefits.2" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$benefits[2]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="benefits.2" disabled>
+                    </td>
+                    <td>
+                        @if ($benefits[2] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$benefits[2]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
     
@@ -212,16 +262,24 @@
                         <input class="form-check-input" type="radio" wire:model="benefits.3" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$benefits[3]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="benefits.3" disabled>
+                    </td>
+                    <td>
+                        @if ($benefits[3] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$benefits[3]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="4">SUB-TOTAL RATING</th>
+                    <th colspan="5">SUB-TOTAL RATING</th>
                     <td><p>{{$benefits['total']}}</p></td>
                 </tr>
                 <tr>
-                    <th colspan="4">AVERAGE RATING</th>
+                    <th colspan="5">AVERAGE RATING</th>
                     <td><p>{{$benefits['average']}}</p></td>
                 </tr>
 
@@ -231,7 +289,7 @@
             <thead>
                 <tr>
                     <th>Particulars</th>
-                    <th colspan="4">Rating</th>
+                    <th colspan="5">Rating</th>
                 </tr>
             </thead>
             <tbody>
@@ -242,6 +300,7 @@
                     <td>Very Effective - 3</td>
                     <td>Effective - 2</td>
                     <td>Not Effective - 1</td>
+                    <td>N/A</td>
                     <td>Numerical & Adjectival Rating</td>
                 </tr>
     
@@ -259,7 +318,15 @@
                         <input class="form-check-input" type="radio" wire:model="realization.0" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$realization[0]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="realization.0" disabled>
+                    </td>
+                    <td>
+                        @if ($realization[0] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$realization[0]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
@@ -276,7 +343,15 @@
                         <input class="form-check-input" type="radio" wire:model="realization.1" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$realization[1]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="realization.1" disabled>
+                    </td>
+                    <td>
+                        @if ($realization[1] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$realization[1]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
@@ -293,15 +368,23 @@
                         <input class="form-check-input" type="radio" wire:model="realization.2" value="1" disabled>
                     </td>
                     <td>
-                        <p>{{$realization[2]}}</p>
+                        <input class="form-check-input" type="radio" wire:model="realization.2" disabled>
+                    </td>
+                    <td>
+                        @if ($realization[2] == 'on')
+                            <p>N/A</p>
+                        @else
+                            <p>{{$realization[2]}}</p>
+                        @endif
+                        
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="4">SUB-TOTAL RATING</th>
+                    <th colspan="5">SUB-TOTAL RATING</th>
                     <td><p>{{$realization['total']}}</p></td>
                 </tr>
                 <tr>
-                    <th colspan="4">AVERAGE RATING</th>
+                    <th colspan="5">AVERAGE RATING</th>
                     <td><p>{{$realization['average']}}</p></td>
                 </tr>
     

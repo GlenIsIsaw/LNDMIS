@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('total_average');
             $table->text('remarks');
             $table->string('supervisor');
+            $table->string('status')->default('Not Submitted');
             $table->timestamps();
         });
     }
