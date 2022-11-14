@@ -19,7 +19,7 @@
                     <div class="p-2 flex-fill bd-highlight">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$ListOfTraining_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center px-3 py-2" style="background-image: linear-gradient(
                             to bottom, #43C6AC,
-                            #191654);"><i class="fas fa-certificate"></i>Current Certificate</button>
+                            #191654);"><i class="fas fa-certificate me-2"></i>Show Current Certificate</button>
                     </div>
                 </div>
                 <hr class="h-color mx-2 mt-3">

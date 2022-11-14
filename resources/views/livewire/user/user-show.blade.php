@@ -74,11 +74,11 @@
                                                             @if ($user->user_status)
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #870000,
-                                                                    #190A05);"><i class="fas fa-trash"></i><br>Disable</button>
+                                                                    #190A05);"><i class="fas fa-user-slash"></i><br>Disable</button>
                                                             @else
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #008000,
-                                                                    #190A05);"><i class="fas fa-trash"></i><br>Enable</button>
+                                                                    #190A05);"><i class="fas fa-thumbs-up"></i><br>Enable</button>
                                                             @endif
 
                                                             @if ($info['name'] == 'No Supervisor')

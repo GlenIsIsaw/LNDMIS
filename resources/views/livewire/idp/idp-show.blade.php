@@ -93,14 +93,14 @@
                                                                 to top, #000000,
                                                                 #0f9b0f);"><i class="fas fa-paper-plane"></i><br>Submit</button>
                                                         @endif
-                                                        <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-light rounded-3 shadow-sm fw-bold text-white text-uppercase px-5 py-2" style="background-image: linear-gradient(
+                                                        <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info rounded-3 shadow-sm fw-bold text-white text-uppercase px-5 py-2" style="background-image: linear-gradient(
                                                             to bottom, #43C6AC,
                                                             #191654);"><i class="fas fa-eye"></i><br>View</button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                             to top, #000000,
                                                             #0f9b0f);"><i class="fas fa-print"></i><br>Print</button>
                                                         @if ($idp->comment)
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info rounded-3 shadow text-uppercase fw-bold px-5 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-white rounded-3 shadow text-uppercase fw-bold px-5 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
                                                                 #191654);"><i class="fas fa-comments"></i><br>Comment</button>
                                                         @endif

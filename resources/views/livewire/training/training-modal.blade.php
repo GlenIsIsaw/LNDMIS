@@ -4,17 +4,20 @@
     aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header ">
                 <h5 class="modal-title" id="showTrainingModalLabel" class="text-break">Show {{$certificate_title}}</h5>
-                <button type="button" wire:click="downloadCert"><i class="fas fa-download"></i></button>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-info text-white float-start text-uppercase py-1" style="background-image: linear-gradient(
+                    to bottom, #43C6AC,
+                    #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
                 @if ($state == 'editTraining')
-                    <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
+                    ><i class="fas fa-times"></i></button>
                 @else
-                    <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
-                    wire:click="closeModal"></button>
+                    <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="closeModal"><i class="fas fa-times"></i></button>
                 @endif
-
+                </div>
             </div>
             <div class="modal-body">
                 @if ($fileType == "pdf")

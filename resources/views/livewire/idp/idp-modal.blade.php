@@ -4,19 +4,19 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="showCommentModalLabel">Comment</h5>
+            <div class="modal-header" class="text-uppercase">
+                <h5 class="modal-title" class="text-uppercase"  id="showCommentModalLabel">COMMENT</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class = "form-control border border-3 border-dark rounded-3">Comment:</label> 
-                        <p>{{$comment}}</p>
+                        
+                        <p class = "fst-normal lh-base mt-3">{{$comment}}</p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
