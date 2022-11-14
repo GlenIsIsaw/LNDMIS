@@ -1,16 +1,19 @@
 <?php
 
 use App\Http\Livewire\Main;
+use App\Http\Livewire\Qem\Qem;
 use App\Http\Livewire\Dashboard;
+
 use App\Http\Livewire\idp\IdpShow;
+use App\Http\Livewire\Qem\QemShow;
 
 use App\Http\Livewire\user\Profile;
 use App\Http\Livewire\User\UserShow;
-
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\idp\IdpReports;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Training\TrainingShow;
+
 use App\Http\Livewire\Training\TrainingReports;
 use App\Http\Livewire\Training\CertificateReports;
 use App\Http\Livewire\attendance\AttendanceReports;
@@ -33,6 +36,11 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::get('/attendance/Reports', AttendanceReports::class);
     Route::get('/certificate/Reports', CertificateReports::class);
     Route::get('/user', UserShow::class);
+
+});
+
+Route::middleware(['auth','isSupervisor'])->group(function () {
+    Route::get('/qem/trainings', QemShow::class);
 
 });
 

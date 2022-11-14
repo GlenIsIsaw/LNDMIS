@@ -19,6 +19,7 @@
             
             <button type="button" class="btn btn-danger" wire:click="backButton" data-bs-dismiss="modal">Close</button>
             <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationIdpModal" class="btn btn-primary">Save</button>
-        @endif
             </div>
+        @endif
+            
 </div>

@@ -30,6 +30,7 @@
                                             <th scope="col">Venue</th>
                                             <th scope="col">Sponsors</th>
                                             <th scope="col">Type</th>
+                                            <th scope="col">Created At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,6 +45,7 @@
                                                 <td>{{ $training->venue }}</td>
                                                 <td>{{ $training->sponsors }}</td>
                                                 <td>{{ $training->type }}</td>
+                                                <td>{{ $training->date_created }}</td>
 
                                             </tr>
                                         

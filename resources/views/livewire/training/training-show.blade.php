@@ -76,6 +76,7 @@
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
+                                                <th scope="col">Created At</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col" class="text-danger">Attendance Form Actions</th>
                                                 <th scope="col" class="text-danger">Certificate Actions</th>
@@ -95,9 +96,10 @@
                                                     <td>{{ $training->venue }}</td>
                                                     <td>{{ $training->sponsors }}</td>
                                                     <td>{{ $training->type }}</td>
+                                                    <td>{{ $training->date_created }}</td>
                                                     <td>{{ $training->status }}</td>
                                                     
-
+ 
                                                     
                                                     @if ($training->attendance_form == 0)
                                                 

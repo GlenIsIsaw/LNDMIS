@@ -20,7 +20,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType;
+    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
@@ -347,19 +347,55 @@ class TrainingShow extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
     public function createAttendanceForm($id){
-        $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title')
+        $test = ListOfTraining::select('idps.user_id As idp_id')
+            ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
+            ->where('list_of_trainings.id', $id)
+            ->where('year', date('Y'))
+            ->first();
+        if($test){
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title','competency', 'idps.user_id As idp_id')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
                                     ->where('list_of_trainings.id', $id)
+                                    ->where('year', date('Y'))
                                     ->first();
-        if($lists){
-            $this->ListOfTraining_id = $lists->training_id;
-            $this->name = $lists->name;
-            $this->certificate_title = $lists->certificate_title;
-            $this->createAttButton();
-        }else{
-            return redirect()->to('/empTraining')->with('message','No results found');
+            if($lists){
+                $this->ListOfTraining_id = $lists->training_id;
+                $this->idp_competency = json_decode($lists->competency, true);
+                $this->idp_id = $lists->idp_id;
+                $this->name = $lists->name;
+                $this->certificate_title = $lists->certificate_title;
+                $this->createAttButton();
+                //dd($lists);
+            }else{
+                $this->backButton();
+                session()->flash('message','Some Error Happened');
+                $this->dispatchBrowserEvent('close-modal');
+            }
+        }else {
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
+                ->where('list_of_trainings.id', $id)
+                ->first();
+            if($lists){
+                $this->ListOfTraining_id = $lists->training_id;
+                $this->idp_competency = [];
+                $this->idp_id = null;
+                $this->name = $lists->name;
+                $this->certificate_title = $lists->certificate_title;
+                $this->createAttButton();
+            //dd($lists);
+            }else{
+                $this->backButton();
+                session()->flash('message','Some Error Happened');
+                $this->dispatchBrowserEvent('close-modal');
+            }
         }
+        
     }
+
 
     public function storeAttendanceForm(){
         $this->next = 0;
@@ -370,9 +406,17 @@ class TrainingShow extends Component
             'outcome' => 'required',
             'personal_action' => 'required'
         ]);
+        //dd($validatedData);
         $list = new AttendanceForm();
+        if(strpos($this->competency, '#')){
+            $array = explode('#', $this->competency);
+            $list->idp_id = $array[0];
+            $list->competency = end($array);
+        }else {
+            $list->competency =$this->competency;
+        }
         $list->list_of_training_id = $this->ListOfTraining_id;
-        $list->competency =$this->competency;
+        
         $list->knowledge_acquired =$this->knowledge_acquired;
         $list->outcome =$this->outcome;
         $list->personal_action =$this->personal_action;
@@ -825,7 +869,7 @@ class TrainingShow extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','list_of_trainings.created_at As date_created')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
@@ -835,12 +879,12 @@ class TrainingShow extends Component
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
-                ->whereBetween('date_covered',[$start_date,$end_date])
+                ->whereBetween('list_of_trainings.created_at',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(3);
         }else {
 
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','list_of_trainings.created_at As date_created')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])

@@ -17,6 +17,10 @@ class ListOfTraining extends Model
     {
         return $this->hasOne(AttendanceForm::class);
     }
+    public function qem()
+    {
+        return $this->hasOne(Qem::class);
+    }
     public function scopeFilter($query, array $filters){
         if($filters['level'] ?? false){
             $query->where('level','like','%'. request('level') . '%');

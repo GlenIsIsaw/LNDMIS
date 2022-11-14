@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attendance_forms', function (Blueprint $table) {
+        Schema::create('qems', function (Blueprint $table) {
             $table->id();
             $table->foreignId('list_of_training_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('idp_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('competency');
-            $table->text('knowledge_acquired');
-            $table->text('outcome');
-            $table->text('personal_action');
+            $table->json('content');
+            $table->json('benefits');
+            $table->json('realization');
+            $table->integer('total_average');
+            $table->text('remarks');
+            $table->string('supervisor');
+            $table->string('status')->default('Not Submitted');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendance_forms');
+        Schema::dropIfExists('qems');
     }
 };

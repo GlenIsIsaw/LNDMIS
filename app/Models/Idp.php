@@ -23,6 +23,11 @@ class Idp extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function AttendanceForm()
+    {
+        return $this->hasOne(AttendanceForm::class);
+    }
+    
     public function scopeFilter($query, array $filters){
         if($filters['submit_status'] ?? false){
             $query->where('submit_status','like','%'. request('submit_status') . '%');

@@ -16,10 +16,31 @@
     </select>
     @error('ListOfTraining_id') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
+
 <div class="mb-3">
     <label class="fw-bold">Specific Competency Target to Enhance</label>
     <select wire:model="competency" class="form-control border border-3 border-secondary">
         <option value="">...</option>
+        @if ($idp_competency)
+        
+        @php
+
+        foreach ($comps as $key => $comp){
+                        foreach ($comp as $num => $item){
+                            foreach ($idp_competency as $samp) {
+                                if($item->competency_name == $samp){
+                                    unset($comps[$key][$num]);
+                                }
+                            }
+                        }
+                    }
+        @endphp
+            <optgroup label="Idp:{{date('Y')}}">
+                @foreach ($idp_competency as $item)
+                    <option value="{{$idp_id.'#'.$item}}">{{$item}}</option>
+                @endforeach
+        @endif
+
         @foreach ($comps as $key => $comp)
         <optgroup label={{$key}}>
             @foreach ($comp as $item)
