@@ -66,28 +66,28 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-grid gap-3">
-                                                            <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="editUser({{$user->user_id}})" class="btn-info text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #000046, 
                                                                 #1CB5E0);"><i class="fas fa-pen"></i><br>
                                                                 Edit
                                                             </button>
                                                             @if ($user->user_status)
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #870000,
                                                                     #190A05);"><i class="fas fa-user-slash"></i><br>Disable</button>
                                                             @else
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #008000,
                                                                     #190A05);"><i class="fas fa-thumbs-up"></i><br>Enable</button>
                                                             @endif
 
                                                             @if ($info['name'] == 'No Supervisor')
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-primary text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #000046, 
                                                                     #1CB5E0);"><i class="fas fa-check"></i><br>Make as Supervisor</button>
                                                             @endif
                                                             @if ($user->user_id == $info['supId'])
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-light text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"  style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"  style="background-image: linear-gradient(
                                                                     to bottom, #870000,
                                                                     #190A05);"><i class="fas fa-times"></i><br>Not Supervisor</button>
                                                             @endif

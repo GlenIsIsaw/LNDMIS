@@ -144,7 +144,7 @@
                                                                     to bottom, #43C6AC,
                                                                     #191654);"><i class="fas fa-comments"></i>Comment</button>
                                                             @endif
-                                                        @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
+                                                    @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                             @if ($training->attendance_form == 1) 
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-white rounded-3 shadow text-uppercase fw-bold px-2 py-2" style="background-image: linear-gradient(
                                                                     to top, #000000,
@@ -156,7 +156,8 @@
                                                        
 
                                                         
-                                                        @if ($training->status != 'Approved')
+                                                          @if ($training->status != 'Approved') 
+                                                     
                                                     
                                                             @if ($training->status == 'Pending')
                                                                 @if (auth()->user()->role_as == 1)

@@ -10,24 +10,24 @@
             </div>
             <form wire:submit.prevent="changePass">
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <div class="mb-3 fw-bold">
                         <label>Current Password</label>
-                        <input type="password" wire:model="current_password" class="form-control">
+                        <input type="password" wire:model="current_password" class="form-control border-dark border-2">
                         @error('current_password') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 fw-bold">
                         <label>New Password</label>
-                        <input type="password" wire:model="password" class="form-control">
+                        <input type="password" wire:model="password" class="form-control border-dark border-2">
                         @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 fw-bold">
                         <label>Confirm New Password</label>
-                        <input type="password" wire:model="password_confirmation" class="form-control">
+                        <input type="password" wire:model="password_confirmation" class="form-control border-dark border-2">
                         @error('password_confirmation') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closePass"
+                    <button type="button" class="btn btn-danger" wire:click="closePass"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -51,7 +51,7 @@
                     <h6>Are you sure you want to edit your User info?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>

@@ -15,7 +15,7 @@
                     <h4>Are you sure?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes!</button>
                 </div>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
@@ -67,7 +67,7 @@
                     <h6>Are you sure you want to save your input?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -91,7 +91,7 @@
                     <h6>Are you sure you want to edit your User info?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>
@@ -115,7 +115,7 @@
                     <h6>Are you sure you want make him/her a supervisor?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes!</button>
                 </div>
@@ -139,7 +139,7 @@
                     <h6>Are you sure you want to not make him/her a supervisor?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes!</button>
                 </div>
@@ -177,7 +177,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closePass"
+                    <button type="button" class="btn btn-danger" wire:click="closePass"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>

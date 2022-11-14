@@ -22,9 +22,9 @@
                     @else
                         <div class="card">
                             <div class="card-header">
-                                <h6>{{$table}}
+                                <h4>{{$table}}
                                    
-                                   </h6>
+                                   </h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive table-bordered text-center">

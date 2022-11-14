@@ -30,10 +30,9 @@
   
   #wrapper {
     overflow-x: hidden;
-    background-image:url("images/png.png");
+    background-image:url('../images/png.png');
     background-repeat: no-repeat;
     background-size: cover;
-   
     
     
   }
