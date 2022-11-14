@@ -21,15 +21,16 @@
 </head>
 
 
+
 <body>
     
 
     <div id="app">
-        <nav class="navbar blue-text navbar-expand-md shadow-sm py-3 px-2" style="background-color:#800000;">
+        <nav class="navbar blue-text navbar-expand-md shadow-sm py-3 px-2 shadow-4" style="background-color:#FFFFFF;">
            
             <div class="container-fluid">
                 
-                <button class="btn btn-link rounded-circle text-light pt-3 fw-bold text-uppercase" style="background-color: #800000;" type="button" id="menu-toggle"><i class="fas fa-bars fa-lg"></i></button>
+                <button class="btn btn-link rounded-circle text-light py-3 fw-bold text-uppercase" type="button" id="menu-toggle"><i class="fas fa-bars fa-lg" style="Color: #800000;"></i></button>
                <a href="/">
                 <img src="/images/cnsc.png" alt="CNSC" width="62" height="64" class="d-inline-block align-text-top mx-2">
                
@@ -38,18 +39,20 @@
                 
                 
                 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <i class="fas fa-bars text-light"></i>
+                <button class="navbar-toggler py-3 border-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <i class="fas fa-bars fa-lg" style="Color: #800000;"></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav my-auto">
 
-                        <div class="d-flex justify-content-center text-uppercase font-helvetica fw-bold text-light fs-6 mx-2">
-                            Camarines Norte State College<br>  Learning And Development Management Information System <br>
+                        <div class="d-flex text-center flex-column bd-highlight my-2">
+                            <div class="bd-highlight fw-bold fs-6 text-uppercase">Camarines Norte State College </div>
+                            <div class="bd-highlight fw-light fs-6 text-uppercase pe-5">Learning and Development</div>
                         </div>
-                       
+                      
+                         
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -77,7 +80,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end rounded-3 border-light border-3" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end rounded-3 border-none border-3 shadow-4" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
                                     <a role="button" class="dropdown-item fw-bolder" href="/profile">
                                         Profile
                                     </a>

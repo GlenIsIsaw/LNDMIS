@@ -1,4 +1,6 @@
-<button type="button" data-bs-toggle="modal" data-bs-target="#guideIdpModal" class="btn btn-primary rounded-3 px-3 py-2 text-center float-end"><i class="fas fa-save me-2"></i>Guide</button>
+<button type="button" data-bs-toggle="modal" data-bs-target="#guideIdpModal" class="btn-success rounded-3 px-3 py-2 text-center float-end fw-bold shadow-4 me-2" style="background-image: linear-gradient(
+    to top, #000000,
+    #0f9b0f);"><i class="fas fa-scroll me-2"></i></i>Guide</button>
         <div class="mb-3">
             <label><h6>Name:</h6></label>
             <div class="fw-bold">
@@ -35,7 +37,7 @@
                     <th class="text-center">Target Competency</th>
                     <th class="text-center">S/U/G</th>
                     <th class="text-center">Development Activity</th>
-                    <th class="text-center px-4">Person Responsible</th>
+                    <th class="text-center px-4 mx-4">Person Responsible</th>
                     <th class="text-center">Support Needed </th>
                 </thead>
                 <tbody>
@@ -66,7 +68,7 @@
                                 @error('sug') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <textarea type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 100px; width:300px;"></textarea>
+                                <textarea type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 200px; width:300px;"></textarea>
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
@@ -87,9 +89,9 @@
                                     <input type="checkbox" wire:model="input.{{$i}}.{{'VPRE'}}" value="VPRE">
                                     VPRE
                                 </label><br>
-                                <label>
+                                <label class="px-2 my-2">
                                     Others:
-                                    <textarea type="support" wire:model="input.{{$i}}.{{'Others'}}" class="form-control border border-2 rounded-3 border-dark" style="height: 50px; width:100px;"></textarea>
+                                    <textarea type="support" wire:model="input.{{$i}}.{{'Others'}}" class="form-control border border-2 rounded-3 border-dark" style="height: 5px; width:120px;"></textarea>
                                     
                                 </label><br>
                                 @error('input') <span class="text-danger">{{ $message }}</span> @enderror
@@ -97,7 +99,7 @@
                             </td>
 
                             <td>
-                                <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 100px; width:300px;"></textarea>
+                                <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 200px; width:300px;"></textarea>
                                 @error('support.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('support') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>

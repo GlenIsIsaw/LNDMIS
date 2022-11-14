@@ -33,7 +33,7 @@
                 <option value="Others">Others</option>
     </select>
     @if ($certificate_type == 'Others')
-        <label class="fw-bold mt-2 ms-3">Specify The type of Certificate:</label>
+        <label class="fw-bold mt-2 ms-3">Specify The Type of Certificate:</label>
         <input type="text" wire:model="certificate_type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('certificate_type_others') <span class="text-danger">{{ $message }}</span> @enderror
