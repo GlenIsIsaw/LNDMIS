@@ -1,6 +1,6 @@
 <div class="card-header">
     <div class="fw-bolder fs-3 float-start text-uppercase">
-        Create Individual Development Plan for Year 
+        Create Individual Development Plan
 
     </div>
 </div>

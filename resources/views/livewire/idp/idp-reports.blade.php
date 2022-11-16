@@ -11,8 +11,8 @@
                             <div class="fw-bolder fs-4 float-start text-uppercase"> IDP Summary of Year
                                 <select wire:model='year' class="border border-3 border-dark rounded-3">
                                     <option value=""></option>
-                                    @for ($i = 2015; $i <= date('Y') + 1; $i++)
-                                    <option value="{{$i}}">{{$i}}</option>
+                                    @for ($i = date('Y') + 1; $i >= 2015; $i--)
+                                        <option value="{{$i}}">{{$i}}</option>
                                     @endfor
                                     
         

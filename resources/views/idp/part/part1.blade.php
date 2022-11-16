@@ -9,6 +9,17 @@
             </div>
             
         </div>
+        <div class="mb-3">
+            <label><h6>Year:</h6></label>
+            <select wire:model="year">
+                <option value=""></option>
+                @for ($i = date('Y') + 1; $i >= 2015; $i--)
+                    <option value="{{$i}}">{{$i}}</option>
+                @endfor
+                
+            </select>
+            @error('year') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
         <hr class="h-color mx-2 mt-3">
         <div class="mb-3">
             <label><h6>Purpose:</h6></label><br>
@@ -125,7 +136,6 @@
             }
 
             @endphp
-            <div>Input: @json($input)</div>
         </div>
         <hr class="h-color mx-2 mt-3">
         <div class="float-end mx-2 my-2">

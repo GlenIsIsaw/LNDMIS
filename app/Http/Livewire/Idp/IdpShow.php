@@ -91,19 +91,10 @@ class IdpShow extends Component
         --$this->next;
     }
     public function createButton(){
-        $nextYear = date('Y') + 1;
-        $idpYear = Idp::select('year')
-            ->join('users', 'users.id', '=', 'idps.user_id')
-            ->where('users.id',auth()->user()->id)
-            //->whereOr('year', 'like', '%'.$nextYear.'%')
-            ->first();
-        if($idpYear){
-            session()->flash('message','You already have an IDP for year '.$nextYear);
-        }else{
-            $this->next = 0;
-            $this->state = 'create';
 
-        }
+        $this->next = 0;
+        $this->state = 'create';
+
 
     }
     public function updateButton(){
@@ -308,7 +299,7 @@ class IdpShow extends Component
             'input.2' => 'required',
             'support.2' => 'required',
 
-
+            'year' => 'required',
         ]);
 
         $this->purpose_meet = $validatedData['purpose_meet'];
@@ -325,10 +316,17 @@ class IdpShow extends Component
         $this->status = ["Ongoing","Ongoing","Ongoing"];
         
 
+        $idp = Idp::select('year')
+                ->where('year', $this->year)
+                ->where('id', auth()->user()->id)
+                ->get();
+        if ($idp) {
+            session()->flash('message','You already have an IDP for year '.$this->year);
+        }else {
+            $this->transfer();
+            $this->after();
+        }
 
-            
-        $this->transfer();
-        $this->after();
 
 
     }
@@ -376,7 +374,7 @@ class IdpShow extends Component
             $idp->purpose_others = $this->purpose_others;
             $idp->purpose_explain = $this->purpose_explain;
         }
-        $idp->year = date('Y') + 1;
+        $idp->year = $this->year;
         $idp->user_id = auth()->user()->id;
         $idp->competency = $this->competency;
         $idp->sug = $this->sug;
