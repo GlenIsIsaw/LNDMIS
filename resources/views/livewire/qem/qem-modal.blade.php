@@ -131,27 +131,27 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label  class="fw-bold">Search by Name:</label>
-                        <input wire:model="filter_name" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                        <input wire:model="filter_name" class="form-control border border-dark border-3 rounded-3" placeholder="Search..." />
                     </div>
                         <div class="mb-3">
                             <label  class="fw-bold">Search by Qem Title:</label>
-                            <input wire:model="filter_Qem_title" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                            <input wire:model="filter_Qem_title" class="form-control border  border-dark border-3 rounded-3" placeholder="Search..." />
                         </div>
                     
                     <label class="fw-bold">Sort by Date Created:</label>    
                     <div class="mx-3 my-3">
                         <label>Start Date</label>
-                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3"> 
+                        <input type="date" wire:model="start_date" class="form-control border  border-dark border-3 rounded-3"> 
 
                         <label>End Date</label>
-                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
+                        <input type="date" wire:model="end_date" class="form-control border  border-dark border-3 rounded-3">
                     </div>
                     
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
@@ -174,7 +174,7 @@
                     <h6>Are you sure you want to print this?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Print</button>
                 </div>
@@ -198,7 +198,7 @@
                     <h6>Are you sure you want to download all of this?</h6>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Print</button>
                 </div>

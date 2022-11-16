@@ -300,19 +300,19 @@
 
               <button wire:click="trainingNeedQem" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block"style="color: #800000">
                 <i class="fas fa-swatchbook me-2"></i></i>
-                Training Need QEM </button></li>
+               QEM For Training </button></li>
               @if (auth()->user()->role_as == 1)
                 <button wire:click="SubmitQEM" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                   <i class="fas fa-times-circle me-2"></i></i>
-                Not Submitted QEM </button></li>
+                Unfinish QEM </button></li>
               @endif
 
               <button wire:click="ApprovedQem" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                 <i class="fas fa-handshake me-2"></i>
-                Approved Qem </button></li>
+                Approved QEM </button></li>
                 @if (auth()->user()->role_as == 2)
                   <button wire:click="PendingQem" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
-                    <i class="fas fa-handshake me-2"></i>
+                    <i class="fas fa-clock me-2"></i></i>
                     Pending QEM </button></li>
                 @endif
 

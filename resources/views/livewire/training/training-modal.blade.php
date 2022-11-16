@@ -373,13 +373,13 @@
                     @if ($table != 'My Trainings')
                         <div class="mb-3">
                             <label  class="fw-bold">Search by Certificate Title:</label>
-                            <input type="search" wire:model="filter_certificate_title" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                            <input type="search" wire:model="filter_certificate_title" class="form-control border border-dark border-3 rounded-3" placeholder="Search..." />
                         </div>
                     @endif
  
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Status:</label>
-                        <select wire:model="filter_status" class="form-control border border-3 rounded-3">
+                        <select wire:model="filter_status" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
                             <option value="Approved">Approved</option>
                             <option value="Not Submitted">Not Submitted</option>
@@ -390,7 +390,7 @@
                     
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Certificate Type:</label>
-                        <select type="text" wire:model="filter_certificate_type" class="form-control border border-3 rounded-3">
+                        <select type="text" wire:model="filter_certificate_type" class="form-control border border-dark border-3 rounded-3">
                                     <option value="">...</option>
                                     <option value="Certificate of Eligibility">Certificate of Eligibility</option>
                                     <option value="Certificate of Training">Certificate of Training</option>
@@ -405,7 +405,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Level:</label>
-                        <select wire:model="filter_level" class="form-control border border-3 rounded-3">
+                        <select wire:model="filter_level" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
                             <option value="International">International</option>
                             <option value="Local">Local</option>
@@ -416,7 +416,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Type:</label>
-                        <select wire:model="filter_type" class="form-control border border-3 rounded-3">
+                        <select wire:model="filter_type" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
                             <option value="Eligibility">Eligibility</option>
                             <option value="Event-Facilitator">Event-Facilitator</option>
@@ -430,10 +430,10 @@
                     <label class="fw-bold">Sort by Date Covered:</label>    
                     <div class="mx-3 my-3">
                         <label>Start Date</label>
-                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3"> 
+                        <input type="date" wire:model="start_date" class="form-control border border-dark border-3 rounded-3"> 
 
                         <label>End Date</label>
-                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
+                        <input type="date" wire:model="end_date" class="form-control border border-dark border-3 rounded-3">
                     </div>
                     
 
