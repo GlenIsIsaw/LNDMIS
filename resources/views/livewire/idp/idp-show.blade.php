@@ -33,7 +33,11 @@
                         </div>
 
                         <div class="card-header bg-transparent border-0">
-                                
+                                @if ($table == 'My IDPs')
+                                    <div class="mx-2">
+                                        <h6>Approved: {{$approved}} ; Rejected: {{$rejected}} ; Not Submitted: {{$notSubmitted}} ; Pending: {{$pending}}</h6>
+                                    </div>
+                                @endif
                                 
                                 <div class="float-end mx-2">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>

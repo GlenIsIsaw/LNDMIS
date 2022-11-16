@@ -22,6 +22,7 @@ class TrainingShow extends Component
 
     public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others;
+    public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
     protected $queryString = ['search','filter_status','filter_certificate_type', 'filter_level', 'filter_type','start_date', 'end_date','filter_certificate_title'];
@@ -46,6 +47,12 @@ class TrainingShow extends Component
         }else{
             $this->toggle = null;
         }
+    }
+    public function countStatus(){
+        $this->approved = ListOfTraining::where('status', 'Approved')->where('user_id', auth()->user()->id)->count();
+        $this->notSubmitted = ListOfTraining::where('status', 'Not Submitted')->where('user_id', auth()->user()->id)->count();
+        $this->rejected = ListOfTraining::where('status', 'Rejected')->where('user_id', auth()->user()->id)->count();
+        $this->pending = ListOfTraining::where('status', 'Pending')->where('user_id', auth()->user()->id)->count();
     }
 
     public function approvedTraining(){
@@ -865,6 +872,7 @@ class TrainingShow extends Component
     {
         $this->notification();
         $this->checkTable();
+        $this->countStatus();
         $this->dispatchBrowserEvent('toggle');
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();

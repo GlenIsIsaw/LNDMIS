@@ -21,6 +21,7 @@ class IdpShow extends Component
     protected $paginationTheme = 'bootstrap';
      
     public $idp_id,$comment, $name,$position,$yearinPosition,$yearJoined,$supervisor,$user_id,$purpose_meet,$purpose_improve,$purpose_obtain,$purpose_others,$purpose_explain,$compfunction0,$compfunctiondesc0,$compfunction1,$compfunctiondesc1,$diffunction0,$diffunctiondesc0,$diffunction1,$diffunctiondesc1,$career,$created_at, $year,$submit_status, $mySignature,$checkmySignature, $year_table, $id_array, $currentUrl, $toggle;
+    public $approved, $pending, $notSubmitted, $rejected;
     public $competency = [' ',' ',' '];
     public $sug = [' ',' ',' '];
     public $dev_act = [' ',' ',' '];
@@ -51,6 +52,12 @@ class IdpShow extends Component
         }
     }
 
+    public function countStatus(){
+        $this->approved = Idp::where('submit_status', 'Approved')->where('user_id', auth()->user()->id)->count();
+        $this->notSubmitted = Idp::where('submit_status', 'Not Submitted')->where('user_id', auth()->user()->id)->count();
+        $this->rejected = Idp::where('submit_status', 'Rejected')->where('user_id', auth()->user()->id)->count();
+        $this->pending = Idp::where('submit_status', 'Pending')->where('user_id', auth()->user()->id)->count();
+    }
     public function approvedIDP(){
         $this->clear();
         $this->table = 'Approved IDPs';
@@ -88,7 +95,7 @@ class IdpShow extends Component
         $idpYear = Idp::select('year')
             ->join('users', 'users.id', '=', 'idps.user_id')
             ->where('users.id',auth()->user()->id)
-            ->where('year', 'like', '%'.$nextYear.'%')
+            //->whereOr('year', 'like', '%'.$nextYear.'%')
             ->first();
         if($idpYear){
             session()->flash('message','You already have an IDP for year '.$nextYear);
@@ -881,6 +888,7 @@ class IdpShow extends Component
     {
         $this->notification();
         $this->checkTable();
+        $this->countStatus();
         $this->dispatchBrowserEvent('toggle');
         if($this->table == 'Current IDP'){
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
