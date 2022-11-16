@@ -58,7 +58,7 @@
                                         <div class="col-md-3">
                                             <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
-                                        <h6 class="fs-3 fw-bolder" style="color: #926F34">{{$approved}}  </h6>
+                                        <h6 class="fs-2 fw-bolder" style="color: #926F34">{{$approved}}  </h6>
                                         <p class="fs-6 fw-bold">Approved </p>
                                                 </div>
                                                <i class="fas fa-thumbs-up fa-2x p-1 me-2" style="color: #800;" ></i>
@@ -67,7 +67,7 @@
                                         <div class="col-md-3">
                                             <div class="p-1  shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
-                                                    <h6 class="fs-3 fw-bolder" style="color: #926F34">  {{$rejected}} </h6> 
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$rejected}} </h6> 
                                                     <p class="fs-6 fw-bold">Rejected</p>
                                                 </div>
                                                 <i class="fas fa-thumbs-down fa-2x  p-1 me-2" style="color: #800;"></i>
@@ -76,7 +76,7 @@
                                         <div class="col-md-3">
                                             <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
-                                                    <h6 class="fs-3 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
                                                     <p class="fs-6 fw-bold">Incomplete</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
@@ -85,7 +85,7 @@
                                         <div class="col-md-3">
                                             <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
-                                                    <h6 class="fs-3 fw-bolder" style="color: #926F34"> {{$pending}} </h6>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34"> {{$pending}} </h6>
                                                     <p class="fs-6 fw-bold">Pending</p>
                                                 </div>
                                                     <i class="fas fa-clock fa-2x p-1 me-2" style="color: #800;"></i>

@@ -49,7 +49,7 @@
 
                         <div class="d-flex text-center flex-column bd-highlight my-2">
                             <div class="bd-highlight fw-bold fs-6 text-uppercase">Camarines Norte State College </div>
-                            <div class="bd-highlight fw-light fs-6 text-uppercase pe-5">Learning and Development</div>
+                            <div class="bd-highlight fw-light fs-6 text-uppercase pe-5" style="color:#800000">Learning and Development</div>
                         </div>
                       
                          
@@ -195,7 +195,7 @@ for (i = 0; i < dropdown.length; i++) {
   
 
 
-<footer class="text-white pt-5 pb-4" style="background-color:#800000;">
+<footer class="text-white pt-5 pb-4 shadow-sm" style="background-color:#800000;">
 
     <div class="container text-left text-md-left">
 
