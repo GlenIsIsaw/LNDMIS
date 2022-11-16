@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
@@ -75,17 +75,17 @@
                 <div class="modal-body">
                     <h5>Are you sure you want to print the summary of year {{$year}}?</h5>
                     <label>
-                        <input type="checkbox" wire:model="mySignature">
+                        <input type="checkbox" wire:model="mySignature" class="text-uppercase ms-2 mb-3">
                         Include My Signature
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" wire:model="supSignature">
+                        <input type="checkbox" wire:model="supSignature" class="text-uppercase ms-2"> 
                         Include My Supervisor's Signature
                     </label>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Save Input</button>
                 </div>

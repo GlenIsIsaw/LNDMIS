@@ -42,8 +42,8 @@
         <option value="Others">Others</option>
     </select>
     @if ($type == 'Others')
-        <label>Specifiy:</label>
-        <input type="text" wire:model="type_others" class="border border-3 border-secondary">
+        <label class="fw-bold mt-2 ms-3">Specify The Type:</label>
+        <input type="text" wire:model="type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('type') <span class="text-danger">{{ $message }}</span> @enderror

@@ -20,7 +20,7 @@
                             </div>
                                 <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mt-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
                                 <button data-bs-toggle="modal" data-bs-target="#filterSummaryIdpModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>     
-                                <button data-bs-toggle="modal" data-bs-target="#printSummaryIdpModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-print me-2"></i>Print</button>
+                                <button data-bs-toggle="modal" data-bs-target="#printSummaryIdpModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download</button>
                                 <button data-bs-toggle="modal" data-bs-target="#compSummaryIdpModal" wire:click="countCompetency" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-5 py-2 mx-2" style="background-color: #800;"><i class="fas fa-calculator me-2"></i>Competency Count</button>                       
                            
                             

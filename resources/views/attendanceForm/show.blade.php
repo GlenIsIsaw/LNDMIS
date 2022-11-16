@@ -9,9 +9,9 @@
   
 
 </div>
-<div class="card-body">
-    <table class="table table-borderd table-striped">
-        <tbody>
+<div class="card-body table-responsive">
+    <table class="table table-borderd table-striped table-responsive">
+        <tbody class="table-responsive">
             <tr>
                 <th>Name</th>
                 <td>{{$name}}</td>
