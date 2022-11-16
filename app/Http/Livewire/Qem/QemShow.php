@@ -393,14 +393,14 @@ class QemShow extends Component
             $this->certificate_title = $qem->certificate_title;
             $this->remarks = $qem->remarks;
             $this->date_covered = $qem->date_covered;
-            $this->date_eval = $qem->date_eval;
+            $this->date_eval = $this->split($qem->date_eval);
             $this->venue = $qem->venue;
             $this->sponsors = $qem->sponsors;
             $this->content = json_decode($qem->content, true);
             $this->benefits = json_decode($qem->benefits, true);
             $this->realization = json_decode($qem->realization, true);
             $this->total_average = $qem->total_average;
-            $this->supervisor = $this->getSupervisor($qem->supervisor);
+            $this->supervisor = $this->getSupervisor($qem->supervisor)['name'];
             $this->rating();
             //dd($this->content);
             $this->showButton();
@@ -502,6 +502,10 @@ class QemShow extends Component
 
         return $lists;
     }
+    public function split($string){
+        $date = str_split($string, 10);
+        return $date[0];
+    }
 
     public function print(){
         $qems = Qem::select('list_of_trainings.id as training_id','user_id','name','date_covered', 'certificate_title','venue','sponsors', 'qems.id AS qem_id', 'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval', 'college_name', 'qems.status As qem_status')
@@ -516,14 +520,12 @@ class QemShow extends Component
         $benefits = json_decode($qem['benefits'],true);
         $realization = json_decode($qem['realization'],true);
         $array = [$content, $benefits, $realization];
-        //dd($array);
-        //dd($qem);
         $templateProcessor = new TemplateProcessor(storage_path('QEM.docx'));
 
         $templateProcessor->setValue('college', $qem['college_name']);
         $templateProcessor->setValue('name', $qem['name']);
         $templateProcessor->setValue('certificate_title', $qem['certificate_title']);
-        $templateProcessor->setValue('date_eval', $qem['date_eval']);
+        $templateProcessor->setValue('date_eval', $this->split($qem['date_eval']));
         $templateProcessor->setValue('date_covered', $qem['date_covered']);
 
         $templateProcessor->setValue('venue', $qem['venue']);
