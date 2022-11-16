@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Qem;
 
 
+use ZipArchive;
+use Carbon\Carbon;
 use App\Models\Qem;
 use App\Models\User;
 use Livewire\Component;
@@ -10,6 +12,8 @@ use Livewire\WithPagination;
 use App\Models\ListOfTraining;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class QemShow extends Component
 {
@@ -17,7 +21,7 @@ class QemShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $currentUrl, $toggle, $training_id, $name, $certificate_title, $date_covered, $date_eval, $venue, $sponsors, $remarks, $total_average, $rating, $qem_id, $supervisor;
+    public $currentUrl, $toggle, $training_id, $name, $certificate_title,$filter_certificate_title,$filter_name,$start_date, $end_date, $date_covered, $date_eval, $venue, $sponsors, $remarks, $total_average, $rating, $qem_id, $supervisor, $mySignature;
     public $content, $benefits, $realization = [];
     public $query = [];
     public $table = 'Training Need QEM';
@@ -265,17 +269,12 @@ class QemShow extends Component
 
     }
     public function getSupervisor($id){
-        $idp = ListOfTraining::select('supervisor')
-        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-        ->join('colleges', 'colleges.id', '=', 'users.college_id')
-        ->where('list_of_trainings.id', $id)
-        ->first();
-        $supervisor = User::select('name')
+        $supervisor = User::select('name', 'signature')
             ->join('colleges', 'colleges.id', '=', 'users.college_id')
-            ->where('users.id','=',$idp->supervisor)
+            ->where('users.id','=',$id)
             ->first();
 
-        return $supervisor->name;
+        return $supervisor;
     } 
     public function store(){
         $validatedData = $this->validate([
@@ -289,7 +288,7 @@ class QemShow extends Component
         $qem->benefits = json_encode($this->benefits);
         $qem->realization = json_encode($this->realization);
         
-        $qem->supervisor = $this->getSupervisor($this->training_id);
+        //$qem->supervisor = $this->getSupervisor($this->training_id);
         $qem->total_average = $this->total_average;
         if ($this->rating == 'Not Effective') {
             $qem->remarks = $this->remarks;
@@ -369,12 +368,9 @@ class QemShow extends Component
 
     public function destroy()
     {
-        $qem = Qem::select('qems.id As qem_id')
-                        ->join('list_of_trainings', 'list_of_trainings.id', '=', 'qems.list_of_training_id')
-                        ->where('qems.list_of_training_id','=',$this->training_id)
-                        ->first();
-        Qem::find($qem->qem_id)->delete();
-        $training = ListOfTraining::find($this->training_id);
+        $qem = Qem::find($this->qem_id);
+        Qem::find($this->qem_id)->delete();
+        $training = ListOfTraining::find($qem->list_of_training_id);
         $training->qem = 0;
         $training->save();
         session()->flash('message','Qem Deleted Successfully');
@@ -404,7 +400,7 @@ class QemShow extends Component
             $this->benefits = json_decode($qem->benefits, true);
             $this->realization = json_decode($qem->realization, true);
             $this->total_average = $qem->total_average;
-            $this->supervisor = $qem->supervisor;
+            $this->supervisor = $this->getSupervisor($qem->supervisor);
             $this->rating();
             //dd($this->content);
             $this->showButton();
@@ -445,6 +441,7 @@ class QemShow extends Component
             if ($list->status == 'Pending'){
                     session()->flash('message','Qem Approved');
                     $list->status = 'Approved';
+                    $list->supervisor = auth()->user()->id;
                     $list->save();
                     $this->backButton();
                     $this->dispatchBrowserEvent('close-modal');
@@ -481,63 +478,280 @@ class QemShow extends Component
         $this->resetErrorBag();
     }
     public function resetFilter(){
-
+        $this->filter_name = null;
+        $this->filter_certificate_title = null;
+        $this->start_date = null;
+        $this->end_date = null;
     }
+
     public function getId($id){
         $this->training_id = $id;
+    }
+    public function printQuery(){
+        $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+        ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+        ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+        ->where('college_id',auth()->user()->college_id)
+        ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+        ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+        ->where('qems.status','Approved')
+        ->where('list_of_trainings.status','Approved')
+        ->orderBy('list_of_trainings.updated_at','desc')
+        ->get();
+
+        return $lists;
+    }
+
+    public function print(){
+        $qems = Qem::select('list_of_trainings.id as training_id','user_id','name','date_covered', 'certificate_title','venue','sponsors', 'qems.id AS qem_id', 'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval', 'college_name', 'qems.status As qem_status')
+                ->join('list_of_trainings', 'list_of_trainings.id', '=', 'qems.list_of_training_id')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->where('qems.id',$this->qem_id)
+                ->first();
+        
+        $qem = $qems->toArray();
+        $content = json_decode($qem['content'],true);
+        $benefits = json_decode($qem['benefits'],true);
+        $realization = json_decode($qem['realization'],true);
+        $array = [$content, $benefits, $realization];
+        //dd($array);
+        //dd($qem);
+        $templateProcessor = new TemplateProcessor(storage_path('QEM.docx'));
+
+        $templateProcessor->setValue('college', $qem['college_name']);
+        $templateProcessor->setValue('name', $qem['name']);
+        $templateProcessor->setValue('certificate_title', $qem['certificate_title']);
+        $templateProcessor->setValue('date_eval', $qem['date_eval']);
+        $templateProcessor->setValue('date_covered', $qem['date_covered']);
+
+        $templateProcessor->setValue('venue', $qem['venue']);
+        $templateProcessor->setValue('sponsors', $qem['sponsors']);
+
+        foreach ($array as $key => $value) {
+            foreach ($value as $num => $item) {
+                if($num == 'total'){
+                    $templateProcessor->setValue("total#$key", $item);
+                    continue;
+                }
+                if($num == 'average'){
+                    $templateProcessor->setValue("ave#$key", $item);
+                    continue;
+                }
+                if($item == 3){
+                    $templateProcessor->setValue("ve#$key#$num", '/');
+                    $templateProcessor->setValue("e#$key#$num", ' ');
+                    $templateProcessor->setValue("ne#$key#$num", ' ');
+                }elseif($item == 2){
+                    $templateProcessor->setValue("e#$key#$num", '/');
+                    $templateProcessor->setValue("ve#$key#$num", ' ');
+                    $templateProcessor->setValue("ne#$key#$num", ' ');
+                }elseif($item == 1){
+                    $templateProcessor->setValue("ne#$key#$num", '/');
+                    $templateProcessor->setValue("ve#$key#$num", ' ');
+                    $templateProcessor->setValue("e#$key#$num", ' ');
+                }
+                else {
+                    $templateProcessor->setValue("ve#$key#$num", ' ');
+                    $templateProcessor->setValue("e#$key#$num", ' ');
+                    $templateProcessor->setValue("ne#$key#$num", ' ');
+                }
+                $templateProcessor->setValue("num#$key#$num", $item);
+            }
+
+        }
+        $this->total_average = $qem['total_average'];
+        $this->rating();
+        $templateProcessor->setValue("total_average", $this->total_average.' - '.$this->rating);
+        $templateProcessor->setValue("remarks", $qem['remarks']);
+        $supervisor = $this->getSupervisor($qem['sup_id']);
+        
+        if($qem['qem_status'] == 'Approved'){
+            if($supervisor->signature){
+                $templateProcessor->setValue("supervisor", $supervisor->name);
+                $templateProcessor->setImageValue('signature', array('path' => public_path('storage/users/'.$qem['sup_id'].'/'.$supervisor->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
+            }else{
+                session()->flash('message','The Supervisor has no signature');
+                $templateProcessor->setValue('signature'," ");
+            }
+            
+        }else{
+            $templateProcessor->setValue('signature'," ");
+            $templateProcessor->setValue("supervisor", " ");
+        }
+        $this->total_average = null;
+        $this->rating = null;
+
+        $foldername = storage_path('app/public/users/'.auth()->user()->id.'/Qem');
+        $path = storage_path('app/public/users/'.auth()->user()->id.'/Qem/'.$qem['certificate_title'].'_Qem.docx');
+        if(!is_dir($foldername))
+		{
+			mkdir($foldername, 0777, true);
+		}
+        $templateProcessor->saveAs($path);
+        
+        return $path;
+        
+    }
+    public function download(){
+        $path = $this->print();
+        //$this->resetInput();
+        $this->dispatchBrowserEvent('close-modal');
+        return response()->download($path)->deleteFileAfterSend(true);
+    }
+    public static function year($date){
+        $pieces = explode("-", $date);
+        return $pieces[0];
+    }
+    public function downloadAll(){
+        $id = [];
+        $filename = [];
+        $i = 0;
+        foreach ($this->printQuery() as $value) {
+           $id[$i] = $value['qem_id'];
+           $filename[$i] = storage_path('app/public/users/'.auth()->user()->id.'/Qem/'.$value['certificate_title'].'_Qem.docx');
+           $i++;
+        }
+        //dd($id);
+        //dd($filename);
+        foreach ($id as $item) {
+            $this->qem_id = $item;
+            //dd($this->idp_id);
+            $this->print();
+        }
+        $daterange = '';
+        if ($this->start_date && $this->end_date) {
+            $start_month = strftime("%B",strtotime($this->start_date));
+            $end_month = strftime("%B",strtotime($this->end_date));
+            $year = $this->year($this->end_date);
+            $daterange = '';
+        
+            if ($start_month == $end_month) {
+                $daterange = $start_month.' '.$this->year($this->end_date);
+            }else {
+                $daterange = $start_month.' - '.$end_month.' '.$year;
+            }
+        }else{
+            $daterange = 'All';
+        }
+        $zipname = storage_path('app/public/users/'.auth()->user()->id.'/Qem/Qem_'.$daterange.'.zip');
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
+        foreach ($filename as $file) {
+        $path = $file;
+        if(file_exists($path)){
+            $zip->addFromString(basename($path),  file_get_contents($path));  
+            }
+            File::delete($path);
+        }
+
+        $zip->close();
+        return response()->download($zipname)->deleteFileAfterSend(true);
+    }
+    public function updatingFilterCertificateTitle($value){
+        $this->resetPage();
+    }
+    public function updatingFilterName($value){
+        $this->resetPage();
+    }
+    public function updatingEndDate($value){
+        $this->resetPage();
     }
     public function mount()
     {
         $this->currentUrl = url()->current();
-        /*
-        $lists = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
-            ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-            ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
-            ->where('college_id',auth()->user()->college_id)
-            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
-            ->where('list_of_trainings.status','Approved')
-            ->orderBy('list_of_trainings.updated_at','desc')
-            ->get();
-            */
     }
     public function render()
     {
         $this->notification();
         $this->checkTable();
         $this->dispatchBrowserEvent('toggle');
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
+            if ($this->table == 'Training Need QEM') {
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                    ->whereBetween('qems.created_at',[$start_date,$end_date])
+                    ->where('list_of_trainings.status','Approved')
+                    ->where('qem',0)
+                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->paginate(3);
+            }elseif ($this->table == 'Not Submitted QEM') {
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                    ->whereBetween('qems.created_at',[$start_date,$end_date])
+                    ->where('qems.status','Not Submitted')
+                    ->where('list_of_trainings.status','Approved')
+                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->paginate(3);
 
-        if ($this->table == 'Training Need QEM') {
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem')
-                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-                ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where('list_of_trainings.status','Approved')
-                ->where('qem',0)
-                ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
-        }elseif ($this->table == 'Not Submitted QEM') {
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
-                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-                ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where('qems.status','Not Submitted')
-                ->where('list_of_trainings.status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+            }
+            else{
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                    ->whereBetween('qems.created_at',[$start_date,$end_date])
+                    ->where($this->query[0],$this->query[1])
+                    ->where('list_of_trainings.status','Approved')
+                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->paginate(3);
+            }
+        }else {
+            if ($this->table == 'Training Need QEM') {
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                    ->where('list_of_trainings.status','Approved')
+                    ->where('qem',0)
+                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->paginate(3);
+            }elseif ($this->table == 'Not Submitted QEM') {
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                    ->where('qems.status','Not Submitted')
+                    ->where('list_of_trainings.status','Approved')
+                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->paginate(3);
 
-        }
-        else{
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
-                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
-                ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where($this->query[0],$this->query[1])
-                ->where('list_of_trainings.status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(10);
+            }
+            else{
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                    ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                    ->where('college_id',auth()->user()->college_id)
+                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
+                    ->where($this->query[0],$this->query[1])
+                    ->where('list_of_trainings.status','Approved')
+                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->paginate(3);
+            }
         }
 
 

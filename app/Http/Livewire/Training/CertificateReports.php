@@ -227,7 +227,7 @@ class CertificateReports extends Component
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
-                ->whereBetween('date_covered',[$start_date,$end_date])
+                ->whereBetween('list_of_trainings.created_at',[$start_date,$end_date])
                 ->where('status','Approved')
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(10);

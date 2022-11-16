@@ -817,7 +817,13 @@ class IdpShow extends Component
             //dd($this->idp_id);
             $this->print();
         }
-        $zipname = storage_path('app/public/users/'.auth()->user()->id.'/Idp/Idp.zip');
+        $year = '';
+        if ($this->year_table) {
+            $year = $this->year_table;
+        }else{
+            $year = 'All';
+        }
+        $zipname = storage_path('app/public/users/'.auth()->user()->id.'/Idp/Idp_'.$this->table.'_'.$year.'.zip');
         $zip = new ZipArchive;
         $zip->open($zipname, ZipArchive::CREATE);
         foreach ($filename as $file) {

@@ -22,9 +22,13 @@
                     @else
                         <div class="card">
                             <div class="card-header">
-                                <h4>{{$table}}
-                                   
-                                   </h4>
+                                <h6>{{$table}}</h6>
+                                <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mt-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
+                                @if ($table == 'Approved QEM')
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#printAllQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Download All</button>
+                                @endif
+                                
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive table-bordered text-center">
@@ -39,6 +43,7 @@
                                                 <th scope="col">Sponsors</th>
                                                 @if ($table != 'Training Need QEM')
                                                     <th scope="col">Status</th>
+                                                    <th scope="col">Date Created</th>
                                                 @endif
 
                                                 <th class="text-danger"scope="col">Actions</th>
@@ -55,6 +60,7 @@
                                                     <td>{{$training->sponsors}}</td>
                                                     @if ($table != 'Training Need QEM')
                                                         <td>{{$training->confirmation_status}}</td>
+                                                        <td>{{$training->date_created}}</td>
                                                     @endif
 
                                                     <td class="d-grid gap-2">
@@ -82,12 +88,12 @@
                                                             <button type="button" wire:click="edit({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #000046, 
                                                                 #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getId({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
-                                                                #190A05"><i class="fas fa-trash"></i><br>Delete</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getId({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
-                                                                to bottom, #52c234,
-                                                                 #061700);"><i class="fas fa-download"></i><br>Download</button>
+                                                                #190A05);"><i class="fas fa-pen"></i><br>Delete</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #870000,
+                                                                #190A05);"><i class="fas fa-pen"></i><br>Download</button>
                                                         @endif
 
 
@@ -138,6 +144,7 @@
             $('#deleteQemModal').modal('hide');
             $('#submitQemModal').modal('hide');
             $('#approveQemModal').modal('hide');
+            $('#printQemModal').modal('hide');
 
             $('#notificationModal').modal('hide');
             

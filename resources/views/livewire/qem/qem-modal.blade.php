@@ -117,3 +117,92 @@
         </div>
     </div>
 </div>
+
+<!-- Filter Summary Modal -->
+<div wire:ignore.self class="modal fade" id="filterQemModal" tabindex="-1" aria-labelledby="filterQemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterQemModalLabel">Filter Qem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label  class="fw-bold">Search by Name:</label>
+                        <input wire:model="filter_name" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                    </div>
+                        <div class="mb-3">
+                            <label  class="fw-bold">Search by Qem Title:</label>
+                            <input wire:model="filter_Qem_title" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                        </div>
+                    
+                    <label class="fw-bold">Sort by Date Created:</label>    
+                    <div class="mx-3 my-3">
+                        <label>Start Date</label>
+                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3"> 
+
+                        <label>End Date</label>
+                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
+                    </div>
+                    
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Download Qem Modal -->
+<div wire:ignore.self class="modal fade" id="printQemModal" tabindex="-1" aria-labelledby="printQemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printQemModalLabel">Download All Qem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="download">
+                <div class="modal-body">
+                    <h6>Are you sure you want to print this?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Download All Qem Modal -->
+<div wire:ignore.self class="modal fade" id="printAllQemModal" tabindex="-1" aria-labelledby="printAllQemModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printAllQemModalLabel">Download Qem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="downloadAll">
+                <div class="modal-body">
+                    <h6>Are you sure you want to download all of this?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

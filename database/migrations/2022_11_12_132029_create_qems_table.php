@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('realization');
             $table->integer('total_average');
             $table->text('remarks');
-            $table->string('supervisor');
+            $table->integer('supervisor')->nullable();
             $table->string('status')->default('Not Submitted');
             $table->timestamps();
         });
