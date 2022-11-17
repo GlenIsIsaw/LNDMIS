@@ -114,8 +114,12 @@ class Profile extends Component
 
     public function editUser(int $User_id)
     {
-        $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
-                    ->find($User_id);
+        if ($this->checkOfficer()) {
+            $User = User::find(auth()->user()->id);
+        }else{
+            $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
+            ->find(auth()->user()->id);
+        }
         
         if($User){
             
@@ -152,9 +156,23 @@ class Profile extends Component
         return redirect()->to('/profile')->with('message','Profile Updated Successfully');
         $this->dispatchBrowserEvent('close-modal');
     }
+
+    public function checkOfficer(){
+        if (auth()->user()->role_as == 3) {
+            return true;
+        }else {
+            return false;
+        }
+    }
     public function show(){
-        $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
-                    ->find(auth()->user()->id);
+
+        if ($this->checkOfficer()) {
+            $User = User::find(auth()->user()->id);
+        }else{
+            $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
+            ->find(auth()->user()->id);
+        }
+
         
         if($User){
             

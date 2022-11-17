@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
     {
         College::create([
             'college_name' => 'Institute of Computer Studies',
-            'supervisor' => 2,
-            'coordinator' => 1
+            'supervisor' => 3,
+            'coordinator' => 2
         ]);
         College::create([
             'college_name' => 'College of Arts and Sciences'
@@ -32,6 +32,17 @@ class DatabaseSeeder extends Seeder
         ]);
         College::create([
             'college_name' => 'College of Business and Public Administration'
+        ]);
+        User::create([
+            'name' => 'Mam Joff',
+            'role_as' => 3,
+            'teacher' => 'Yes',
+            'position' => 'LND Officer',
+            'email' => 'mamJoff@gmail.com',
+            'yearJoined' => fake()->date(),
+            'yearinPosition' => fake()->date(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'), // password
         ]);
         User::create([
             'college_id' => 1,

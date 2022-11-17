@@ -52,7 +52,14 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['livewire.user.User-show', 'livewire.user.profile'], function ($view) {
 
-            $users = User::select('users.id As user_id','supervisor','college_id')
+            if (auth()->user()->role_as == 3) {
+                $info = [];
+                $info += ['name' => 'No Supervisor'];
+                $info += ['supId' => null];
+                $info += ['college_name' => 'LND'];
+                $view->with('info', $info);
+            }else{
+                $users = User::select('users.id As user_id','supervisor','college_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->first();
@@ -73,11 +80,15 @@ class AppServiceProvider extends ServiceProvider
                 $info = $list->toArray();
                 $info += ['name' => 'No Supervisor'];
                 $info += ['supId' => null];
+                }
+            
+                $view->with('info', $info);
             }
+            
 
 
 
-            $view->with('info', $info);
+            
         });
 
 

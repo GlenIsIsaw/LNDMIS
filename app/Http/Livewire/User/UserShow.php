@@ -17,8 +17,8 @@ class UserShow extends Component
     protected $paginationTheme = 'bootstrap';
 
 
-    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password,$photo;
-
+    public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password,$photo, $coordinator_name;
+    public $colleges = [];
     public $state = null;
     public $next = null;
     public $table = null;
@@ -36,9 +36,9 @@ class UserShow extends Component
         'createUser' => 'createButton',
         'clearUser' => 'clear',
         'showUser' => 'show',
-        'toggle' => 'open'
+        'toggle' => 'open',
         //'passUser' => 'pass',
-        //'refreshComponent' => '$refresh'
+        'refreshComponent' => '$refresh'
     ];
     public function next(){
         ++$this->next;
@@ -47,11 +47,13 @@ class UserShow extends Component
         --$this->next;
     }
     public function createButton(){
+            $this->getCollege();
             $this->state = 'create';
             $this->next = 0;
         }
 
     public function updateButton(){
+        $this->getCollege();
         $this->state = 'edit';
         $this->next = 0;
     }
@@ -99,11 +101,19 @@ class UserShow extends Component
             'position' => 'required',
             'yearinPosition' => 'required',
             'yearJoined' => 'required',
+            'college_id' => Rule::requiredIf(auth()->user()->role_as == 3)
         ]);
-        
-        $user = new User();
 
-            $user->college_id = auth()->user()->college_id;
+        $user = new User();
+        if (!$this->checkOfficer()) {
+            $this->college_id = auth()->user()->college_id;
+        }else{
+            $user->role_as = 1;
+            $college = College::find($this->college_id);
+            $college->coordinator = $user->id;
+            $college->save();
+        }
+            $user->college_id = $this->college_id;
             $user->name = $this->name;
             $user->email = $this->email;
             $user->teacher = $this->teacher;
@@ -112,6 +122,11 @@ class UserShow extends Component
             $user->yearJoined = $this->yearJoined;
             $user->save();
 
+            if ($this->checkOfficer()) {
+                $college = College::find($this->college_id);
+                $college->coordinator = $user->id;
+                $college->save();
+            }
         session()->flash('message','User Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
@@ -146,35 +161,17 @@ class UserShow extends Component
             return false;
         }
     }
-    public function show()
-    {
-        $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
-                    ->find(auth()->user()->id);
-        
-        if($User){
-            
-            $this->User_id = auth()->user()->id;
-            $this->name = $User->name;
-            $this->email = $User->email;
-            $this->teacher = $User->teacher;
-            $this->position = $User->position;
-            $this->yearinPosition = $User->yearinPosition;
-            $this->yearJoined = $User->yearJoined;
-            $this->signature = $User->signature;
-            
-
-            $this->showButton();
-        }else{
-            session()->flash('message','No Results');
-        }
-    }
 
     public function editUser(int $User_id)
     {
+
         $User = User::join('colleges', 'colleges.id', '=', 'users.college_id')
                     ->find($User_id);
         
         if($User){
+            if ($this->checkOfficer()) {
+                $this->college_id = $User->college_id;
+            }
             
             $this->User_id = $User_id;
             $this->name = $User->name;
@@ -307,6 +304,7 @@ class UserShow extends Component
         $this->supervisor = '';
         $this->supervisor_name = '';
         $this->college_name = '';
+        $this->colleges = [];
         $this->photo = '';
     }
 
@@ -315,16 +313,55 @@ class UserShow extends Component
         $this->currentUrl = url()->current();
         //dd($this->currentUrl);
     }
+    public function getCollege(){
+       $college = College::all();
+       $arr = [];
+        $college = $college->toArray();
+       foreach ($college as $num => $item) {
+            foreach ($item as $key => $value) {
+                if ($key == 'id') {
+                    $arr[$num][$key] = $value;
+                }
+                if ($key == 'college_name') {
+                    $arr[$num][$key] = $value;
+                }
+    
+                
+            }
+       }
+       //dd($arr);
+        $this->colleges = $arr;
+    
+    }
+    public function checkOfficer(){
+        if (auth()->user()->role_as == 3) {
+            return true;
+        }else {
+            return false;
+        }
+    }
     public function render()
     {
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
-        $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status')
+        if ($this->checkOfficer()) {
+            $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
-                        ->where('college_id',auth()->user()->college_id)
+                        ->where('role_as', 1)
                         ->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy('users.updated_at','DESC')
                         ->paginate(3);
+        } else {
+            $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status')
+                        ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                        ->where('college_id',auth()->user()->college_id)
+                        ->whereNot('users.id',auth()->user()->id)
+                        ->where('name', 'like', '%'.$this->search.'%')
+                        ->orderBy('users.updated_at','DESC')
+                        ->paginate(3);
+        }
+        
+        
         return view('livewire.user.User-show', ['users' => $Users]);
     }
 }

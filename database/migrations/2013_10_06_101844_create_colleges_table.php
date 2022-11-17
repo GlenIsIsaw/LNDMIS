@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('college_name');
             $table->integer('supervisor')->nullable();
             $table->integer('coordinator')->nullable();
-            $table->integer('head_name')->nullable();
-            $table->string('head_signature')->nullable();
+            //$table->integer('head_name')->nullable();
+            //$table->string('head_signature')->nullable();
             $table->timestamps();
         });
     }

@@ -14,9 +14,12 @@
                             @if($state == 'edit')
                                 @include('users.edit')
                             @endif
+
+                            @if($state == 'college')
+                                @include('college.show')
+                            @endif
                         </div>
                     @else
-                        @if (auth()->user()->role_as == 1)
                         <div class="card">
                             <div class="card-header">
                                 <div class="fw-bold fs-5 text-uppercase"> Employees of {{$info['college_name']}}
@@ -37,8 +40,10 @@
                                                 <th scope="col">Year Joined</th>
                                                 @if (auth()->user()->role_as == 3)
                                                     <th scope="col">College</th>
+                                                @else
+                                                    <th scope="col">Supervisor</th>
                                                 @endif
-                                                <th scope="col">Supervisor</th>
+                                                
                                                 <th scope="col">Status</th>
                                                 <th class="scope="col style="Color: #800">Actions</th>
                                             </tr>
@@ -54,10 +59,12 @@
                                                     <td>{{ $user->yearinPosition }}</td>
                                                     <td>{{ $user->yearJoined }}</td>
                                                     @if (auth()->user()->role_as == 3)
-                                                        <td>{{ $college_name }}</td>
+                                                        <td>{{ $user->college_name }}</td>
+                                                    @else
+                                                        <td>{{ $info['name'] }}</td>
                                                     @endif
                                                     
-                                                    <td>{{ $info['name'] }}</td>
+                                                    
                                                     <td>
                                                         @php
                                                             $array =  [1=>'Active', 0=>'Disabled'];
@@ -80,17 +87,19 @@
                                                                     to bottom, #008000,
                                                                     #190A05);"><i class="fas fa-user-check"></i><br>Enable</button>
                                                             @endif
-
-                                                            @if ($info['name'] == 'No Supervisor')
+                                                            @if (auth()->user()->role_as == 1)
+                                                                @if ($info['name'] == 'No Supervisor')
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-primary text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #000046, 
                                                                     #1CB5E0);"><i class="fas fa-check"></i><br>Make as Supervisor</button>
-                                                            @endif
-                                                            @if ($user->user_id == $info['supId'])
+                                                                @endif
+                                                                @if ($user->user_id == $info['supId'])
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"  style="background-image: linear-gradient(
                                                                     to bottom, #870000,
                                                                     #190A05);"><i class="fas fa-times"></i><br>Remove as Supervisor</button>
+                                                                @endif
                                                             @endif
+
                                                         </div>
 
                                                         
@@ -98,7 +107,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5">No Record Found</td>
+                                                    <td colspan="11">No Record Found</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>
@@ -111,7 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                        @endif
+
                     @endif    
                 </div>
             </div>

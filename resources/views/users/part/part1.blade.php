@@ -9,20 +9,38 @@
       </div>
 </div>
 
+
+
 <hr class="h-color mx-2 mt-3">
+        @if (auth()->user()->role_as == 3)
+            <div class="mb-3">
+                <label>College</label>
+                <select wire:model="college_id" class="form-control border border-3 border-dark rounded-3">
+                    <option value=""></option>
+                        @foreach ($colleges as $key => $item)
+                            @for ($j = 1; $j < count($item); $j++)
+                                <option value="{{$colleges[$key]['id']}}">{{$colleges[$key]['college_name']}}</option>
+                            @endfor
+                        @endforeach
+                </select>
+
+                @error('college_id') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
+        @endif
+
         <div class="mb-3">
             <label>Name</label>
-            <input type="text" wire:model="name" class="form-control border border-3 border-dark rounded-3">
+            <input type="text" wire:model.lazy="name" class="form-control border border-3 border-dark rounded-3">
             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
             <label>Email</label>
-            <input type="text" wire:model="email" class="form-control border border-3 border-dark rounded-3">
+            <input type="text" wire:model.lazy="email" class="form-control border border-3 border-dark rounded-3">
             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
             <label>Teacher</label>
-            <select wire:model="teacher" class="form-control border border-3 border-dark rounded-3">
+            <select wire:model.lazy="teacher" class="form-control border border-3 border-dark rounded-3">
                 <option value=""></option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>

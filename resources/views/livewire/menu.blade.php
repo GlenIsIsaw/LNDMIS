@@ -325,14 +325,23 @@
     </ul>
 
       @endif
-        @if (auth()->user()->role_as == 1)
+        @if (auth()->user()->role_as == 3)
+        <ul class="list-unstyled px-2">
+            <a href="/college" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>College</a>
+            
+        </ul>
+
+        @endif
+        @if (auth()->user()->role_as == 1 || auth()->user()->role_as == 3)
         <ul class="list-unstyled px-2">
         @if ($currentUrl == 'http://127.0.0.1:8000/user')
           
             
             <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Users</button>
               <div class="dropdown-container">
+            
             <li class=""><button wire:click="backButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"style="color: #800000"><i class="fas fa-users me-2"></i>List of Users</a></li>
+              
               <button wire:click="createButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                 <i class="fas fa-user-plus me-2"></i>Add New Users </button></li>
               </div>
@@ -341,10 +350,11 @@
           <a href="/user" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>Users</a>
         @endif
       </ul>
+      @endif
         
         
         
-
+      @if (auth()->user()->role_as == 1)
         <ul class="list-unstyled px-2">
           
           @if ($currentUrl == 'http://127.0.0.1:8000/training/Reports' || $currentUrl == 'http://127.0.0.1:8000/idp/Reports' || $currentUrl == 'http://127.0.0.1:8000/attendance/Reports' || $currentUrl == 'http://127.0.0.1:8000/certificate/Reports')
