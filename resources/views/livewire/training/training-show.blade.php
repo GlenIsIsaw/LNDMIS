@@ -36,8 +36,8 @@
                 <div class="col-md-12">
                     <div id="main-card" style="padding-right: 5%">
                         <div class="card" >
-                            <div class="card-header">
-                                <h4>
+                            <div class="card-header border-0">
+                                <h3 class="fw-bold text-uppercase align-middle my-1">
                                     {{$table}}
                                     <button type="button"style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                     @if ($table == 'My Trainings')
@@ -47,17 +47,57 @@
                                     @endif
                                     
                                     
-                                </h4>
+                                </h3>
                                 
                             </div>
                             
-                            <div class="card-header bg-transparent border-0">
+                            <div class="card-header mb-1 border-0">
                                 @if ($table == 'My Trainings')
-                                    <div class="mx-2">
-                                        <h6>Approved: {{$approved}} ; Rejected: {{$rejected}} ; Not Submitted: {{$notSubmitted}} ; Pending: {{$pending}}</h6>
+                                <div class="container-fluid">
+                                    <div class="row g-3">
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                        <h6 class="fs-2 fw-bolder" style="color: #926F34">{{$approved}}  </h6>
+                                        <p class="fs-6 fw-bold">Approved </p>
+                                                </div>
+                                               <i class="fas fa-thumbs-up fa-2x p-1 me-2" style="color: #800;" ></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="p-1  shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$rejected}} </h6> 
+                                                    <p class="fs-6 fw-bold">Rejected</p>
+                                                </div>
+                                                <i class="fas fa-thumbs-down fa-2x  p-1 me-2" style="color: #800;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
+                                                    <p class="fs-6 fw-bold">Incomplete</p>
+                                                </div>
+                                                <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34"> {{$pending}} </h6>
+                                                    <p class="fs-6 fw-bold">Pending</p>
+                                                </div>
+                                                    <i class="fas fa-clock fa-2x p-1 me-2" style="color: #800;"></i>
+                                                
                                     </div>
+                                </div>
+                                    </div>
+                                </div>
+                            
                                 @endif
-                                
+                            </div>
+                            <div class="card-header bg-transparent border-0">
                                 <div class="float-end mx-2">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#filterTrainingModal" class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                 </div>

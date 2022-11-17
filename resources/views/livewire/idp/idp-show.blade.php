@@ -24,34 +24,75 @@
 
                 
                     <div class="card">
-                        <div class="card-header">
-                            <h4>
+                        <div class="card-header border-0">
+                            <h3 class="fw-bold text-uppercase my-1">
                                 {{$table}}
-                                <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
-                                <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search by Name" style="width: 230px" />
-                            </h4>
+                                <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle my-1" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
+                                <input type="search" wire:model="search" class="form-control float-end mx-2 my-1 border-3" placeholder="Search by Name" style="width: 250px" />
+                            </h3>
                         </div>
 
-                        <div class="card-header bg-transparent border-0">
+                        <div class="card-header mb-1 border-0">
                                 @if ($table == 'My IDPs')
-                                    <div class="mx-2">
-                                        <h6>Approved: {{$approved}} ; Rejected: {{$rejected}} ; Not Submitted: {{$notSubmitted}} ; Pending: {{$pending}}</h6>
+                                <div class="container-fluid px-5">
+                                    <div class="row g-3">
+                                        <div class="col-md-3">
+                                            <div class="py-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                        <h6 class="fs-2 fw-bolder" style="color: #926F34">{{$approved}}  </h6>
+                                        <p class="fs-6 fw-bold">Approved </p>
+                                                </div>
+                                               <i class="fas fa-thumbs-up fa-2x p-1 me-2" style="color: #800;" ></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$rejected}} </h6> 
+                                                    <p class="fs-6 fw-bold">Rejected</p>
+                                                </div>
+                                                <i class="fas fa-thumbs-down fa-2x  p-1 me-2" style="color: #800;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
+                                                    <p class="fs-6 fw-bold">Incomplete</p>
+                                                </div>
+                                                <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34"> {{$pending}} </h6>
+                                                    <p class="fs-6 fw-bold">Pending</p>
+                                                </div>
+                                                    <i class="fas fa-clock fa-2x p-1 me-2" style="color: #800;"></i>
+                                                
                                     </div>
+                                </div>
+                                    </div>
+                                </div>
                                 @endif
                                 
-                                <div class="float-end mx-2">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
+                        </div>
+                        <div class="card-header bg-transparent border-0">
+                            <div class="float-end mx-2">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                     @if ($table == 'Submitted IDPs' || $table == 'Approved IDPs')
                                         @if ($idps->isNotEmpty())
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printAllIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Print All</button>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printAllIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Print All</button>
                                         @endif
                                         
                                     @endif
-                                </div>
+                              
+                            </div>
+                              
                         </div>
-
                         <div class="card-body text-center">
-                            <div class="table-responsive table-bordered">
+                            <div class="table-responsive rounded-3 table-bordered">
                                 <table class="table table-striped table-bordered border border-5 border-secondary table-hover">
                                     <thead>
                                         <tr class="table-bordered">

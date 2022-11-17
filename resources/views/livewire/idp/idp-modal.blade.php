@@ -346,7 +346,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Competency:</label>
-                        <select wire:model='filter_competency' class="form-control border border-3 rounded-3" style="width: 100%; height: 500%">
+                        <select wire:model='filter_competency' class="form-control border border-dark border-3 rounded-3" style="width: 100%; height: 500%">
                             <option value=""></option>
                             @foreach ($comps as $key => $comp)
                             <optgroup label={{$key}}>
@@ -359,7 +359,7 @@
 
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Completion Status:</label>
-                        <select wire:model="filter_completion_status" class="form-control border border-3 rounded-3">
+                        <select wire:model="filter_completion_status" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
                             <option value="Ongoing">Ongoing</option>
                             <option value="Completed">Completed</option>
@@ -367,7 +367,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="fw-bold">Sort by Status:</label>
-                        <select wire:model="filter_status" class="form-control border border-3 rounded-3">
+                        <select wire:model="filter_status" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
                             <option value="Approved">Approved</option>
                             <option value="Not Submitted">Not Submitted</option>
@@ -376,8 +376,8 @@
                         </select>
                     </div>
                     <label class="fw-bold"> Sort by the Year:</label>
-                    <div class="mx-3 my-3">
-                        <select wire:model='year_table' class="border border-3 border-dark rounded-3">
+                    <div class="">
+                        <select wire:model='year_table' class="fw-bold fs-4 border border-3 border-dark rounded-3 px-5 py-2">
                             <option value=""></option>
                             @for ($i = 2015; $i <= date('Y') + 1; $i++)
                             <option value="{{$i}}">{{$i}}</option>

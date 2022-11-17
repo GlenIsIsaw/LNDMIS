@@ -49,7 +49,7 @@
 
                         <div class="d-flex text-center flex-column bd-highlight my-2">
                             <div class="bd-highlight fw-bold fs-6 text-uppercase">Camarines Norte State College </div>
-                            <div class="bd-highlight fw-light fs-6 text-uppercase pe-5">Learning and Development</div>
+                            <div class="bd-highlight fw-light fs-6 text-uppercase pe-5" style="color:#800000">Learning and Development</div>
                         </div>
                       
                          
@@ -72,15 +72,19 @@
                             @endif
                         @else
                        
-                        
-                                
+                       
                             <li class="nav-item dropdown mx-5">
+
+                                
                                 
                                 <a id="navbarDropdown" class="nav-link rounded-pill px-4 dropdown-toggle text-light fw-bold text-center" style="background-color: #926F34" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
+                                     
                                 </a>
 
+                                
                                 <div class="dropdown-menu dropdown-menu-end rounded-3 border-none border-3 shadow-4" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
+                                    
                                     <a role="button" class="dropdown-item fw-bolder" href="/profile">
                                         Profile
                                     </a>
@@ -114,7 +118,7 @@
 
     
 
-        <main class="py-9">
+        <main class="py-none">
             {{$slot}}
            
             
@@ -191,7 +195,7 @@ for (i = 0; i < dropdown.length; i++) {
   
 
 
-<footer class="text-white pt-5 pb-4" style="background-color:#800000;">
+<footer class="text-white pt-5 pb-4 shadow-sm" style="background-color:#800000;">
 
     <div class="container text-left text-md-left">
 

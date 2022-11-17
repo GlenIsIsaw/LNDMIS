@@ -22,17 +22,24 @@
                     @else
                         <div class="card">
                             <div class="card-header">
-                                <h6>{{$table}}</h6>
-                                <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mt-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
-                                @if ($table == 'Approved QEM')
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#printAllQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Download All</button>
-                                @endif
+                                <h3 class="fw-bold text-uppercase align-bottom mt-2">{{$table}}
+
                                 
+                                <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
+                            </h3>
                             </div>
+                                <div class="card-header bg-transparent border-0">
+                                    <div class="float-end mx-2">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
+                                @if ($table == 'Approved QEM')
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#printAllQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Download All</button>
+                                @endif
+                                    </div>
+                                </div>
+                            
                             <div class="card-body">
-                                <div class="table-responsive table-bordered text-center">
-                                    <table class="table table-bordered border-dark table-striped table-hover">
+                                <div class="table-responsive rounded-3 table-bordered text-center">
+                                    <table class="table table-bordered  border border-5 border-secondary table-striped table-hover">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Name</th>
