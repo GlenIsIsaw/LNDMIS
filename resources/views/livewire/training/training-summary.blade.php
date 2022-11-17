@@ -84,33 +84,33 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printTrainingModalLabel">Print Trainings</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="printTrainingModalLabel">Download Trainings</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="printAll">
                 <div class="modal-body">
-                    <h6>Range</h6>
-                    <div class="mb-3">
-                        <label>Start Date</label>
-                        <input type="date" wire:model="start_date" class="form-control">
+                    <h6 class="text-capitalize mb-3">Date Range:</h6>
+                    <div class="mb-3 mx-3">
+                        <label class="fw-bold">Start Date</label>
+                        <input type="date" wire:model="start_date" class="form-control border-dark border-3">
                         @error('start_date') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                    <div class="mb-3">
-                        <label>End Date</label>
-                        <input type="date" wire:model="end_date" class="form-control">
+                    <div class="mb-3 mx-3">
+                        <label class="fw-bold">End Date</label>
+                        <input type="date" wire:model="end_date" class="form-control border-dark border-3">
                         @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="mx-3">
                         <label>
-                            <input type="checkbox" wire:model="mySignature">
+                            <input class="border-dark border-3" type="checkbox" wire:model="mySignature">
                             Include My Signature
                         </label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Print All</button>
                 </div>

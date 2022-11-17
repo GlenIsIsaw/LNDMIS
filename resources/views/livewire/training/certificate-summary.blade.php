@@ -4,34 +4,33 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="filterSummaryCertificateModalLabel">Filter Certificate</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold" id="filterSummaryCertificateModalLabel">Filter Certificate</h5>
+               
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
                         <label  class="fw-bold">Search by Name:</label>
-                        <input wire:model="name" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                        <input wire:model="name" class="form-control border border-3 border-dark rounded-3" placeholder="Search..." />
                     </div>
                         <div class="mb-3">
                             <label  class="fw-bold">Search by Certificate Title:</label>
-                            <input wire:model="filter_certificate_title" class="form-control border border-3 rounded-3" placeholder="Search..." />
+                            <input wire:model="filter_certificate_title" class="form-control border border-3 border-dark rounded-3" placeholder="Search..." />
                         </div>
                     
                     <label class="fw-bold">Sort by Date Covered:</label>    
                     <div class="mx-3 my-3">
                         <label>Start Date</label>
-                        <input type="date" wire:model="start_date" class="form-control border border-3 rounded-3"> 
+                        <input type="date" wire:model="start_date" class="form-control border border-3 border-dark rounded-3"> 
 
                         <label>End Date</label>
-                        <input type="date" wire:model="end_date" class="form-control border border-3 rounded-3">
+                        <input type="date" wire:model="end_date" class="form-control border border-3 border-dark rounded-3">
                     </div>
                     
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
                 </div>
         </div>
@@ -81,18 +80,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printCertificateModalLabel">Print Certificates</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fw-bold text-uppercase" id="printCertificateModalLabel">Download Certificates</h5>
+                
             </div>
             <form wire:submit.prevent="printAll">
-                <div class="modal-body">
-                    <h6>Are you sure you want to print this?</h6>
+                <div class="modal-body fs-6 text-capitalize">
+                    Are you sure you want to print this?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
+                    <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Print All</button>
+                    <button type="submit" class="btn btn-primary">Yes! Download All</button>
                 </div>
             </form>
         </div>

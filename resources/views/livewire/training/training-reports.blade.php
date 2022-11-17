@@ -17,9 +17,9 @@
                             
                         </div>
                         <div class="card-body text-center">
-                            <div class="table-responsive table-bordered border-dark text-center">
-                                <table class="table table-bordered border-dark table-hover">
-                                    <thead>
+                            <div class="table-responsive text-center">
+                                <table class="table border border-secondary border-5 table-hover">
+                                    <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">Certificate Title</th>

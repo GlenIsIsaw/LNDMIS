@@ -103,13 +103,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printIdpModalLabel">Print IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title" id="printIdpModalLabel">Download IDP</h5>
+               
             </div>
             <form wire:submit.prevent="download">
-                <div class="modal-body">
-                    <h4>Are you sure you want to print this Idp ?</h4>
+                <div class="modal-body text-capitalize">
+                    <h4>Are you sure you want to Download this IDP?</h4>
                     @if ($checkmySignature)
                         <label>
                             <input type="checkbox" wire:model="mySignature">
@@ -120,7 +119,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Print</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Download</button>
                 </div>
             </form>
         </div>
@@ -133,18 +132,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printAllIdpModalLabel">Print IDP</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="printAllIdpModalLabel">Download IDP</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="printall">
-                <div class="modal-body">
-                    <h4>Are you sure you want to print all of this Idp ?</h4>
+                <div class="modal-body text-capitalize">
+                    <h4>Are you sure you want to Download all of this IDP?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                    <button type="submit" class="btn btn-primary">Yes! Download</button>
                 </div>
             </form>
         </div>

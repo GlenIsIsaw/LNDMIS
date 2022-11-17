@@ -77,7 +77,7 @@
                                             <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
-                                                    <p class="fs-6 fw-bold">Incomplete</p>
+                                                    <p class="fs-6 fw-bold">Unfinish</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
                                             </div>
@@ -106,9 +106,9 @@
                                 
 
                             <div class="card-body text-center">
-                                <div class="table-responsive table-bordered rounded-3 text-center">
-                                    <table class="table table-bordered table-striped border-secondary border border-5 table-hover">
-                                        <thead>
+                                <div class="table-responsive rounded-3 text-center">
+                                    <table class="table table-striped border-secondary border border-5 table-hover">
+                                        <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
                                             <tr>
                                                 @if ($table != "My Trainings")
                                                     <th scope="col">Name</th>
@@ -124,8 +124,8 @@
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Created At</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col" class="text-danger">Attendance Form Actions</th>
-                                                <th scope="col" class="text-danger">Certificate Actions</th>
+                                                <th scope="col" style="color:  #800">Attendance Form Actions</th>
+                                                <th scope="col" style="color:  #800">Certificate Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -202,7 +202,7 @@
                                                        
 
                                                         
-                                                          @if ($training->status != 'Approved') 
+                                                       @if ($training->status != 'Approved')
                                                      
                                                     
                                                             @if ($training->status == 'Pending')

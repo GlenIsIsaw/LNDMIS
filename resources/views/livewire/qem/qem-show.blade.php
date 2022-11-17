@@ -38,9 +38,9 @@
                                 </div>
                             
                             <div class="card-body">
-                                <div class="table-responsive rounded-3 table-bordered text-center">
-                                    <table class="table table-bordered  border border-5 border-secondary table-striped table-hover">
-                                        <thead>
+                                <div class="table-responsive rounded-3 text-center">
+                                    <table class="table  border border-5 border-secondary table-striped table-hover">
+                                        <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
                                             <tr>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Title of Intervention</th>
@@ -53,7 +53,7 @@
                                                     <th scope="col">Date Created</th>
                                                 @endif
 
-                                                <th class="text-danger"scope="col">Actions</th>
+                                                <th scope="col" style="color: #800">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>

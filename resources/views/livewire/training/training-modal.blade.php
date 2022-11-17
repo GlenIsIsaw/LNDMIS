@@ -192,23 +192,23 @@
     </div>
 </div>
 
-<!-- Print Atendance Modal -->
+<!-- Print Attendance Modal -->
 <div wire:ignore.self class="modal fade" id="printAttendanceModal" tabindex="-1" aria-labelledby="printAttendanceModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="printAttendanceModalLabel">Print Attendance Form</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="printAttendanceModalLabel">Download Attendance Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="printAttendanceForm">
-                <div class="modal-body text-uppercase fw-bold">
-                    <h4>Are you sure you want to print this Attendance Form ?</h4>
+                <div class="modal-body text-capitalize fs-5">
+                    <h4>Are you sure you want to Download this Attendance Form ?</h4>
                     <hr class="h-color mx-2">
                     @if ($checkmySignature)
-                        <label>
-                            <input type="checkbox" wire:model="mySignature">
+                        <label class="ps-4 fs-6">
+                            <input type="checkbox" wire:model="mySignature" class="fw-light fs-6">
                             Include My Signature
                         </label>
                     @endif
@@ -218,7 +218,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                    <button type="submit" class="btn btn-primary">Yes! Download</button>
                 </div>
             </form>
         </div>
@@ -365,7 +365,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="filterTrainingModalLabel">Filter Training</h5>
+                <h5 class="modal-title text-uppercase fw-bold" id="filterTrainingModalLabel">Filter Training</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>

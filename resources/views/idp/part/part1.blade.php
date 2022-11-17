@@ -1,3 +1,4 @@
+
 <button type="button" data-bs-toggle="modal" data-bs-target="#guideIdpModal" class="btn-success rounded-3 px-3 py-2 text-center float-end fw-bold shadow-4 me-2" style="background-image: linear-gradient(
     to top, #000000,
     #0f9b0f);"><i class="fas fa-scroll me-2"></i></i>Guide</button>
@@ -5,13 +6,16 @@
             <label><h6>Name:</h6></label>
             <div class="fw-bold">
             <p>{{auth()->user()->name}}</p>
+
+            
             
             </div>
             
         </div>
         <div class="mb-3">
             <label><h6>Year:</h6></label>
-            <select wire:model="year">
+            <div class="fw-bold">
+            <select class="border-dark border-2 rounded-3 text-center fw-bold" style="width: 20%" wire:model="year">
                 <option value=""></option>
                 @for ($i = date('Y') + 1; $i >= 2015; $i--)
                     <option value="{{$i}}">{{$i}}</option>
@@ -19,6 +23,7 @@
                 
             </select>
             @error('year') <span class="text-danger">{{ $message }}</span> @enderror
+        </div> 
         </div>
         <hr class="h-color mx-2 mt-3">
         <div class="mb-3">
@@ -43,7 +48,7 @@
         </div>
         <hr class="h-color mx-2 mt-3">
         <div class="table-responsive">
-            <table class="table table align-middle">
+            <table class="table table align-middle table-striped">
                 <thead>
                     <th class="text-center">Target Competency</th>
                     <th class="text-center">S/U/G</th>
