@@ -58,7 +58,7 @@
                                             <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
-                                                    <p class="fs-6 fw-bold">Incomplete</p>
+                                                    <p class="fs-6 fw-bold">Unfinish</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
                                             </div>
@@ -83,7 +83,7 @@
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                     @if ($table == 'Submitted IDPs' || $table == 'Approved IDPs')
                                         @if ($idps->isNotEmpty())
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printAllIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Print All</button>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printAllIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download All</button>
                                         @endif
                                         
                                     @endif
@@ -92,9 +92,9 @@
                               
                         </div>
                         <div class="card-body text-center">
-                            <div class="table-responsive rounded-3 table-bordered">
-                                <table class="table table-striped table-bordered border border-5 border-secondary table-hover">
-                                    <thead>
+                            <div class="table-responsive rounded-3">
+                                <table class="table table-striped border border-5 border-secondary table-hover">
+                                    <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
                                         <tr class="table-bordered">
                                             @if ($table != 'My IDPs')
                                                 <th scope="col">Name</th>
@@ -105,7 +105,7 @@
                                             <th scope="col">Created At</th>
                                             <th scope="col">Updated At</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" class="text-danger">IDP Actions</th>
+                                            <th scope="col" style="color:  #800">IDP Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -136,7 +136,7 @@
                                                 <td>
                                                     <div class="d-grid gap-3 mx-3">
                                                    
-                                                        @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
+                                                       @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                 to top, #000000,
                                                                 #0f9b0f);"><i class="fas fa-paper-plane"></i><br>Submit</button>
@@ -146,7 +146,7 @@
                                                             #191654);"><i class="fas fa-eye"></i><br>View</button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                             to top, #000000,
-                                                            #0f9b0f);"><i class="fas fa-print"></i><br>Print</button>
+                                                            #0f9b0f);"><i class="fas fa-download"></i><br>Download</button>
                                                         @if ($idp->comment)
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-white rounded-3 shadow text-uppercase fw-bold px-5 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
@@ -156,7 +156,7 @@
                                                    
 
 
-                                                     @if ($idp->submit_status != 'Approved')
+                                                   @if ($idp->submit_status != 'Approved') 
                                                         @if ($idp->submit_status == 'Pending')
                                                             @if (auth()->user()->role_as == 1)
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#approveIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success text-white rounded-3 shadow fw-bold px-5 py-2 text-uppercase" style="background-image: linear-gradient(
@@ -171,10 +171,10 @@
 
                                                             
                                                             @if($idp->submit_status != 'Pending')
-                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary text-white rounded-3 shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary text-white rounded-3 text-uppercase shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #000046, 
                                                                     #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-white rounded-3 shadow-sm px-3 fw-bold py-2" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm px-3 fw-bold py-2" style="background-image: linear-gradient(
                                                                     to bottom, #870000,
                                                                     #190A05);"><i class="fas fa-trash fa-sm"></i><br>Delete</button>
                                                             @endif

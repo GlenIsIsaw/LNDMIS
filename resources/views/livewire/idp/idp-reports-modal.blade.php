@@ -67,13 +67,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printSummaryIdpModalLabel">Print IDP Summary</h5>
+                <h5 class="modal-title fw-bold text-uppercase" id="printSummaryIdpModalLabel">Download Summary</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="printall">
                 <div class="modal-body">
-                    <h5>Are you sure you want to print the summary of year {{$year}}?</h5>
+                    <h5 class="text-capitalize mb-3">Are you sure you want to Download the summary of year {{$year}}?</h5>
                     <label>
                         <input type="checkbox" wire:model="mySignature" class="text-uppercase ms-2 mb-3">
                         Include My Signature
@@ -87,7 +87,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                    <button type="submit" class="btn btn-primary">Yes! Download</button>
                 </div>
             </form>
         </div>

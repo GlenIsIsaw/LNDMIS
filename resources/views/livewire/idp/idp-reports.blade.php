@@ -26,9 +26,9 @@
                             
                         </div>
                         <div class="card-body text-center">
-                            <div class="table-responsive table-bordered border-dark text-center">
-                                <table class="table table-striped table-bordered border-dark table-hover">
-                                    <thead>
+                            <div class="table-responsive rounded-3 text-center">
+                                <table class="table table-striped border border-secondary border-5 rounded-3 table-hover">
+                                    <thead class="text-dark" style="background-color:#FEFCFF;">
                                         <!--<th>#</th> -->
                                         <th>
                                             Competencies
@@ -40,7 +40,7 @@
                                         <th>Person Responsible</th>
                                         <th>Support Needed</th>
                                         <th>Status</th>
-                                        <th>Submit Status</th>
+                                        <th>Submission Status</th>
                                     </thead>
                                     <tbody>
                                         @forelse ($arrays as $key => $array)
