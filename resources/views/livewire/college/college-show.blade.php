@@ -15,11 +15,9 @@
                         <div class="card-body">
                         
                             <div>
-                                <form wire:submit.prevent="store">
-                                    <button type="submit" class="float-end mx-2">Add</button>
+
+                                    <button type="submit" data-bs-toggle="modal" data-bs-target="#addCollegeModal" class="float-end mx-2">Add</button>
                                     <input type="text" wire:model="college_name" class="form-control float-end mx-2" placeholder="Add College" style="width: 230px" />
-                                    
-                                </form>
                             </div>
                         
                         
@@ -49,9 +47,6 @@
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#editCollegeModal" wire:click="edit({{$college->id}})" class="btn-info text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                         to bottom, #000046, 
                                                         #1CB5E0);"><i class="fas fa-pen"></i><br>Edit</button>
-                                                    <button type="button" wire:click="getId({{$college->id}})" data-bs-toggle="modal" data-bs-target="#deleteCollegeModal" class="btn-danger text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
-                                                        to bottom, #870000,
-                                                        #190A05);"><i class="fas fa-user-times"></i><br>Delete</button>
                                                 </td>
                                             </tr>
                                         @empty
@@ -85,9 +80,10 @@
             }
         })
         window.addEventListener('close-modal', event => {
-            
+
             $('#deleteCollegeModal').modal('hide');
             $('#editCollegeModal').modal('hide');
+            $('#addCollegeModal').modal('hide');
             
             
 

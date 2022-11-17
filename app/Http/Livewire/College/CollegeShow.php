@@ -43,8 +43,9 @@ class CollegeShow extends Component
         $college->college_name = $validatedData['college_name'];
         $college->save();
 
-        $this->college_name = '';
         $this->emit('refreshComponent');
+        $this->dispatchBrowserEvent('close-modal');
+        session()->flash('message', 'You have Deleted the College Info');
 
     }
     public function get($id){
