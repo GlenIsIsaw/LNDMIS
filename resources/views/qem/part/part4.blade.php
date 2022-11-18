@@ -15,7 +15,7 @@
         
 
                 <label><h6>Remarks</h6>
-                <textarea wire:model="remarks" cols="30" rows="10"></textarea>
+                <textarea wire:model.lazy="remarks" cols="30" rows="10"></textarea>
                 </label>
                 @error('remarks')<span class="text-danger">{{$message}}</span><br> @enderror
 

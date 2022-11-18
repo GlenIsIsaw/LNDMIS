@@ -52,7 +52,7 @@
 </div>
 <div class="mb-3">
     <label class="fw-bold">Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label>
-    <textarea wire:model="knowledge_acquired" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
+    <textarea wire:model.lazy="knowledge_acquired" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
     @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 

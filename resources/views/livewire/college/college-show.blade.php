@@ -17,7 +17,7 @@
                             <div>
 
                                     <button type="submit" data-bs-toggle="modal" data-bs-target="#addCollegeModal" class="float-end mx-2">Add</button>
-                                    <input type="text" wire:model="college_name" class="form-control float-end mx-2" placeholder="Add College" style="width: 230px" />
+                                    <input type="text" wire:model.lazy="college_name" class="form-control float-end mx-2" placeholder="Add College" style="width: 230px" />
                             </div>
                         
                         

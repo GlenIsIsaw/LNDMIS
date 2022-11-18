@@ -17,17 +17,17 @@
 <hr class="h-color mx-2 mt-3">
 <div class="mb-3">
     <label class="fw-bold">Venue</label>
-    <input type="text" wire:model="venue" class="form-control border border-3 border-secondary">
+    <input type="text" wire:model.lazy="venue" class="form-control border border-3 border-secondary">
     @error('venue') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label  class="fw-bold">Sponsors</label>
-    <input type="text" wire:model="sponsors" class="form-control border border-3 border-secondary">
+    <input type="text" wire:model.lazy="sponsors" class="form-control border border-3 border-secondary">
     @error('sponsors') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label class="fw-bold">Number of Hours</label>
-    <input type="number" wire:model="num_hours" class="form-control border border-3 border-secondary">
+    <input type="number" wire:model.lazy="num_hours" class="form-control border border-3 border-secondary">
     @error('num_hours') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
@@ -43,7 +43,7 @@
     </select>
     @if ($type == 'Others')
         <label class="fw-bold mt-2 ms-3">Specify The Type:</label>
-        <input type="text" wire:model="type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
+        <input type="text" wire:model.lazy="type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('type') <span class="text-danger">{{ $message }}</span> @enderror

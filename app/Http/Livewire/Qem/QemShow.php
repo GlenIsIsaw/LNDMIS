@@ -186,7 +186,7 @@ class QemShow extends Component
 
         $sum = 0;
         $count = 0;
-            for ($i=0; $i < 3; $i++) { 
+            for ($i=0; $i < 4; $i++) { 
                 if ($this->benefits[$i] != 'on') {
                     $sum += $this->benefits[$i];
                     $count++;
@@ -269,12 +269,17 @@ class QemShow extends Component
 
     }
     public function getSupervisor($id){
+        $arr = [];
         $supervisor = User::select('name', 'signature')
             ->join('colleges', 'colleges.id', '=', 'users.college_id')
             ->where('users.id','=',$id)
             ->first();
-
-        return $supervisor;
+        if($supervisor){
+            return $supervisor;
+        }else{
+            $arr['name'] = null;
+            return $arr;
+        }
     } 
     public function store(){
         $validatedData = $this->validate([
@@ -306,6 +311,7 @@ class QemShow extends Component
 
             if (auth()->user()->role_as == 2) {
                 $qem->status = 'Approved';
+                $qem->supervisor = auth()->user()->id;
             }
             $qem->save();
             $training = ListOfTraining::find($this->training_id);
@@ -496,7 +502,6 @@ class QemShow extends Component
         ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
         ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
         ->where('qems.status','Approved')
-        ->where('list_of_trainings.status','Approved')
         ->orderBy('list_of_trainings.updated_at','desc')
         ->get();
 
@@ -570,13 +575,14 @@ class QemShow extends Component
         $supervisor = $this->getSupervisor($qem['sup_id']);
         
         if($qem['qem_status'] == 'Approved'){
-            if($supervisor->signature){
-                $templateProcessor->setValue("supervisor", $supervisor->name);
+            if($supervisor['signature']){
+                
                 $templateProcessor->setImageValue('signature', array('path' => public_path('storage/users/'.$qem['sup_id'].'/'.$supervisor->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
             }else{
                 session()->flash('message','The Supervisor has no signature');
                 $templateProcessor->setValue('signature'," ");
             }
+            $templateProcessor->setValue("supervisor", $supervisor->name);
             
         }else{
             $templateProcessor->setValue('signature'," ");
@@ -695,8 +701,7 @@ class QemShow extends Component
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                     ->whereBetween('qems.created_at',[$start_date,$end_date])
                     ->where('qems.status','Not Submitted')
-                    ->where('list_of_trainings.status','Approved')
-                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->orderBy('qems.updated_at','desc')
                     ->paginate(3);
 
             }
@@ -711,7 +716,7 @@ class QemShow extends Component
                     ->whereBetween('qems.created_at',[$start_date,$end_date])
                     ->where($this->query[0],$this->query[1])
                     ->where('list_of_trainings.status','Approved')
-                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->orderBy('qems.updated_at','desc')
                     ->paginate(3);
             }
         }else {
@@ -736,8 +741,7 @@ class QemShow extends Component
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                     ->where('qems.status','Not Submitted')
-                    ->where('list_of_trainings.status','Approved')
-                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->orderBy('qems.updated_at','desc')
                     ->paginate(3);
 
             }
@@ -751,7 +755,7 @@ class QemShow extends Component
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                     ->where($this->query[0],$this->query[1])
                     ->where('list_of_trainings.status','Approved')
-                    ->orderBy('list_of_trainings.updated_at','desc')
+                    ->orderBy('qems.updated_at','desc')
                     ->paginate(3);
             }
         }

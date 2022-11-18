@@ -34,14 +34,14 @@
     </select>
     @if ($certificate_type == 'Others')
         <label class="fw-bold mt-2 ms-3">Specify The Type of Certificate:</label>
-        <input type="text" wire:model="certificate_type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
+        <input type="text" wire:model.lazy="certificate_type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('certificate_type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('certificate_type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label class="fw-bold">Certificate Name</label>
-    <input type="text" wire:model="certificate_title" class="form-control border border-3 border-secondary">
+    <input type="text" wire:model.lazy="certificate_title" class="form-control border border-3 border-secondary">
     @error('certificate_title') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
@@ -57,7 +57,7 @@
     </select>
     @if ($level == 'Others')
         <label class="fw-bold mt-2 ms-3">Specify The Level:</label>
-        <input type="text" wire:model="level_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
+        <input type="text" wire:model.lazy="level_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
         
     @endif
     @error('level_others') <span class="text-danger">{{ $message }}</span> @enderror
@@ -65,7 +65,7 @@
 </div>
 <div class="mb-3">
     <label class="fw-bold">Date Covered</label>
-    <input type="input" wire:model="date_covered" class="form-control border border-3 border-secondary">
+    <input type="input" wire:model.lazy="date_covered" class="form-control border border-3 border-secondary">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 
