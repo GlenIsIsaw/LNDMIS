@@ -39,6 +39,7 @@ class AttendanceReports extends Component
         ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
         ->where('college_id',auth()->user()->college_id)
         ->where('status','Approved')
+        ->orderBy('name','asc')
         ->get();
 
         $this->attendance = $lists;
@@ -66,9 +67,10 @@ class AttendanceReports extends Component
             ->where('college_id',auth()->user()->college_id)
             ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
             ->where('competency', 'like', '%'.$this->competency.'%')
-            ->whereBetween('attendance_forms.created_at',[$start_date,$end_date])
+            ->whereBetween('date_covered',[$start_date,$end_date])
             ->where('teacher',$choice)
             ->where('status','Approved')
+            ->orderBy('name','asc')
             ->get();
         foreach ($lists as $key => $value) {
             if ($check == $value->name) {
@@ -106,7 +108,8 @@ class AttendanceReports extends Component
             ->where('college_id',auth()->user()->college_id)
             ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
             ->where('competency', 'like', '%'.$this->competency.'%')
-            ->whereBetween('attendance_forms.created_at',[$start_date,$end_date])
+            ->whereBetween('date_covered',[$start_date,$end_date])
+            ->orderBy('name','asc')
             ->where('status','Approved')
             ->get();
         
@@ -191,23 +194,25 @@ class AttendanceReports extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','venue','sponsors','competency','attendance_forms.id as att_id','status','attendance_forms.created_at As date_created')
+        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','venue','sponsors','competency','attendance_forms.id as att_id','status','specify_date')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
             ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
             ->where('competency', 'like', '%'.$this->competency.'%')
-            ->whereBetween('attendance_forms.created_at',[$start_date,$end_date])
+            ->whereBetween('date_covered',[$start_date,$end_date])
             ->where('status','Approved')
+            ->orderBy('name','asc')
             ->paginate(10);
         }else{
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','venue','sponsors','competency','attendance_forms.id as att_id','status','attendance_forms.created_at As date_created')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','venue','sponsors','competency','attendance_forms.id as att_id','status','specify_date')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->where('college_id',auth()->user()->college_id)
             ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
             ->where('competency', 'like', '%'.$this->competency.'%')
             ->where('status','Approved')
+            ->orderBy('name','asc')
             ->paginate(10);
         }
         if($lists->currentPage() != 1){

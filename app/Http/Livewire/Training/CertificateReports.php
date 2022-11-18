@@ -40,23 +40,23 @@ class CertificateReports extends Component
     }
     public function getInfo(){
 
-            $lists = ListOfTraining::select('name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('name', 'certificate_title','date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->get();
 
         $this->certificate = $lists;
         //dd($this->training);
     }
     public function show(int $id){
-        $lists = ListOfTraining::select('users.id As user_id','name', 'certificate_title','certificate')
+        $lists = ListOfTraining::select('users.id As user_id','name', 'certificate_title','certificate', 'specify_date')
         ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
         ->where('college_id',auth()->user()->college_id)
         ->where('status','Approved')
         ->where('list_of_trainings.id', $id)
-        ->orderBy('list_of_trainings.updated_at','desc')
+        ->orderBy('name','asc')
         ->first();
 
         
@@ -71,23 +71,23 @@ class CertificateReports extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->get();
         }else {
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->get();
         }
 
@@ -101,7 +101,7 @@ class CertificateReports extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('list_of_trainings.id',$this->training_id)
@@ -109,17 +109,17 @@ class CertificateReports extends Component
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->first();
         }else {
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('list_of_trainings.id',$this->training_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->first();
         }
 
@@ -183,6 +183,7 @@ class CertificateReports extends Component
 
         $zip->close();
         return response()->download($zipname)->deleteFileAfterSend(true);
+        $this->dispatchBrowserEvent('close-modal');
         
     }
     public function resetFilter(){
@@ -222,24 +223,24 @@ class CertificateReports extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
-                ->whereBetween('list_of_trainings.created_at',[$start_date,$end_date])
+                ->whereBetween('date_covered',[$start_date,$end_date])
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->paginate(10);
         }else {
 
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','certificate')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title', 'date_covered','certificate', 'specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('status','Approved')
-                ->orderBy('list_of_trainings.updated_at','desc')
+                ->orderBy('name','asc')
                 ->paginate(10);
         }
         return view('livewire.training.certificate-reports', ['trainings' => $lists]);

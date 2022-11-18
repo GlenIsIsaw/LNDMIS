@@ -64,8 +64,11 @@
     @error('level') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Date Covered</label>
-    <input type="input" wire:model.lazy="date_covered" class="form-control border border-3 border-secondary">
+    <label class="fw-bold">Date of Completion</label>
+    <input type="date" wire:model.lazy="date_covered" class="form-control border border-3 border-secondary">
+
+    <label class="fw-bold mt-2 ms-3">Specify the Date:</label>
+    <input type="text" wire:model.lazy="specify_date" class="form-control border border-3 border-secondary rounded-3 ms-3" placeholder="Optional" style="width:50%;">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 

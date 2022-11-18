@@ -136,7 +136,7 @@ class IdpReports extends Component
             ->where('responsible', 'like', '%'.$this->responsible.'%')
             ->where('year',$this->year)
             ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-            ->orderBy('idps.created_at','asc')
+            ->orderBy('name','asc')
             ->get();
         } else {
             $object = Idp::select('competency')
@@ -151,7 +151,7 @@ class IdpReports extends Component
                 $query->where('submit_status', 'Approved')
                       ->orwhere('submit_status', 'Pending');
             })
-            ->orderBy('idps.created_at','asc')
+            ->orderBy('name','asc')
             ->get();
         }
         
@@ -184,13 +184,17 @@ class IdpReports extends Component
     }
     public function filterCompetency($arrays){
         $temp = $arrays;
+
+        $arr = [];
         foreach ($arrays as $name => $array) {
             foreach ($array as $key => $item) {
                 if($item['competency'] != $this->competency){
+                    array_push($arr, $temp[$name][$key]);
                     unset($temp[$name][$key]);
                 }
             }
         }
+
         return $temp;
     }
     public function filterResponsible($arrays){
@@ -205,11 +209,11 @@ class IdpReports extends Component
         return $temp;
     }
     public function getInfo(){
-        $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status', 'idps.created_at As created_date')
+        $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status')
         ->join('users', 'users.id', '=', 'idps.user_id')
         ->where('college_id',auth()->user()->college_id)
         ->where('submit_status','Approved')
-        ->orderBy('idps.created_at','asc')
+        ->orderBy('name','asc')
         ->get();
 
         $this->Idp = $lists;
@@ -277,7 +281,7 @@ class IdpReports extends Component
                 ->where('sug', 'like', '%'.$this->sug.'%')
                 ->where('responsible', 'like', '%'.$this->responsible.'%')
                 ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-                ->orderBy('idps.created_at','asc')
+                ->orderBy('name','asc')
                 ->get();
         }else{
             $lists = Idp::select('user_id','name','competency','sug','dev_act','year','supervisor','college_name','coordinator')
@@ -293,7 +297,7 @@ class IdpReports extends Component
                     $query->where('submit_status', 'Approved')
                           ->orwhere('submit_status', 'Pending');
                 })
-                ->orderBy('idps.created_at','asc')
+                ->orderBy('name','asc')
                 ->get();
         }
 
@@ -454,7 +458,7 @@ class IdpReports extends Component
         $this->getInfo();
         $this->dispatchBrowserEvent('toggle');
             if ($this->filter_status) {
-                $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
+                $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('submit_status', 'like', '%'.$this->filter_status.'%')
@@ -463,10 +467,10 @@ class IdpReports extends Component
                 ->where('sug', 'like', '%'.$this->sug.'%')
                 ->where('responsible', 'like', '%'.$this->responsible.'%')
                 ->where('year', 'like', '%'.$this->year.'%')
-                ->orderBy('idps.created_at','asc')
+                ->orderBy('name','asc')
                 ->paginate(2);
             } else {
-                $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status', 'idps.created_at As created_date')
+                $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where(function($query) {
@@ -479,23 +483,23 @@ class IdpReports extends Component
                 ->where('sug', 'like', '%'.$this->sug.'%')
                 ->where('responsible', 'like', '%'.$this->responsible.'%')
                 ->where('year', 'like', '%'.$this->year.'%')
-                ->orderBy('idps.created_at','asc')
+                ->orderBy('name','asc')
                 ->paginate(2);
             }
-            
-           
-
+            $array = [];
+           $array = $this->separate($lists->items());
+            //dd($array);
             if($this->competency){
-                $this->arrays = $this->filterCompetency($this->separate($lists->items()));
+                $this->arrays = $this->filterCompetency($array);
             }
             else{
                 $this->arrays = $this->separate($lists->items());
             }
             if($this->sug){
-                $this->arrays = $this->filterSug($this->arrays);
+                $this->arrays = $this->filterSug($array);
             }
             if($this->responsible){
-                $this->arrays = $this->filterResponsible($this->arrays);
+                $this->arrays = $this->filterResponsible($array);
             }
             
             //dd($this->arrays);

@@ -20,7 +20,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
+    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others;
     public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
@@ -186,7 +186,7 @@ class TrainingShow extends Component
     public function store()
     {   
         $validatedData = $this->validate([
-            'photo' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf'
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
             $this->next = 0;
             $this->user_id = auth()->user()->id;
@@ -209,6 +209,7 @@ class TrainingShow extends Component
             }
             $list->certificate_title = $this->certificate_title;
             $list->date_covered = $this->date_covered;
+            $list->specify_date = $this->specify_date;
             $list->venue = $this->venue;
             $list->sponsors = $this->sponsors;
             $list->num_hours = $this->num_hours;
@@ -313,6 +314,7 @@ class TrainingShow extends Component
         $list->certificate_title = $this->certificate_title;
         $list->level = $this->level;
         $list->date_covered = $this->date_covered;
+        $list->specify_date = $this->specify_date;
         $list->certificate_type = $this->certificate_type;
         $list->venue = $this->venue;
         $list->sponsors = $this->sponsors;
@@ -566,6 +568,7 @@ class TrainingShow extends Component
         $this->mySignature = '';
         $this->checkmySignature = '';
         $this->fileType = '';
+        $this->specify_date = '';
         $this->resetErrorBag();
     }
     public function resetFilter(){
@@ -877,7 +880,7 @@ class TrainingShow extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','list_of_trainings.created_at As date_created')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])
@@ -887,12 +890,12 @@ class TrainingShow extends Component
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
-                ->whereBetween('list_of_trainings.created_at',[$start_date,$end_date])
+                ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
                 ->paginate(3);
         }else {
 
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','list_of_trainings.created_at As date_created')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','specify_date')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where($this->query[0],$this->query[1])

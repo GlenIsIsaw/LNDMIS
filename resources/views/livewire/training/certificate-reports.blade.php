@@ -33,7 +33,7 @@
                                             <tr>
                                                 <td>{{$training->name}}</td>
                                                 <td>{{$training->certificate_title}}</td>
-                                                <td>{{$training->date_covered}}</td>
+                                                <td>{{$training->date_covered. ' : '. $training->specify_date}}</td>
                                                 <td>
                                                     @php
                                                         $array = explode(".", $training->certificate);

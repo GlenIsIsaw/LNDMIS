@@ -25,7 +25,6 @@
                                         <th>Venue</th>
                                         <th>Sponsors</th>
                                         <th>Competency</th>
-                                        <th>Date Created</th>
 
                                     </thead>
                                     <tbody>
@@ -34,11 +33,10 @@
                                                 <td>{{$count++}}</td>
                                                 <td>{{$training->name}}</td>
                                                 <td>{{$training->certificate_title}}</td>
-                                                <td>{{$training->date_covered}}</td>
+                                                <td>{{$training->date_covered. ' : '. $training->specify_date}}</td>
                                                 <td>{{$training->venue}}</td>
                                                 <td>{{$training->sponsors}}</td>
                                                 <td>{{$training->competency}}</td>
-                                                <td>{{$training->date_created}}</td>
                                             </tr>
                                         @empty
                                         <tr>
