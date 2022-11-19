@@ -12,24 +12,27 @@
                             </div>
                         
                         </div>
-                        <div class="card-body">
+                        <div class="card-head mt-2">
                         
                             <div>
 
-                                    <button type="submit" data-bs-toggle="modal" data-bs-target="#addCollegeModal" class="float-end mx-2">Add</button>
-                                    <input type="text" wire:model.lazy="college_name" class="form-control float-end mx-2" placeholder="Add College" style="width: 230px" />
+                                    <button type="submit" data-bs-toggle="modal" data-bs-target="#addCollegeModal" class="float-end btn-success rounded-3 px-2 py-1 me-3 text-uppercase fw-bold" style="background-image: linear-gradient(
+                                        to bottom, #52c234,
+                                         #061700);"><i class="fas fa-plus me-1"></i>Add</button>
+                                    <input type="text" wire:model.lazy="college_name" class="form-control float-end mx-2" placeholder="Add College Department" style="width: 230px" />
                             </div>
                         
                         
-                        
+                        </div>
+                        <div class="card-body">
                             
-                            <div class="table-responsive rounded-3 table-bordered text-center">
+                            <div class="table-responsive rounded-3">
                         
-                                <table class="table table-bordered border border-secondary border-3 table-striped table-hover">
-                                    <thead>
+                                <table class="table table align-middle mb-0 bg-white border border-secondary border-3 table-striped table-hover">
+                                    <thead class="bg-light">
                                         <tr>
-                                            <th>Id</th>
-                                            <th>College Name</th>
+                                            <th>ID</th>
+                                            <th class="ps-5">College Name</th>
                                             <th>Coordinator</th>
                                             <th>Supervisor</th>
                                             <th>Action</th>
@@ -39,14 +42,32 @@
                                     <tbody>
                                         @forelse ($colleges as $college)
                                             <tr>
-                                                <td>{{$college->id}}</td>
-                                                <td>{{$college->college_name}}</td>
+                                                <td>
+                                                    
+                                                {{$college->id}}
+
+                                                           
+                                            
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center ms-5">
+                                                        <img
+                                                            src="/images/cnsc.png"
+                                                            alt=""
+                                                            style="width: 55px; height: 55px"
+                                                            class="rounded-circle"
+                                                            />
+                                                            <div class="ms-3">
+                                                  <p class="fw-bold mb-1 text-uppercase">  {{$college->college_name}} </p>
+                                                  <p class="text-muted mb-0">Camarines Norte State College</p>
+                                                
+                                                </div>
+                                            </div>
+                                                </td>
                                                 <td>{{$this->get($college->coordinator)}}</td>
                                                 <td>{{$this->get($college->supervisor)}}</td>
                                                 <td>
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#editCollegeModal" wire:click="edit({{$college->id}})" class="btn-info text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
-                                                        to bottom, #000046, 
-                                                        #1CB5E0);"><i class="fas fa-pen"></i><br>Edit</button>
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#editCollegeModal" wire:click="edit({{$college->id}})" class="btn btn-link text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="color: #800"><i class="fas fa-pen me-1"></i>Edit</button>
                                                 </td>
                                             </tr>
                                         @empty

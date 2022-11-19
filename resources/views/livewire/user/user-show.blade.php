@@ -71,6 +71,8 @@
                                                         @endphp
                                                         
                                                         {{$array[$user->user_status]}}
+
+                                                       
                                                     </td>
                                                     <td>
                                                         <div class="d-grid gap-3">

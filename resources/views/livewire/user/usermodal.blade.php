@@ -6,12 +6,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteuserModalLabel">Delete user</h5>
+                <h5 class="modal-title fw-bold text-uppercase" id="deleteuserModalLabel">Modify the User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="destroyUser">
-                <div class="modal-body">
+                <div class="modal-body text-capitalize fs-5">
                     <h4>Are you sure?</h4>
                 </div>
                 <div class="modal-footer">
@@ -136,7 +136,7 @@
             </div>
             <form wire:submit.prevent="makeNotSup">
                 <div class="modal-body">
-                    <h6>Are you sure you want to not make him/her a supervisor?</h6>
+                    <h6>Are you sure you want to not make him/her as supervisor?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"

@@ -105,20 +105,20 @@
                                     
                                 
 
-                            <div class="card-body text-center">
-                                <div class="table-responsive rounded-3 text-center">
-                                    <table class="table table-striped border-secondary border border-5 table-hover">
-                                        <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
+                            <div class="card-body">
+                                <div class="table-responsive rounded-3 text-center text-small">
+                                    <table class="table table-striped border-secondary border border-5 table-hover ">
+                                        <thead class="text-dark" style="background-color:#FEFCFF;">
                                             <tr>
                                                 @if ($table != "My Trainings")
                                                     <th scope="col">Name</th>
                                                 @endif
                                                 
-                                                <th scope="col">Certificate Title</th>
+                                                <th scope="col" class="">Certificate Title</th>
                                                 <th scope="col">Certificate Type</th>
                                                 <th scope="col">Date Covered</th>
                                                 <th scope="col">Level</th>
-                                                <th scope="col">Number of Hours</th>
+                                                <th scope="col" class="">No. of Hours</th>
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
@@ -128,13 +128,13 @@
                                                 <th scope="col" style="color:  #800">Certificate Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody >
                                             @forelse ($trainings as $training)
                                                 <tr>
                                                     @if ($table != "My Trainings")
                                                         <td>{{$training->name}}</td>
                                                     @endif
-                                                    <td>{{$training->certificate_title}}</td>
+                                                    <td class="fw-bold">{{$training->certificate_title}}</td>
                                                     <td>{{$training->certificate_type}}</td>
                                                     <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>
                                                     <td>{{ $training->level }}</td>

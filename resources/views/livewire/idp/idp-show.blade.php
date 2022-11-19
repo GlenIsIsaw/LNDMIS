@@ -113,7 +113,7 @@
 
                                             <tr>
                                                 @if ($table != 'My IDPs')
-                                                    <td>{{$idp->name}}</td>
+                                                    <td class="fw-bold">{{$idp->name}}</td>
                                                 @endif
                                                 <td>
                                                     <ol class="list-group list-group-numbered">

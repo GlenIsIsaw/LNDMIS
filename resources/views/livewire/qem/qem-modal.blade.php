@@ -4,12 +4,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createConfirmationQemModalLabel">Confirmation</h5>
+                <h5 class="modal-title fw-bold text-uppercase fs-5" id="createConfirmationQemModalLabel">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" 
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="store">
-                <div class="modal-body">
+                <div class="modal-body text-capitalize fs-5">
                     <h6>Are you sure you want to save your Input?</h6>
                 </div>
                 <div class="modal-footer">

@@ -327,7 +327,7 @@
       @endif
         @if (auth()->user()->role_as == 3)
         <ul class="list-unstyled px-2">
-            <a href="/college" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>College</a>
+            <a href="/college" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-university me-2"></i>College</a>
             
         </ul>
 
