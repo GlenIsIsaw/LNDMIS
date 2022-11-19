@@ -69,6 +69,7 @@
                                                         @php
                                                             $array =  [1=>'Active', 0=>'Disabled'];
                                                         @endphp
+                                                        
                                                         {{$array[$user->user_status]}}
                                                     </td>
                                                     <td>

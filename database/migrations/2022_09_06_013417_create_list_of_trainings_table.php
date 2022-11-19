@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade'); 
             $table->string('certificate_type');
             $table->string('certificate_title');
-            $table->string('date_covered');
+            $table->date('date_covered');
+            $table->string('specify_date')->nullable();;
             $table->string('venue');
             $table->string('sponsors');
             $table->string('level');

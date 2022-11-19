@@ -132,7 +132,21 @@
                                                 <td>{{ $idp->year }}</td>
                                                 <td>{{ $idp->created_at }}</td>
                                                 <td>{{ $idp->updated_at }}</td>
-                                                <td>{{ $idp->submit_status }}</td>
+                                                <td>
+                                                    @if ($idp->submit_status == 'Approved')
+                                                    <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
+                                                @endif
+                                                @if ($idp->submit_status == 'Not Submitted')
+                                                    <p class="badge badge-pill fs-6 text-white" style="background-color: #800">Ongoing</p>
+                                                @endif
+                                                @if ($idp->submit_status == 'Rejected')
+                                                    <p class="badge badge-pill fs-6 bg-danger text-white">Rejected</p>
+                                                @endif
+                                                @if ($idp->submit_status == 'Pending')
+                                                <p class="badge badge-pill fs-6 bg-warning text-dark">Pending</p>
+                                                @endif
+                                                
+                                                </td>
                                                 <td>
                                                     <div class="d-grid gap-3 mx-3">
                                                    

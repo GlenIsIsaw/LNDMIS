@@ -122,9 +122,9 @@
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
-                                                <th scope="col">Created At</th>
+                                                <th scope="col">Date Created</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col" style="color:  #800">Attendance Form Actions</th>
+                                                <th scope="col" style="color:  #800">Attendance Report Actions</th>
                                                 <th scope="col" style="color:  #800">Certificate Actions</th>
                                             </tr>
                                         </thead>
@@ -136,7 +136,7 @@
                                                     @endif
                                                     <td>{{$training->certificate_title}}</td>
                                                     <td>{{$training->certificate_type}}</td>
-                                                    <td>{{ $training->date_covered }}</td>
+                                                    <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>
                                                     <td>{{ $training->level }}</td>
                                                      <td>{{$training->num_hours }}</td> 
                                                     <td>{{$training->venue }}</td> 
@@ -145,10 +145,16 @@
                                                     <td>{{ $training->date_created }}</td>
                                                     <td>
                                                         @if ($training->status == 'Approved')
-                                                            <p class="text-success">Approved</p>
+                                                            <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
                                                         @endif
                                                         @if ($training->status == 'Not Submitted')
-                                                            <p class="text-danger">Ongoing</p>
+                                                            <p class="badge badge-pill fs-6 text-white" style="background-color: #800">Ongoing</p>
+                                                        @endif
+                                                        @if ($training->status == 'Rejected')
+                                                            <p class="badge badge-pill fs-6 bg-danger text-white">Rejected</p>
+                                                        @endif
+                                                        @if ($training->status == 'Pending')
+                                                        <p class="badge badge-pill fs-6 bg-warning text-dark">Pending</p>
                                                         @endif
                                                     </td>
                                                     
