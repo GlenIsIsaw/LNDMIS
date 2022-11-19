@@ -278,6 +278,7 @@ class QemShow extends Component
             return $supervisor;
         }else{
             $arr['name'] = null;
+            $arr['signature'] = null;
             return $arr;
         }
     } 
@@ -328,7 +329,7 @@ class QemShow extends Component
         $qem = Qem::select('qems.id As qem_id', 'name', 'list_of_trainings.id As training_id','certificate_title', 'content','benefits', 'realization', 'supervisor','total_average', 'remarks')
             ->join('list_of_trainings', 'list_of_trainings.id', '=', 'qems.list_of_training_id')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-            ->where('qems.list_of_training_id','=', $id)
+            ->where('qems.id', $id)
             ->first();
         
         if ($qem) {
@@ -390,7 +391,7 @@ class QemShow extends Component
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->where('college_id',auth()->user()->college_id)
                     ->where('list_of_trainings.status','Approved')
-                    ->where('list_of_trainings.id',$id)
+                    ->where('qems.id',$id)
                     ->first();
         //dd($qem);
         if ($qem) {
@@ -612,6 +613,25 @@ class QemShow extends Component
         $pieces = explode("-", $date);
         return $pieces[0];
     }
+    public function dateRange(){
+        $daterange = '';
+        if ($this->start_date && $this->end_date) {
+            $start_month = strftime("%B",strtotime($this->start_date));
+            $end_month = strftime("%B",strtotime($this->end_date));
+            $year = $this->year($this->end_date);
+            $daterange = '';
+        
+            if ($start_month == $end_month) {
+                $daterange = $start_month.' '.$this->year($this->end_date);
+            }else {
+                $daterange = $start_month.' - '.$end_month.' '.$year;
+            }
+        }else{
+            $daterange = 'All';
+        }
+
+        return $daterange;
+    }
     public function downloadAll(){
         $id = [];
         $filename = [];
@@ -628,21 +648,8 @@ class QemShow extends Component
             //dd($this->idp_id);
             $this->print();
         }
-        $daterange = '';
-        if ($this->start_date && $this->end_date) {
-            $start_month = strftime("%B",strtotime($this->start_date));
-            $end_month = strftime("%B",strtotime($this->end_date));
-            $year = $this->year($this->end_date);
-            $daterange = '';
-        
-            if ($start_month == $end_month) {
-                $daterange = $start_month.' '.$this->year($this->end_date);
-            }else {
-                $daterange = $start_month.' - '.$end_month.' '.$year;
-            }
-        }else{
-            $daterange = 'All';
-        }
+        $daterange = $this->dateRange();
+
         $zipname = storage_path('app/public/users/'.auth()->user()->id.'/Qem/Qem_'.$daterange.'.zip');
         $zip = new ZipArchive;
         $zip->open($zipname, ZipArchive::CREATE);
@@ -655,7 +662,126 @@ class QemShow extends Component
         }
 
         $zip->close();
+        $this->dispatchBrowserEvent('close-modal');
         return response()->download($zipname)->deleteFileAfterSend(true);
+    }
+
+    public function printQemReports(){
+        $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval')
+                ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                ->where('college_id',auth()->user()->college_id)
+                ->where('qems.status','Approved')
+                ->orderBy('name', 'asc')
+                ->get();
+        $qem = $qems->toArray();
+
+        $daterange = $this->dateRange();
+        //dd($qem);
+        $templateProcessor = new TemplateProcessor(storage_path('QEM-Report.docx'));
+        $templateProcessor->setValue("college", $qem[0]['college_name']);
+        $templateProcessor->setValue("date_range", $daterange);
+        $templateProcessor->cloneBlock("qem", count($qem), true, true);
+        for ($i=1; $i <= count($qem); $i++) { 
+            $content = json_decode($qem[$i-1]['content'],true);
+            $benefits = json_decode($qem[$i-1]['benefits'],true);
+            $realization = json_decode($qem[$i-1]['realization'],true);
+            $array = [$content, $benefits, $realization];
+            
+            
+            
+            
+            $templateProcessor->setValue("name#$i", $qem[$i-1]['name']);
+            $templateProcessor->setValue("certificate_title#$i", $qem[$i-1]['certificate_title']);
+            $templateProcessor->setValue("date_eval#$i", $this->split($qem[$i-1]['date_eval']));
+            $templateProcessor->setValue("date_covered#$i", $qem[$i-1]['date_covered']);
+
+            $templateProcessor->setValue("venue#$i", $qem[$i-1]['venue']);
+            $templateProcessor->setValue("sponsors#$i", $qem[$i-1]['sponsors']);
+
+            foreach ($array as $key => $value) {
+                foreach ($value as $num => $item) {
+                    if($num == 'total'){
+                        $templateProcessor->setValue("total#$key#$i", $item);
+                        continue;
+                    }
+                    if($num == 'average'){
+                        $templateProcessor->setValue("ave#$key#$i", $item);
+                        continue;
+                    }
+                    if($item == 3){
+                        $templateProcessor->setValue("ve#$key#$num#$i", '/');
+                        $templateProcessor->setValue("e#$key#$num#$i", ' ');
+                        $templateProcessor->setValue("ne#$key#$num#$i", ' ');
+                    }elseif($item == 2){
+                        $templateProcessor->setValue("e#$key#$num#$i", '/');
+                        $templateProcessor->setValue("ve#$key#$num#$i", ' ');
+                        $templateProcessor->setValue("ne#$key#$num#$i", ' ');
+                    }elseif($item == 1){
+                        $templateProcessor->setValue("ne#$key#$num#$i", '/');
+                        $templateProcessor->setValue("ve#$key#$num#$i", ' ');
+                        $templateProcessor->setValue("e#$key#$num#$i", ' ');
+                    }
+                    else {
+                        $templateProcessor->setValue("ve#$key#$num#$i", ' ');
+                        $templateProcessor->setValue("e#$key#$num#$i", ' ');
+                        $templateProcessor->setValue("ne#$key#$num#$i", ' ');
+                    }
+                    $templateProcessor->setValue("num#$key#$num#$i", $item);
+                }
+
+            }
+            $this->total_average = $qem[$i-1]['total_average'];
+            $this->rating();
+            $templateProcessor->setValue("total_average#$i", $this->total_average.' - '.$this->rating);
+            $templateProcessor->setValue("remarks#$i", $qem[$i-1]['remarks']);
+            $this->total_average = null;
+            $this->rating = null;
+
+            $templateProcessor->setValue("competency#$i", $qem[$i-1]['competency']);
+            $templateProcessor->setValue("knowledge_acquired#$i", $qem[$i-1]['knowledge_acquired']);
+            $templateProcessor->setValue("outcome#$i", $qem[$i-1]['outcome']);
+            $templateProcessor->setValue("personal_action#$i", $qem[$i-1]['personal_action']);
+
+            $templateProcessor->setImageValue("certificate#$i", array('path' => public_path('storage/users/'.$qem[$i-1]['user_id'].'/'.$qem[$i-1]['certificate']), 'width' => 700, 'height' => 500, 'ratio' => false));
+
+
+            $supervisor = $this->getSupervisor($qem[$i-1]['sup_id']);
+            $templateProcessor->setValue("sname#$i", $supervisor['name']);
+
+
+            if ($supervisor['signature']) {
+                $templateProcessor->setImageValue("ssign#$i", array('path' => public_path('storage/users/'.$qem[$i-1]['sup_id'].'/'.$supervisor->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
+                $templateProcessor->setValue("sdate#$i", date('F j, Y'));
+            } else {
+                $templateProcessor->setValue("ssign#$i", ' ');
+                $templateProcessor->setValue("sdate#$i", ' ');
+            }
+
+            if($qem[$i-1]['signature']){
+                $templateProcessor->setImageValue("esign#$i", array('path' => public_path('storage/users/'.$qem[$i-1]['user_id'].'/'.$qem[$i-1]['signature']), 'width' => 100, 'height' => 50, 'ratio' => false));
+                $templateProcessor->setValue("edate#$i", date('F j, Y'));
+            }else{
+                $templateProcessor->setValue("esign#$i", ' ');
+                $templateProcessor->setValue("edate#$i", ' ');
+            }
+            
+        }
+        
+        
+        $foldername = storage_path('app/public/users/'.auth()->user()->id.'/QemReports');
+        $path = storage_path('app/public/users/'.auth()->user()->id.'/QemReports/'.'QemReports_'.$daterange.'.docx');
+        if(!is_dir($foldername))
+		{
+			mkdir($foldername, 0777, true);
+		}
+        $templateProcessor->saveAs($path);
+
+        $this->dispatchBrowserEvent('close-modal');
+        return response()->download($path)->deleteFileAfterSend(true);
+        
     }
     public function updatingFilterCertificateTitle($value){
         $this->resetPage();
@@ -754,7 +880,6 @@ class QemShow extends Component
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                     ->where($this->query[0],$this->query[1])
-                    ->where('list_of_trainings.status','Approved')
                     ->orderBy('qems.updated_at','desc')
                     ->paginate(3);
             }

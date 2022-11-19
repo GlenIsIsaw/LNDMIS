@@ -135,7 +135,7 @@
                     </div>
                         <div class="mb-3">
                             <label  class="fw-bold">Search by Qem Title:</label>
-                            <input wire:model="filter_Qem_title" class="form-control border  border-dark border-3 rounded-3" placeholder="Search..." />
+                            <input wire:model="filter_certificate_title" class="form-control border  border-dark border-3 rounded-3" placeholder="Search..." />
                         </div>
                     
                     <label class="fw-bold">Sort by Date Created:</label>    
@@ -194,6 +194,30 @@
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="downloadAll">
+                <div class="modal-body">
+                    <h6>Are you sure you want to download all of this?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Print Qem Reports Qem Modal -->
+<div wire:ignore.self class="modal fade" id="printQemReportsModal" tabindex="-1" aria-labelledby="printQemReportsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printQemReportsModalLabel">Download Qem Reports</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="printQemReports">
                 <div class="modal-body">
                     <h6>Are you sure you want to download all of this?</h6>
                 </div>

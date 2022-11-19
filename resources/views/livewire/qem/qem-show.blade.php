@@ -32,7 +32,8 @@
                                     <div class="float-end mx-2">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#filterQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                 @if ($table == 'Approved QEM')
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#printAllQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Download All</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#printAllQemModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Download All</button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#printQemReportsModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Download Qem Reports</button>
                                 @endif
                                     </div>
                                 </div>
@@ -88,11 +89,11 @@
                                                                         #0f9b0f);"><i class="fas fa-pen"></i><br>Approve</button>
                                                                 @endif
                                                             @endif
-                                                            <button type="button" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="show({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
                                                                 #191654);"><i class="fas fa-eye"></i><br>Show</button>
                                                             
-                                                            <button type="button" wire:click="edit({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="edit({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #000046, 
                                                                 #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-light text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
@@ -152,6 +153,9 @@
             $('#submitQemModal').modal('hide');
             $('#approveQemModal').modal('hide');
             $('#printQemModal').modal('hide');
+            $('#printAllQemModal').modal('hide');
+            $('#printQemReportsModal').modal('hide');
+            
 
             $('#notificationModal').modal('hide');
             
