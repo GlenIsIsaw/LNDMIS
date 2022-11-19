@@ -77,7 +77,7 @@
                                             <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
-                                                    <p class="fs-6 fw-bold">Unfinish</p>
+                                                    <p class="fs-6 fw-bold">Ongoing</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
                                             </div>
@@ -119,8 +119,8 @@
                                                 <th scope="col">Date Covered</th>
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Number of Hours</th>
-                                                <!-- <th scope="col">Venue</th>
-                                                <th scope="col">Sponsors</th> -->
+                                                <th scope="col">Venue</th>
+                                                <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Created At</th>
                                                 <th scope="col">Status</th>
@@ -138,12 +138,19 @@
                                                     <td>{{$training->certificate_type}}</td>
                                                     <td>{{ $training->date_covered }}</td>
                                                     <td>{{ $training->level }}</td>
-                                                    <!--<td>//$training->num_hours }}</td> 
-                                                    <td>//$training->venue }}</td> -->
+                                                     <td>{{$training->num_hours }}</td> 
+                                                    <td>{{$training->venue }}</td> 
                                                     <td>{{ $training->sponsors }}</td>
                                                     <td>{{ $training->type }}</td>
                                                     <td>{{ $training->date_created }}</td>
-                                                    <td>{{ $training->status }}</td>
+                                                    <td>
+                                                        @if ($training->status == 'Approved')
+                                                            <p class="text-success">Approved</p>
+                                                        @endif
+                                                        @if ($training->status == 'Not Submitted')
+                                                            <p class="text-danger">Ongoing</p>
+                                                        @endif
+                                                    </td>
                                                     
  
                                                     

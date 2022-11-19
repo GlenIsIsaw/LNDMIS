@@ -58,7 +58,7 @@
                                             <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
-                                                    <p class="fs-6 fw-bold">Unfinish</p>
+                                                    <p class="fs-6 fw-bold">Ongoing</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
                                             </div>
