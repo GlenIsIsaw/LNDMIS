@@ -317,9 +317,11 @@ class IdpShow extends Component
         
 
         $idp = Idp::select('year')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('college_id',auth()->user()->college_id)
                 ->where('year', $this->year)
-                ->where('id', auth()->user()->id)
-                ->get();
+                ->where('users.id', auth()->user()->id)
+                ->first();
         if ($idp) {
             session()->flash('message','You already have an IDP for year '.$this->year);
         }else {
