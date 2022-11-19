@@ -275,6 +275,7 @@ class QemShow extends Component
             ->where('users.id','=',$id)
             ->first();
         if($supervisor){
+            $arr = $supervisor->toArray();
             return $supervisor;
         }else{
             $arr['name'] = null;
@@ -667,7 +668,21 @@ class QemShow extends Component
     }
 
     public function printQemReports(){
-        $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval')
+        if ($this->start_date && $this->end_date) {
+            $start_date = Carbon::parse($this->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($this->end_date)->toDateTimeString();
+            $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval')
+                ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                ->join('colleges', 'colleges.id', '=', 'users.college_id')
+                ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+                ->whereBetween('date_covered',[$start_date,$end_date])
+                ->where('college_id',auth()->user()->college_id)
+                ->where('qems.status','Approved')
+                ->orderBy('name', 'asc')
+                ->get();
+        }else {
+            $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval')
                 ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
@@ -676,6 +691,8 @@ class QemShow extends Component
                 ->where('qems.status','Approved')
                 ->orderBy('name', 'asc')
                 ->get();
+        }
+
         $qem = $qems->toArray();
 
         $daterange = $this->dateRange();
@@ -812,34 +829,34 @@ class QemShow extends Component
                     ->where('college_id',auth()->user()->college_id)
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
-                    ->whereBetween('qems.created_at',[$start_date,$end_date])
+                    ->whereBetween('date_covered',[$start_date,$end_date])
                     ->where('list_of_trainings.status','Approved')
                     ->where('qem',0)
                     ->orderBy('list_of_trainings.updated_at','desc')
                     ->paginate(3);
             }elseif ($this->table == 'Not Submitted QEM') {
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
                     ->where('college_id',auth()->user()->college_id)
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
-                    ->whereBetween('qems.created_at',[$start_date,$end_date])
+                    ->whereBetween('date_covered',[$start_date,$end_date])
                     ->where('qems.status','Not Submitted')
                     ->orderBy('qems.updated_at','desc')
                     ->paginate(3);
 
             }
             else{
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
                     ->where('college_id',auth()->user()->college_id)
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
-                    ->whereBetween('qems.created_at',[$start_date,$end_date])
+                    ->whereBetween('date_covered',[$start_date,$end_date])
                     ->where($this->query[0],$this->query[1])
                     ->where('list_of_trainings.status','Approved')
                     ->orderBy('qems.updated_at','desc')
@@ -859,7 +876,7 @@ class QemShow extends Component
                     ->orderBy('list_of_trainings.updated_at','desc')
                     ->paginate(3);
             }elseif ($this->table == 'Not Submitted QEM') {
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
@@ -872,7 +889,7 @@ class QemShow extends Component
 
             }
             else{
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')

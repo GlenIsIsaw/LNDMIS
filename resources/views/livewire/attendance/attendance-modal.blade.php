@@ -89,3 +89,37 @@
         </div>
     </div>
 </div>
+
+<!-- Print LND Monitoring Reports Attendance -->
+<div wire:ignore.self class="modal fade" id="printLNDModal" tabindex="-1" aria-labelledby="printLNDModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printLNDModalLabel">Download Attendance Summary</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="printLndReports">
+                <div class="modal-body">
+                    <label class="fw-bold">Date Range:</label>    
+                    <div class="mx-3 my-3">
+                        <label class="fw-bold">Start Date</label>
+                        <input type="date" wire:model="start_date" class="form-control border border-dark border-3 rounded-3"> 
+                        @error('start_date') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mx-3 my-3">
+                        <label class="fw-bold">End Date</label>
+                        <input type="date" wire:model="end_date" class="form-control border border-dark border-3 rounded-3">
+                        @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Download</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
