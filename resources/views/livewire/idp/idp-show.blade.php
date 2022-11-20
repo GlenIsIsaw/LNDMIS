@@ -58,7 +58,7 @@
                                             <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
-                                                    <p class="fs-6 fw-bold">Unfinish</p>
+                                                    <p class="fs-6 fw-bold">Ongoing</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
                                             </div>
@@ -113,7 +113,7 @@
 
                                             <tr>
                                                 @if ($table != 'My IDPs')
-                                                    <td>{{$idp->name}}</td>
+                                                    <td class="fw-bold">{{$idp->name}}</td>
                                                 @endif
                                                 <td>
                                                     <ol class="list-group list-group-numbered">
@@ -132,7 +132,21 @@
                                                 <td>{{ $idp->year }}</td>
                                                 <td>{{ $idp->created_at }}</td>
                                                 <td>{{ $idp->updated_at }}</td>
-                                                <td>{{ $idp->submit_status }}</td>
+                                                <td>
+                                                    @if ($idp->submit_status == 'Approved')
+                                                    <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
+                                                @endif
+                                                @if ($idp->submit_status == 'Not Submitted')
+                                                    <p class="badge badge-pill fs-6 text-white" style="background-color: #800">Ongoing</p>
+                                                @endif
+                                                @if ($idp->submit_status == 'Rejected')
+                                                    <p class="badge badge-pill fs-6 bg-danger text-white">Rejected</p>
+                                                @endif
+                                                @if ($idp->submit_status == 'Pending')
+                                                <p class="badge badge-pill fs-6 bg-warning text-dark">Pending</p>
+                                                @endif
+                                                
+                                                </td>
                                                 <td>
                                                     <div class="d-grid gap-3 mx-3">
                                                    

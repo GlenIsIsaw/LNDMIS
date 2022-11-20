@@ -35,7 +35,7 @@
                         }
                     }
         @endphp
-            <optgroup label="Idp:{{date('Y')}}">
+            <optgroup label="IDP of Year {{date('Y')}}">
                 @foreach ($idp_competency as $item)
                     <option value="{{$idp_id.'#'.$item}}">{{$item}}</option>
                 @endforeach
