@@ -52,12 +52,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="deleteTrainingModalLabel">Delete {{$certificate_title}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="deleteTrainingModalLabel">Delete {{$certificate_title}}</h5>
+                
             </div>
             <form wire:submit.prevent="destroy">
-                <div class="modal-body text-uppercase fw-bold">
+                <div class="modal-body text-capitalize fw-bold fs-6">
                     <h4>Are you sure you want to delete this data ?</h4>
                 </div>
                 <div class="modal-footer">
@@ -76,13 +75,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createConfirmationTrainingModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title fw-bold text-uppercase fs-4" id="createConfirmationTrainingModalLabel">Confirmation</h5>
+                
             </div>
             <form wire:submit.prevent="store">
                 <div class="modal-body">
-                    <h6>Are you sure you want to save your Input?</h6>
+                    <h6 class="text-capitalize fs-6 fw-bold">Are you sure you want to save your Input?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -100,13 +98,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="editConfirmationTrainingModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="editConfirmationTrainingModalLabel">Confirmation</h5>
+               
             </div>
             <form wire:submit.prevent="update">
                 <div class="modal-body fw-bold text-uppercase">
-                    <h6>Are you sure you want to edit your training info?</h6>
+                    <h6 class="fs-6 text-capitalize fw-bold">Are you sure you want to edit your training info?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -124,12 +121,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold text-uppercase" id="submitTrainingModalLabel">Submit {{$certificate_title}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fw-bold text-uppercase fs-4" id="submitTrainingModalLabel">Submit {{$certificate_title}}</h5>
+                
             </div>
             <form wire:submit.prevent="submit">
-                <div class="modal-body fw-bold text-uppercase">
+                <div class="modal-body fw-bold text-capitalize fs-6">
                     <h4>Are you sure you want to submit your input ?</h4>
                 </div>
                 <div class="modal-footer">
@@ -148,13 +144,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removeSubmissionTrainingModalLabel">Remove Submission of {{$certificate_title}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="removeSubmissionTrainingModalLabel">Remove Submission of {{$certificate_title}}</h5>
+               
             </div>
             <form wire:submit.prevent="removeSubmit">
                 <div class="modal-body">
-                    <h4>Are you sure you want to remove your submission ?</h4>
+                    <h4 class="fs-6 fw-bold text-capitalize">Are you sure you want to remove your submission ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
@@ -174,13 +169,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteAttendanceModalLabel">Delete {{$certificate_title}}</h5>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="deleteAttendanceModalLabel">Delete {{$certificate_title}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="destroyAttendanceForm">
                 <div class="modal-body">
-                    <h4>Are you sure you want to delete this data ?</h4>
+                    <h4 class="fs-6 text-capitalize fw-bold">Are you sure you want to delete this data ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal"
@@ -198,12 +193,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="printAttendanceModalLabel">Download Attendance Form</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="printAttendanceModalLabel">Download Attendance Form</h5>
+                
             </div>
             <form wire:submit.prevent="printAttendanceForm">
-                <div class="modal-body text-capitalize fs-5">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
                     <h4>Are you sure you want to Download this Attendance Form ?</h4>
                     <hr class="h-color mx-2">
                     @if ($checkmySignature)
@@ -231,12 +225,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="createConfirmationAttendanceModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="createConfirmationAttendanceModalLabel">Confirmation</h5>
+                
             </div>
             <form wire:submit.prevent="storeAttendanceForm">
-                <div class="modal-body text-uppercase fw-bold">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
                     <h6>Are you sure you want to save your Input?</h6>
                 </div>
                 <div class="modal-footer">
@@ -255,13 +248,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="editConfirmationAttendanceModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="editConfirmationAttendanceModalLabel">Confirmation</h5>
+                
             </div>
             <form wire:submit.prevent="updateAttendanceForm">
                 <div class="modal-body">
-                    <h6>Are you sure you want to edit your Attendance Form info?</h6>
+                    <h6 class="fs-6 fw-bold text-capitalize">Are you sure you want to edit your Attendance Form info?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -279,16 +271,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="approveTrainingModalLabel">Approve the Submitted Training</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="approveTrainingModalLabel">Approve the Submitted Training</h5>
+                
             </div>
             <form wire:submit.prevent="approve">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4>Are you sure you want to Approve this Submission ?</h4>
+                        <h4 class="fs-6 text-capitalize fw-bold">Are you sure you want to Approve this Submission ?</h4>
                         <hr class="h-color mx-2 mt-3">
-                        <label class="mb-3 fw-bold text-uppercase">Comment:</label>
+                        <label class="mb-3 fw-bold text-capitalize fs-5">Comment:</label>
                         <textarea wire:model="comment" rows="4" cols="50" class="form-control border-3 border-dark"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
@@ -309,9 +300,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="showCommentModalLabel">Comment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="showCommentModalLabel">Comment</h5>
+                
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -333,16 +323,16 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="reject">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4>Are you sure you want to Reject this Submission ?</h4>
+                        <h4 class="fs-6 text-capitalize fw-bold">Are you sure you want to Reject this Submission ?</h4>
                         <hr class="h-color mx-2 mt-3">
-                        <label class="fw-bold text-uppercase mb-3">Comment:</label>
+                        <label class="fw-bold text-capitalize fs-5 mb-3">Comment:</label>
                         <textarea wire:model="comment" rows="4" cols="50" class="form-control border-3 border-dark"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>

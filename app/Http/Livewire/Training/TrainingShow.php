@@ -892,7 +892,7 @@ class TrainingShow extends Component
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(3);
+                ->paginate(2);
         }else {
 
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','specify_date')
@@ -906,7 +906,7 @@ class TrainingShow extends Component
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(3);
+                ->paginate(2);
         }
 
                                     

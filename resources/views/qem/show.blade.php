@@ -2,56 +2,86 @@
     <div class="fw-bolder fs-3 float-start text-uppercase">
         Show Quantified Evaluation Matrix  
     </div>
-    <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
-    wire:click="backButton"></button>
+    <div class="float-end">   
+        <button type="button" class="btn btn-danger float-end" wire:click="backButton"><i class="fas fa-times fa-4"></i></button></div>
 </div>
 <div class="card-body">
-    <div class="mb-1">
-        <p>Name: <b>{{$name}} </b></p>
-    </div>
-    <div class="mb-1">
-        <p>Title of Intervension Attended: <b>{{$certificate_title}} </b></p>
-    </div>
-    <div class="mb-1">
-        <p>Date Conducted: <b>{{$date_covered}} </b></p>
-    </div>
-    <div class="mb-1">
-        <p>Date of Evaluation: <b>{{$date_eval}} </b></p>
-    </div>
-    <div class="mb-1">
-        <p>Venue: <b>{{$venue}} </b></p>
-    </div>
-    <div class="mb-1">
-        <p>Sponsors: <b>{{$sponsors}} </b></p>
-    </div>
-    <div class="mb-1">
-        <p>Supervisor: <b>{{$supervisor}} </b></p>
+    <div class="col">
+        <table class="table table-striped table-bordered border-1 table-hover rounded-3">
+            <tr>
+                <th style="width:20%">Name</th>
+                <td class="text-left text-capitalize">{{$name}}</td>
+                
+            </tr>
+            <tr>
+                <th>Tile Intervention Attended</th>
+                <td class="text-left text-capitalize">{{$certificate_title}} </td>
+            </tr>
+            <tr>
+                <th>Date Conducted</th>
+                <td class="text-left text-capitalize">{{$date_covered}}</td>
+            </tr>
+            <tr>
+                <th>Date of Evaluation</th>
+                <td class="text-left text-capitalize">{{$date_eval}}</td>
+            </tr>
+            <tr>
+                <th>Venue</th>
+                <td class="text-left text-capitalize">{{$venue}}</td>
+            </tr>
+
+            <tr>
+                <th>Sponsors</th>
+                <td class="text-left text-capitalize">{{$sponsors}} </td>
+            </tr>
+            <tr>
+                <th>Supervisor</th>
+                <td class="text-left text-capitalize">{{$supervisor}}</td>
+            </tr>
+        </table>
     </div>
 
-    <div class="mb-1">
-        <div class="d-flex justify-content-center">
-            <p>
-                Directions: Please put a checkmark (/) under corresponding responses using scale below.<br>
-            </p>
+
+    <div class="mt-2">
+        
         </div>
 
 
             <div class="d-flex justify-content-center">
-                <p>
-                    Very Effective 		-    2.61 – 3.0	<br>
-                    Effective			-    1.81 – 2.60<br>
-                    Not Effective		-    1.0  – 1.80<br>
+             
+                    <table class="table-hover" style="width:40%">
+               <tr>
+                    <th style="width:30%">Very Effective</th>
+                    <td style="width:30%">  2.61 – 3.0 </td>
+               </tr>
+               <tr>
+                <th>Effective </th>
+                <td>1.81 – 2.60</td>
+               </tr>
+               <tr>
+                    <th>Not Effective</th>
+                    <td>1.0  – 1.80</td>
 
-                </p>
+               </tr>
+                
+                    </table>
+                
             </div>
 
-
+            
     </div>
 
+    <div class="card-body">
+        <div class="d-flex justify-content-center">
+            <p class="mt-3">
+                Direction: Please put a checkmark (/) under corresponding responses using the scale below.<br>
+            </p>
+        </div>
+        <div class="col">
     <div class="table-responsive table-bordered rounded-3 text-center">
 
 
-        <table class="table table-bordered table-striped border-secondary border border-5 table-hover">
+        <table class="table table-sm table-bordered table-striped border-secondary border border-5 table-hover px-5">
 
                 <tr>
                     <th>Particulars</th>
@@ -409,4 +439,6 @@
         <p>{{$remarks}}</p>
     </div>
 
+</div>
+    </div>
 </div>

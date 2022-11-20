@@ -31,7 +31,7 @@
 
                                         @forelse ($trainings as $training)
                                             <tr>
-                                                <td>{{$training->name}}</td>
+                                                <td class="fw-bold">{{$training->name}}</td>
                                                 <td>{{$training->certificate_title}}</td>
                                                 <td>{{$training->date_covered. ' : '. $training->specify_date}}</td>
                                                 <td>
@@ -41,11 +41,11 @@
                                                     @endphp
                                                     @if ($ext == "pdf")
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#showCertificateModal" wire:click="show({{$training->training_id}})">
-                                                            View Pdf
+                                                            View PDF
                                                         </button>
                                                     @else
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#showCertificateModal" wire:click="show({{$training->training_id}})">
-                                                            <img class="img-thumbnail img-fluid rounded-3" id="current" width="200" height="200" src="{{ url('storage/users/'.$training->user_id.'/'.$training->certificate) }}?{{ rand() }}">
+                                                            <img class="img-thumbnail img-fluid rounded-3 border-none" id="current" width="200" height="200" src="{{ url('storage/users/'.$training->user_id.'/'.$training->certificate) }}?{{ rand() }}">
                                                         </button>
                                                     @endif
                                                     

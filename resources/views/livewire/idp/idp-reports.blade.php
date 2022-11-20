@@ -62,8 +62,15 @@
                                                         <td>{{$key}}</td>
                                                         <td>{{$item['responsible']}}</td>
                                                         <td>{{$item['support']}}</td>
-                                                        <td>{{$item['status']}}</td>
-                                                        <td>{{$item['submit_status']}}</td>
+                                                        <td class="fw-bold">
+                                                         {{$item['status']}}
+
+                                                       
+                                                        
+                                                        
+                                                        
+                                                        </td>
+                                                        <td class="fw-bold">{{$item['submit_status']}}</td>
                                                     </tr>
                                                 @endforeach
 
