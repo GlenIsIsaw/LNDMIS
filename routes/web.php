@@ -16,6 +16,7 @@ use App\Http\Livewire\Training\TrainingShow;
 use App\Http\Livewire\Training\TrainingReports;
 use App\Http\Livewire\Training\CertificateReports;
 use App\Http\Livewire\attendance\AttendanceReports;
+use App\Http\Livewire\Idp\IdpCompletion;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::get('/training/Reports', TrainingReports::class);
     Route::get('/attendance/Reports', AttendanceReports::class);
     Route::get('/certificate/Reports', CertificateReports::class);
+    Route::get('/idp-completion', IdpCompletion::class);
     
 
 });
