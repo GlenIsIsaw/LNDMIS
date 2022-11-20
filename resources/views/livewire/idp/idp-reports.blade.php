@@ -4,6 +4,15 @@
     <div class="container py-3 px-5">
         <div class="row">
             <div class="col-md-12">
+                @if ($state)
+                <div id="main-card">
+                    <div class="card">
+                        @if($state == 'tnm')
+                            @include('idp.tnm')
+                        @endif
+                </div>
+
+                @else
                 <div id="main-card">
                     <div class="card" >
                         <div class="card-header">
@@ -21,7 +30,7 @@
                                 <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mt-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
                                 <button data-bs-toggle="modal" data-bs-target="#filterSummaryIdpModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>     
                                 <button data-bs-toggle="modal" data-bs-target="#printSummaryIdpModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download</button>
-                                <button data-bs-toggle="modal" data-bs-target="#compSummaryIdpModal" wire:click="countCompetency" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-5 py-2 mx-2" style="background-color: #800;"><i class="fas fa-calculator me-2"></i>Competency Count</button>                       
+                                <button wire:click="tnm" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-5 py-2 mx-2" style="background-color: #800;"><i class="fas fa-calculator me-2"></i>TNM</button>                       
                            
                             
                         </div>
@@ -74,6 +83,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -97,7 +107,9 @@
     window.addEventListener('close-modal', event => {
 
         $('#printSummaryIdpModal').modal('hide');
+        $('#printTnmModal').modal('hide');
         $('#notificationModal').modal('hide');
+        
         
         
     })

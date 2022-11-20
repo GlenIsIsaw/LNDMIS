@@ -19,6 +19,7 @@ class IdpReports extends Component
     protected $paginationTheme = 'bootstrap';
     public $Idp;
     public $competency, $sug, $dev_act, $responsible, $support, $arrays, $name, $year, $mySignature, $supSignature, $filter_status;
+    public $state;
     public $competencies = [];
     public $pageNum = 3;
     public $count = 0;
@@ -38,6 +39,13 @@ class IdpReports extends Component
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');
         }
+    }
+    public function tnm(){
+        $this->countCompetency();
+        $this->state = 'tnm';
+    }
+    public function backButton(){
+        $this->state = null;
     }
     public function separate($idps){
         $arrays = array();
@@ -128,31 +136,31 @@ class IdpReports extends Component
         $comp = [];
         if ($this->filter_status) {
             $object = Idp::select('competency')
-            ->join('users', 'users.id', '=', 'idps.user_id')
-            ->where('college_id',auth()->user()->college_id)
-            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
-            ->where('competency', 'like', '%'.$this->competency.'%')
-            ->where('sug', 'like', '%'.$this->sug.'%')
-            ->where('responsible', 'like', '%'.$this->responsible.'%')
-            ->where('year',$this->year)
-            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
-            ->orderBy('name','asc')
-            ->get();
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->where('competency', 'like', '%'.$this->competency.'%')
+                ->where('sug', 'like', '%'.$this->sug.'%')
+                ->where('responsible', 'like', '%'.$this->responsible.'%')
+                ->where('year',$this->year)
+                ->where('submit_status', 'like', '%'.$this->filter_status.'%')
+                ->orderBy('name','asc')
+                ->get();
         } else {
-            $object = Idp::select('competency')
-            ->join('users', 'users.id', '=', 'idps.user_id')
-            ->where('college_id',auth()->user()->college_id)
-            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
-            ->where('competency', 'like', '%'.$this->competency.'%')
-            ->where('sug', 'like', '%'.$this->sug.'%')
-            ->where('responsible', 'like', '%'.$this->responsible.'%')
-            ->where('year',$this->year)
-            ->where(function($query) {
-                $query->where('submit_status', 'Approved')
-                      ->orwhere('submit_status', 'Pending');
-            })
-            ->orderBy('name','asc')
-            ->get();
+                $object = Idp::select('competency')
+                ->join('users', 'users.id', '=', 'idps.user_id')
+                ->where('college_id',auth()->user()->college_id)
+                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+                ->where('competency', 'like', '%'.$this->competency.'%')
+                ->where('sug', 'like', '%'.$this->sug.'%')
+                ->where('responsible', 'like', '%'.$this->responsible.'%')
+                ->where('year',$this->year)
+                ->where(function($query) {
+                    $query->where('submit_status', 'Approved')
+                        ->orwhere('submit_status', 'Pending');
+                })
+                ->orderBy('name','asc')
+                ->get();
         }
         
         
@@ -423,6 +431,78 @@ class IdpReports extends Component
             $this->resetFilter();
         }
     }
+    public function printTnmReports(){
+        $competency = [];
+        foreach ($this->competencies as $key => $value) {
+            array_push($competency, ['competency' => $key, 'count' => $value]);
+        }
+        $this->competency = $competency[0]['competency'];
+        //dd($this->competency);
+        if ($this->filter_status) {
+            $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('college_id',auth()->user()->college_id)
+            ->where('submit_status', 'like', '%'.$this->filter_status.'%')
+            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+            ->where('competency', 'like', '%'.$this->competency.'%')
+            ->where('sug', 'like', '%'.$this->sug.'%')
+            ->where('responsible', 'like', '%'.$this->responsible.'%')
+            ->where('year', 'like', '%'.$this->year.'%')
+            ->orderBy('name','asc')
+            ->get();
+        } else {
+            $lists = Idp::select('idps.id As idp_id','name','competency','sug','dev_act','target_date','responsible','support','status','submit_status')
+            ->join('users', 'users.id', '=', 'idps.user_id')
+            ->where('college_id',auth()->user()->college_id)
+            ->where(function($query) {
+                $query->where('submit_status', 'Approved')
+                      ->orwhere('submit_status', 'Pending');
+            })
+            //->where('submit_status', 'like', '%'.$this->filter_status.'%')
+            ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+            ->where('competency', 'like', '%'.$this->competency.'%')
+            ->where('sug', 'like', '%'.$this->sug.'%')
+            ->where('responsible', 'like', '%'.$this->responsible.'%')
+            ->where('year', 'like', '%'.$this->year.'%')
+            ->orderBy('name','asc')
+            ->get();
+        } 
+        $array = [];
+        $array = $this->separate($lists);
+        //dd($array);
+        $arrays = $this->filterCompetency($array);
+        //dd($arrays);
+        $highest = [];
+        foreach ($arrays as $name => $comp) {
+            foreach ($comp as $key => $value) {
+                array_push($highest,$value += ['name' => $name]);
+            }
+        }
+        //dd($highest);
+        $templateProcessor = new TemplateProcessor(storage_path('TNM-Reports.docx'));
+        $college = College::select('college_name', 'supervisor')
+            ->where('id',auth()->user()->college_id)
+            ->first();
+        $templateProcessor->setValue('college', $college->college_name);
+        $templateProcessor->cloneRowAndSetValues('competency', $competency);
+        $templateProcessor->setValue('sum', array_sum($this->competencies));
+
+        $templateProcessor->setValue('competency', $this->competency);
+        $templateProcessor->cloneRowAndSetValues('name', $highest);
+
+        $foldername = storage_path('app/public/users/'.auth()->user()->id.'/TNMReports');
+        $path = storage_path('app/public/users/'.auth()->user()->id.'/TNMReports/'.'TNMReports_'.$this->year.'.docx');
+        if(!is_dir($foldername))
+		{
+			mkdir($foldername, 0777, true);
+		}
+        $templateProcessor->saveAs($path);
+
+        $this->competency = null;
+        $this->dispatchBrowserEvent('close-modal');
+        return response()->download($path)->deleteFileAfterSend(true);
+        
+    }
     public function resetInput(){
         $this->competencies = null;
         $this->mySignature = null;
@@ -485,7 +565,7 @@ class IdpReports extends Component
                 ->where('year', 'like', '%'.$this->year.'%')
                 ->orderBy('name','asc')
                 ->paginate(2);
-            }
+            } 
             $array = [];
            $array = $this->separate($lists->items());
             //dd($array);
