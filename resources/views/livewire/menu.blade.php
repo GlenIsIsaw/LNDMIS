@@ -304,12 +304,12 @@
               @if (auth()->user()->role_as == 1)
                 <button wire:click="SubmitQEM" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                   <i class="fas fa-times-circle me-2"></i></i>
-                Unfinish QEM </button></li>
+                Unfinished QEM </button></li>
               @endif
 
               <button wire:click="ApprovedQem" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                 <i class="fas fa-handshake me-2"></i>
-                Approved QEM </button></li>
+                Rated QEM </button></li>
                 @if (auth()->user()->role_as == 2)
                   <button wire:click="PendingQem" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000">
                     <i class="fas fa-clock me-2"></i></i>
@@ -327,7 +327,7 @@
       @endif
         @if (auth()->user()->role_as == 3)
         <ul class="list-unstyled px-2">
-            <a href="/college" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-user-friends me-2"></i><i class="fas fa-caret-down"></i>College</a>
+            <a href="/college" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-university me-2"></i>College</a>
             
         </ul>
 

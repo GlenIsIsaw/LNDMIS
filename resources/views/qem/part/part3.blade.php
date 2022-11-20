@@ -81,7 +81,7 @@
 </div>
 
 <div class="float-end">
-    <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center me-1">Back</button>
+    <button type="button" wire:click="back" class="btn btn-secondary me-1">Back</button>
     <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
     <button type="button" wire:click="part3" class="btn btn-primary">Next</button>
 </div>

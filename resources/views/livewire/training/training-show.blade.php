@@ -77,7 +77,7 @@
                                             <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$notSubmitted}}  </h6>  
-                                                    <p class="fs-6 fw-bold">Unfinish</p>
+                                                    <p class="fs-6 fw-bold">Ongoing</p>
                                                 </div>
                                                 <i class="fas fa-times-circle fa-2x p-1 me-2" style="color: #800;"></i>
                                             </div>
@@ -105,43 +105,58 @@
                                     
                                 
 
-                            <div class="card-body text-center">
-                                <div class="table-responsive rounded-3 text-center">
-                                    <table class="table table-striped border-secondary border border-5 table-hover">
-                                        <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
+                            <div class="card-body">
+                                <div class="table-responsive rounded-3 text-center text-small">
+                                    <table class="table table-striped border-secondary border border-5 table-hover ">
+                                        <thead class="text-dark" style="background-color:#FEFCFF;">
                                             <tr>
                                                 @if ($table != "My Trainings")
                                                     <th scope="col">Name</th>
                                                 @endif
                                                 
-                                                <th scope="col">Certificate Title</th>
+                                                <th scope="col" class="">Certificate Title</th>
                                                 <th scope="col">Certificate Type</th>
                                                 <th scope="col">Date Covered</th>
                                                 <th scope="col">Level</th>
-                                                <th scope="col">Number of Hours</th>
+                                                <th scope="col" class="">No. of Hours</th>
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
+                                                <th scope="col">Date Created</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col" style="color:  #800">Attendance Form Actions</th>
+                                                <th scope="col" style="color:  #800">Attendance Report Actions</th>
                                                 <th scope="col" style="color:  #800">Certificate Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody >
                                             @forelse ($trainings as $training)
                                                 <tr>
                                                     @if ($table != "My Trainings")
                                                         <td>{{$training->name}}</td>
                                                     @endif
-                                                    <td>{{$training->certificate_title}}</td>
+                                                    <td class="fw-bold">{{$training->certificate_title}}</td>
                                                     <td>{{$training->certificate_type}}</td>
                                                     <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>
                                                     <td>{{ $training->level }}</td>
-                                                    <td>{{$training->num_hours }}</td> 
-                                                    <td>{{$training->venue }}</td>
+                                                     <td>{{$training->num_hours }}</td> 
+                                                    <td>{{$training->venue }}</td> 
                                                     <td>{{ $training->sponsors }}</td>
                                                     <td>{{ $training->type }}</td>
-                                                    <td>{{ $training->status }}</td>
+                                                    <td>{{ $training->date_created }}</td>
+                                                    <td>
+                                                        @if ($training->status == 'Approved')
+                                                            <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
+                                                        @endif
+                                                        @if ($training->status == 'Not Submitted')
+                                                            <p class="badge badge-pill fs-6 text-white" style="background-color: #800">Ongoing</p>
+                                                        @endif
+                                                        @if ($training->status == 'Rejected')
+                                                            <p class="badge badge-pill fs-6 bg-danger text-white">Rejected</p>
+                                                        @endif
+                                                        @if ($training->status == 'Pending')
+                                                        <p class="badge badge-pill fs-6 bg-warning text-dark">Pending</p>
+                                                        @endif
+                                                    </td>
                                                     
  
                                                     

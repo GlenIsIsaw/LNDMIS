@@ -276,13 +276,16 @@ class UserShow extends Component
         if ($user->user_status) {
             $user->user_status = 0;
             $user->save();
+            session()->flash('message','User Disabled Successfully');
+            $this->dispatchBrowserEvent('close-modal');
         } else {
             $user->user_status = 1;
             $user->save();
+            session()->flash('message','User Enabled Successfully');
+            $this->dispatchBrowserEvent('close-modal');
         }
         
-        session()->flash('message','User Deleted Successfully');
-        $this->dispatchBrowserEvent('close-modal');
+
     }
 
     public function closeModal()

@@ -14,7 +14,7 @@
 <hr class="h-color mx-2 mt-3">
         @if (auth()->user()->role_as == 3)
             <div class="mb-3">
-                <label>College</label>
+                <label class="fw-bold">College</label>
                 <select wire:model="college_id" class="form-control border border-3 border-dark rounded-3">
                     <option value=""></option>
                         @foreach ($colleges as $key => $item)
@@ -29,17 +29,17 @@
         @endif
 
         <div class="mb-3">
-            <label>Name</label>
+            <label class="fw-bold">Name</label>
             <input type="text" wire:model.lazy="name" class="form-control border border-3 border-dark rounded-3">
             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
-            <label>Email</label>
+            <label  class="fw-bold">Email</label>
             <input type="text" wire:model.lazy="email" class="form-control border border-3 border-dark rounded-3">
             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3">
-            <label>Teacher</label>
+            <label  class="fw-bold">Teacher</label>
             <select wire:model.lazy="teacher" class="form-control border border-3 border-dark rounded-3">
                 <option value=""></option>
                 <option value="Yes">Yes</option>
