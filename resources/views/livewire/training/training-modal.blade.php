@@ -152,7 +152,7 @@
                     <h4 class="fs-6 fw-bold text-capitalize">Are you sure you want to remove your submission ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Remove Submission</button>
                 </div>
@@ -178,7 +178,7 @@
                     <h4 class="fs-6 text-capitalize fw-bold">Are you sure you want to delete this data ?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Yes! Delete</button>
                 </div>

@@ -1,6 +1,6 @@
 
     <div class="card-header">
-        <div class="fw-bold fs-5 text-uppercase">
+        <div class="fw-bold fs-3 text-uppercase">
             Upload Training    
         </div>
     </div>

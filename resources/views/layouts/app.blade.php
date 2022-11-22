@@ -58,6 +58,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                       
                         @guest
                             @if (Route::has(''))
                                 <li class="nav-item">
@@ -76,12 +77,12 @@
                             <li class="nav-item dropdown mx-5">
 
                                 
-                                
+                               
                                 <a id="navbarDropdown" class="nav-link rounded-pill px-4 dropdown-toggle text-light fw-bold text-center" style="background-color: #926F34" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                  {{ Auth::user()->name }}
                                      
                                 </a>
-
+                               
                                 
                                 <div class="dropdown-menu dropdown-menu-end rounded-3 border-none border-3 shadow-4" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
                                     
@@ -102,6 +103,7 @@
                                 </div>
                                 
                             </li>
+                           
                         @endguest
                     </ul>
                 </div>
