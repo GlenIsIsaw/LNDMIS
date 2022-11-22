@@ -23,7 +23,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="fw-bold fs-5 text-uppercase"> Employees of {{$info['college_name']}}
-                                    <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 230px" />
+                                    <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 330px" />
                                 </div>
                             </div>
                             <div class="card-body">
