@@ -10,7 +10,7 @@
                         <div class="card-header">
                           
                             <div class="fw-bolder fs-3 float-start text-uppercase"> IDP Completion Rate </div>
-                            <select wire:model='year' class="border border-3 fs-4 ms-2 px-2 fw-bold border-dark rounded-3">
+                            <select wire:model='year' class="border border-3 fs-4 ms-1 px-1 fw-bold border-dark rounded-3 mb-2">
                                 <option value=""></option>
                                 @for ($i = date('Y') + 1; $i >= 2015; $i--)
                                     <option value="{{$i}}">{{$i}}</option>
@@ -20,8 +20,11 @@
                             </select>
                        
                             
+                          
+                            <input type="search" wire:model="name" class="form-control float-end border-3 py-2 px-3" placeholder="Search by Name" style="width: 330px" />
+                        </div>
+                        <div class="card-body">
                             <button type="button"style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mx-2 my-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
-                            <input type="search" wire:model="name" class="form-control float-end border-3 py-2 px-3" placeholder="Search by Name" style="width: 230px" />
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpCompModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 px-3 fw-bold py-2 mx-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download</button>
                                 
                                 
