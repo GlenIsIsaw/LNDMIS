@@ -1,33 +1,69 @@
 <div class="card-header">
-    <div class="float-start my-2">
-    <h4>
+    <div class="float-start fs-5 fw-bold text-uppercase ">
+    
         {{$name}}'s Individual Development Plan of Year {{$year}}
-    </h4>
+    
     </div>
-    <div class="float-end my-2">
+    <div class="float-end ">
         <button type="button" class="btn btn-danger" wire:click="backButton"><i class="fas fa-times px-2 py-1"></i></button>
     </div>
 </div>
 <div class="card-body">
-    <table class="table">
-        <tr>
-            <td><p>Employee Name: {{$name}}</p></td>
-            <td><p>Position: {{$position}}</p></td>
-            <td><p>Years in the Position: {{$yearinPosition}}</p></td>
-        </tr>
-        <tr>
-            <td><p>Supervisor's Name: {{$supervisor}}</p></td>
-            <td colspan="2"><p>Years in the Agency: {{$yearJoined}}</p></td>
-        </tr>
-    </table>
-    <h4 class="font-bold">PURPOSE</h4>
-    <p>({{$purpose_meet}}) To meet the competencies of current position</p>
-    <p>({{$purpose_improve}}) To improve the current level position’s level of competencies.</p>
-    <p>({{$purpose_obtain}}) To obtain new level of competencies from position and different functions.</p>
-    <p>({{$purpose_others}}) Others, please specify: {{$purpose_explain}}</p>
+    
+    <div class="col">
+        <table class="table table-striped table-hover rounded-3">
+            <tr class="me-3">
+                <th style="width:20%">Employee Name:</th>
+                <td class="text-left text-capitalize">{{$name}}</td>
+                
+            </tr>
+            <tr>
+                <th>Position:</th>
+                <td class="text-left text-capitalize">{{$position}} </td>
+            </tr>
+            <tr>
+                <th>Years in Position:</th>
+                <td class="text-left text-capitalize">{{$yearinPosition}}</td>
+            </tr>
+            <tr>
+                <th>Supervisor's Name:</th>
+                <td class="text-left text-capitalize">{{$supervisor}}</td>
+            </tr>
+            <tr>
+                <th>Years in Agency:</th>
+                <td class="text-left text-capitalize">{{$yearJoined}}</td>
+            </tr>
+
+        </table>
+    </div>
+    <hr class="h-color mx-2"> 
+    <p class="fw-bolder text-uppercase mt-2 fs-6">PURPOSE</p>
+    <div class="col">
+        <table class="table table-hover rounded-3">
+            <tr>
+                <th>({{$purpose_meet}})</th>
+                <td class="text-left text-capitalize fs-6">To meet the competencies of current position</td>
+            </tr>
+            <tr>
+                <th>({{$purpose_improve}})</th>
+                <td class="text-left text-capitalize fs-6">To improve the current level position’s level of competencies.</td>
+            </tr>
+            <tr>
+                <th>({{$purpose_obtain}})</th>
+                <td class="text-left text-capitalize fs-6">To obtain new level of competencies from position and different functions.</td>
+            </tr>
+            <tr>
+                <th>({{$purpose_others}})</th>
+                <td class="text-left text-capitalize fs-6">Others, please specify: {{$purpose_explain}}</td>
+            </tr>
+        </table>
+    </div>
+
 
     <div class="table-responsive table-bordered text-center">
+    
     <table class="table table-bordered table-hover">
+        
         <th>Target Competency</th>
         <th>S/U/G Priorities</th>
         <th>Development Activity</th>
@@ -70,23 +106,27 @@
                 </tr>
             @endfor
     </table>
-    <h4 class="font-bold">
+</div>
+    <div class="fw-bold text-start fs-5">
         What function do you feel competent to perform?<br>
         (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
-    </h4>
-        <p>1.{{$compfunction0}} - {{$compfunctiondesc0}}</p>
-        <p>2.{{$compfunction1}} - {{$compfunctiondesc1}}</p>
-    <h4 class="font-bold">
+    </div>
+    <hr class="h-color mx-2"> 
+        <p class="me-2 lh-base text-start mt-2">1. {{$compfunction0}} - {{$compfunctiondesc0}}</p>
+        <p class="me-2 lh-base text-start mt-2">2. {{$compfunction1}} - {{$compfunctiondesc1}}</p>
+    <div class="fw-bold text-start fs-5">
         What function do you have a difficulty to perform?<br>
         (Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
-    </h4>
-        <p>1.{{$diffunction0}} - {{$diffunctiondesc0}}</p>
-        <p>2.{{$diffunction1}} - {{$diffunctiondesc1}}</p>
-    
-    <h4 class="font-bold">
-        Where do you see your career progressing in? the next two years?
-    </h4>
-    <p>{{$career}}</p>
-
-
     </div>
+    <hr class="h-color mx-2"> 
+        <p class="me-2 lh-base text-start mt-2">1. {{$diffunction0}} - {{$diffunctiondesc0}}</p>
+        <p class="me-2 lh-base text-start mt-2">2. {{$diffunction1}} - {{$diffunctiondesc1}}</p>
+    
+    <div class="fw-bold text-start fs-5">
+        Where do you see your career progressing in? the next two years?
+    </div>
+    <hr class="h-color mx-2"> 
+    <p class="me-2 lh-base text-start mt-2">{{$career}}</p>
+
+
+    

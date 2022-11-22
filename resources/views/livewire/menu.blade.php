@@ -385,7 +385,7 @@
             <li class=""><a href="/idp/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2"  style="color: #800000"><i class="fas fa-stamp me-2"></i>Local LND Plan</a></li>
             <li class=""><a href="/attendance/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2" style="color: #800000"><i class="fas fa-ticket-alt me-2"></i>LND Monitoring</a></li>
             <li class=""><a href="/certificate/Reports" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2" style="color: #800000"><i class="fas fa-certificate me-2"></i>Certificate Summary</a></li>
-            <li class=""><a href="/idp-completion" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2" style="color: #800000"><i class="fas fa-certificate me-2"></i>IDP Completion Rate</a></li>
+            <li class=""><a href="/idp-completion" role="button" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block mt-2" style="color: #800000"><i class="fas fa-percentage me-2"></i></i>IDP Completion Rate</a></li>
           </div>
           @else
           <a href="/training/Reports" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"><i class="fas fa-folder-open me-2"></i><i class="fas fa-caret-down"></i>Reports</a>
