@@ -17,6 +17,7 @@ use App\Http\Livewire\Training\TrainingReports;
 use App\Http\Livewire\Training\CertificateReports;
 use App\Http\Livewire\attendance\AttendanceReports;
 use App\Http\Livewire\Idp\IdpCompletion;
+use App\Http\Livewire\IncomingTrainingsShow;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/training', TrainingShow::class);
     Route::get('/idp', IdpShow::class);
     Route::get('/profile', Profile::class);
-
+    Route::get('/incoming', IncomingTrainingsShow::class);
     /*Route::get('/trainings', function(){
         return view('trainings.index');
     }); */

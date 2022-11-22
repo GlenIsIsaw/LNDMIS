@@ -34,7 +34,7 @@ class TrainingShow extends Component
     public $state = null;
     public $next = null;
 
-    protected $listeners = [
+     protected $listeners = [
         'createTraining' => 'createButton',
         'clearTraining' => 'clear',
         'passTraining' => 'passTable',

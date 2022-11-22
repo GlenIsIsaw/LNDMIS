@@ -14,4 +14,8 @@ class College extends Model
     {
         return $this->hasOne(User::class);
     }
+    public function invitaion()
+    {
+        return $this->hasOne(IncomingTrainings::class);
+    }
 }
