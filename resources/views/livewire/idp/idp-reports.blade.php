@@ -37,7 +37,7 @@
                         <div class="card-body text-center">
                             <div class="table-responsive rounded-3 text-center">
                                 <table class="table table-striped border border-secondary border-5 rounded-3 table-hover">
-                                    <thead class="text-dark" style="background-color:#FEFCFF;">
+                                    <thead class="text-dark shadow" style="background-color:#FEFCFF;">
                                         <!--<th>#</th> -->
                                         <th>
                                             Competencies

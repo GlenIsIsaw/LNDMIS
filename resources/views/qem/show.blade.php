@@ -7,7 +7,7 @@
 </div>
 <div class="card-body">
     <div class="col">
-        <table class="table table-striped table-bordered border-1 table-hover rounded-3">
+        <table class="table table-striped table-hover rounded-3">
             <tr>
                 <th style="width:20%">Name</th>
                 <td class="text-left text-capitalize">{{$name}}</td>
@@ -426,19 +426,25 @@
 
     
     </div>
-    <div class="float-end">
-        <h5>
-           Total Average: {{$total_average}} - {{$rating}}
-        </h5>
-    </div>
-
-    <div>
-        <h6>
-            Note: Remarks if the rating is Not Effective:
-        </h6>
-        <p>{{$remarks}}</p>
-    </div>
+   
 
 </div>
     </div>
+    <div class="card-footer mx-2">
+        <div class="float-start text-capitalize fw-light  fs-5 fst-italic">
+           
+                Remarks if the rating is Not Effective:
+            
+           <p> {{$remarks}} </p>
+        </div>
+
+        <div class="float-end text-uppercase fw-bold fs-5">
+         
+               Total Average: <p class="badge badge-pill fs-5 text-white" style="background-color: #926F34">{{$total_average}} - 
+               
+               {{$rating}} </p>
+            
+        </div>
+    </div>
 </div>
+

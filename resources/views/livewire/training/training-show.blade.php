@@ -108,7 +108,7 @@
                             <div class="card-body">
                                 <div class="table-responsive rounded-3 text-center text-small">
                                     <table class="table table-striped border-secondary border border-5 table-hover ">
-                                        <thead class="text-dark" style="background-color:#FEFCFF;">
+                                        <thead class="text-dark shadow" style="background-color:#FEFCFF;">
                                             <tr>
                                                 @if ($table != "My Trainings")
                                                     <th scope="col">Name</th>

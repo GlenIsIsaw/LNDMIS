@@ -94,7 +94,7 @@
                         <div class="card-body text-center">
                             <div class="table-responsive rounded-3">
                                 <table class="table table-striped border border-5 border-secondary table-hover">
-                                    <thead class="text-dark align-bottom" style="background-color:#FEFCFF;">
+                                    <thead class="text-dark align-bottom shadow" style="background-color:#FEFCFF;">
                                         <tr class="table-bordered">
                                             @if ($table != 'My IDPs')
                                                 <th scope="col">Name</th>
