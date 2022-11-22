@@ -4,12 +4,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold text-uppercase fs-5" id="createConfirmationQemModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title fw-bold text-uppercase fs-4" id="createConfirmationQemModalLabel">Confirmation</h5>
+               
             </div>
             <form wire:submit.prevent="store">
-                <div class="modal-body text-capitalize fs-5">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
                     <h6>Are you sure you want to save your Input?</h6>
                 </div>
                 <div class="modal-footer">
@@ -28,12 +27,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="deleteQemModalLabel">Delete QEM</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="deleteQemModalLabel">Delete QEM</h5>
+                
             </div>
             <form wire:submit.prevent="destroy">
-                <div class="modal-body text-uppercase fw-bold">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
                     <h4>Are you sure you want to delete this data ?</h4>
                 </div>
                 <div class="modal-footer">
@@ -52,13 +50,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editConfirmationQemModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 fw-bold text-uppercase" id="editConfirmationQemModalLabel">Confirmation</h5>
+               
             </div>
             <form wire:submit.prevent="update">
                 <div class="modal-body">
-                    <h6>Are you sure you want to update your QEM?</h6>
+                    <h6 class="fs-6 fw-bold text-capitalize">Are you sure you want to update your QEM?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -76,12 +73,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold text-uppercase" id="submitQemModalLabel">Submit QEM</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fw-bold text-uppercase fs-4" id="submitQemModalLabel">Submit QEM</h5>
+                
             </div>
             <form wire:submit.prevent="submit">
-                <div class="modal-body fw-bold text-uppercase">
+                <div class="modal-body fw-bold text-capitalize fs-6">
                     <h4>Are you sure you want to submit your QEM ?</h4>
                 </div>
                 <div class="modal-footer">
@@ -100,12 +96,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold text-uppercase" id="approveQemModalLabel">Submit QEM</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fw-bold text-uppercase fs-4" id="approveQemModalLabel">Submit QEM</h5>
+                
             </div>
             <form wire:submit.prevent="approve">
-                <div class="modal-body fw-bold text-uppercase">
+                <div class="modal-body fw-bold text-uppercase fs-6">
                     <h4>Are you sure you want to approve this QEM ?</h4>
                 </div>
                 <div class="modal-footer">
@@ -124,9 +119,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="filterQemModalLabel">Filter QEM</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="filterQemModalLabel">Filter QEM</h5>
+                
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -165,13 +159,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fs-3 fw-bold text-uppercase" id="printQemModalLabel">Download All QEM</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 fw-bold text-uppercase" id="printQemModalLabel">Download All QEM</h5>
+                
             </div>
             <form wire:submit.prevent="download">
-                <div class="modal-body fs-5 text-capitalize">
-                    <h6>Are you sure you want to print this?</h6>
+                <div class="modal-body fs-6 text-capitalize fw-bold">
+                    <h6>Are you sure you want to Download this?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -190,12 +183,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-4 text-uppercase fw-bold" id="printAllQemModalLabel">Download QEM</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+               
             </div>
             <form wire:submit.prevent="downloadAll">
                 <div class="modal-body">
-                    <h6 class="text-capitalize fs-5">Are you sure you want to download all of this?</h6>
+                    <h6 class="text-capitalize fs-6 fw-bold">Are you sure you want to download all of this?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -214,12 +206,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fs-4 text-uppercase fw-bold" id="printQemReportsModalLabel">Download QEM Reports</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                
             </div>
             <form wire:submit.prevent="printQemReports">
                 <div class="modal-body">
-                    <h6 class="text-capitalize fs-5">Are you sure you want to download all of this?</h6>
+                    <h6 class="text-capitalize fs-6 fw-bold">Are you sure you want to download all of this?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"

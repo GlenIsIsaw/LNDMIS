@@ -5,9 +5,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" class="text-uppercase">
-                <h5 class="modal-title" class="text-uppercase"  id="showCommentModalLabel">COMMENT</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title" class="text-uppercase fs-4 fw-bold"  id="showCommentModalLabel">COMMENT</h5>
+                
             </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -29,13 +28,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteIdpModalLabel">Delete the IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="deleteIdpModalLabel">Delete the IDP</h5>
+                
             </div>
             <form wire:submit.prevent="destroy">
                 <div class="modal-body">
-                    <h4>Are you sure you want to delete this IDP ?</h4>
+                    <h4 class="fw-bold text-capitalize fs-6">Are you sure you want to delete this IDP ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
@@ -55,13 +53,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="submitIdpModalLabel">Submit IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="submitIdpModalLabel">Submit IDP</h5>
+               
             </div>
             <form wire:submit.prevent="submit">
                 <div class="modal-body">
-                    <h4>Are you sure you want to submit your input ?</h4>
+                    <h4 class="text-capitalize fw-bold fs-6">Are you sure you want to submit your input ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
@@ -79,13 +76,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removeSubmissionIdpModalLabel">Remove Submission of IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="removeSubmissionIdpModalLabel">Remove Submission of IDP</h5>
+                
             </div>
             <form wire:submit.prevent="removeSubmit">
                 <div class="modal-body">
-                    <h4>Are you sure you want to remove your submission ?</h4>
+                    <h4 class="fw-bold text-capitalize fs-6">Are you sure you want to remove your submission ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
@@ -103,15 +99,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printIdpModalLabel">Download IDP</h5>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="printIdpModalLabel">Download IDP</h5>
                
             </div>
             <form wire:submit.prevent="download">
                 <div class="modal-body text-capitalize">
-                    <h4>Are you sure you want to Download this IDP?</h4>
+                    <h4 class="text-capitalize fw-bold fs-6">Are you sure you want to Download this IDP?</h4>
                     @if ($checkmySignature)
-                        <label>
-                            <input type="checkbox" wire:model="mySignature">
+                        <label class="ps-4 mt-2">
+                            <input class="border-dark" type="checkbox" wire:model="mySignature">
                             Include My Signature
                         </label>
                     @endif
@@ -132,12 +128,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold" id="printAllIdpModalLabel">Download IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="printAllIdpModalLabel">Download IDP</h5>
+                
             </div>
             <form wire:submit.prevent="printall">
-                <div class="modal-body text-capitalize">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
                     <h4>Are you sure you want to Download all of this IDP?</h4>
                 </div>
                 <div class="modal-footer">
@@ -156,14 +151,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="approveIdpModalLabel">Approve the Submitted Idp</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="approveIdpModalLabel">Approve the Submitted Idp</h5>
+                
             </div>
             <form wire:submit.prevent="approve">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4>Are you sure you want to Approve this Submission ?</h4>
+                        <h4 class="fs-6 fw-bold text-capitalize">Are you sure you want to Approve this Submission ?</h4>
                         <label>Comment:</label>
                         <textarea wire:model="comment" rows="4" cols="50" class="form-control border border-3 border-dark rouned-3"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
@@ -185,14 +179,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="rejectIdpModalLabel">Reject the Submitted Idp</h5>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="rejectIdpModalLabel">Reject the Submitted Idp</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="reject">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4>Are you sure you want to Reject this Submission ?</h4>
+                        <h4 class="text-capitalize fw-bold fs-6">Are you sure you want to Reject this Submission ?</h4>
                         <label>Comment:</label>
                         <textarea wire:model="comment" rows="4" cols="50" class="form-control border border-3 border-dark rounded-3"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
@@ -214,13 +208,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createConfirmationIdpModalLabel">Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                    aria-label="Close"></button>
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="createConfirmationIdpModalLabel">Confirmation</h5>
+               
             </div>
             <form wire:submit.prevent="store">
                 <div class="modal-body">
-                    <h6>Are you sure you want to save your input?</h6>
+                    <h6 class="text-uppercase fw-bold fs-6">Are you sure you want to save your input?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
@@ -238,13 +231,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editConfirmationIdpModalLabel">Confirmation</h5>
+                <h5 class="modal-title fs-4 fw-bold text-uppercase" id="editConfirmationIdpModalLabel">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" 
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="update">
                 <div class="modal-body">
-                    <h6>Are you sure you want to edit your IDP info?</h6>
+                    <h6 class="text-capitalize fw-bold fs-6">Are you sure you want to edit your IDP information?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
@@ -262,9 +255,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="getIdpsModalLabel">Remove Submission of IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 fw-bold text-uppercase" id="getIdpsModalLabel">Remove Submission of IDP</h5>
+                
             </div>
                 <div class="modal-body">
                     {{$idp_id}}
@@ -283,7 +275,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="guideIdpModalLabel">Guide in Accomplishing Individual Development Plan (IDP)</h5>
+                <h5 class="modal-title fw-bold text-uppercase fs-4" id="guideIdpModalLabel">Guide in Accomplishing Individual Development Plan (IDP)</h5>
                 
             </div>
                 <div class="modal-body text-md-start">
@@ -338,9 +330,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="filterIdpModalLabel">Filter IDP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="filterIdpModalLabel">Filter IDP</h5>
+                
             </div>
                 <div class="modal-body">
                     <div class="mb-3">

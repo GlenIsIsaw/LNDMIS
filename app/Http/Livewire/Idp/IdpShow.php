@@ -901,7 +901,7 @@ class IdpShow extends Component
             ->where('status', 'like', '%'.$this->filter_completion_status.'%')
             ->where('submit_status', 'like', '%'.$this->filter_status.'%')
             ->orderBy('idps.updated_at','desc')
-            ->paginate(3);
+            ->paginate(2);
         }else{
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')
             ->join('users', 'users.id', '=', 'idps.user_id')
@@ -913,7 +913,7 @@ class IdpShow extends Component
             ->where('status', 'like', '%'.$this->filter_completion_status.'%')
             ->where('submit_status', 'like', '%'.$this->filter_status.'%')
             ->orderBy('idps.updated_at','desc')
-            ->paginate(3);
+            ->paginate(2);
         }
 
 
