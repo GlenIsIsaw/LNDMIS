@@ -12,6 +12,9 @@
                         @if($state == 'show')
                             @include('invitation.show')
                         @endif
+                        @if($state == 'edit')
+                            @include('invitation.edit')
+                        @endif
                     </div>
                 </div>
 
@@ -36,7 +39,10 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Date Covered</th>
                                             <th scope="col">Attachments</th>
+                                            @if (auth()->user()->role_as == 1)
                                             <th scope="col">Actions</th>
+                                            @endif
+                                            
                                         </tr>
                                     </thead>
                                     <tbody class="table align-middle">
@@ -53,11 +59,11 @@
                                                 <td>
                                                     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                                     @if (auth()->user()->role_as == 1)
-                                                    <button type="button" wire:click="editAttendanceForm({{$training->id}})" class="btn-info text-light rounded-3 fw-bold text-uppercase px-4 py-2" style="background-image: linear-gradient(
+                                                    <button type="button" wire:click="edit({{$training->id}})" class="btn-info text-light rounded-3 fw-bold text-uppercase px-4 py-2" style="background-image: linear-gradient(
                                                         to bottom, #000046, 
                                                         #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
 
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteInvitationModal" wire:click="deleteAttendanceForm({{$training->id}})" class="btn-danger text-white rounded-3 fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmationInvitationModal" wire:click="getId({{$training->id}})" class="btn-danger text-white rounded-3 fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
                                                         to bottom, #870000,
                                                         #190A05);"><i class="fas fa-trash fa-sm"></i><br>Delete</button>
                                                     @endif
@@ -103,7 +109,11 @@
             }
         })
         window.addEventListener('close-modal', event => {
-            $('#printfileModal').modal('hide');
+
+            $('#createConfirmationInvitationModal').modal('hide');
+            $('#editConfirmationInvitationModal').modal('hide');
+            $('#deleteConfirmationInvitationModal').modal('hide');
+            $('#createConfirmationInvitationModal').modal('hide');
             
             
             $('#notificationModal').modal('hide');

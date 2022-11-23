@@ -207,8 +207,9 @@
           @if ($currentUrl == 'http://127.0.0.1:8000/incoming')
                 <button id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block active"style="color: #800000"><i class="fas fa-envelope-open-text me-2"></i><i class="fas fa-caret-down"></i>Invitations for Trainings</button>
   
-                @if (auth()->user()->role_as == 1)
+                
                   <div class="dropdown-container">
+                    @if (auth()->user()->role_as == 1)
                     <li class=""><button wire:click="createButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block"style="color: #800000">
                       <i class="fas fa-upload me-2"></i>
                       Upload Invitation/s </button></li>  
@@ -220,7 +221,7 @@
                 
                 
           @else
-          <a href="/incoming" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000"><i class="fas fa-envelope-open-text me-2"></i><i class="fas fa-caret-down"></i>Invitation for Trainings</a>
+            <a href="/incoming" role="button" id="openPopup" class="dropdown-btn btn btn-link-light text-decoration-none px-3 py-2 second-text fw-bold d-block"style="color: #800000"><i class="fas fa-envelope-open-text me-2"></i><i class="fas fa-caret-down"></i>Invitation for Trainings</a>
           @endif
           </ul>
         <ul class="list-unstyled px-2">

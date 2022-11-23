@@ -21,6 +21,52 @@
     </div>
 </div>
 
+<!-- Edit Confirmation Invitation Modal -->
+<div wire:ignore.self class="modal fade" id="editConfirmationInvitationModal" tabindex="-1" aria-labelledby="editConfirmationInvitationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="editConfirmationInvitationModalLabel">Confirmation</h5>
+                
+            </div>
+            <form wire:submit.prevent="update">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
+                    <h6>Are you sure you want to save your Input?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Invitation Modal -->
+<div wire:ignore.self class="modal fade" id="deleteConfirmationInvitationModal" tabindex="-1" aria-labelledby="deleteConfirmationInvitationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase fw-bold fs-4" id="deleteConfirmationInvitationModalLabel">Confirmation</h5>
+                
+            </div>
+            <form wire:submit.prevent="destroy">
+                <div class="modal-body text-capitalize fs-6 fw-bold">
+                    <h6>Are you sure you want to save your Input?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes! Save Input</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+ 
 <!-- Show Invitation Modal -->
 <div wire:ignore.self class="modal fade" id="showInvitationModal" tabindex="-1" aria-labelledby="showInvitationModalLabel"
     aria-hidden="true">
@@ -28,8 +74,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showInvitationModalLabel" class="text-break">Show {{$name}}</h5>
-                <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
-                    wire:click="resetInput"></button>
             </div>
             <div class="modal-body">
                 

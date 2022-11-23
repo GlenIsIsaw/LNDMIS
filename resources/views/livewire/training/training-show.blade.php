@@ -122,7 +122,7 @@
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
-                                                <th scope="col">Date Created</th>
+                                               
                                                 <th scope="col">Status</th>
                                                 <th scope="col" style="color:  #800">Attendance Report Actions</th>
                                                 <th scope="col" style="color:  #800">Certificate Actions</th>
@@ -142,7 +142,7 @@
                                                     <td>{{$training->venue }}</td> 
                                                     <td>{{ $training->sponsors }}</td>
                                                     <td>{{ $training->type }}</td>
-                                                    <td>{{ $training->date_created }}</td>
+                                                   
                                                     <td>
                                                         @if ($training->status == 'Approved')
                                                             <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
