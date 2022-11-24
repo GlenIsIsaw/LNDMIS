@@ -12,7 +12,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
-        "phpoffice/phpword": "^0.18.3",
+        "phpoffice/phpword": "^1.0",
         "wire-elements/modal": "^1.0"
     },
     "require-dev": {
