@@ -108,7 +108,7 @@
                             <div class="card-body">
                                 <div class="table-responsive rounded-3 text-center text-small">
                                     <table class="table table-striped border-secondary border border-5 table-hover ">
-                                        <thead class="text-dark shadow" style="background-color:#FEFCFF;">
+                                        <thead class="text-dark shadow table align-middle" style="background-color:#FEFCFF;">
                                             <tr>
                                                 @if ($table != "My Trainings")
                                                     <th scope="col">Name</th>
@@ -122,13 +122,13 @@
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
                                                 <th scope="col">Type</th>
-                                                <th scope="col">Date Created</th>
+                                               
                                                 <th scope="col">Status</th>
                                                 <th scope="col" style="color:  #800">Attendance Report Actions</th>
                                                 <th scope="col" style="color:  #800">Certificate Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody >
+                                        <tbody>
                                             @forelse ($trainings as $training)
                                                 <tr>
                                                     @if ($table != "My Trainings")
@@ -142,7 +142,7 @@
                                                     <td>{{$training->venue }}</td> 
                                                     <td>{{ $training->sponsors }}</td>
                                                     <td>{{ $training->type }}</td>
-                                                    <td>{{ $training->date_created }}</td>
+                                                   
                                                     <td>
                                                         @if ($training->status == 'Approved')
                                                             <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>

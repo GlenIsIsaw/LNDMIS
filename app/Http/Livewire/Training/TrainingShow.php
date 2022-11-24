@@ -302,7 +302,7 @@ class TrainingShow extends Component
             $this->certificate = $lists->certificate;
             $this->updateButton();
         }else{
-            return redirect()->to('/empTraining')->with('message','No results found');
+            return redirect()->to('/training')->with('message','No results found');
         }
     }
  

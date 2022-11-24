@@ -1,6 +1,6 @@
 <div class="card-header">
     <div class="fw-bolder fs-3 float-start text-uppercase">
-        Attendance Form
+        Attendance Report
     </div>
     <div class="float-end">   
         <button type="button" class="btn btn-danger float-end" wire:click="backButton"><i class="fas fa-times fa-4"></i></button></div>
@@ -13,7 +13,7 @@
     <table class="table table-borderd table-striped table-responsive">
         <tbody class="table-responsive">
             <tr>
-                <th>Name</th>
+                <th style="width: 35%">Name</th>
                 <td>{{$name}}</td>
             </tr>
             <tr>

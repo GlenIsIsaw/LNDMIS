@@ -1,6 +1,7 @@
 
 <div>
     @include('livewire.menu')
+   
     
     <div class="row mx-5 mb-3 mt-2">
         <div class="col-sm-6">

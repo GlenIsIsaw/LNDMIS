@@ -1,15 +1,20 @@
 
     <div class="card-header">
-        <div class="fw-bold fs-5 text-uppercase">
+        <div class="fw-bold fs-5 text-uppercase text-start">
             Show {{$name}}    
-            <button type="button" class="btn-close mx-2 float-end card-header" data-bs-dismiss="modal" aria-label="Close"
-            wire:click="backButton"></button>
-            <button type="button" class="btn btn-info text-white float-start text-uppercase py-1" style="background-image: linear-gradient(
-                to bottom, #43C6AC,
-                #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
+            <div class="float-end ">
+                <button type="button" class="btn btn-danger" wire:click="backButton"><i class="fas fa-times px-2 py-1"></i></button>
+            </div>
+            
         </div>
     </div>
     <div class="card-body">
+        <button type="button" class="btn btn-info text-white float-end fw-bold text-uppercase py-2 px-2" style="background-image: linear-gradient(
+            to bottom, #43C6AC,
+            #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
+    </div>
+    <div class="card-body">
+ 
 
         @if ($fileType == "pdf")
             <div class="container" style="  position: relative;
