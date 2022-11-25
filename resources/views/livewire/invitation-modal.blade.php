@@ -116,8 +116,29 @@
                         <label  class="fw-bold">Search by Name:</label>
                         <input wire:model="filter_name" class="form-control border border-3 border-dark rounded-3" placeholder="Search..." />
                     </div>
+
+                    <div class="mb-3">
+                        <label  class="fw-bold">Filter by Level:</label>
+                        <select wire:model="filter_level" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+                            <option value="">...</option>
+                            <option value="International">International</option>
+                            <option value="Local">Local</option>
+                            <option value="N/A">N/A</option>
+                            <option value="National">National</option>
+                            <option value="Regional">Regional</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label  class="fw-bold">Filter by Free:</label>
+                        <select wire:model="filter_free" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+                            <option value="">...</option>
+                            <option value="0">Yes</option>
+                            <option value="1">No</option>
+                        </select>
+                    </div>
                     
-                    <label class="fw-bold">Sort by Date Covered:</label>    
+                    <label class="fw-bold">Sort by Due Date:</label>    
                     <div class="mx-3 my-3">
                         <label>Start Date</label>
                         <input type="date" wire:model="start_date" class="form-control border border-3 border-dark rounded-3"> 

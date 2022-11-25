@@ -673,7 +673,7 @@ class QemShow extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval')
+            $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval', 'attendance_forms.created_at As attendance_created')
                 ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
@@ -684,7 +684,7 @@ class QemShow extends Component
                 ->orderBy('name', 'asc')
                 ->get();
         }else {
-            $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval')
+            $qems = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name','college_name','signature','date_covered', 'certificate_title','certificate','venue','sponsors', 'competency','knowledge_acquired', 'outcome','personal_action',  'content','benefits', 'realization', 'qems.supervisor As sup_id','total_average', 'remarks', 'qems.created_at As date_eval', 'attendance_forms.created_at As attendance_created')
                 ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
@@ -781,10 +781,10 @@ class QemShow extends Component
 
             if($qem[$i-1]['signature']){
                 $templateProcessor->setImageValue("esign#$i", array('path' => public_path('storage/users/'.$qem[$i-1]['user_id'].'/'.$qem[$i-1]['signature']), 'width' => 100, 'height' => 50, 'ratio' => false));
-                $templateProcessor->setValue("edate#$i", date('F j, Y'));
+                $templateProcessor->setValue("edate#$i", $this->split($qem[$i-1]['attendance_created']));
             }else{
                 $templateProcessor->setValue("esign#$i", ' ');
-                $templateProcessor->setValue("edate#$i", ' ');
+                $templateProcessor->setValue("edate#$i", $this->split($qem[$i-1]['attendance_created']));
             }
             
         }

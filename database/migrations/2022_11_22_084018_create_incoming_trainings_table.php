@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('sponsor');
             $table->string('venue');
             $table->string('date_covered');
-            $table->boolean('free_training');
+            $table->boolean('free');
             $table->integer('amount')->default('0');
             $table->date('date');
             $table->string('file');

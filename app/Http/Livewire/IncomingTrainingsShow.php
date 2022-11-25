@@ -8,15 +8,17 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\ListOfTraining;
-use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 use App\Models\IncomingTrainings;
+use Illuminate\Support\Facades\File;
 
 class IncomingTrainingsShow extends Component
 {
     use WithPagination,WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
-    public $name, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $filter_name, $invitation_id;
+    public $name, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
+    public $filter_name, $filter_level, $filter_free;
 
     public $state = null;
     public $next = null;
@@ -31,12 +33,19 @@ class IncomingTrainingsShow extends Component
             $this->toggle = null;
         }
     }
+    public function next(){
+        ++$this->next;
+    }
+    public function back(){
+        --$this->next;
+    }
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');
         }
     }
     public function createButton(){
+        $this->resetInput();
         $this->state = 'create';
     }
     public function showButton(){
@@ -55,20 +64,60 @@ class IncomingTrainingsShow extends Component
         $this->file = null;
         $this->fileType = null;
         $this->invitation_id = null;
+        $this->sponsor = null;
+        $this->venue = null;
+        $this->level = null;
+        $this->level_others = null;
+        $this->free = null;
+        $this->amount = null;
+        $this->date_covered = null;
     }
     public function clear(){
         $this->state = null;
+        $this->next = 0;
+    }
+    public function part1(){
+        $validatedData = $this->validate([
+            'name' => 'required|string',
+            'sponsor' => 'required|string',
+            'venue' => 'required|string',
+            'level' => 'required',
+            'level_others' => Rule::requiredIf($this->level == 'Others'),
+
+        ]);
+
+        $this->next();
+    }
+    public function part2(){
+        $validatedData = $this->validate([
+
+            'date_covered' => 'required',
+            'date' => 'required|date|after:now',
+            'free' => 'required',
+            'amount' => Rule::requiredIf($this->free == 'No'),
+        ]);
+
+        $this->next();
     }
     public function store(){
         $validatedData = $this->validate([
-            'name' => 'required',
-            'date' => 'required|date|after:now',
             'file' => 'required|mimes:jpeg,png,jpg,svg,pdf'
         ]);
             $user_id = auth()->user()->id;
             $list = new IncomingTrainings();
             $list->name = $this->name;
             $list->date = $this->date;
+            $list->sponsor = $this->sponsor;
+            $list->venue = $this->venue;
+            $list->level = $this->level.':'.$this->level_others;
+            $list->date_covered = $this->date_covered;
+            if ($this->free == 'Yes') {
+                $list->free = 0;
+            } else {
+                $list->free = 1;
+                $list->amount = $this->amount;
+            }
+            
             $list->college_id = auth()->user()->college_id;
             $list->file = 'File Added';
 
@@ -178,9 +227,17 @@ class IncomingTrainingsShow extends Component
         $this->filter_name = null;
         $this->start_date = null;
         $this->end_date = null;
+        $this->filter_level = null;
+        $this->filter_free = null;
 
     }
     public function updatingFilterName($value){
+        $this->resetPage();
+    }
+    public function updatingFilterLevel($value){
+        $this->resetPage();
+    }
+    public function updatingFilterFree($value){
         $this->resetPage();
     }
     public function updatingEndDate($value){
@@ -202,12 +259,16 @@ class IncomingTrainingsShow extends Component
                 $end_date = Carbon::parse($this->end_date)->toDateTimeString();
                 $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->where('level', 'like', '%'.$this->filter_level.'%')
+                    ->where('free', 'like', '%'.$this->filter_free.'%')
                     ->whereBetween('date',[$start_date,$end_date])
                     ->orderBy('updated_at')
                     ->paginate(5);
             }else{
                 $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                ->where('level', 'like', '%'.$this->filter_level.'%')
+                ->where('free', 'like', '%'.$this->filter_free.'%')
                 ->orderBy('updated_at')
                 ->paginate(5);
             }
@@ -217,6 +278,8 @@ class IncomingTrainingsShow extends Component
                 $end_date = Carbon::parse($this->end_date)->toDateTimeString();
                 $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                    ->where('level', 'like', '%'.$this->filter_level.'%')
+                    ->where('free', 'like', '%'.$this->filter_free.'%')
                     ->where('date','>',date('Y-m-d'))
                     ->whereBetween('date',[$start_date,$end_date])
                     ->orderBy('updated_at')
@@ -224,6 +287,8 @@ class IncomingTrainingsShow extends Component
             }else{
                 $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
+                ->where('level', 'like', '%'.$this->filter_level.'%')
+                ->where('free', 'like', '%'.$this->filter_free.'%')
                 ->where('date','>',date('Y-m-d'))
                 ->orderBy('updated_at')
                 ->paginate(5);

@@ -5,13 +5,11 @@
             <div class="float-end ">
                 <button type="button" class="btn btn-danger" wire:click="backButton"><i class="fas fa-times px-2 py-1"></i></button>
             </div>
+            <button type="button" class="btn btn-info text-white float-end fw-bold text-uppercase py-2 px-2" style="background-image: linear-gradient(
+                to bottom, #43C6AC,
+                #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
             
         </div>
-    </div>
-    <div class="card-body">
-        <button type="button" class="btn btn-info text-white float-end fw-bold text-uppercase py-2 px-2" style="background-image: linear-gradient(
-            to bottom, #43C6AC,
-            #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
     </div>
     <div class="card-body">
  

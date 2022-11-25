@@ -33,10 +33,18 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="table-responsive rounded-3 text-center">
+                                @php
+                                    $array = [0 => 'Yes', 1 => 'No'];
+                                @endphp
                                 <table class="table border border-secondary border-5 table-hover">
                                     <thead class="text-dark shadow" style="background-color:#FEFCFF;">
                                         <tr>
-                                            <th scope="col">Name</th>
+                                            <th scope="col">Seminar Title</th>
+                                            <th scope="col">Level</th>
+                                            <th scope="col">Sponsors</th>
+                                            <th scope="col">Venue</th>
+                                            <th scope="col">Free</th>
+                                            <th scope="col">Amount</th>
                                             <th scope="col">Date Covered</th>
                                             <th scope="col">Attachments</th>
                                             @if (auth()->user()->role_as == 1)
@@ -50,7 +58,12 @@
                                         @forelse ($trainings as $training)
                                             <tr>
                                                 <td class="fw-bold">{{$training->name}}</td>
-                                                <td>{{$training->date}}</td>
+                                                <td>{{$training->level}}</td>
+                                                <td>{{$training->sponsor}}</td>
+                                                <td>{{$training->venue}}</td>
+                                                <td>{{$array[$training->free]}}</td>
+                                                <td>{{$training->amount}}</td>
+                                                <td>{{$training->date_covered}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-link" wire:click="show({{$training->id}})" style="color: #800">
                                                         View File Attachment Here

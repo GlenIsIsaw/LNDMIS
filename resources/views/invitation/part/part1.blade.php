@@ -1,29 +1,39 @@
 <div class="mb-3">
-    <label class="fw-bold">Name</label>
-    <input type="text" wire:model="name" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    <label class="fw-bold">Certificate Title</label>
+    <input type="text" wire:model.lazy="name" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Date</label>
-    <input type="date" wire:model="date" class="form-control border border-3 border-secondary ms-5 mt-2" style="width: 80%">
-    @error('date') <span class="text-danger">{{ $message }}</span> @enderror
+    <label class="fw-bold">Sponsor</label>
+    <input type="text" wire:model.lazy="sponsor" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    @error('sponsor') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
-
 <div class="mb-3">
-    <label class="fw-bold">Attach the Certificate</label>
-    <div
-    x-data="{ isUploading: false, progress: 0 }"
-    x-on:livewire-upload-start="isUploading = true"
-    x-on:livewire-upload-finish="isUploading = false"
-    x-on:livewire-upload-error="isUploading = false"
-    x-on:livewire-upload-progress="progress = $event.detail.progress"
-    >
-        <input type="file" wire:model="file" accept="image/*,.pdf" class="form-control border border-3 border-secondary ms-5 mt-2" style="width: 80%">
-        <div wire:loading wire:target="file">
-            <div x-show="isUploading">
-                <progress max="100" x-bind:value="progress"></progress>
-            </div>
-        </div>
+    <label class="fw-bold">Venue</label>
+    <input type="text" wire:model.lazy="venue" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    @error('venue') <span class="text-danger">{{ $message }}</span> @enderror
+</div>
+<div class="mb-3">
+    <label class="fw-bold">Level</label>
+    <select wire:model="level" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+        <option value="{{$level}}">{{$level}}</option>
+        <option value="International">International</option>
+        <option value="Local">Local</option>
+        <option value="N/A">N/A</option>
+        <option value="National">National</option>
+        <option value="Regional">Regional</option>
+        <option value="Others">Others</option>
+    </select>
+    @if ($level == 'Others')
+        <label class="fw-bold mt-2 ms-3">Specify The Level:</label>
+        <input type="text" wire:model.lazy="level_others" class="form-control border border-3 border-secondary rounded-3 mt-2 ms-5" style="width:50%;">
         
-    </div>
-    @error('file') <span class="text-danger">{{ $message }}</span> @enderror
+    @endif
+    @error('level_others') <span class="text-danger">{{ $message }}</span> @enderror
+    @error('level') <span class="text-danger">{{ $message }}</span> @enderror
+</div>
+<hr class="h-color mx-2 mt-3">
+<div class="float-end">
+    <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
+    <button type="button" wire:click="part1" class="btn btn-primary rounded-3 px-3 py-2 text-center" id="part1" wire:loading.attr="disabled">Next</button>   
+</div>
