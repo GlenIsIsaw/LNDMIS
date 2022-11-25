@@ -15,7 +15,7 @@
         
             @include('idp.part.part2')
             <hr class="h-color mx-2 mt-3">
-            <button type="button" class="btn btn-secondary" wire:click="back" data-bs-dismiss="modal">Back</button>
+            <button type="button" class="btn btn-secondary" wire:click="back"  wire:loading.attr="disabled" id="back">Back</button>
             <div class="float-end">
             
             <button type="button" class="btn btn-danger" wire:click="backButton" data-bs-dismiss="modal">Close</button>

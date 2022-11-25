@@ -17,6 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('college_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
+            $table->string('level');
+            $table->string('sponsor');
+            $table->string('venue');
+            $table->string('date_covered');
+            $table->boolean('free_training');
+            $table->integer('amount')->default('0');
             $table->date('date');
             $table->string('file');
             $table->timestamps();

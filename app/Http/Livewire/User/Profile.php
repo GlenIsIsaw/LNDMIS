@@ -72,7 +72,7 @@ class Profile extends Component
         return [
             'name' => 'required',
             'email' => 'required|string|email|max:255|unique:users,email,'. $this->User_id,
-            'teacher' => 'required',
+            'teacher' => Rule::requiredIf(auth()->user()->role_as == 1),
             'position' => 'required',
             'yearinPosition' => 'required',
             'yearJoined' => 'required',

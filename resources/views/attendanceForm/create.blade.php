@@ -11,7 +11,7 @@
         @if ($next == 1)
             @include('attendanceForm.part.part2')
             <div class="float-end gap-2">
-            <button type="button" class="btn btn-secondary" wire:click="back">Back</button>
+            <button type="button" class="btn btn-secondary" wire:click="back" wire:loading.attr="disabled" id="back">Back</button>
             <button type="button" class="btn btn-danger" wire:click="backButton"
                  data-bs-dismiss="modal">Close</button>
             <button type="button" data-bs-toggle="modal" data-bs-target="#createConfirmationAttendanceModal" class="btn btn-primary "><i class="fas fa-save me-2"></i>Save</button>

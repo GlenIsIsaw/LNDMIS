@@ -27,6 +27,7 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Certificate Title</th>
                                             <th scope="col">Certificate Type</th>
+                                            <th scope="col">Seminar Type</th>
                                             <th scope="col">Date Covered</th>
                                             <th scope="col">Level</th>
                                             <th scope="col">Number of Hours</th>
@@ -43,6 +44,7 @@
                                                     <span class="badge badge-pill text-uppercase text-white text-wrap fs-6" 
                                                     style="background-color: #800;">{{$training->certificate_title}}</span></td>
                                                 <td>{{$training->certificate_type}}</td>
+                                                <td>{{$training->seminar_type}}</td>
                                                 <td>{{ $training->date_covered. ' : '. $training->specify_date}}</td>
                                                 <td>{{ $training->level }}</td>
                                                 <td>{{ $training->num_hours }}</td>

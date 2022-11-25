@@ -145,6 +145,12 @@ class UserShow extends Component
         $this->show($this->User_id);
 
     }
+    public function resetPass(){
+        User::find($this->User_id)->update(['password' => Hash::make('12345678')]);
+        session()->flash('message',"User's Password Has been set to Default");
+        $this->backButton();
+        $this->dispatchBrowserEvent('close-modal');
+    }
     public function editSignature(){
         $user = User::find($this->User_id);
         $user->signature = null;

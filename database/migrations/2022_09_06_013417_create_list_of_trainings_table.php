@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade'); 
             $table->string('certificate_type');
             $table->string('certificate_title');
+            $table->string('seminar_type');
             $table->date('date_covered');
             $table->string('specify_date')->nullable();;
             $table->string('venue');
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('certificate');
             $table->boolean('attendance_form')->default(0);
-            $table->boolean('qem')->default(0);
+            $table->boolean('qem')->default(2);
             $table->string('status')->default('Not Submitted');
             $table->longText('comment')->nullable();
             $table->timestamps();

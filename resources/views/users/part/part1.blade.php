@@ -38,17 +38,20 @@
             <input type="text" wire:model.lazy="email" class="form-control border border-3 border-dark rounded-3">
             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        <div class="mb-3">
-            <label  class="fw-bold">Teacher</label>
-            <select wire:model.lazy="teacher" class="form-control border border-3 border-dark rounded-3">
-                <option value=""></option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            @error('teacher') <span class="text-danger">{{ $message }}</span> @enderror
-        </div>
+        @if (auth()->user()->role_as == 1)
+            <div class="mb-3">
+                <label  class="fw-bold">Teacher</label>
+                <select wire:model.lazy="teacher" class="form-control border border-3 border-dark rounded-3">
+                    <option value=""></option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                @error('teacher') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
+        @endif
+
         <div class="float-end">
             <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="backButton">Close</button>
-            <button type="button" wire:click="next" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>
+            <button type="button" wire:click="next" class="btn btn-primary rounded-3 px-3 py-2 text-center" id="next" wire:loading.attr="disabled">Next</button>
         </div>
 

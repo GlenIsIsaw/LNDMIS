@@ -35,6 +35,16 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label class="fw-bold">Sort by Seminar Type:</label>
+                        <select type="text" wire:model="filter_seminar_type" class="form-control border border-3 rounded-3">
+                                    <option value="">...</option>
+                                    <option value="Research Related Training">Research Related Training</option>
+                                    <option value="Personal Development Training">Personal Development Training</option>
+                                    <option value="Professional Development Training">Professional Development Training</option>
+                                    <option value="Extension Related Training">Extension Related Training</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label class="fw-bold">Sort by Level:</label>
                         <select wire:model="filter_level" class="form-control border border-3 rounded-3">
                             <option value="">...</option>

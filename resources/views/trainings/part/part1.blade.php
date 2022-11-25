@@ -44,6 +44,24 @@
     <input type="text" wire:model.lazy="certificate_title" class="form-control border border-3 border-secondary">
     @error('certificate_title') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
+
+<div class="mb-3">
+    <label class="fw-bold">Seminar Type</label>
+    <select type="text" wire:model="seminar_type" class="form-control border border-3 border-secondary">
+        <option value="{{$seminar_type}}">{{$seminar_type}}</option>
+                <option value="Research Related Training">Research Related Training</option>
+                <option value="Personal Development Training">Personal Development Training</option>
+                <option value="Professional Development Training">Professional Development Training</option>
+                <option value="Extension Related Training">Extension Related Training</option>
+                <option value="Others">Others</option>
+    </select>
+    @if ($seminar_type == 'Others')
+        <label class="fw-bold mt-2 ms-3">Specify The Type of Seminar:</label>
+        <input type="text" wire:model.lazy="seminar_type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
+    @endif
+    @error('seminar_type_others') <span class="text-danger">{{ $message }}</span> @enderror
+    @error('seminar_type') <span class="text-danger">{{ $message }}</span> @enderror
+</div>
 <div class="mb-3">
     <label class="fw-bold">Level</label>
     <select wire:model="level" class="form-control border border-3 border-secondary">
@@ -75,5 +93,5 @@
 <hr class="h-color mx-2 mt-3">
 <div class="float-end">
     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
-    <button type="button" wire:click="part1" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>   
+    <button type="button" wire:click="part1" class="btn btn-primary rounded-3 px-3 py-2 text-center" id="part1" wire:loading.attr="disabled">Next</button>   
 </div>

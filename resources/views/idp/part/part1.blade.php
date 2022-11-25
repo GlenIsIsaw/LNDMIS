@@ -146,5 +146,5 @@
         <div class="float-end mx-2 my-2">
     <button type="button" class="btn btn-danger" wire:click="backButton"
         data-bs-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Next</button>
+    <button type="submit" class="btn btn-primary" wire:loading.attr="disabled" id="part1">Next</button>
         </div>

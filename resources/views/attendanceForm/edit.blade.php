@@ -12,7 +12,7 @@
             @include('attendanceForm.part.part2')
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-secondary" wire:click="back">Back</button>
+            <button type="button" class="btn btn-secondary" wire:click="back" wire:loading.attr="disabled" id="back">Back</button>
             <button type="button" class="btn btn-danger" wire:click="backButton"
             data-bs-dismiss="modal">Close</button>
             <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationAttendanceModal" class="btn btn-primary">Save</button>

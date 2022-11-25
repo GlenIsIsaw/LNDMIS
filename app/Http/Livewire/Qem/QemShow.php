@@ -359,6 +359,7 @@ class QemShow extends Component
         $qem->content = json_encode($this->content);
         $qem->benefits = json_encode($this->benefits);
         $qem->realization = json_encode($this->realization);
+        //dd($this->total_average);
         $qem->total_average = $this->total_average;
         if ($this->rating == 'Not Effective') {
             $qem->remarks = $this->remarks;
@@ -482,6 +483,7 @@ class QemShow extends Component
         $this->content = [];
         $this->benefits = [];
         $this->realization = [];
+        $this->total_average = null;
         $this->supervisor = null;
         $this->resetErrorBag();
     }

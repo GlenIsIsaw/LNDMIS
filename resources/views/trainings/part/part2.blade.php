@@ -52,9 +52,9 @@
 <hr class="h-color mx-2 mt-3">
 
 <div class="float-end">
-    <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center me-1">Back</button>
+    <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center me-1" id="back" wire:loading.attr="disabled">Back</button>
     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1" wire:click="backButton">Close</button>
-    <button type="button" wire:click="part2" class="btn btn-primary rounded-3 px-3 py-2 text-center">Next</button>
+    <button type="button" wire:click="part2" class="btn btn-primary rounded-3 px-3 py-2 text-center" id="part2" wire:loading.attr="disabled">Next</button>
 </div>
 
 

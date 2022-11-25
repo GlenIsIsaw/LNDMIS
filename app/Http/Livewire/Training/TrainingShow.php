@@ -20,8 +20,8 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
-    public $certificate_type_others, $level_others, $type_others;
+    public $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
+    public $certificate_type_others, $level_others, $type_others, $seminar_type_others;
     public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $search, $start_date, $end_date, $filter_certificate_title;
@@ -168,6 +168,8 @@ class TrainingShow extends Component
             'date_covered' => 'required',
             'certificate_type' => 'required',
             'certificate_type_others' => Rule::requiredIf($this->certificate_type == 'Others'),
+            'seminar_type' => 'required',
+            'seminar_type_others' => Rule::requiredIf($this->seminar_type == 'Others'),
         ]);
         ++$this->next;
     }
@@ -196,6 +198,11 @@ class TrainingShow extends Component
                 $list->certificate_type = "Others: ".$this->certificate_type_others;
             }else {
                 $list->certificate_type = $this->certificate_type;
+            }
+            if($this->seminar_type == 'Others'){
+                $list->seminar_type = "Others: ".$this->seminar_type_others;
+            }else {
+                $list->seminar_type = $this->seminar_type;
             }
             if($this->level == 'Others'){
                 $list->level = "Others: ".$this->level_others;
@@ -248,6 +255,7 @@ class TrainingShow extends Component
         
         if($lists){
             $this->certificate_type = $lists->certificate_type;
+            
 
             $this->level = $lists->level;
 
@@ -277,7 +285,7 @@ class TrainingShow extends Component
     public function edit(int $id)
     {
 
-        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status')
+        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','attendance_form','status', 'seminar_type')
                                             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                             ->where('list_of_trainings.id', $id)
                                             ->first();
@@ -286,6 +294,7 @@ class TrainingShow extends Component
             
             $this->name = $lists->name;
             $this->certificate_type = $lists->certificate_type;
+            $this->seminar_type = $lists->seminar_type;
             $this->certificate_title = $lists->certificate_title;
             $this->level = $lists->level;
             $this->date_covered = $lists->date_covered;
@@ -310,15 +319,36 @@ class TrainingShow extends Component
     {
         //dd($this->user_id);
         $list = ListOfTraining::find($this->ListOfTraining_id);
+        if($this->certificate_type == 'Others'){
+            $list->certificate_type = "Others: ".$this->certificate_type_others;
+        }else {
+            $list->certificate_type = $this->certificate_type;
+        }
+        if($this->seminar_type == 'Others'){
+            $list->seminar_type = "Others: ".$this->seminar_type_others;
+        }else {
+            $list->seminar_type = $this->seminar_type;
+        }
+        if($this->level == 'Others'){
+            $list->level = "Others: ".$this->level_others;
+        }else {
+            $list->level = $this->level;
+        }
+        if($this->type == 'Others'){
+            $list->type = "Others: ".$this->type_others;
+        }else {
+            $list->type = $this->type;
+        }
         $list->user_id = $this->user_id;
         $list->certificate_title = $this->certificate_title;
-        $list->level = $this->level;
+        //$list->level = $this->level;
         $list->date_covered = $this->date_covered;
         $list->specify_date = $this->specify_date;
-        $list->certificate_type = $this->certificate_type;
+        //$list->certificate_type = $this->certificate_type;
+        //$list->seminar_type = $this->seminar_type;
         $list->venue = $this->venue;
         $list->sponsors = $this->sponsors;
-        $list->type = $this->type;
+        //$list->type = $this->type;
         $list->num_hours = $this->num_hours;
 
         if($this->photo){
@@ -388,7 +418,6 @@ class TrainingShow extends Component
                 ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
                 ->where('list_of_trainings.id', $id)
                 ->first();
-            if($lists){
                 $this->ListOfTraining_id = $lists->training_id;
                 $this->idp_competency = [];
                 $this->idp_id = null;
@@ -396,22 +425,24 @@ class TrainingShow extends Component
                 $this->certificate_title = $lists->certificate_title;
                 $this->createAttButton();
             //dd($lists);
-            }else{
-                $this->backButton();
-                session()->flash('message','Some Error Happened');
+
+                session()->flash('message','You have no IDP this Year');
                 $this->dispatchBrowserEvent('close-modal');
-            }
         }
         
     }
 
-
-    public function storeAttendanceForm(){
-        $this->next = 0;
+    public function part1_att(){
         $validatedData = $this->validate([
             'ListOfTraining_id' => 'required',
             'competency' => 'required',
             'knowledge_acquired' => 'required',
+        ]);
+        ++$this->next;
+    }
+    public function storeAttendanceForm(){
+        $this->next = 0;
+        $validatedData = $this->validate([
             'outcome' => 'required',
             'personal_action' => 'required'
         ]);
@@ -569,6 +600,8 @@ class TrainingShow extends Component
         $this->checkmySignature = '';
         $this->fileType = '';
         $this->specify_date = '';
+        $this->seminar_type_others = '';
+        $this->seminar_type = '';
         $this->resetErrorBag();
     }
     public function resetFilter(){
@@ -677,7 +710,10 @@ class TrainingShow extends Component
                 $this->checkmySignature = false;
             }
     }
-    
+    public function split($string){
+        $date = str_split($string, 10);
+        return $date[0];
+    }
     public function printAttendanceForm(){
 
 
@@ -686,10 +722,9 @@ class TrainingShow extends Component
         ->join('colleges', 'colleges.id', '=', 'users.college_id')
         ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
         ->where('list_of_trainings.id', $this->ListOfTraining_id)
-        ->select('name', 'certificate_title', 'date_covered','college_name', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action','users.id As user_id','signature')
+        ->select('name', 'certificate_title', 'date_covered','college_name', 'level','venue','sponsors','competency','knowledge_acquired','outcome','personal_action','users.id As user_id','signature', 'attendance_forms.created_at As date_created')
         ->first();
-        
-
+    
         $array = [
             'name' => $training->name,
             'certificate_title' => $training->certificate_title,
@@ -708,14 +743,15 @@ class TrainingShow extends Component
         }
             $templateProcessor->setValue('college',$training->college_name);
 
-
-            if($this->mySignature == '1'){
+            //dd($training->signature);
+            if ($training->signature) {
                 $templateProcessor->setImageValue('esign', array('path' => public_path('storage/users/'.$training->user_id.'/'.$training->signature), 'width' => 100, 'height' => 50, 'ratio' => false));
-                $templateProcessor->setValue('edate',date('F j, Y'));
-            }else{
-                $templateProcessor->setValue('esign'," ");
-                $templateProcessor->setValue('edate'," ");
+            }else {
+                $templateProcessor->setValue('esign', ' ');
             }
+            
+            $templateProcessor->setValue('edate',$this->split($training->date_created));
+
                 
                 
                 $templateProcessor->setValue('ssign'," ");
@@ -734,112 +770,6 @@ class TrainingShow extends Component
     public static function date($date){
         $pieces = explode("-", $date);
         return $pieces;
-    }
-    public function printAll(){
-
-        $s_date = Carbon::parse($this->start_date)->toDateTimeString();
-        $e_date = Carbon::parse($this->end_date)->toDateTimeString();
-        
-        $listObject = DB::table('list_of_trainings')
-                        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                        ->join('colleges', 'colleges.id', '=', 'users.college_id')
-                        ->where('college_id',auth()->user()->college_id)
-                        ->whereBetween('list_of_trainings.date_covered',[$s_date,$e_date])
-                        ->where('teacher', 'Yes')
-                        ->orderBy('name','asc')
-                        ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
-                        ->get();
-        $grouped = $listObject->groupBy('name');
-        $list = $grouped->toArray();
-        $templateProcessor = new TemplateProcessor(storage_path('Certificate.docx'));
-
-        $templateProcessor->setValue('deptname',auth()->user()->college_name);
-        $templateProcessor->setValue('year',date('Y'));
-        $templateProcessor->setValue('daterange',strftime("%B",strtotime($this->start_date)).' to '.strftime("%B",strtotime($this->end_date)).' '.date('Y'));
-
-
-        $replacements = array();
-        $i = 0;
-        foreach($list as $name => $cert) {
-            $replacements[] = array(
-                'name' => $name,
-                'certificate_title' => '${certificate_title_'.$i.'}',
-                'date_covered' => '${date_covered_'.$i.'}',
-                'level' => '${level_'.$i.'}',
-                'num_hours' => '${num_hours_'.$i.'}'
-    );
-                $i++;
-}
-        $templateProcessor->cloneBlock('table', count($replacements), true, false, $replacements);
-
-        $i = 0;
-        foreach($list as $group) 
-        {
-            $values = array();
-            foreach($group as $row) 
-            {
-                $values[] = array(
-                    "certificate_title_{$i}" => $row->certificate_title,
-                    "date_covered_{$i}" => $row->date_covered,
-                    "level_{$i}" => $row->level,
-                    "num_hours_{$i}" => $row->num_hours);
-            }
-            $templateProcessor->cloneRowAndSetValues("certificate_title_{$i}", $values);
-
-            $i++;
-        }
-        $listObject = DB::table('users')
-                        ->join('list_of_trainings', 'users.id', '=', 'list_of_trainings.user_id')
-                        ->where('college_id',auth()->user()->college_id)
-                        ->whereBetween('list_of_trainings.date_covered',[$s_date,$e_date])
-                        ->where('teacher', 'No')
-                        ->orderBy('name','asc')
-                        ->select('name', 'certificate_title', 'date_covered', 'level', 'num_hours')
-                        ->get();
-
-        $grouped = $listObject->groupBy('name');
-
-        $list = $grouped->toArray();
-
-        $replacements = array();
-        $i = 0;
-        foreach($list as $name => $cert) {
-            $replacements[] = array(
-                'name2' => $name,
-                'certificate_title2' => '${certificate_title2_'.$i.'}',
-                'date_covered2' => '${date_covered2_'.$i.'}',
-                'level2' => '${level2_'.$i.'}',
-                'num_hours2' => '${num_hours2_'.$i.'}'
-    );
-                $i++;
-}
-        $templateProcessor->cloneBlock('table2', count($replacements), true, false, $replacements);
-
-        $i = 0;
-        foreach($list as $group) 
-        {
-            $values = array();
-            foreach($group as $row) 
-            {
-                $values[] = array(
-                    "certificate_title2_{$i}" => $row->certificate_title,
-                    "date_covered2_{$i}" => $row->date_covered,
-                    "level2_{$i}" => $row->level,
-                    "num_hours2_{$i}" => $row->num_hours);
-            }
-            $templateProcessor->cloneRowAndSetValues("certificate_title2_{$i}", $values);
-
-            $i++;
-        }
-        $templateProcessor->setValue('facultypercentage',100 .'%');
-        $templateProcessor->setValue('nonpercentage',100 .'%');
-        $templateProcessor->setValue('coordname',auth()->user()->name);
-
-        $templateProcessor->setValue('coordsignature'," ");
-        $templateProcessor->saveAs('ListOfTrainings.docx');
-        return response()->download(public_path('ListOfTrainings.docx'))->deleteFileAfterSend(true);
-        $this->resetInput();
-        $this->dispatchBrowserEvent('close-modal');
     }
     public function updatedTable($value){
         $this->checkUpdatedTable();

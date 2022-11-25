@@ -18,7 +18,7 @@ class TrainingReports extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $seminar;
-    public $filter_status,$filter_certificate_type, $filter_level, $filter_type, $start_date, $end_date, $filter_certificate_title, $name, $mySignature;
+    public $filter_status,$filter_certificate_type, $filter_level, $filter_type,$filter_seminar_type,  $start_date, $end_date, $filter_certificate_title, $name, $mySignature;
     public $toggle, $currentUrl;
     protected $listeners = [
         'toggle' => 'open'
@@ -63,6 +63,7 @@ class TrainingReports extends Component
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('seminar_type', 'like', '%'.$this->filter_seminar_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('date_covered',[$s_date,$e_date])
                 ->where('status','Approved')
@@ -104,6 +105,7 @@ class TrainingReports extends Component
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('seminar_type', 'like', '%'.$this->filter_seminar_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('date_covered',[$s_date,$e_date])
                 ->where('status','Approved')
@@ -250,6 +252,7 @@ class TrainingReports extends Component
     public function resetFilter(){
         $this->filter_status = null;
         $this->filter_certificate_type = null;
+        $this->filter_seminar_type = null;
         $this->filter_level = null;
         $this->start_date = null;
         $this->end_date = null;
@@ -273,6 +276,9 @@ class TrainingReports extends Component
     public function updatingFilterCertificateType($value){
         $this->resetPage();
     }
+    public function updatingFilterSeminarType($value){
+        $this->resetPage();
+    }
     public function updatingFilterCertificateTitle($value){
         $this->resetPage();
     }
@@ -283,6 +289,7 @@ class TrainingReports extends Component
     {
         $this->currentUrl = url()->current();
         //dd($this->currentUrl);
+
     }
     public function render()
     {
@@ -292,13 +299,14 @@ class TrainingReports extends Component
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();
             $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','specify_date')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','specify_date', 'seminar_type')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('seminar_type', 'like', '%'.$this->filter_seminar_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->where('status','Approved')
@@ -306,13 +314,14 @@ class TrainingReports extends Component
                 ->paginate(5);
         }else {
  
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','specify_date')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','specify_date', 'seminar_type')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
                 ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
+                ->where('seminar_type', 'like', '%'.$this->filter_seminar_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->where('status','Approved')
                 ->orderBy('list_of_trainings.updated_at','desc')

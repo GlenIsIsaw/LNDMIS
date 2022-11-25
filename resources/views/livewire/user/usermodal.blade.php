@@ -24,6 +24,30 @@
     </div>
 </div>
 
+<!-- Reset Passqord Modal -->
+<div wire:ignore.self class="modal fade" id="resetPassModal" tabindex="-1" aria-labelledby="resetPassModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-uppercase" id="resetPassModalLabel">Reset Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="resetPass">
+                <div class="modal-body text-capitalize fs-5">
+                    <h4>Are you sure?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" wire:click="closeModal"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Edit College Info -->
 <div wire:ignore.self class="modal fade" id="collegeModal" tabindex="-1" aria-labelledby="collegeModalLabel"
     aria-hidden="true">

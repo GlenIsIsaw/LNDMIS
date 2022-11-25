@@ -19,7 +19,7 @@ return new class extends Migration
             $table->json('content');
             $table->json('benefits');
             $table->json('realization');
-            $table->integer('total_average');
+            $table->floatval('total_average');
             $table->text('remarks');
             $table->integer('supervisor')->nullable();
             $table->string('status')->default('Not Submitted');

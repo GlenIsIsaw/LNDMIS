@@ -83,5 +83,5 @@
 
 <div class="float-end">
     <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-    <button type="button" wire:click="part1" class="btn btn-primary">Next</button>
+    <button id="part1" type="button" wire:click="part1" class="btn btn-primary" wire:loading.attr="disabled">Next</button>
 </div>

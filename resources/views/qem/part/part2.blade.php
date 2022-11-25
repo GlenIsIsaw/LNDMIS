@@ -100,7 +100,7 @@
 
 
 <div class="float-end">
-    <button type="button" wire:click="back" class="btn btn-secondary me-1">Back</button>
+    <button id="back" type="button" wire:click="back" class="btn btn-secondary me-1" wire:loading.attr="disabled">Back</button>
     <button type="button" class="btn btn-danger" wire:click="backButton">Close</button>
-    <button type="button" wire:click="part2" class="btn btn-primary">Next</button>
+    <button id="part2" type="button" wire:click="part2" class="btn btn-primary" wire:loading.attr="disabled">Next</button>
 </div>
