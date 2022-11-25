@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Attendance;
 
+use ZipArchive;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\College;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ListOfTraining;
-use App\Models\User;
+use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class AttendanceReports extends Component
@@ -198,6 +200,11 @@ class AttendanceReports extends Component
             return $arr;
         }
     } 
+    public function split($string){
+        $date = str_split($string, 10);
+        return $date[0];
+    }
+
     public function printLndReports(){
         $validatedData = $this->validate([            
             'start_date' => 'required|date|before:end_date',
@@ -205,7 +212,7 @@ class AttendanceReports extends Component
         ]);
         $start_date = Carbon::parse($this->start_date)->toDateTimeString();
         $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-        $lists = ListOfTraining::select('user_id','name','college_id','signature', 'certificate_title', 'date_covered','certificate', 'competency', 'venue', 'sponsors', 'knowledge_acquired', 'outcome', 'personal_action')
+        $lists = ListOfTraining::select('user_id','name','college_id','signature', 'certificate_title', 'date_covered','certificate', 'competency', 'venue', 'sponsors', 'knowledge_acquired', 'outcome', 'personal_action', 'attendance_forms.created_at As edate')
             ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
@@ -235,7 +242,7 @@ class AttendanceReports extends Component
             $values[$key]['date_covered'] = strftime("%B %e,%G",strtotime($item['date_covered']));
         }
         //dd($values);
-        $templateProcessor = new TemplateProcessor(storage_path('LND-Monitoring-Reports.docx'));
+        $templateProcessor = new TemplateProcessor(storage_path('LD-Monitoring.docx'));
         if ($start_month == $end_month) {
             $daterange = $start_month.' '.$this->year($this->end_date);
         }else {
@@ -265,8 +272,23 @@ class AttendanceReports extends Component
             }
         $templateProcessor->setValue("coorname", auth()->user()->name);
         
-        $templateProcessor->cloneBlock("training", count($values), true, true);
+        $foldername = storage_path('app/public/users/'.auth()->user()->id.'/LND-Monitoring-Reports');
+        $path = storage_path('app/public/users/'.auth()->user()->id.'/LND-Monitoring-Reports/LND-Monitoring_'.$daterange.'.docx');
+        if(!is_dir($foldername))
+		{
+			mkdir($foldername, 0777, true);
+		}
+        $templateProcessor->saveAs($path);
 
+        //dd('dfd');
+
+        $templateProcessor = new TemplateProcessor(storage_path('LND-Monitoring-Reports.docx'));
+        $templateProcessor->cloneBlock("training", count($values), true, true);
+        $college = College::select('college_name')
+        ->where('id',auth()->user()->college_id)
+        ->first();
+    $templateProcessor->setValue('college', $college->college_name);
+        
         for ($i=1; $i <= count($values); $i++) { 
             $templateProcessor->setValue("name#$i", $values[$i-1]['name']);
             $templateProcessor->setValue("certificate_title#$i", $values[$i-1]['certificate_title']);
@@ -280,10 +302,10 @@ class AttendanceReports extends Component
 
             if ($values[$i-1]['signature']) {
                 $templateProcessor->setImageValue("esign#$i", array('path' => public_path('storage/users/'.$values[$i-1]['user_id'].'/'.$values[$i-1]['signature']), 'width' => 100, 'height' => 50, 'ratio' => false));
-                $templateProcessor->setValue("edate#$i", date('F j, Y'));
+                $templateProcessor->setValue("edate#$i", $this->split($values[$i-1]['edate']));
             } else {
                 $templateProcessor->setValue("esign#$i", ' ');
-                $templateProcessor->setValue("edate#$i", ' ');
+                $templateProcessor->setValue("edate#$i", $this->split($values[$i-1]['edate']));
             }
 
             $supervisor = $this->getSupervisor($values[$i-1]['college_id']);
@@ -297,16 +319,27 @@ class AttendanceReports extends Component
             
             
 
-            $templateProcessor->setImageValue("certificate#$i", array('path' => public_path('storage/users/'.$values[$i-1]['user_id'].'/'.$values[$i-1]['certificate']), 'width' => 925, 'height' => 450, 'ratio' => false));
+            $templateProcessor->setImageValue("certificate#$i", array('path' => public_path('storage/users/'.$values[$i-1]['user_id'].'/'.$values[$i-1]['certificate']), 'width' => 600, 'height' => 500, 'ratio' => false));
         }
         
 
-        $path = 'app/public/users/'.auth()->user()->id.'/LND-Monitoring_Reports_'.$daterange.'.docx';
-        $templateProcessor->saveAs(storage_path($path));
+        $path2 = storage_path('app/public/users/'.auth()->user()->id.'/LND-Monitoring-Reports/Attendance_Reports_with_Certificates_'.$daterange.'.docx');
+        $templateProcessor->saveAs($path2);
+        //dd($path2);
+        $zipname = storage_path('app/public/users/'.auth()->user()->id.'/LND-Monitoring-Reports_'.$daterange.'.zip');
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
 
-        $this->resetFilter();
+        $zip->addFromString(basename($path),  file_get_contents($path));  
+        File::delete($path);
+
+        $zip->addFromString(basename($path2),  file_get_contents($path2));  
+        File::delete($path2);
+
+        $zip->close();
         $this->dispatchBrowserEvent('close-modal');
-        return response()->download(storage_path($path))->deleteFileAfterSend(true);
+        $this->resetFilter();
+        return response()->download($zipname)->deleteFileAfterSend(true);
         }
     }
 
