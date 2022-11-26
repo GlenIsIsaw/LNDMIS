@@ -13,13 +13,13 @@
         @endif
         @if ($this->next == 2)
             @include('invitation.part.part3')
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$invitation_id}})" style="color: #800">
+            <button type="button" class="btn btn-link ms-5 mt-4" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$invitation_id}})" style="color: #800">
                 View File Attachment Here
         </button>
                     <div class="mt-3">
                         <hr class="h-color mx-2 mt-3">
                         <div class="float-end">
-                
+                            <button type="button" wire:click="back" class="btn btn-secondary rounded-3 px-3 py-2 text-center me-1" id="back" wire:loading.attr="disabled">Back</button>
                             <button type="button"  wire:click="backButton" class="btn btn-danger rounded-3 px-3 py-2 text-center me-1">Close</button>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationInvitationModal" class="btn btn-primary rounded-3 px-3 py-2 text-center"><i class="fas fa-save me-2"></i>Save</button>
                         </div>

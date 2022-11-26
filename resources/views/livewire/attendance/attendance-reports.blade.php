@@ -7,7 +7,7 @@
                     <div class="card" >
                         <div class="card-header">
                             
-                            <div class="fw-bolder fs-3 float-start text-uppercase">LND Monitoring</div>
+                            <div class="fw-bolder fs-3 float-start text-uppercase">L&D Monitoring</div>
                                 <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mt-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
                                
                                 <button data-bs-toggle="modal" data-bs-target="#printLNDModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 my-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download Lnd Monitoring Reports</button>                  
