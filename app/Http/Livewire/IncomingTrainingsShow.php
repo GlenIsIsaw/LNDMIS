@@ -109,7 +109,12 @@ class IncomingTrainingsShow extends Component
             $list->date = $this->date;
             $list->sponsor = $this->sponsor;
             $list->venue = $this->venue;
-            $list->level = $this->level.':'.$this->level_others;
+            if($this->level == 'Others'){
+                $list->level = $this->level.':'.$this->level_others;
+            }else{
+                $list->level = $this->level;
+            }
+            
             $list->date_covered = $this->date_covered;
             if ($this->free == 'Yes') {
                 $list->free = 0;
@@ -159,6 +164,12 @@ class IncomingTrainingsShow extends Component
         $this->name = $lists->name;
         $this->date = $lists->date;
         $this->file = $lists->file;
+        $this->sponsor = $lists->sponsor;
+        $this->venue = $lists->venue;
+        $this->level = $lists->level;
+        $this->date_covered = $lists->date_covered;
+        $this->free = $lists->free;
+        $this->amount = $lists->amount;
         
         if($this->state == null){
             $this->showButton();
@@ -175,6 +186,21 @@ class IncomingTrainingsShow extends Component
             $list = IncomingTrainings::find($this->invitation_id);
             $list->name = $this->name;
             $list->date = $this->date;
+            $list->sponsor = $this->sponsor;
+            $list->venue = $this->venue;
+            if($this->level == 'Others'){
+                $list->level = $this->level.':'.$this->level_others;
+            }else{
+                $list->level = $this->level;
+            }
+            
+            $list->date_covered = $this->date_covered;
+            if ($this->free == 'Yes') {
+                $list->free = 0;
+            } else {
+                $list->free = 1;
+                $list->amount = $this->amount;
+            }
             //$list->college_id = auth()->user()->college_id;
             //$list->file = 'File Added';
 
@@ -196,16 +222,27 @@ class IncomingTrainingsShow extends Component
             $this->dispatchBrowserEvent('close-modal');
     }
     public function edit(int $id){
-        $lists = IncomingTrainings::where('college_id',auth()->user()->college_id)
+        $list = IncomingTrainings::where('college_id',auth()->user()->college_id)
                 ->where('id', $id)
                 ->first();
 
         
-        $this->fileType = $this->fileType($lists->file);
+        $this->fileType = $this->fileType($list->file);
         $this->invitation_id = $id;
-        $this->name = $lists->name;
-        $this->date = $lists->date;
-        //$this->file = $lists->file;
+        $this->name = $list->name;
+        $this->date = $list->date;
+        $this->sponsor = $list->sponsor;
+        $this->venue = $list->venue;
+        $this->level = $list->level;
+        $this->date_covered = $list->date_covered;
+        if ($list->free == 0) {
+            $this->free = 'Yes';
+            $this->amount = $list->amount;
+        } else {
+            $list->free = 'No';
+            $this->amount = $list->amount;
+        }
+        //$this->file = $list->file;
         
         $this->editButton();
         //dd($this->fileType);

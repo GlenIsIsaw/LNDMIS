@@ -1,22 +1,24 @@
 <div class="mb-3">
     <label class="fw-bold">Certificate Title</label>
-    <input type="text" wire:model.lazy="name" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    <input type="text" wire:model.lazy="name" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label class="fw-bold">Sponsor</label>
-    <input type="text" wire:model.lazy="sponsor" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    <input type="text" wire:model.lazy="sponsor" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('sponsor') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label class="fw-bold">Venue</label>
-    <input type="text" wire:model.lazy="venue" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    <input type="text" wire:model.lazy="venue" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('venue') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
     <label class="fw-bold">Level</label>
-    <select wire:model="level" class="form-control border border-3 border-secondary mt-2 ms-5" style="width: 80%">
+    <select wire:model="level" class="form-control border border-3 border-secondary" style="width: 100%">
+        
         <option value="{{$level}}">{{$level}}</option>
+        <option value="">...</option>
         <option value="International">International</option>
         <option value="Local">Local</option>
         <option value="N/A">N/A</option>
@@ -26,7 +28,7 @@
     </select>
     @if ($level == 'Others')
         <label class="fw-bold mt-2 ms-3">Specify The Level:</label>
-        <input type="text" wire:model.lazy="level_others" class="form-control border border-3 border-secondary rounded-3 mt-2 ms-5" style="width:50%;">
+        <input type="text" wire:model.lazy="level_others" class="form-control border border-3 border-secondary rounded-3" style="width:50%;">
         
     @endif
     @error('level_others') <span class="text-danger">{{ $message }}</span> @enderror
