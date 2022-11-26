@@ -151,9 +151,6 @@ class IncomingTrainingsShow extends Component
         //dd('Pangit ako');
         return response()->download(storage_path("app/public/users/IncomingTrainings/".$this->file), $this->name.".".$this->fileType);
     }
-    public function test(){
-        dd('Pangit ako');
-    }
     public function show(int $id){
         $lists = IncomingTrainings::where('college_id',auth()->user()->college_id)
                 ->where('id', $id)

@@ -74,6 +74,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showInvitationModalLabel" class="text-break">Show {{$name}}</h5>
+                <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
+                ><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
                 
