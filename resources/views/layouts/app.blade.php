@@ -40,7 +40,7 @@
                 
                 
                 <button class="navbar-toggler py-3 border-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <i class="fas fa-bars fa-lg" style="Color: #800000;"></i>
+                    <i class="fas fa-user" style="Color: #800000;"></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

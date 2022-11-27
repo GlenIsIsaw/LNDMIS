@@ -23,7 +23,7 @@
                         <div class="card-body text-center">
                             <div class="table-responsive rounded-3 text-center">
                                 <table class="table table-striped border border-secondary border-5 table-hover">
-                                    <thead class="text-white shadow" style="background-color:#800;">
+                                    <thead class="text-dark shadow" style="background-color:#FEFCFF;">
                                         <th>No.</th>
                                         <th>Name</th>
                                         <th>Intervention</th>

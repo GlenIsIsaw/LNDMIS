@@ -415,7 +415,7 @@ class TrainingShow extends Component
         }else {
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
+                //->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
                 ->where('list_of_trainings.id', $id)
                 ->first();
                 $this->ListOfTraining_id = $lists->training_id;
@@ -424,7 +424,6 @@ class TrainingShow extends Component
                 $this->name = $lists->name;
                 $this->certificate_title = $lists->certificate_title;
                 $this->createAttButton();
-            //dd($lists);
 
                 session()->flash('message','You have no IDP this Year');
                 $this->dispatchBrowserEvent('close-modal');
@@ -451,6 +450,7 @@ class TrainingShow extends Component
         if(strpos($this->competency, '#')){
             $array = explode('#', $this->competency);
             $list->idp_id = $array[0];
+            //dd($array);
             $list->competency = end($array);
         }else {
             $list->competency =$this->competency;

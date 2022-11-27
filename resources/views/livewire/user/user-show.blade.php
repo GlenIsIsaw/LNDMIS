@@ -83,7 +83,7 @@
                                                             </button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#resetPassModal" wire:click="deleteUser({{$user->user_id}})" class="btn-info text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #000046, 
-                                                                #1CB5E0);"><i class="fas fa-pen"></i><br>
+                                                                #1CB5E0);"><i class="fas fa-redo-alt"></i><br>
                                                                 Reset Password
                                                             </button>
                                                             @if ($user->user_status)
