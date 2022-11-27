@@ -4,18 +4,18 @@
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\college\CollegeShow;
 
-use App\Http\Livewire\idp\IdpShow;
+use App\Http\Livewire\Idp\IdpShow;
 use App\Http\Livewire\Qem\QemShow;
-use App\Http\Livewire\user\Profile;
+use App\Http\Livewire\User\Profile;
 use App\Http\Livewire\User\UserShow;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Livewire\idp\IdpReports;
+use App\Http\Livewire\Idp\IdpReports;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Training\TrainingShow;
 use App\Http\Livewire\Training\TrainingReports;
 use App\Http\Livewire\Training\CertificateReports;
-use App\Http\Livewire\attendance\AttendanceReports;
+use App\Http\Livewire\Attendance\AttendanceReports;
 use App\Http\Livewire\Idp\IdpCompletion;
 use App\Http\Livewire\IncomingTrainingsShow;
 
