@@ -1,7 +1,6 @@
 <div>
   @include('livewire.menu')
   <div class="container py-2">
-   
       <div class="row">
           <div class="col-md-12">
               <div id="main-card">
@@ -130,7 +129,7 @@
                                               <td>{{$training->amount}}</td>
                                               <td>{{$training->date_covered}}</td>
                                               <td>
-                                                  <button type="button" class="btn btn-link" wire:click="show({{$training->id}})" style="color: #800">
+                                                  <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$training->id}})" style="color: #800">
                                                       View File Attachment Here
                                                  </button>
                                               </td>
@@ -155,13 +154,7 @@
                       </div>
                   </div>
               </div>
-  </div>
-            </div> 
-          </div>
-      </div>
-  </div>
-
-
+            </div>
   @include('livewire.dashboard-modal')
   @include('livewire.main-modal')
   @section('script')
