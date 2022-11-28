@@ -7,12 +7,13 @@
               <div id="main-card">
                 <div class="card my-2">
                    
+                   
                     <div class="card-body">
                         <div class="row">
                         <div class="col-8">
                             
                         <h6 class="fs-4 fw-bolder" style="color: #926F34"> Hello & Welcome,  {{ Auth::user()->name }}! </h6>
-                        <p class="fs-6 fw-light text-capitalize my-3">You've Achieved almost of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
+                        <p class="fs-6 fw-light text-capitalize my-3">You're at your own progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Always remember to Keep it up and Improve yourself. </p>
                                 </div>
                                 <div class="col-2">
                             
@@ -21,10 +22,10 @@
                         </div>
                             </div>
                         </div>
-                    </div>
+                  
 
                     
-                </div>
+          
                 <div class="card">
                   <div class="card-header">
                     
@@ -36,28 +37,43 @@
                   <div class="card-body">
                       <div class="table-responsive border-secondary border-3">
                           <table class="table align-middle">
-                              <thead class="shadow" style="background-color:#FEFCFF;">
+                              <thead class="shadow text-center" style="background-color:#FEFCFF;">
                                   <tr>
-                                      <th scope="col">Name</span></th>
-                                      <th scope="col">Progress</th>
-                                      <th scope="col">Competency</th>
-                                      <th scope="col">Number of Trainings</th>
+                                      
+                                      
+                                      <th scope="col" class="mt-2 text-uppercase" style="color: #800">Competencies</th>
+                                      <th scope="col" class="mt-2 text-uppercase" style="color: #800">Number of Trainings</th>
                                       
                                   </tr>
                               </thead>
-                              <tbody>
+                              <tbody class="text-center">
                                   @forelse ($competencies as $idp)
-                                      <tr>
-                                          <td rowspan="4" class="fw-bold fs-5">{{$idp['name']}}</td>
-                                          <td rowspan="4"><span class="badge text-white fs-6 px-4 py-3" style="background-color: #800">{{$progress[$idp['progress']]}}</span></td>
-                                          @foreach ($idp['competency'] as $comp => $count)
-                                      </tr>
-                                      <tr>
-                                          <td class="text-uppercase fw-bold fs-5"><span class="badge text-white bg-success fw-bold fs-5 text-wrap">{{$comp}}</td>
-                                          <td class="fw-bold fs-5">{{$count}}</td>
-                                          @endforeach
+                                      
+                                        <div class="container-fluid px-5">
+                                           
+                                                <div class="col-md-5 offset-md-3">
+                                                    <div class="text-center mt-2 py-1 bg-white shadow d-flex justify-content-around align-items-center rounded-3 mb-3" style="background-color: #FEFCFF">
+                                                        <div>
+                                                            <p class="fs-1 fw-bold" style="color: #926F34">{{$progress[$idp['progress']]}}</p>
+                                                <p class="fs-6 fw-bold">Progress </p>
+                                                        </div>
+                                                        <i class="fas fa-arrow-circle-up fa-3x" style="color: #800"></i>
+                                                    </div>
+                                                </div>
+                                               
+                                              
                                           
+                                          @foreach ($idp['competency'] as $comp => $count)
+                                      
+                                      <tr>
+                                        <div class="col-md-3">
+                                          <td class="py-2 me-3 my-2 fw-bold text-capitalize shadow justify-content-around align-items-center rounded-3 text-xl-center">{{$comp}}</td>
+                                          <td class="py-2 me-3 my-2 fs-4 fw-bolder shadow justify-content-around align-items-center rounded-3" style="color: #926F34" style="width: 30%;">{{$count}}</td>
+                                          @endforeach
+                                        </div>
                                       </tr>
+                                            </div>
+                                        </div>
                                   @empty    
                                       <tr>
                                           <td colspan="20">No Record/s Found</td>
@@ -91,8 +107,13 @@
                                   <thead class="text-dark shadow" style="background-color:#FEFCFF;">
                                       <tr>
                                           <th scope="col">Seminar Title</th>
+                                          <th scope="col">Level</th>
+                                          <th scope="col">Sponsors</th>
+                                          <th scope="col">Venue</th>
+                                          <th scope="col">Free</th>
+                                          <th scope="col">Amount</th>
                                           <th scope="col">Date Covered</th>
-                                          <th scope="col">Action</th>
+                                          <th scope="col">Attachments</th>
 
                                           
                                       </tr>
@@ -102,11 +123,17 @@
                                       @forelse ($trainings as $training)
                                           <tr>
                                               <td class="fw-bold">{{$training->name}}</td>
+                                              <td>{{$training->level}}</td>
+                                              <td>{{$training->sponsor}}</td>
+                                              <td>{{$training->venue}}</td>
+                                              <td>{{$array[$training->free]}}</td>
+                                              <td>{{$training->amount}}</td>
                                               <td>{{$training->date_covered}}</td>
-                                              
                                               <td>
-                                                <button type="button" class="btn btn-outline-success border-3 rounded-3 shadow-lg fs-6 fw-bold text-uppercase px-3 py-2"> See the Full Details Here </button>
-                                               </td>
+                                                  <button type="button" class="btn btn-link" wire:click="show({{$training->id}})" style="color: #800">
+                                                      View File Attachment Here
+                                                 </button>
+                                              </td>
                                           </tr>
                                        
 
@@ -120,15 +147,20 @@
                           </div>
                       </div>
                       <div class="card-footer">
+                        <div class="d-flex justify-content-center">
+                            {{ $trainings->links() }}
+                        </div>
                           <p class="fst-italic fw-lighter text-capitalize text-muted text-sm-left"> Disregard If You already read the attachments </p>
-                          <div class="d-flex justify-content-center">
-                              {{ $trainings->links() }}
-                          </div>
+                         
                       </div>
                   </div>
               </div>
+  </div>
+            </div> 
           </div>
       </div>
+    </div>
+
   </div>
 
 

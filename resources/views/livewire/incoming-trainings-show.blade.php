@@ -95,10 +95,11 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <p class="fst-italic fw-lighter text-capitalize text-muted text-sm-left"> Disregard If You already read the attachments </p>
                             <div class="d-flex justify-content-center">
                                 {{ $trainings->links() }}
                             </div>
+                            <p class="fst-italic fw-lighter text-capitalize text-muted text-sm-left"> Disregard If You already read the attachments </p>
+                           
                         </div>
                     </div>
                 </div>

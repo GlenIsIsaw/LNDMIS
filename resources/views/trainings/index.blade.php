@@ -16,7 +16,7 @@
             if(document.getElementById("wrapper").classList.contains('toggled')){
 
                 document.getElementById('main-card').className = 'vw-100';
-                document.getElementById('main-card').style.paddingRight = '15%';
+                document.getElementById('main-card').style.paddingRight = '10%';
             }else{
                 document.getElementById('main-card').className = 'w-100';
                 document.getElementById('main-card').style.paddingRight = '5%';
