@@ -13,7 +13,7 @@
                         <div class="col-8">
                             
                         <h6 class="fs-4 fw-bolder" style="color: #926F34"> Hello & Welcome,  {{ Auth::user()->name }}! </h6>
-                        <p class="fs-6 fw-light text-capitalize my-3">You're at your own progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Always remember to Keep it up and Improve yourself. </p>
+                        <p class="fs-6 fw-light text-capitalize my-3">You've Achieved almost of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
                                 </div>
                                 <div class="col-2">
                             
@@ -108,12 +108,12 @@
                                       <tr>
                                           <th scope="col">Seminar Title</th>
                                           <th scope="col">Level</th>
-                                          <th scope="col">Sponsors</th>
-                                          <th scope="col">Venue</th>
-                                          <th scope="col">Free</th>
-                                          <th scope="col">Amount</th>
-                                          <th scope="col">Date Covered</th>
-                                          <th scope="col">Attachments</th>
+                                            <th scope="col">Sponsors</th>
+                                            <th scope="col">Venue</th>
+                                            <th scope="col">Free</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Date Covered</th>
+                                            <th scope="col">Attachments</th>
 
                                           
                                       </tr>
@@ -159,12 +159,10 @@
             </div> 
           </div>
       </div>
-    </div>
-
   </div>
 
 
-  @include('livewire.invitation-modal')
+  @include('livewire.dashboard-modal')
   @include('livewire.main-modal')
   @section('script')
   <script>
@@ -178,11 +176,6 @@
           }
       })
       window.addEventListener('close-modal', event => {
-
-          $('#createConfirmationInvitationModal').modal('hide');
-          $('#editConfirmationInvitationModal').modal('hide');
-          $('#deleteConfirmationInvitationModal').modal('hide');
-          $('#createConfirmationInvitationModal').modal('hide');
           
           
           $('#notificationModal').modal('hide');

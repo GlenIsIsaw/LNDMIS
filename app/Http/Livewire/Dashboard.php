@@ -94,6 +94,10 @@ class Dashboard extends Component
         return strtolower(end($array));
 
     }
+    public function downloadCert(){
+        //dd('Pangit ako');
+        return response()->download(storage_path("app/public/users/IncomingTrainings/".$this->file), $this->name.".".$this->fileType);
+    }
     public function show(int $id){
         $lists = IncomingTrainings::where('college_id',auth()->user()->college_id)
                 ->where('id', $id)
@@ -110,7 +114,7 @@ class Dashboard extends Component
         $this->date_covered = $lists->date_covered;
         $this->free = $lists->free;
         $this->amount = $lists->amount;
-        
+        //dd($this->file);
         //dd($this->fileType);
 
     }

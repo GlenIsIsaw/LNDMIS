@@ -74,8 +74,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showInvitationModalLabel" class="text-break">Show {{$name}}</h5>
+                <button type="button" class="btn btn-info text-white float-end fw-bold text-uppercase py-2 px-2 mx-3" style="background-image: linear-gradient(
+                    to bottom, #43C6AC,
+                    #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
                 <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
                 ><i class="fas fa-times"></i></button>
+
             </div>
             <div class="modal-body">
                 
@@ -95,6 +99,7 @@
                     </div>
 
                 @else
+
                 <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/IncomingTrainings/'.$file) }}?{{ rand() }}">
                 @endif
                 

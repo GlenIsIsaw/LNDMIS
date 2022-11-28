@@ -113,9 +113,13 @@ class UserShow extends Component
             $college->coordinator = $user->id;
             $college->save();
         }
+
             $user->college_id = $this->college_id;
             $user->name = $this->name;
             $user->email = $this->email;
+            if ($this->teacher == 'Clerk') {
+                $user->role_as = 4;
+            }
             $user->teacher = $this->teacher;
             $user->position = $this->position;
             $user->yearinPosition = $this->yearinPosition;
@@ -204,6 +208,9 @@ class UserShow extends Component
 
             $user->name = $this->name;
             $user->email = $this->email;
+            if ($this->teacher == 'Clerk') {
+                $user->role_as = 4;
+            }
             $user->teacher = $this->teacher;
             $user->position = $this->position;
             $user->yearinPosition = $this->yearinPosition;
