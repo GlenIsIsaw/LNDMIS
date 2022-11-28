@@ -52,7 +52,7 @@ class IdpCompletion extends Component
             }
         }
 
-
+        //dd($array);
         return $array;
     }
     public function countTraining(){
@@ -63,7 +63,8 @@ class IdpCompletion extends Component
         foreach ($array as $key => $value) {
             $i = 0;
             foreach ($value as $item) {
-                $lists = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                $lists = ListOfTraining::select('attendance_forms.competency As comp', 'list_of_trainings.status As stat', 'name')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                 ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
                 ->where('college_id',auth()->user()->college_id)
@@ -72,6 +73,7 @@ class IdpCompletion extends Component
                 ->where('attendance_forms.competency', 'like', '%'.$item.'%')
                 ->orderBy('name','asc')
                 ->count();
+                //sdd($lists);
                 $count[$j]['competency'][$item] = $lists;
                 if($lists){
                     $i++;   

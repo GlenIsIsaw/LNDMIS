@@ -393,7 +393,7 @@ class TrainingShow extends Component
             ->where('year', date('Y'))
             ->first();
         if($test){
-            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title','competency', 'idps.user_id As idp_id')
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title','competency', 'idps.id As idp_id')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                     ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
                                     ->where('list_of_trainings.id', $id)
@@ -498,13 +498,14 @@ class TrainingShow extends Component
             $this->outcome = $lists->outcome;
             $this->personal_action = $lists->personal_action;
 
+            
             $this->showAttButton();
         }else{
             return redirect()->to('/empTraining')->with('message','No results found');
         }
     }
     public function editAttendanceForm($id){
-        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form','status')
+        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form','status', 'idp_id')
                                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                                 ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                                 ->where('list_of_trainings.id', $id)
@@ -517,9 +518,42 @@ class TrainingShow extends Component
             $this->knowledge_acquired = $lists->knowledge_acquired;
             $this->outcome = $lists->outcome;
             $this->personal_action = $lists->personal_action;
-            $this->editAttButton();
+
+            if($lists->idp_id){
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title','competency', 'idps.id As idp_id')
+                                    ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                                    ->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
+                                    ->where('list_of_trainings.id', $id)
+                                    ->where('year', date('Y'))
+                                    ->first();
+                $this->ListOfTraining_id = $lists->training_id;
+                $this->idp_competency = json_decode($lists->competency, true);
+                $this->idp_id = $lists->idp_id;
+                $this->name = $lists->name;
+                $this->certificate_title = $lists->certificate_title;
+                $this->editAttButton();
+                //dd($lists);
+
+        }else {
+            $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title')
+                ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+                //->join('idps', 'idps.user_id', '=', 'list_of_trainings.user_id')
+                ->where('list_of_trainings.id', $id)
+                ->first();
+                $this->ListOfTraining_id = $lists->training_id;
+                $this->idp_competency = [];
+                $this->idp_id = null;
+                $this->name = $lists->name;
+                $this->certificate_title = $lists->certificate_title;
+                $this->createAttButton();
+
+                session()->flash('message','You have no IDP this Year');
+                $this->editAttButton();
+                $this->dispatchBrowserEvent('close-modal');
+        }
+            
         }else{
-            return redirect()->to('/empTraining')->with('message','No results found');
+            return redirect()->to('/training')->with('message','No results found');
         }
     }
     public function updateAttendanceForm(){
@@ -530,8 +564,16 @@ class TrainingShow extends Component
             'outcome' => 'required',
             'personal_action' => 'required'
         ]);
+
         $list = AttendanceForm::find($this->att_id);
-        $list->competency =$this->competency;
+        if(strpos($this->competency, '#')){
+            $array = explode('#', $this->competency);
+            $list->idp_id = $array[0];
+            //dd($array);
+            $list->competency = end($array);
+        }else {
+            $list->competency =$this->competency;
+        }
         $list->knowledge_acquired =$this->knowledge_acquired;
         $list->outcome =$this->outcome;
         $list->personal_action =$this->personal_action;
