@@ -40,7 +40,7 @@
   #sidebar-wrapper {
     min-height: 100vh;
     min-width: 37vh;
-    margin-left: -20rem;
+    margin-left: -15rem;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
     -o-transition: margin 0.25s ease-out;
@@ -63,6 +63,7 @@
   
   #page-content-wrapper {
     min-width: 100vw;
+    
     
   }
   
@@ -168,6 +169,7 @@
     #page-content-wrapper {
       min-width: 0;
       width: 100%;
+     
       
     }
   

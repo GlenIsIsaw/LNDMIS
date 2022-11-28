@@ -4,7 +4,7 @@
     
     @include('livewire.menu')
                 @if ($state)
-                    <div class="container py-3 px-5">
+                    <div class="container py-2">
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="main-card">
@@ -31,13 +31,13 @@
                         </div> 
                     </div>
                 @else
-        <div class="container py-3 px-5">
+        <div class="container py-2">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="main-card" style="padding-right: 5%">
+                    <div id="main-card" style="padding-right: 2%;">
                         <div class="card" >
                             <div class="card-header border-0">
-                                <h3 class="fw-bold text-uppercase align-middle my-1">
+                                <h3 class="fw-bold text-uppercase align-middle py-1">
                                     {{$table}}
                                     <button type="button"style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
                                     @if ($table == 'My Trainings')
@@ -286,7 +286,7 @@
         window.addEventListener('toggle', event => {
             if(document.getElementById("wrapper").classList.contains('toggled')){
                 document.getElementById('main-card').className = 'vw-100';
-                document.getElementById('main-card').style.paddingRight = '15%';
+                document.getElementById('main-card').style.paddingRight = '9%';
             }else{
                 document.getElementById('main-card').className = 'w-100';
                 document.getElementById('main-card').style.paddingRight = '5%';

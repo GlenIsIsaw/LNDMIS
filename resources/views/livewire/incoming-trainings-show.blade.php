@@ -1,6 +1,6 @@
 <div>
     @include('livewire.menu')
-    <div class="container py-3 px-5">
+    <div class="container py-2">
         <div class="row">
             <div class="col-md-12">
                 @if ($state)
@@ -111,7 +111,7 @@
         window.addEventListener('toggle', event => {
             if(document.getElementById("wrapper").classList.contains('toggled')){
                 document.getElementById('main-card').className = 'vw-100';
-                document.getElementById('main-card').style.paddingRight = '15%';
+                document.getElementById('main-card').style.paddingRight = '9%';
             }else{
                 document.getElementById('main-card').className = 'w-100';
                 document.getElementById('main-card').style.paddingRight = '0%';

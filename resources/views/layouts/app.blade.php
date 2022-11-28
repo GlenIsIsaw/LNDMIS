@@ -79,7 +79,7 @@
                                 
                                
                                 <a id="navbarDropdown" class="nav-link rounded-pill px-4 dropdown-toggle text-light fw-bold text-center" style="background-color: #926F34" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                  {{ Auth::user()->name }}
+                                    <i class="fas fa-circle fa-xs me-2" style="color: yellowgreen"></i> {{ Auth::user()->name }}
                                      
                                 </a>
                                
