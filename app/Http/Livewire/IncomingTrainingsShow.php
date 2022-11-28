@@ -297,14 +297,14 @@ class IncomingTrainingsShow extends Component
                     ->where('free', 'like', '%'.$this->filter_free.'%')
                     ->whereBetween('date',[$start_date,$end_date])
                     ->orderBy('updated_at')
-                    ->paginate(5);
+                    ->paginate(3);
             }else{
                 $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                 ->where('level', 'like', '%'.$this->filter_level.'%')
                 ->where('free', 'like', '%'.$this->filter_free.'%')
                 ->orderBy('updated_at')
-                ->paginate(5);
+                ->paginate(3);
             }
         }else{
             if ($this->start_date && $this->end_date) {
@@ -317,7 +317,7 @@ class IncomingTrainingsShow extends Component
                     ->where('date','>',date('Y-m-d'))
                     ->whereBetween('date',[$start_date,$end_date])
                     ->orderBy('updated_at')
-                    ->paginate(5);
+                    ->paginate(3);
             }else{
                 $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
                 ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
@@ -325,7 +325,7 @@ class IncomingTrainingsShow extends Component
                 ->where('free', 'like', '%'.$this->filter_free.'%')
                 ->where('date','>',date('Y-m-d'))
                 ->orderBy('updated_at')
-                ->paginate(5);
+                ->paginate(3);
             }
         }
         

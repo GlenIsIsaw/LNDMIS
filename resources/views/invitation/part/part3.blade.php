@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label class="fw-bold">Attach the Certificate</label>
+    <label class="fw-bold">Attach the Invitation</label>
     <div
     x-data="{ isUploading: false, progress: 0 }"
     x-on:livewire-upload-start="isUploading = true"
