@@ -1,9 +1,9 @@
 
 <div>
     @include('livewire.menu')
-    <div class="container py-3 px-5">
+    <div class="container py-2">
         <div class="row">
-            <div class="col-md-12 mr-3">
+            <div class="col-md-12">
                 <div id="main-card">
                     @if ($state)
                         <div class="card">
@@ -23,7 +23,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="fw-bold fs-5 text-uppercase"> Employees of {{$info['college_name']}}
-                                    <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 330px" />
+                                    <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 265px" />
                                 </div>
                             </div>
                             <div class="card-body">
@@ -99,7 +99,7 @@
                                                                 @if ($info['name'] == 'No Supervisor')
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-primary text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #000046, 
-                                                                    #1CB5E0);"><i class="fas fa-check"></i><br>Make as Supervisor</button>
+                                                                    #1CB5E0);"><i class="fas fa-check"></i><br>Enable as Supervisor</button>
                                                                 @endif
                                                                 @if ($user->user_id == $info['supId'])
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"  style="background-image: linear-gradient(
@@ -145,7 +145,7 @@
             if(document.getElementById("wrapper").classList.contains('toggled')){
 
                 document.getElementById('main-card').className = 'vw-100';
-                document.getElementById('main-card').style.paddingRight = '15%';
+                document.getElementById('main-card').style.paddingRight = '10%';
             }else{
                 document.getElementById('main-card').className = 'w-100';
                 document.getElementById('main-card').style.paddingRight = '0%';

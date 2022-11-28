@@ -40,7 +40,7 @@
   #sidebar-wrapper {
     min-height: 100vh;
     min-width: 37vh;
-    margin-left: -20rem;
+    margin-left: -15rem;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
     -o-transition: margin 0.25s ease-out;
@@ -63,6 +63,7 @@
   
   #page-content-wrapper {
     min-width: 100vw;
+    
     
   }
   
@@ -168,6 +169,7 @@
     #page-content-wrapper {
       min-width: 0;
       width: 100%;
+     
       
     }
   
@@ -212,11 +214,11 @@
                     @if (auth()->user()->role_as == 1)
                     <li class=""><button wire:click="createButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block"style="color: #800000">
                       <i class="fas fa-upload me-2"></i>
-                      Upload Invitation/s </button></li>  
+                      Upload Invitations </button></li>  
                 @endif
                 <li class=""><button wire:click="backButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block"style="color: #800000">
                   <i class="fas fa-door-open me-2"></i></i>
-                   Incoming Invitation/s </button></li> 
+                   Upcoming Trainings </button></li> 
               </div>
                 
                 

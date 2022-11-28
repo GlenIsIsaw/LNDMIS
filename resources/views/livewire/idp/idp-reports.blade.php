@@ -1,7 +1,7 @@
 
 <div>
     @include('livewire.menu')
-    <div class="container py-3 px-5">
+    <div class="container py-2">
         <div class="row">
             <div class="col-md-12">
                 @if ($state)

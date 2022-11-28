@@ -2,7 +2,7 @@
 
 <div>
     @include('livewire.menu')
-    <div class="container py-3 px-5">
+    <div class="container py-2">
         <div class="row">
             <div class="col-md-12">
                 <div id="main-card">
@@ -21,7 +21,7 @@
                        
                             
                           
-                            <input type="search" wire:model="name" class="form-control float-end border-3 py-2 px-3" placeholder="Search by Name" style="width: 330px" />
+                            <input type="search" wire:model="name" class="form-control float-end border-3 py-2" placeholder="Search by Name" style="width: 265px" />
                         </div>
                         <div class="card-body">
                             <button type="button"style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mx-2 my-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
@@ -83,7 +83,7 @@
                 if(document.getElementById("wrapper").classList.contains('toggled')){
 
                     document.getElementById('main-card').className = 'vw-100';
-                    document.getElementById('main-card').style.paddingRight = '15%';
+                    document.getElementById('main-card').style.paddingRight = '10%';
                 }else{
                     document.getElementById('main-card').className = 'w-100';
                     document.getElementById('main-card').style.paddingRight = '0%';
