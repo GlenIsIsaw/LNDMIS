@@ -34,9 +34,9 @@ use App\Http\Livewire\IncomingTrainingsShow;
 Route::middleware(['auth','isCoordinator'])->group(function () {
     Route::get('/idp/Reports', IdpReports::class);
     Route::get('/training/Reports', TrainingReports::class);
-    Route::get('/attendance/Reports', AttendanceReports::class);
+    Route::get('/lnd-monitoring', AttendanceReports::class);
     Route::get('/certificate/Reports', CertificateReports::class);
-    Route::get('/idp-completion', IdpCompletion::class);
+    Route::get('/local-lnd-plan', IdpCompletion::class);
     
 
 });
@@ -45,6 +45,12 @@ Route::middleware(['auth','isSupervisor'])->group(function () {
     Route::get('/qem/trainings', QemShow::class);
 
 });
+
+Route::middleware(['auth','isClerk'])->group(function () {
+    Route::get('/invitation', IncomingTrainingsShow::class);
+
+});
+
 Route::middleware(['auth','isLndEmployee'])->group(function () {
     Route::get('/user', UserShow::class);
 });
@@ -53,13 +59,23 @@ Route::middleware(['auth','isOfficer'])->group(function () {
     Route::get('/college', CollegeShow::class);
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'isUser'])->group(function () {
 
     Route::get('/', Dashboard::class);
     Route::get('/training', TrainingShow::class);
     Route::get('/idp', IdpShow::class);
+   
+    /*Route::get('/trainings', function(){
+        return view('trainings.index');
+    }); */
+
+
+});
+
+Route::middleware(['auth'])->group(function () {
+
     Route::get('/profile', Profile::class);
-    Route::get('/incoming', IncomingTrainingsShow::class);
+   
     /*Route::get('/trainings', function(){
         return view('trainings.index');
     }); */

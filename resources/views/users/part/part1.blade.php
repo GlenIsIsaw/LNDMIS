@@ -45,6 +45,7 @@
                     <option value=""></option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
+                    <option value="Clerk">Clerk</option>
                 </select>
                 @error('teacher') <span class="text-danger">{{ $message }}</span> @enderror
             </div>

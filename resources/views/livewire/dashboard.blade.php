@@ -12,7 +12,7 @@
                         <div class="col-8">
                             
                         <h6 class="fs-4 fw-bolder" style="color: #926F34"> Hello & Welcome,  {{ Auth::user()->name }}! </h6>
-                        <p class="fs-6 fw-light text-capitalize my-3">You've Achieved of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
+                        <p class="fs-6 fw-light text-capitalize my-3">This is your IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
                                 </div>
                                 <div class="col-4">
                             
@@ -89,24 +89,33 @@
                               @endphp
                               <table class="table border border-secondary border-5 table-hover">
                                   <thead class="text-dark shadow" style="background-color:#FEFCFF;">
-                                      <tr>
-                                          <th scope="col">Seminar Title</th>
-                                          <th scope="col">Date Covered</th>
-                                          <th scope="col">Action</th>
-
-                                          
-                                      </tr>
-                                  </thead>
-                                  <tbody class="table align-middle">
-
-                                      @forelse ($trainings as $training)
-                                          <tr>
-                                              <td class="fw-bold">{{$training->name}}</td>
-                                              <td>{{$training->date_covered}}</td>
-                                              
-                                              <td>
-                                                <button type="button" class="btn btn-outline-success border-3 rounded-3 shadow-lg fs-6 fw-bold text-uppercase px-3 py-2"> See the Full Details Here </button>
-                                               </td>
+                                    <tr>
+                                        <th scope="col">Seminar Title</th>
+                                        <th scope="col">Level</th>
+                                        <th scope="col">Sponsors</th>
+                                        <th scope="col">Venue</th>
+                                        <th scope="col">Free</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Date Covered</th>
+                                        <th scope="col">Attachments</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody class="table align-middle">
+                                    @forelse ($trainings as $training)
+                                        <tr>
+                                            <td class="fw-bold">{{$training->name}}</td>
+                                            <td>{{$training->level}}</td>
+                                            <td>{{$training->sponsor}}</td>
+                                            <td>{{$training->venue}}</td>
+                                            <td>{{$array[$training->free]}}</td>
+                                            <td>{{$training->amount}}</td>
+                                            <td>{{$training->date_covered}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$training->id}})" style="color: #800">
+                                                    View File Attachment Here
+                                               </button>
+                                            </td>
                                           </tr>
                                        
 
@@ -128,11 +137,9 @@
                   </div>
               </div>
           </div>
-      </div>
-  </div>
 
 
-  @include('livewire.invitation-modal')
+  @include('livewire.dashboard-modal')
   @include('livewire.main-modal')
   @section('script')
   <script>
@@ -146,11 +153,6 @@
           }
       })
       window.addEventListener('close-modal', event => {
-
-          $('#createConfirmationInvitationModal').modal('hide');
-          $('#editConfirmationInvitationModal').modal('hide');
-          $('#deleteConfirmationInvitationModal').modal('hide');
-          $('#createConfirmationInvitationModal').modal('hide');
           
           
           $('#notificationModal').modal('hide');

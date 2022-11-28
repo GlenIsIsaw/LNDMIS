@@ -68,7 +68,18 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'), // password
         ]);
-         \App\Models\User::factory(10)->create();
+        User::create([
+            'college_id' => 1,
+            'name' => 'Clerk Name',
+            'role_as' => 4,
+            'teacher' => 'Yes',
+            'position' => 'Clerk',
+            'email' => 'clerk@gmail.com',
+            'yearJoined' => fake()->date(),
+            'yearinPosition' => fake()->date(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'), // password
+        ]);
          
 
         // \App\Models\User::factory()->create([
