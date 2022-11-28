@@ -2,7 +2,7 @@
 
 <div>
     @include('livewire.menu')
-    <div class="container py-3 px-5">
+    <div class="container py-2">
         <div class="row">
             <div class="col-md-12">
                 <div id="main-card">
@@ -14,7 +14,7 @@
 
                         </div>
                         <div class="card-body">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterSummaryCertificateModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#filterSummaryCertificateModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2 mb-1" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#printCertificateModal" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-4 py-2 mx-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download</button>
 
                             
@@ -86,7 +86,7 @@
             if(document.getElementById("wrapper").classList.contains('toggled')){
 
                 document.getElementById('main-card').className = 'vw-100';
-                document.getElementById('main-card').style.paddingRight = '15%';
+                document.getElementById('main-card').style.paddingRight = '10%';
             }else{
                 document.getElementById('main-card').className = 'w-100';
                 document.getElementById('main-card').style.paddingRight = '0%';

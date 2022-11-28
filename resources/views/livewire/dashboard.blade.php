@@ -1,20 +1,20 @@
 <div>
   @include('livewire.menu')
-  <div class="container py-3 px-5">
+  <div class="container py-2">
    
       <div class="row">
           <div class="col-md-12">
               <div id="main-card">
                 <div class="card my-2">
                    
-                    <div class="card-body mx-5">
+                    <div class="card-body">
                         <div class="row">
                         <div class="col-8">
                             
                         <h6 class="fs-4 fw-bolder" style="color: #926F34"> Hello & Welcome,  {{ Auth::user()->name }}! </h6>
-                        <p class="fs-6 fw-light text-capitalize my-3">You've Achieved of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
+                        <p class="fs-6 fw-light text-capitalize my-3">You've Achieved almost of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-2">
                             
                                     <img src="/images/man.jpg" alt="LND" width="116" height="123" class="d-inline-block align-text-left mx-2">
                                             </div>
@@ -25,7 +25,7 @@
 
                     
                 </div>
-                <div class="card" >
+                <div class="card">
                   <div class="card-header">
                     
                       <div class="fw-bolder fs-3 float-start text-uppercase"> IDP Completion Rate of Year {{ date('Y') }}</div>
@@ -33,9 +33,9 @@
                  
                   </div>
                         
-                  <div class="card-body text-center">
-                      <div class="table-responsive border-secondary border-3 text-center">
-                          <table class=" table align-middle">
+                  <div class="card-body">
+                      <div class="table-responsive border-secondary border-3">
+                          <table class="table align-middle">
                               <thead class="shadow" style="background-color:#FEFCFF;">
                                   <tr>
                                       <th scope="col">Name</span></th>
@@ -139,7 +139,7 @@
       window.addEventListener('toggle', event => {
           if(document.getElementById("wrapper").classList.contains('toggled')){
               document.getElementById('main-card').className = 'vw-100';
-              document.getElementById('main-card').style.paddingRight = '15%';
+              document.getElementById('main-card').style.paddingRight = '10%';
           }else{
               document.getElementById('main-card').className = 'w-100';
               document.getElementById('main-card').style.paddingRight = '0%';
