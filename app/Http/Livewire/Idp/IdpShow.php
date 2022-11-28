@@ -467,6 +467,10 @@ class IdpShow extends Component
     public function destroy()
     {
         Idp::find($this->idp_id)->delete();
+
+        ListofTraining::join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
+            ->where('attendance_forms.idp_id', $this->idp_id)
+            ->update(['idp_id' => null]); 
         session()->flash('message','IDP Deleted Successfully');
         $this->dispatchBrowserEvent('close-modal');
     }
