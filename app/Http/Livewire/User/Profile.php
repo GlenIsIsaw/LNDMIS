@@ -5,6 +5,7 @@ namespace App\Http\Livewire\User;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
 class Profile extends Component
@@ -218,7 +219,6 @@ class Profile extends Component
     }
     public function render()
     {
-        
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
         return view('livewire.user.profile');

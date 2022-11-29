@@ -174,6 +174,9 @@ class IncomingTrainingsShow extends Component
         //dd($this->fileType);
 
     }
+    public function resetFile(){
+        $this->file = null;
+    }
     public function update(){
         $validatedData = $this->validate([
             'name' => 'required',
@@ -202,7 +205,6 @@ class IncomingTrainingsShow extends Component
             //$list->file = 'File Added';
 
             $list->save();
-            //dd($this->file);
             if($this->file){
                 $ext = $this->file->getClientOriginalExtension();
                 $lists = IncomingTrainings::find($list->id);
@@ -232,15 +234,15 @@ class IncomingTrainingsShow extends Component
         $this->venue = $list->venue;
         $this->level = $list->level;
         $this->date_covered = $list->date_covered;
+        $this->free = 'No';
         if ($list->free == 0) {
             $this->free = 'Yes';
             $this->amount = $list->amount;
-        } else {
+        }else {
             $list->free = 'No';
             $this->amount = $list->amount;
         }
         //$this->file = $list->file;
-        
         $this->editButton();
         //dd($this->fileType);
 
@@ -287,7 +289,7 @@ class IncomingTrainingsShow extends Component
         //dd(date('Y-m-d'));
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
-        if(auth()->user()->role_as == 1){
+
             if ($this->start_date && $this->end_date) {
                 $start_date = Carbon::parse($this->start_date)->toDateTimeString();
                 $end_date = Carbon::parse($this->end_date)->toDateTimeString();
@@ -306,28 +308,6 @@ class IncomingTrainingsShow extends Component
                 ->orderBy('updated_at')
                 ->paginate(3);
             }
-        }else{
-            if ($this->start_date && $this->end_date) {
-                $start_date = Carbon::parse($this->start_date)->toDateTimeString();
-                $end_date = Carbon::parse($this->end_date)->toDateTimeString();
-                $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
-                    ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
-                    ->where('level', 'like', '%'.$this->filter_level.'%')
-                    ->where('free', 'like', '%'.$this->filter_free.'%')
-                    ->where('date','>',date('Y-m-d'))
-                    ->whereBetween('date',[$start_date,$end_date])
-                    ->orderBy('updated_at')
-                    ->paginate(3);
-            }else{
-                $lists = IncomingTrainings::where('college_id', auth()->user()->college_id)
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
-                ->where('level', 'like', '%'.$this->filter_level.'%')
-                ->where('free', 'like', '%'.$this->filter_free.'%')
-                ->where('date','>',date('Y-m-d'))
-                ->orderBy('updated_at')
-                ->paginate(3);
-            }
-        }
         
             //dd($lists);
         return view('livewire.incoming-trainings-show', ['trainings' => $lists]);

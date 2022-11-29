@@ -77,7 +77,7 @@
                 <button type="button" class="btn btn-info text-white float-end fw-bold text-uppercase py-2 px-2 mx-3" style="background-image: linear-gradient(
                     to bottom, #43C6AC,
                     #191654);" wire:click="downloadCert"><i class="fas fa-download me-2"></i>Download</button>
-                <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
+                <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close" wire:click="resetFile"
                 ><i class="fas fa-times"></i></button>
 
             </div>
