@@ -129,7 +129,7 @@
                                               <td>{{$training->amount}}</td>
                                               <td>{{$training->date_covered}}</td>
                                               <td>
-                                                  <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$training->id}})" style="color: #800">
+                                                  <button type="button" class="btn btn-link bg-none" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$training->id}})" style="color: #800">
                                                       View File Attachment Here
                                                  </button>
                                               </td>

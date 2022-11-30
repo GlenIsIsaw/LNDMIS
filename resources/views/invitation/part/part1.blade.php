@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label class="fw-bold">Certificate Title</label>
+    <label class="fw-bold">Training Title</label>
     <input type="text" wire:model.lazy="name" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
 </div>

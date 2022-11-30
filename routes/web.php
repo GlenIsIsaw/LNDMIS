@@ -32,7 +32,7 @@ use App\Http\Livewire\IncomingTrainingsShow;
 
 
 Route::middleware(['auth','isCoordinator'])->group(function () {
-    Route::get('/local-lnd-plans', IdpReports::class);
+    Route::get('/local-lnd-plan', IdpReports::class);
     Route::get('/training/Reports', TrainingReports::class);
     Route::get('/lnd-monitoring', AttendanceReports::class);
     Route::get('/certificate/Reports', CertificateReports::class);
