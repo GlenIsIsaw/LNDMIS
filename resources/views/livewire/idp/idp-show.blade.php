@@ -49,7 +49,7 @@
                                             <div class="py-1 px-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
                                                 <div>
                                                     <h6 class="fs-2 fw-bolder" style="color: #926F34">  {{$rejected}} </h6> 
-                                                    <p class="fs-6 fw-bold">Rejected</p>
+                                                    <p class="fs-6 fw-bold">Disapprove</p>
                                                 </div>
                                                 <i class="fas fa-thumbs-down fa-2x  p-1 me-2" style="color: #800;"></i>
                                             </div>
@@ -140,7 +140,7 @@
                                                     <p class="badge badge-pill fs-6 text-white" style="background-color: #800">Ongoing</p>
                                                 @endif
                                                 @if ($idp->submit_status == 'Rejected')
-                                                    <p class="badge badge-pill fs-6 bg-danger text-white">Rejected</p>
+                                                    <p class="badge badge-pill fs-6 bg-danger text-white">Disapprove</p>
                                                 @endif
                                                 @if ($idp->submit_status == 'Pending')
                                                 <p class="badge badge-pill fs-6 bg-warning text-dark">Pending</p>
@@ -179,7 +179,7 @@
 
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#rejectIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-white rounded-3 shadow fw-bold px-5 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                     to bottom, #870000,
-                                                                    #190A05);"><i class="fas fa-thumbs-down"></i><br>Reject</button>
+                                                                    #190A05);"><i class="fas fa-thumbs-down"></i><br>Disapprove</button>
                                                             @endif    
                                                         @endif
 
@@ -231,7 +231,8 @@
             if(document.getElementById("wrapper").classList.contains('toggled')){
 
                 document.getElementById('main-card').className = 'vw-100';
-                document.getElementById('main-card').style.paddingRight = '10%';
+                document.getElementById('main-card').style.paddingRight = '8%';
+               
             }else{
                 document.getElementById('main-card').className = 'w-100';
                 document.getElementById('main-card').style.paddingRight = '0%';

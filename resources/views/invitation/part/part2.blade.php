@@ -21,7 +21,7 @@
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Due Date</label>
+    <label class="fw-bold">Registration Deadline</label>
     <input type="date" wire:model.lazy="date" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('date') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
