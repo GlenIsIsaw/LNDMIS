@@ -2,7 +2,7 @@
 
 
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\college\CollegeShow;
+use App\Http\Livewire\College\CollegeShow;
 
 use App\Http\Livewire\Idp\IdpShow;
 use App\Http\Livewire\Qem\QemShow;

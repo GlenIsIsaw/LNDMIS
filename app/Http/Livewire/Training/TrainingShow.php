@@ -803,10 +803,11 @@ class TrainingShow extends Component
                 
                 $templateProcessor->setValue('ssign'," ");
                 $templateProcessor->setValue('sdate'," ");
-        ob_clean();
-        $templateProcessor->saveAs($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
-        $this->dispatchBrowserEvent('close-modal');
-        return response()->download(public_path($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
+                $path = storage_path('app/public/users/'.$training->user_id.'/'.$training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
+                ob_clean();
+                $templateProcessor->saveAs($path);
+                $this->dispatchBrowserEvent('close-modal');
+                return response()->download($path)->deleteFileAfterSend(true);
     }
     public function showComment(int $id){
         $lists = ListOfTraining::select('comment')
