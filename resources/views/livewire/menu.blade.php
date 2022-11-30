@@ -163,6 +163,35 @@
 
 @media (min-width: 768px) {
     #sidebar-wrapper {
+      min-height: 100vh;
+      min-width: 37vh;
+      margin-left: -20rem;
+      -webkit-transition: margin 0.25s ease-out;
+      -moz-transition: margin 0.25s ease-out;
+      -o-transition: margin 0.25s ease-out;
+      transition: margin 0.25s ease-out;
+      
+      
+      
+    }
+    
+    #sidebar-wrapper .sidebar-heading {
+      padding: 0.775rem 1.25rem;
+      font-size: 1.5rem; 
+      
+    }
+    
+    #sidebar-wrapper .list-group {
+      width: 25rem;
+    }
+    
+    #page-content-wrapper {
+      min-width: 100vw;
+      
+      
+    }
+    
+    #wrapper.toggled #sidebar-wrapper {
       margin-left: 0;
     }
   

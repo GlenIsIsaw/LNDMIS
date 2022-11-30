@@ -232,7 +232,7 @@ class TrainingShow extends Component
                 $folderPath = storage_path('app/public/users/'.$this->user_id);
                 if(!is_dir($folderPath))
         		{
-        			mkdir($folderPath, 0755);
+        			mkdir($folderPath, 0755, true);
         		}
                 
                 $validatedData['photo']->storeAs('public/users/'.$this->user_id, $filename);
@@ -523,7 +523,6 @@ class TrainingShow extends Component
             $this->knowledge_acquired = $lists->knowledge_acquired;
             $this->outcome = $lists->outcome;
             $this->personal_action = $lists->personal_action;
-
             if($lists->idp_id){
                 $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','certificate_title','competency', 'idps.id As idp_id')
                                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
@@ -552,7 +551,7 @@ class TrainingShow extends Component
                 $this->certificate_title = $lists->certificate_title;
                 $this->createAttButton();
 
-                session()->flash('message','You have no IDP this Year');
+                session()->flash('message','This training is not Connected to an IDP');
                 $this->editAttButton();
                 $this->dispatchBrowserEvent('close-modal');
         }
@@ -761,6 +760,14 @@ class TrainingShow extends Component
         $date = str_split($string, 10);
         return $date[0];
     }
+     public function xmlEntities($str)
+    {
+        $xml = array('&#8211;','&#8212;','&#34;','&#38;','&#38;','&#60;','&#62;','&#160;','&#161;','&#162;','&#163;','&#164;','&#165;','&#166;','&#167;','&#168;','&#169;','&#170;','&#171;','&#172;','&#173;','&#174;','&#175;','&#176;','&#177;','&#178;','&#179;','&#180;','&#181;','&#182;','&#183;','&#184;','&#185;','&#186;','&#187;','&#188;','&#189;','&#190;','&#191;','&#192;','&#193;','&#194;','&#195;','&#196;','&#197;','&#198;','&#199;','&#200;','&#201;','&#202;','&#203;','&#204;','&#205;','&#206;','&#207;','&#208;','&#209;','&#210;','&#211;','&#212;','&#213;','&#214;','&#215;','&#216;','&#217;','&#218;','&#219;','&#220;','&#221;','&#222;','&#223;','&#224;','&#225;','&#226;','&#227;','&#228;','&#229;','&#230;','&#231;','&#232;','&#233;','&#234;','&#235;','&#236;','&#237;','&#238;','&#239;','&#240;','&#241;','&#242;','&#243;','&#244;','&#245;','&#246;','&#247;','&#248;','&#249;','&#250;','&#251;','&#252;','&#253;','&#254;','&#255;');
+        $html = array('&ndash;','&mdash;','&quot;','&amp;','&amp;','&lt;','&gt;','&nbsp;','&iexcl;','&cent;','&pound;','&curren;','&yen;','&brvbar;','&sect;','&uml;','&copy;','&ordf;','&laquo;','&not;','&shy;','&reg;','&macr;','&deg;','&plusmn;','&sup2;','&sup3;','&acute;','&micro;','&para;','&middot;','&cedil;','&sup1;','&ordm;','&raquo;','&frac14;','&frac12;','&frac34;','&iquest;','&Agrave;','&Aacute;','&Acirc;','&Atilde;','&Auml;','&Aring;','&AElig;','&Ccedil;','&Egrave;','&Eacute;','&Ecirc;','&Euml;','&Igrave;','&Iacute;','&Icirc;','&Iuml;','&ETH;','&Ntilde;','&Ograve;','&Oacute;','&Ocirc;','&Otilde;','&Ouml;','&times;','&Oslash;','&Ugrave;','&Uacute;','&Ucirc;','&Uuml;','&Yacute;','&THORN;','&szlig;','&agrave;','&aacute;','&acirc;','&atilde;','&auml;','&aring;','&aelig;','&ccedil;','&egrave;','&eacute;','&ecirc;','&euml;','&igrave;','&iacute;','&icirc;','&iuml;','&eth;','&ntilde;','&ograve;','&oacute;','&ocirc;','&otilde;','&ouml;','&divide;','&oslash;','&ugrave;','&uacute;','&ucirc;','&uuml;','&yacute;','&thorn;','&yuml;');
+        $str = str_replace($html,$xml,$str);
+        $str = str_ireplace($html,$xml,$str);
+        return $str;
+    }
     public function printAttendanceForm(){
 
 
@@ -774,14 +781,14 @@ class TrainingShow extends Component
     
         $array = [
             'name' => $training->name,
-            'certificate_title' => $training->certificate_title,
+            'certificate_title' => $this->xmlEntities(htmlentities($training->certificate_title)),
             'date_covered' => $training->date_covered,
-            'venue' => $training->venue,
-            'sponsors' => $training->sponsors,
+            'venue' => $this->xmlEntities(htmlentities($training->venue)),
+            'sponsors' => $this->xmlEntities(htmlentities($training->sponsors)),
             'competency' => $training->competency,
-            'knowledge_acquired' => $training->knowledge_acquired,
-            'outcome' => $training->outcome,
-            'personal_action' => $training->personal_action
+            'knowledge_acquired' => $this->xmlEntities(htmlentities($training->knowledge_acquired)),
+            'outcome' => $this->xmlEntities(htmlentities($training->outcome)),
+            'personal_action' => $this->xmlEntities(htmlentities($training->personal_action))
         ];
 
         $templateProcessor = new TemplateProcessor(storage_path('Attendance-Report.docx'));
@@ -803,11 +810,13 @@ class TrainingShow extends Component
                 
                 $templateProcessor->setValue('ssign'," ");
                 $templateProcessor->setValue('sdate'," ");
-                $path = storage_path('app/public/users/'.$training->user_id.'/'.$training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
-                ob_clean();
-                $templateProcessor->saveAs($path);
-                $this->dispatchBrowserEvent('close-modal');
-                return response()->download($path)->deleteFileAfterSend(true);
+        $path = storage_path('app/public/users/'.$training->user_id.'/'.$training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
+        ob_clean();
+        $templateProcessor->saveAs($path);
+        
+        $this->dispatchBrowserEvent('close-modal');
+        return response()->download($path)->deleteFileAfterSend(true);
+        //exit;
     }
     public function showComment(int $id){
         $lists = ListOfTraining::select('comment')
