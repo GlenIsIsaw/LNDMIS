@@ -745,16 +745,16 @@ public function xmlEntities($str)
         
                 
         $array = [
-            'college' => $document->college,
-            'ename' => $document->name,
-            'position' => $document->position,
+            'college' => $this->xmlEntities(htmlentities($document->college)),
+            'ename' => $this->xmlEntities(htmlentities($document->name)),
+            'position' => $this->xmlEntities(htmlentities($document->position)),
             'pyear' => $this->year($document->yearinPosition),
             'ayear' => $this->year($document->yearJoined),
             'meet' => $document->purpose_meet,
             'improve' => $document->purpose_improve,
             'obtain' => $document->purpose_obtain,
             'others' => $document->purpose_others,
-            'explain' => $document->purpose_explain,
+            'explain' => $this->xmlEntities(htmlentities($document->purpose_explain)),
 
             'compfunction0' => $document->compfunction0,
             'compfunctiondesc0' => $this->xmlEntities(htmlentities($document->compfunctiondesc0)),
@@ -766,7 +766,7 @@ public function xmlEntities($str)
             'diffunction1' => $document->diffunction1,
             'diffunctiondesc1' => $this->xmlEntities(htmlentities($document->diffunctiondesc1)),
 
-            'career' => $document->career
+            'career' => $this->xmlEntities(htmlentities($document->career))
             
         ];
 
@@ -775,7 +775,7 @@ public function xmlEntities($str)
             $templateProcessor->setValue($varname, $value);
         }
         if($supervisor){
-            $templateProcessor->setValue('sname', $supervisor->name);
+            $templateProcessor->setValue('sname', $this->xmlEntities(htmlentities($supervisor->name)));
         }else{
             $templateProcessor->setValue('sname', 'No Supervisor');
         }
