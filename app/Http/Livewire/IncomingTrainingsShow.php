@@ -132,6 +132,11 @@ class IncomingTrainingsShow extends Component
                 $ext = $this->file->getClientOriginalExtension();
                 $lists = IncomingTrainings::find($list->id);
                 $filename = date('Ymd').$list->id.".".$ext;
+                $folderPath = storage_path('app/public/users/IncomingTrainings');
+                if(!is_dir($folderPath))
+        		{
+        			mkdir($folderPath, 0755);
+        		}
                 $validatedData['file']->storeAs('public/users/IncomingTrainings', $filename);
                 $lists->file = $filename;
                 $lists->save();

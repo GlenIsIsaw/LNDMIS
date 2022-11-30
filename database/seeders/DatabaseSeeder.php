@@ -159,6 +159,84 @@ class DatabaseSeeder extends Seeder
             'teaching' => 1,
             'nonteaching' => 0,
         ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Communication Skills',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Written Communication/Writing Skills',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Attention to Detail',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Result Orientation',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Presentation Skills',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Policy Interpretation and Implementation',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Leading Self',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Leading Others',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Data Management and Process Knowledge',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Technical Learning',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Organizational Skills',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Planning',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
+        Competency::create([
+            'competency_group' => 'Functional', 
+            'competency_name' => 'Intellectual Acumen',
+            'teaching' => 1,
+            'nonteaching' => 1,
+        ]);
 
         //Leadership
         Competency::create([
@@ -186,7 +264,7 @@ class DatabaseSeeder extends Seeder
             'nonteaching' => 1,
         ]);
 
-        \App\Models\Idp::factory(10)->create();
+        //\App\Models\Idp::factory(10)->create();
 
     }
 }

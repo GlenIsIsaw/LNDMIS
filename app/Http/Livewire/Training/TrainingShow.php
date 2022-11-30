@@ -229,6 +229,12 @@ class TrainingShow extends Component
                 $user = User::find($this->user_id);
                 $lists = ListOfTraining::find($list->id);
                 $filename = date('Ymd').$lists->id.".".$ext;
+                $folderPath = storage_path('app/public/users/'.$this->user_id);
+                if(!is_dir($folderPath))
+        		{
+        			mkdir($folderPath, 0755);
+        		}
+                
                 $validatedData['photo']->storeAs('public/users/'.$this->user_id, $filename);
                 $lists->certificate = $filename;
                 $lists->save();
@@ -376,10 +382,9 @@ class TrainingShow extends Component
 
     public function destroy()
     {
-        $list = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
-                        ->where('list_of_trainings.id','=',$this->ListOfTraining_id)
+        $list = ListOfTraining::where('list_of_trainings.id','=',$this->ListOfTraining_id)
                         ->first();
-        File::delete(storage_path('app/public/users/'.$list->name.'/'.$list->certificate));
+        File::delete(storage_path('app/public/users/'.$list->user_id.'/'.$list->certificate));
         ListOfTraining::find($this->ListOfTraining_id)->delete();
         session()->flash('message','ListOfTraining Deleted Successfully');
         $this->backButton();
@@ -798,7 +803,7 @@ class TrainingShow extends Component
                 
                 $templateProcessor->setValue('ssign'," ");
                 $templateProcessor->setValue('sdate'," ");
-
+        ob_clean();
         $templateProcessor->saveAs($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx');
         $this->dispatchBrowserEvent('close-modal');
         return response()->download(public_path($training->name.'_'.$training->certificate_title.'_Attendance_Report.docx'))->deleteFileAfterSend(true);
