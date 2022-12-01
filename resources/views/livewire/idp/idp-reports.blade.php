@@ -28,7 +28,7 @@
                                 </select>
                             </div>
                             <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle mt-2" wire:click="resetFilter"><i class='fas fa-redo'></i></button>
-                            <button wire:click="tnm" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-5 py-2 mx-2" style="background-color: #800;"><i class="fas fa-calculator me-2"></i>TNM</button>      
+                            <button wire:click="tnm" class="btn-secondary float-end text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-5 py-2 mx-2" style="background-color: #800;"><i class="fas fa-calculator me-2"></i>TNA</button>      
                         </div>
                         <div class="card-body">
                                 

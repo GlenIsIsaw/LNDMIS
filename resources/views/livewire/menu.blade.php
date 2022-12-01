@@ -11,15 +11,9 @@
       color: var(--main-text-color);
     }
     
-  
-  #sidebar-wrapper {
-    min-height: 100vh;
-    min-width: 34vh;
-    margin-left: -17rem;
-    -webkit-transition: margin 0.25s ease-out;
-    -moz-transition: margin 0.25s ease-out;
-    -o-transition: margin 0.25s ease-out;
-    transition: margin 0.25s ease-out;
+    .second-text {
+      color: var(--second-text-color);
+    }
     
     .primary-bg {
       background-color: var(--main-bg-color);
@@ -33,18 +27,19 @@
       border-radius: 100%;
     }
     
-  }
-  
-  #sidebar-wrapper .list-group {
-    width: 15rem;
-
-  }
-  
-  #page-content-wrapper {
-    min-width: 100vw;
-  }
+    #wrapper {
+      overflow-x: hidden;
+      background-image:url('../images/png.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      
+      
+    }
+    
     #sidebar-wrapper {
-      margin-left: 0rem;
+      min-height: 100vh;
+      min-width: 37vh;
+      margin-left: -17rem;
       -webkit-transition: margin 0.25s ease-out;
       -moz-transition: margin 0.25s ease-out;
       -o-transition: margin 0.25s ease-out;
@@ -61,7 +56,7 @@
     }
     
     #sidebar-wrapper .list-group {
-      width: 25rem;
+      width: 15rem;
     }
     
     #page-content-wrapper {
@@ -150,6 +145,33 @@
   }
   @media (min-width: 768px) {
       #sidebar-wrapper {
+        margin-left: 0rem;
+        -webkit-transition: margin 0.25s ease-out;
+        -moz-transition: margin 0.25s ease-out;
+        -o-transition: margin 0.25s ease-out;
+        transition: margin 0.25s ease-out;
+        
+        
+        
+      }
+      
+      #sidebar-wrapper .sidebar-heading {
+        padding: 0.775rem 1.25rem;
+        font-size: 1.5rem; 
+        
+      }
+      
+      #sidebar-wrapper .list-group {
+        width: 25rem;
+      }
+      
+      #page-content-wrapper {
+        min-width: 100vw;
+        
+        
+      }
+      
+      #wrapper.toggled #sidebar-wrapper {
         margin-left: 0;
       }
     
@@ -166,9 +188,8 @@
     }
     
     
-    
     </style>
-
+  
 <body>
     <div class="d-flex {{$toggle}}" id="wrapper">
    <!-- Sidebar -->

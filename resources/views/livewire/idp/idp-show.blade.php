@@ -153,18 +153,18 @@
                                                        @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                 to top, #000000,
-                                                                #0f9b0f);"><i class="fas fa-paper-plane"></i><br>Submit</button>
+                                                                #0f9b0f);"><i class="fas fa-paper-plane me-1"></i>Submit</button>
                                                         @endif
-                                                        <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info rounded-3 shadow-sm fw-bold text-white text-uppercase px-5 py-2" style="background-image: linear-gradient(
+                                                        <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-white text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            to bottom, #52c234,
+                                                                    #061700);"><i class="fas fa-eye me-1"></i>View</button>
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-info text-white btn-sm rounded-3 shadow-sm fw-bold text-uppercase" style="background-image: linear-gradient(
                                                             to bottom, #43C6AC,
-                                                            #191654);"><i class="fas fa-eye"></i><br>View</button>
-                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
-                                                            to top, #000000,
-                                                            #0f9b0f);"><i class="fas fa-download"></i><br>Download</button>
+                                                                #191654); font-size:13px; padding:11px 11px 11px 11px;"><i class="fas fa-download me-1"></i>Download</button>
                                                         @if ($idp->comment)
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-white rounded-3 shadow text-uppercase fw-bold px-5 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-white rounded-3 shadow text-uppercase fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
-                                                                #191654);"><i class="fas fa-comments"></i><br>Comment</button>
+                                                                #191654);"><i class="fas fa-comments me-1"></i>Comment</button>
                                                         @endif
                                                             
                                                    
@@ -173,13 +173,13 @@
                                                    @if ($idp->submit_status != 'Approved') 
                                                         @if ($idp->submit_status == 'Pending')
                                                             @if (auth()->user()->role_as == 1)
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#approveIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success text-white rounded-3 shadow fw-bold px-5 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#approveIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success btn-sm text-white rounded-3 shadow fw-bold px-2 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                     to top, #000000,
-                                                                    #0f9b0f);"><i class="fas fa-thumbs-up"></i><br>Approve</button>
+                                                                    #0f9b0f);"><i class="fas fa-thumbs-up me-1"></i>Approve</button>
 
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#rejectIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-white rounded-3 shadow fw-bold px-5 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#rejectIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-white rounded-3 shadow fw-bold px-2 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                     to bottom, #870000,
-                                                                    #190A05);"><i class="fas fa-thumbs-down"></i><br>Disapprove</button>
+                                                                    #190A05);"><i class="fas fa-thumbs-down me-1"></i>Reject</button>
                                                             @endif    
                                                         @endif
 
@@ -187,10 +187,10 @@
                                                             @if($idp->submit_status != 'Pending')
                                                                 <button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary text-white rounded-3 text-uppercase shadow-sm fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                     to bottom, #000046, 
-                                                                    #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
+                                                                    #1CB5E0);"><i class="fas fa-edit me-1"></i>Edit</button>
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm px-3 fw-bold py-2" style="background-image: linear-gradient(
                                                                     to bottom, #870000,
-                                                                    #190A05);"><i class="fas fa-trash fa-sm"></i><br>Delete</button>
+                                                                    #190A05);"><i class="fas fa-trash fa-sm me-1"></i>Delete</button>
                                                             @endif
 
                                                             
