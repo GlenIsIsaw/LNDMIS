@@ -38,7 +38,7 @@
             <input type="text" wire:model.lazy="email" class="form-control border border-3 border-dark rounded-3">
             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        @if (auth()->user()->role_as == 1)
+        @if (auth()->user()->role_as == 1 || auth()->user()->role_as == 3)
             <div class="mb-3">
                 <label  class="fw-bold">Teacher</label>
                 <select wire:model.lazy="teacher" class="form-control border border-3 border-dark rounded-3">

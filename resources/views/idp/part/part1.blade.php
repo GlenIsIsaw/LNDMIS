@@ -3,16 +3,6 @@
     to top, #000000,
     #0f9b0f);"><i class="fas fa-scroll me-2"></i></i>Guide</button>
         <div class="mb-3">
-            <label><h6>Name:</h6></label>
-            <div class="fw-bold">
-            <p>{{auth()->user()->name}}</p>
-
-            
-            
-            </div>
-            
-        </div>
-        <div class="mb-3">
             <label><h6>Year:</h6></label>
             <div class="fw-bold">
             <select class="border-dark border-2 rounded-3 text-center fw-bold" style="width: 20%" wire:model="year">

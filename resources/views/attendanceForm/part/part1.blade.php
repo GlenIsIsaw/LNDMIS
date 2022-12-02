@@ -8,15 +8,11 @@
 </div>
 
 <hr class="h-color mx-2 mt-3">
-<div class="mb-3">
-    <label class="fw-bold">Name</label>
-    <select wire:model="ListOfTraining_id" class="form-control border border-3 border-secondary">
-        <option value="">...</option>
-        <option value="{{$ListOfTraining_id}}">{{$name}}</option>
-    </select>
-    @error('ListOfTraining_id') <span class="text-danger">{{ $message }}</span> @enderror
+<div class="mb-3 mt-4">
+    <label>Certificate Title</label>
+    <div class="fw-bold text-lg"><p>{{$certificate_title}}</p></div>
 </div>
-
+ 
 <div class="mb-3">
     <label class="fw-bold">Specific Competency Target to Enhance</label>
     <select wire:model="competency" class="form-control border border-3 border-secondary">

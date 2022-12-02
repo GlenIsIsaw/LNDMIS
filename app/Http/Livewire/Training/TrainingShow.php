@@ -438,7 +438,6 @@ class TrainingShow extends Component
 
     public function part1_att(){
         $validatedData = $this->validate([
-            'ListOfTraining_id' => 'required',
             'competency' => 'required',
             'knowledge_acquired' => 'required',
         ]);

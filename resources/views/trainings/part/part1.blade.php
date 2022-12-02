@@ -10,13 +10,6 @@
 </div>
 
 <hr class="h-color mx-2 mt-3">
-
-<div class="mb-3 mt-4">
-    <label>Name</label>
-    <div class="fw-bold text-lg"><p>{{auth()->user()->name}}</p></div>
-</div>
-
-
 <div class="mb-3">
     <label class="fw-bold">Certificate Types</label>
     <select type="text" wire:model="certificate_type" class="form-control border border-3 border-secondary">

@@ -170,7 +170,7 @@
             $('#supervisorNotModal').modal('hide');
             $('#resetPassModal').modal('hide');
 
-            
+             
             
 
             $('#notificationModal').modal('hide');
