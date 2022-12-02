@@ -92,36 +92,37 @@
                                                     @endif
 
                                                     <td class="d-grid gap-2">
+                                                        
                                                         @if ($training->qem == 2)
-                                                            <button type="button" wire:click="createButton({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="createButton({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
-                                                                #190A05);"><i class="fas fa-pen"></i><br>Create</button>
+                                                                #190A05);"><i class="fas fa-pen me-1"></i>Create</button>
                                                         @else
                                                             @if ($table != 'Training Need QEM')
                                                                 @if ($training->confirmation_status == 'Not Submitted')
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#submitQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                         to top, #000000,
-                                                                        #0f9b0f);"><i class="fas fa-paper-plane"></i><br>Submit</button>
+                                                                        #0f9b0f);"><i class="fas fa-paper-plane me-1"></i>Submit</button>
                                                                 @endif
                                                                 @if ($training->confirmation_status == 'Pending')
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#approveQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#approveQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                         to top, #000000,
                                                                         #0f9b0f);"><i class="fas fa-thumbs-up"></i><br>Approve</button>
                                                                 @endif
                                                             @endif
-                                                            <button type="button" wire:click="show({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="show({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
-                                                                #191654);"><i class="fas fa-eye"></i><br>Show</button>
+                                                                #191654);"><i class="fas fa-eye me-1"></i>Show</button>
                                                             
-                                                            <button type="button" wire:click="edit({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                            <button type="button" wire:click="edit({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #000046, 
-                                                                #1CB5E0);"><i class="fas fa-edit"></i><br>Edit</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                #1CB5E0);"><i class="fas fa-edit me-1"></i>Edit</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
-                                                                #190A05);"><i class="fas fa-trash"></i><br>Delete</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                #190A05);"><i class="fas fa-trash me-1"></i>Delete</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #52c234,
-                                                                 #061700);"><i class="fas fa-download"></i><br>Download</button>
+                                                                 #061700); font-size:16px; padding:5px 20px 5px 20px;"><i class="fas fa-download me-1"></i>Download</button>
                                                         @endif
 
 

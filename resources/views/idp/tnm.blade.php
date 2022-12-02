@@ -6,7 +6,7 @@
     </div>
     
     <div class="float-end my-2">
-        <button data-bs-toggle="modal" data-bs-target="#printTnmModal" class="btn-secondary text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-2 py-2 mx-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download TNM Reports</button>
+        <button data-bs-toggle="modal" data-bs-target="#printTnmModal" class="btn-secondary text-white rounded-3 shadow text-uppercase fs-6 fw-bold px-2 py-2 mx-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download TNA Reports</button>
         <button type="button" class="btn btn-danger" wire:click="backButton"><i class="fas fa-times px-1 pt-2"></i></button>
     </div>
 </div>
