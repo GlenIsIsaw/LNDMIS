@@ -18,7 +18,9 @@ class UserShow extends Component
 
 
     public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password,$photo, $coordinator_name;
+    public $filter_college = 'Institute of Computer Studies';
     public $colleges = [];
+    public $dept_name = [];
     public $state = null;
     public $next = null;
     public $table = null;
@@ -118,7 +120,17 @@ class UserShow extends Component
             $user->name = $this->name;
             $user->email = $this->email;
             if ($this->teacher == 'Clerk') {
+                $college = College::find($this->college_id);
+                if ($user->role_as = 1) {
+                    $college->coordinator = null;
+                }
+                if ($user->role_as = 2) {
+ 
+                    $college->supervisor = null;
+                }
+                $college->save();
                 $user->role_as = 4;
+
             }
             $user->teacher = $this->teacher;
             $user->position = $this->position;
@@ -134,20 +146,6 @@ class UserShow extends Component
         session()->flash('message','User Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
-    }
-    public function addSignature(){
-        $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
-        ]);
-        $user = User::find($this->User_id);
-        if($validatedData['photo']){
-            $filename = $this->User_id.'.signature';
-            $validatedData['photo']->storeAs('public/users/'.$this->User_id, $filename);
-            $user->signature = $filename;
-            $user->save();
-        }
-        $this->show($this->User_id);
-
     }
     public function resetPass(){
         User::find($this->User_id)->update(['password' => Hash::make('12345678')]);
@@ -231,10 +229,12 @@ class UserShow extends Component
         if(!$coll->supervisor){
             $user = User::find($this->User_id);
             $user->role_as = 2;
+            $user->teacher = 'Yes';
             $coll->supervisor = $this->User_id;
             $coll->save();
             $user->save();
         }
+        $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
     }
     public function makeNotSup(){
@@ -242,10 +242,40 @@ class UserShow extends Component
         if($coll->supervisor){
             $user = User::find($this->User_id);
             $user->role_as = 0;
+            $user->teacher = 'Yes';
             $coll->supervisor = null;
             $coll->save();
             $user->save();
         }
+        $this->resetInput();
+        $this->dispatchBrowserEvent('close-modal');
+    }
+    public function makeCoor(){
+        //dd($this->college_id.'.'.$this->User_id);
+        $coll = College::find($this->college_id);
+       
+            $user = User::find($this->User_id);
+            $user->role_as = 1;
+            $user->teacher = 'Yes';
+            $user->position = 'LND Coordinator';
+            $coll->coordinator = $this->User_id;
+
+            $coll->save();
+            $user->save();
+
+        $this->resetInput();
+        $this->dispatchBrowserEvent('close-modal');
+    }
+    public function makeNotCoor(){
+        $coll = College::find($this->college_id);
+            $user = User::find($this->User_id);
+            $user->role_as = 0;
+            $user->teacher = 'Yes';
+            $user->position = 'Employee';
+            $coll->coordinator = null;
+            $coll->save();
+            $user->save();
+        $this->resetInput();
         $this->dispatchBrowserEvent('close-modal');
     }
     public function closePass(){
@@ -324,31 +354,45 @@ class UserShow extends Component
         $this->photo = '';
     }
 
-    public function mount()
-    {
-        $this->currentUrl = url()->current();
-        //dd($this->currentUrl);
-    }
+
     public function getCollege(){
-       $college = College::all();
-       $arr = [];
-        $college = $college->toArray();
-       foreach ($college as $num => $item) {
-            foreach ($item as $key => $value) {
-                if ($key == 'id') {
-                    $arr[$num][$key] = $value;
-                }
-                if ($key == 'college_name') {
-                    $arr[$num][$key] = $value;
-                }
-    
-                
-            }
-       }
-       //dd($arr);
-        $this->colleges = $arr;
-    
-    }
+        $college = College::all();
+        $arr = [];
+         $college = $college->toArray();
+        foreach ($college as $num => $item) {
+             foreach ($item as $key => $value) {
+                 if ($key == 'id') {
+                     $arr[$num][$key] = $value;
+                 }
+                 if ($key == 'college_name') {
+                     $arr[$num][$key] = $value;
+                 }
+     
+                 
+             }
+        }
+        //dd($arr);
+         $this->colleges = $arr;
+     
+     }
+    public function college(){
+        $college = College::all();
+        $arr = [];
+         $college = $college->toArray();
+        foreach ($college as $num => $item) {
+             foreach ($item as $key => $value) {
+                 if ($key == 'college_name') {
+                     array_push($arr, $value);
+                 }
+     
+                 
+             }
+        }
+        //dd($arr);
+         
+         $this->dept_name = $arr;
+     
+     }
     public function checkOfficer(){
         if (auth()->user()->role_as == 3) {
             return true;
@@ -356,19 +400,38 @@ class UserShow extends Component
             return false;
         }
     }
+    public function coorCheck($id){
+        $coll = College::find($id);
+
+        if($coll->coordinator){
+            return false;
+        }else {
+            return true;
+        }
+    }
+    public function updatingFilterCollege($value){
+        $this->resetPage();
+    }
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
+
+        //dd($this->currentUrl);
+    }
     public function render()
     {
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
         if ($this->checkOfficer()) {
-            $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status')
+            $this->college();
+            $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status', 'role_as')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
-                        ->where('role_as', 1)
+                        ->where('college_name', 'like', '%'.$this->filter_college.'%')
                         ->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy('users.updated_at','DESC')
                         ->paginate(3);
         } else {
-            $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status')
+            $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status', 'role_as')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
                         ->where('college_id',auth()->user()->college_id)
                         ->whereNot('users.id',auth()->user()->id)

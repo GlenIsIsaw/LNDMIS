@@ -10,6 +10,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\AttendanceForm;
 use App\Models\ListOfTraining;
+use App\Http\Livewire\Training\TrainingShow;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -732,16 +733,6 @@ class IdpShow extends Component
         
            return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
         }*/
-public function xmlEntities($str)
-    {
-        //$str = $this->clean($str1);
-        
-        $xml = array('&#8221;','&#8220;','&#61;','&#8250;','&#8249;','&#125;','&#123;','&#8217;','&#8216;','&#96;','&#8245;','&#8242;','&#39;','&#92;','&#46;','&#41;','&#40;','&#8208;','&#47;','&#8211;','&#8212;','&#34;','&#38;','&#60;','&#62;','&#160;','&#161;','&#162;','&#163;','&#164;','&#165;','&#166;','&#167;','&#168;','&#169;','&#170;','&#171;','&#172;','&#173;','&#174;','&#175;','&#176;','&#177;','&#178;','&#179;','&#180;','&#181;','&#182;','&#183;','&#184;','&#185;','&#186;','&#187;','&#188;','&#189;','&#190;','&#191;','&#192;','&#193;','&#194;','&#195;','&#196;','&#197;','&#198;','&#199;','&#200;','&#201;','&#202;','&#203;','&#204;','&#205;','&#206;','&#207;','&#208;','&#209;','&#210;','&#211;','&#212;','&#213;','&#214;','&#215;','&#216;','&#217;','&#218;','&#219;','&#220;','&#221;','&#222;','&#223;','&#224;','&#225;','&#226;','&#227;','&#228;','&#229;','&#230;','&#231;','&#232;','&#233;','&#234;','&#235;','&#236;','&#237;','&#238;','&#239;','&#240;','&#241;','&#242;','&#243;','&#244;','&#245;','&#246;','&#247;','&#248;','&#249;','&#250;','&#251;','&#252;','&#253;','&#254;','&#255;');
-        $html = array('&rdquo;','&ldquo;','&equals;','&rsaquo;','&lsaquo;','&rbrace;','&lbrace;','&rsquo;','&lsquo;','&grave;','&bprime;','&prime;','&apos;','&bsol;','&period;','&rpar;','&lpar;','&hyphen;','&sol;','&ndash;','&mdash;','&quot;','&amp;','&lt;','&gt;','&nbsp;','&iexcl;','&cent;','&pound;','&curren;','&yen;','&brvbar;','&sect;','&uml;','&copy;','&ordf;','&laquo;','&not;','&shy;','&reg;','&macr;','&deg;','&plusmn;','&sup2;','&sup3;','&acute;','&micro;','&para;','&middot;','&cedil;','&sup1;','&ordm;','&raquo;','&frac14;','&frac12;','&frac34;','&iquest;','&Agrave;','&Aacute;','&Acirc;','&Atilde;','&Auml;','&Aring;','&AElig;','&Ccedil;','&Egrave;','&Eacute;','&Ecirc;','&Euml;','&Igrave;','&Iacute;','&Icirc;','&Iuml;','&ETH;','&Ntilde;','&Ograve;','&Oacute;','&Ocirc;','&Otilde;','&Ouml;','&times;','&Oslash;','&Ugrave;','&Uacute;','&Ucirc;','&Uuml;','&Yacute;','&THORN;','&szlig;','&agrave;','&aacute;','&acirc;','&atilde;','&auml;','&aring;','&aelig;','&ccedil;','&egrave;','&eacute;','&ecirc;','&euml;','&igrave;','&iacute;','&icirc;','&iuml;','&eth;','&ntilde;','&ograve;','&oacute;','&ocirc;','&otilde;','&ouml;','&divide;','&oslash;','&ugrave;','&uacute;','&ucirc;','&uuml;','&yacute;','&thorn;','&yuml;');
-        $str = str_replace($html,$xml,$str);
-        $str = str_ireplace($html,$xml,$str);
-        return $str;
-    }
     public function print(){
         $document = Idp::join('users', 'users.id', '=', 'idps.user_id')
                 ->join('colleges', 'colleges.id', '=', 'users.college_id')
@@ -754,28 +745,28 @@ public function xmlEntities($str)
         
                 
         $array = [
-            'college' => $this->xmlEntities(htmlentities($document->college)),
-            'ename' => $this->xmlEntities(htmlentities($document->name)),
-            'position' => $this->xmlEntities(htmlentities($document->position)),
+            'college' => TrainingShow::xmlEntities(htmlentities($document->college)),
+            'ename' => TrainingShow::xmlEntities(htmlentities($document->name)),
+            'position' => TrainingShow::xmlEntities(htmlentities($document->position)),
             'pyear' => $this->year($document->yearinPosition),
             'ayear' => $this->year($document->yearJoined),
             'meet' => $document->purpose_meet,
             'improve' => $document->purpose_improve,
             'obtain' => $document->purpose_obtain,
             'others' => $document->purpose_others,
-            'explain' => $this->xmlEntities(htmlentities($document->purpose_explain)),
+            'explain' => TrainingShow::xmlEntities(htmlentities($document->purpose_explain)),
 
             'compfunction0' => $document->compfunction0,
-            'compfunctiondesc0' => $this->xmlEntities(htmlentities($document->compfunctiondesc0)),
+            'compfunctiondesc0' => TrainingShow::xmlEntities(htmlentities($document->compfunctiondesc0)),
             'compfunction1' => $document->compfunction1,
-            'compfunctiondesc1' => $this->xmlEntities(htmlentities($document->compfunctiondesc1)),
+            'compfunctiondesc1' => TrainingShow::xmlEntities(htmlentities($document->compfunctiondesc1)),
 
             'diffunction0' => $document->diffunction0,
-            'diffunctiondesc0' => $this->xmlEntities($document->diffunctiondesc0),
+            'diffunctiondesc0' => TrainingShow::xmlEntities($document->diffunctiondesc0),
             'diffunction1' => $document->diffunction1,
-            'diffunctiondesc1' => $this->xmlEntities(htmlentities($document->diffunctiondesc1)),
+            'diffunctiondesc1' => TrainingShow::xmlEntities(htmlentities($document->diffunctiondesc1)),
 
-            'career' => $this->xmlEntities(htmlentities($document->career))
+            'career' => TrainingShow::xmlEntities(htmlentities($document->career))
             
         ];
 
@@ -784,17 +775,17 @@ public function xmlEntities($str)
             $templateProcessor->setValue($varname, $value);
         }
         if($supervisor){
-            $templateProcessor->setValue('sname', $this->xmlEntities(htmlentities($supervisor->name)));
+            $templateProcessor->setValue('sname', TrainingShow::xmlEntities(htmlentities($supervisor->name)));
         }else{
             $templateProcessor->setValue('sname', 'No Supervisor');
         }
         for ($i=0; $i < 3; $i++) { 
             $templateProcessor->setValue('compe'.$i, $document->competency[$i]);
             $templateProcessor->setValue('prio'.$i, $document->sug[$i]);
-            $templateProcessor->setValue('devact'.$i, $this->xmlEntities(htmlentities($document->dev_act[$i])));
+            $templateProcessor->setValue('devact'.$i, TrainingShow::xmlEntities(htmlentities($document->dev_act[$i])));
             $templateProcessor->setValue('date'.$i, $document->target_date[$i]);
-            $templateProcessor->setValue('person'.$i, $this->xmlEntities(htmlentities($document->responsible[$i])));
-            $templateProcessor->setValue('supp'.$i, $this->xmlEntities(htmlentities($document->support[$i])));
+            $templateProcessor->setValue('person'.$i, TrainingShow::xmlEntities(htmlentities($document->responsible[$i])));
+            $templateProcessor->setValue('supp'.$i, TrainingShow::xmlEntities(htmlentities($document->support[$i])));
             $templateProcessor->setValue('complestat'.$i, $document->status[$i]);
         }
             $pieces = explode("-", $document->created_at);

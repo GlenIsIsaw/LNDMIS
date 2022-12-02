@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 use App\Models\ListOfTraining;
 use Illuminate\Support\Facades\File;
 use PhpOffice\PhpWord\TemplateProcessor;
+use App\Http\Livewire\Training\TrainingShow;
 
 class AttendanceReports extends Component
 {
@@ -99,16 +100,6 @@ class AttendanceReports extends Component
 
         return round($percentage, 2);
     }
-    public function xmlEntities($str)
-    {
-        //$str = $this->clean($str1);
-        
-        $xml = array('&#8221;','&#8220;','&#61;','&#8250;','&#8249;','&#125;','&#123;','&#8217;','&#8216;','&#96;','&#8245;','&#8242;','&#39;','&#92;','&#46;','&#41;','&#40;','&#8208;','&#47;','&#8211;','&#8212;','&#34;','&#38;','&#60;','&#62;','&#160;','&#161;','&#162;','&#163;','&#164;','&#165;','&#166;','&#167;','&#168;','&#169;','&#170;','&#171;','&#172;','&#173;','&#174;','&#175;','&#176;','&#177;','&#178;','&#179;','&#180;','&#181;','&#182;','&#183;','&#184;','&#185;','&#186;','&#187;','&#188;','&#189;','&#190;','&#191;','&#192;','&#193;','&#194;','&#195;','&#196;','&#197;','&#198;','&#199;','&#200;','&#201;','&#202;','&#203;','&#204;','&#205;','&#206;','&#207;','&#208;','&#209;','&#210;','&#211;','&#212;','&#213;','&#214;','&#215;','&#216;','&#217;','&#218;','&#219;','&#220;','&#221;','&#222;','&#223;','&#224;','&#225;','&#226;','&#227;','&#228;','&#229;','&#230;','&#231;','&#232;','&#233;','&#234;','&#235;','&#236;','&#237;','&#238;','&#239;','&#240;','&#241;','&#242;','&#243;','&#244;','&#245;','&#246;','&#247;','&#248;','&#249;','&#250;','&#251;','&#252;','&#253;','&#254;','&#255;');
-        $html = array('&rdquo;','&ldquo;','&equals;','&rsaquo;','&lsaquo;','&rbrace;','&lbrace;','&rsquo;','&lsquo;','&grave;','&bprime;','&prime;','&apos;','&bsol;','&period;','&rpar;','&lpar;','&hyphen;','&sol;','&ndash;','&mdash;','&quot;','&amp;','&lt;','&gt;','&nbsp;','&iexcl;','&cent;','&pound;','&curren;','&yen;','&brvbar;','&sect;','&uml;','&copy;','&ordf;','&laquo;','&not;','&shy;','&reg;','&macr;','&deg;','&plusmn;','&sup2;','&sup3;','&acute;','&micro;','&para;','&middot;','&cedil;','&sup1;','&ordm;','&raquo;','&frac14;','&frac12;','&frac34;','&iquest;','&Agrave;','&Aacute;','&Acirc;','&Atilde;','&Auml;','&Aring;','&AElig;','&Ccedil;','&Egrave;','&Eacute;','&Ecirc;','&Euml;','&Igrave;','&Iacute;','&Icirc;','&Iuml;','&ETH;','&Ntilde;','&Ograve;','&Oacute;','&Ocirc;','&Otilde;','&Ouml;','&times;','&Oslash;','&Ugrave;','&Uacute;','&Ucirc;','&Uuml;','&Yacute;','&THORN;','&szlig;','&agrave;','&aacute;','&acirc;','&atilde;','&auml;','&aring;','&aelig;','&ccedil;','&egrave;','&eacute;','&ecirc;','&euml;','&igrave;','&iacute;','&icirc;','&iuml;','&eth;','&ntilde;','&ograve;','&oacute;','&ocirc;','&otilde;','&ouml;','&divide;','&oslash;','&ugrave;','&uacute;','&ucirc;','&uuml;','&yacute;','&thorn;','&yuml;');
-        $str = str_replace($html,$xml,$str);
-        $str = str_ireplace($html,$xml,$str);
-        return $str;
-    }
     public function printall(){
         $validatedData = $this->validate([            
             'start_date' => 'required|date|before:end_date',
@@ -159,7 +150,7 @@ class AttendanceReports extends Component
         //dd($values);
         foreach ($values as $num => $value) {
             foreach ($value as $key => $item) {
-                $values[$num][$key] = $this->xmlEntities(htmlentities($item));
+                $values[$num][$key] = TrainingShow::xmlEntities(htmlentities($item));
             }
         }
         $templateProcessor->cloneRowAndSetValues('name', $values);
@@ -267,7 +258,7 @@ class AttendanceReports extends Component
         $templateProcessor->setValue('dateRange', $daterange);
         foreach ($values as $num => $value) {
             foreach ($value as $key => $item) {
-                $values[$num][$key] = $this->xmlEntities(htmlentities($item));
+                $values[$num][$key] = TrainingShow::xmlEntities(htmlentities($item));
             }
         }
         $templateProcessor->cloneRowAndSetValues('name', $values);
@@ -312,14 +303,14 @@ class AttendanceReports extends Component
         
         for ($i=1; $i <= count($values); $i++) { 
             $templateProcessor->setValue("name#$i", $values[$i-1]['name']);
-            $templateProcessor->setValue("certificate_title#$i", $this->xmlEntities(htmlentities($values[$i-1]['certificate_title'])));
+            $templateProcessor->setValue("certificate_title#$i", TrainingShow::xmlEntities(htmlentities($values[$i-1]['certificate_title'])));
             $templateProcessor->setValue("date_covered#$i", $values[$i-1]['date_covered']);
-            $templateProcessor->setValue("venue#$i", $this->xmlEntities(htmlentities($values[$i-1]['venue'])));
-            $templateProcessor->setValue("sponsors#$i", $this->xmlEntities(htmlentities($values[$i-1]['sponsors'])));
+            $templateProcessor->setValue("venue#$i", TrainingShow::xmlEntities(htmlentities($values[$i-1]['venue'])));
+            $templateProcessor->setValue("sponsors#$i", TrainingShow::xmlEntities(htmlentities($values[$i-1]['sponsors'])));
             $templateProcessor->setValue("competency#$i", $values[$i-1]['competency']);
-            $templateProcessor->setValue("knowledge_acquired#$i", $this->xmlEntities(htmlentities($values[$i-1]['knowledge_acquired'])));
-            $templateProcessor->setValue("outcome#$i", $this->xmlEntities(htmlentities($values[$i-1]['outcome'])));
-            $templateProcessor->setValue("personal_action#$i", $this->xmlEntities(htmlentities($values[$i-1]['personal_action'])));
+            $templateProcessor->setValue("knowledge_acquired#$i", TrainingShow::xmlEntities(htmlentities($values[$i-1]['knowledge_acquired'])));
+            $templateProcessor->setValue("outcome#$i", TrainingShow::xmlEntities(htmlentities($values[$i-1]['outcome'])));
+            $templateProcessor->setValue("personal_action#$i", TrainingShow::xmlEntities(htmlentities($values[$i-1]['personal_action'])));
 
             if ($values[$i-1]['signature']) {
                 $templateProcessor->setImageValue("esign#$i", array('path' => public_path('storage/users/'.$values[$i-1]['user_id'].'/'.$values[$i-1]['signature']), 'width' => 100, 'height' => 50, 'ratio' => false));

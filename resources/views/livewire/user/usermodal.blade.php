@@ -184,6 +184,54 @@
     </div>
 </div>
 
+<!-- Make Coordinator Confirmation -->
+<div wire:ignore.self class="modal fade" id="coordinatorModal" tabindex="-1" aria-labelledby="coordinatorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="coordinatorModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="makeCoor">
+                <div class="modal-body">
+                    <h6>Are you sure you want make him/her a coordinator?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Make Not Coordinator Confirmation -->
+<div wire:ignore.self class="modal fade" id="coordinatorNotModal" tabindex="-1" aria-labelledby="coordinatorNotModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="coordinatorNotModalLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+            </div>
+            <form wire:submit.prevent="makeNotCoor">
+                <div class="modal-body">
+                    <h6>Are you sure you want to not make him/her as a coordinator?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Yes!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Change Password User Modal -->
 <div wire:ignore.self class="modal fade" id="changePassUserModal" tabindex="-1" aria-labelledby="changePassUserModalLabel"
     aria-hidden="true">

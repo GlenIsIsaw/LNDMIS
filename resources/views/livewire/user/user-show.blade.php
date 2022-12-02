@@ -22,7 +22,15 @@
                     @else
                         <div class="card">
                             <div class="card-header">
-                                <div class="fw-bold fs-5 text-uppercase"> Employees of {{$info['college_name']}}
+                                <div class="fw-bold fs-5 text-uppercase"> Employees of @if (auth()->user()->role_as == 1) {{$info['college_name']}} @endif
+                                    @if (auth()->user()->role_as == 3)
+                                        <select wire:model='filter_college' class="border border-3 border-dark rounded-3">
+                                            <option value=""></option>
+                                            @foreach ($dept_name as $item)
+                                                <option value="{{ $item }}">{{ $item }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                     <input type="search" wire:model="search" class="form-control float-end mx-2" placeholder="Search..." style="width: 265px" />
                                 </div>
                             </div>
@@ -114,6 +122,21 @@
                                                                     #190A05); font-size:13px; padding:11px 20px 11px 20px;"><i class="fas fa-times me-1"></i>Remove as Supervisor</button>
                                                                 @endif
                                                             @endif
+                                                            @if (auth()->user()->role_as == 3)
+                                                                @if ($user->role_as == 1)
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#coordinatorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2"  style="background-image: linear-gradient(
+                                                                    to bottom, #870000,
+                                                                    #190A05); font-size:13px; padding:11px 20px 11px 20px;"><i class="fas fa-times me-1"></i>Remove as Coordinator</button>
+                       
+                                                                @endif
+                                                                @if ($this->coorCheck($user->college_id))
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#coordinatorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-sm fw-bold" style="background-image: linear-gradient(
+                                                                    to bottom, #008000,
+                                                                    #190A05);font-size:13px; padding:11px 20px 11px 20px;"><i class="fas fa-check me-1"></i>Enable as Coordinator</button>
+                                                                @endif
+                                                                
+
+                                                            @endif
 
                                                         </div>
 
@@ -127,7 +150,7 @@
                                             @endforelse
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> 
                                 <div>
                                     <div class="d-flex justify-content-center">
                                     {{ $users->links() }}
@@ -168,6 +191,8 @@
             $('#changePassUserModal').modal('hide');
             $('#supervisorModal').modal('hide');
             $('#supervisorNotModal').modal('hide');
+            $('#coordinatorModal').modal('hide');
+            $('#coordinatorNotModal').modal('hide');
             $('#resetPassModal').modal('hide');
 
              
