@@ -1,16 +1,11 @@
 <div class="justify-content-center">
-    <div class="progress" style="height:25px; mx-4">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-          
-        </div>
-      </div>
+   
 </div>
 
-<hr class="h-color mx-2 mt-3">
-<div class="mb-3 mt-4">
-    <label>Certificate Title</label>
-    <div class="fw-bold text-lg"><p>{{$certificate_title}}</p></div>
+
+<div class="mb-3">
+    <label class="fw-bold">Title of Intervention Attended</label>
+    <div class="text-lg" style="font-size: 18px"><p>{{$certificate_title}}</p></div>
 </div>
  
 <div class="mb-3">

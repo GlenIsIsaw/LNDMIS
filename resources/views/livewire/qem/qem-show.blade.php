@@ -61,9 +61,9 @@
                                             @forelse ($trainings as $training)
                                                 <tr>
                                                     <td class="fw-bold">{{$training->name}}</td>
-                                                    <td><span class="badge badge-pill text-uppercase text-white text-wrap fs-6" style="background-color: #800;">
+                                                    <td class="fw-bold"> 
                                                        {{$training->certificate_title}}
-                                                       </span>
+                                                    
 
                             
                                                         
@@ -120,9 +120,9 @@
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-trash me-1"></i>Delete</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase mb-2" style="background-image: linear-gradient(
-                                                                to bottom, #52c234,
-                                                                 #061700); font-size:16px; padding:5px 20px 5px 20px;"><i class="fas fa-download me-1"></i>Download</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase mb-2" style="background-image: linear-gradient(
+                                                               to bottom, #43C6AC,
+                                                                #191654); font-size:13px; padding:7px 20px 7px 20px;"><i class="fas fa-download me-1"></i>Download</button>
                                                         @endif
 
 

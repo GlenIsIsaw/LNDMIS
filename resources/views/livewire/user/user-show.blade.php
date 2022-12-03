@@ -96,20 +96,22 @@
                                                                 #1CB5E0);"><i class="fas fa-pen me-1"></i>
                                                                 Edit
                                                             </button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#resetPassModal" wire:click="deleteUser({{$user->user_id}})" class="btn-info text-white text-uppercase rounded-3 shadow-lg fw-bold" style="background-image: linear-gradient(
-                                                                to bottom, #000046, 
-                                                                #1CB5E0);font-size:13px; padding:11px 11px 11px 11px;"><i class="fas fa-redo-alt me-1"></i>
+
+                                                            @if ($user->user_status)
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-lg fw-bold" style="background-image: linear-gradient(
+                                                                to bottom, #870000,
+                                                                #190A05); font-size:14px; padding:11px 11px 11px 11px;"><i class="fas fa-user-times me-1"></i>Disable</button>
+                                                        @else
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
+                                                                to bottom, #008000,
+                                                                #190A05);font-size:14px; padding:11px 11px 11px 11px;"><i class="fas fa-user-check me-1"></i>Enable</button>
+                                                        @endif
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#resetPassModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-lg fw-bold" style="background-image: linear-gradient(
+                                                                to bottom, #008000,
+                                                                    #190A05);font-size:13px; padding:11px 11px 11px 11px;"><i class="fas fa-redo-alt me-1"></i>
                                                                 Reset Password
                                                             </button>
-                                                            @if ($user->user_status)
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-lg fw-bold" style="background-image: linear-gradient(
-                                                                    to bottom, #870000,
-                                                                    #190A05); font-size:14px; padding:11px 11px 11px 11px;"><i class="fas fa-user-times me-1"></i>Disable</button>
-                                                            @else
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-lg fw-bold px-3 py-2" style="background-image: linear-gradient(
-                                                                    to bottom, #008000,
-                                                                    #190A05);font-size:14px; padding:11px 11px 11px 11px;"><i class="fas fa-user-check me-1"></i>Enable</button>
-                                                            @endif
+                                                           
                                                             @if (auth()->user()->role_as == 1)
                                                                 @if ($info['name'] == 'No Supervisor')
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-sm fw-bold" style="background-image: linear-gradient(

@@ -15,7 +15,7 @@
             <button type="button" class="btn btn-secondary" wire:click="back" wire:loading.attr="disabled" id="back">Back</button>
             <button type="button" class="btn btn-danger" wire:click="backButton"
             data-bs-dismiss="modal">Close</button>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationAttendanceModal" class="btn btn-primary">Save</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationAttendanceModal" class="btn btn-primary"><i class="fas fa-save me-1"></i>Save</button>
             </div>
         @endif   
     </form>
