@@ -15,29 +15,33 @@
                     ><i class="fas fa-times"></i></button>
                 @else
                     <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
-                    wire:click="closeModal"><i class="fas fa-times"></i></button>
+                    wire:click="backButton"><i class="fas fa-times"></i></button>
                 @endif
                 </div>
             </div>
-            <div class="modal-body">
-                @if ($fileType == "pdf")
-                    <div class="container" style="  position: relative;
-                    width: 100%;
-                    overflow: hidden;
-                    padding-top: 56.25%; /* 16:9 Aspect Ratio */">
-                        <iframe class="responsive-iframe" style="  position: absolute;
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
-                        width: 100%;
-                        height: 100%;
-                        border: none;" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}"></iframe>
-                    </div>
 
-                @else
-                    <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
+            <div class="modal-body">
+                @if ($show)
+                    @if ($fileType == "pdf")
+                        <div class="container" style="  position: relative;
+                        width: 100%;
+                        overflow: hidden;
+                        padding-top: 56.25%; /* 16:9 Aspect Ratio */">
+                            <iframe class="responsive-iframe" style="  position: absolute;
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: none;" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}"></iframe>
+                        </div>
+
+                    @else
+                        <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
+                    @endif
                 @endif
+
                 
 
             </div>

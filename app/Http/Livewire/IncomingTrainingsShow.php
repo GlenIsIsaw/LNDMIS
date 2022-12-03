@@ -17,7 +17,7 @@ class IncomingTrainingsShow extends Component
     use WithPagination,WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
-    public $name, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
+    public $show,$name, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
     public $filter_name, $filter_level, $filter_free;
 
     public $state = null;
@@ -75,6 +75,7 @@ class IncomingTrainingsShow extends Component
     public function clear(){
         $this->state = null;
         $this->next = 0;
+        $this->show = null;
     }
     public function part1(){
         $validatedData = $this->validate([
@@ -172,7 +173,7 @@ class IncomingTrainingsShow extends Component
         $this->date_covered = $lists->date_covered;
         $this->free = $lists->free;
         $this->amount = $lists->amount;
-        
+        $this->show = true;
         if($this->state == null){
             $this->showButton();
         }

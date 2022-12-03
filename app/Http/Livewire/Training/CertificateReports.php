@@ -16,7 +16,7 @@ class CertificateReports extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $certificate;
-    public $start_date, $end_date, $filter_certificate_title, $name, $certificate_name, $certificate_title, $user_id, $training_id, $fileType;
+    public $show, $start_date, $end_date, $filter_certificate_title, $name, $certificate_name, $certificate_title, $user_id, $training_id, $fileType;
     public $toggle, $currentUrl;
     protected $listeners = [
         'toggle' => 'open'
@@ -64,6 +64,7 @@ class CertificateReports extends Component
         $this->certificate_name = $lists->certificate;
         $this->certificate_title = $lists->certificate_title;
         $this->user_id = $lists->user_id;
+        $this->show = true;
 
     }
     public function printquery(){
@@ -200,6 +201,7 @@ class CertificateReports extends Component
         $this->certificate_name = '';
         $this->certificate_title = '';
         $this->user_id = '';
+        $this->show = null;
 
     }
     public function updatingFilterCertificateTitle($value){

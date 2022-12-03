@@ -15,6 +15,10 @@
                                         @if ($state == 'editTraining')
                                             @include('trainings.edit')
                                         @endif
+                                        @if ($state == 'showTraining')
+                                            @include('trainings.show')
+                                        @endif
+
                                         @if ($state == 'createAttendance')
                                             @include('attendanceForm.create')
                                         @endif
@@ -138,13 +142,10 @@
                                                 @endif
                                                 
                                                 <th scope="col" class="">Certificate Title</th>
-                                                <th scope="col">Certificate Type</th>
                                                 <th scope="col">Date Covered</th>
-                                                <th scope="col">Level</th>
                                                 <th scope="col" class="">No. of Hours</th>
                                                 <th scope="col">Venue</th>
                                                 <th scope="col">Sponsors</th>
-                                                <th scope="col">Type</th>
                                                
                                                 <th scope="col">Status</th>
                                                 <th scope="col" style="color:  #800">Attendance Report Actions</th>
@@ -158,13 +159,10 @@
                                                         <td>{{$training->name}}</td>
                                                     @endif
                                                     <td class="fw-bold">{{$training->certificate_title}}</td>
-                                                    <td>{{$training->certificate_type}}</td>
                                                     <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>
-                                                    <td>{{ $training->level }}</td>
                                                      <td>{{$training->num_hours }}</td> 
                                                     <td>{{$training->venue }}</td> 
                                                     <td>{{ $training->sponsors }}</td>
-                                                    <td>{{ $training->type }}</td>
                                                    
                                                     <td>
                                                         @if ($training->status == 'Approved')
@@ -233,9 +231,12 @@
                                                             #191654); font-size:14px; padding:10px 5px 10px 5px;"><i class="fas fa-comments me-1"></i>Comment</button>
                                                     @endif
                                            
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center" style="background-image: linear-gradient(
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
                                                                 #191654); font-size:13px; padding:7px 20px 7px 20px;"><i class="fas fa-certificate me-1"></i>Certificate</button>
+                                                            <button type="button" wire:click="show({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center" style="background-image: linear-gradient(
+                                                                to bottom, #43C6AC,
+                                                                #191654); font-size:13px; padding:7px 20px 7px 20px;"><i class="fas fa-certificate me-1"></i>View</button>
                                                           
 
                                                        
