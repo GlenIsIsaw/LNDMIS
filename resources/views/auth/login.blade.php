@@ -109,9 +109,7 @@
                             <hr class="px-5">
                                 <div class="col-md-auto offset-md-auto">
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link text-secondary" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                    <p class="text-mute text-secondary fst-italic"> “Work hard and be kind and amazing things will happen.” <p>
                                 @endif
                             </div>
                             

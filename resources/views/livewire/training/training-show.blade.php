@@ -199,7 +199,7 @@
 
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase" style="background-image: linear-gradient(
                                                                      to bottom, #43C6AC,
-                                                                #191654); font-size:15px; padding:10px 20px 10px 20px;"><i class="fas fa-download me-1 fa-sm"></i>Download</button>
+                                                                #191654); font-size:13px; padding:10px 20px 10px 20px;"><i class="fas fa-download me-1 fa-sm"></i>Download</button>
         
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-info text-light rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
@@ -231,7 +231,7 @@
                                                         #061700);"><i class="fas fa-eye me-1"></i>View</button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
-                                                                #191654); font-size:15px; padding:10px 20px 10px 20px;"><i class="fas fa-certificate me-1"></i>Certificate</button>
+                                                                #191654); font-size:13px; padding:10px 20px 10px 20px;"><i class="fas fa-certificate me-1"></i>Certificate</button>
                                                           
                                                           @if ($training->comment)
                                                           <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg text-uppercase fw-bold" style="background-image: linear-gradient(
