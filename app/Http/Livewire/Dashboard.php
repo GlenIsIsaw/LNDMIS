@@ -17,6 +17,7 @@ class Dashboard extends Component
     public $name, $year, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
     public $filter_name, $filter_level, $filter_free;
     public $competencies = [];
+    public $prog = 0;
     public $progress = [0=>"0%", 1=>"33.33%", 2=>"66.66%", 3=>"100%"];
     //public $currentUrl, $toggle;
 

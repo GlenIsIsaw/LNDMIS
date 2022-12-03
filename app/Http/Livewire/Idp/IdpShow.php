@@ -59,6 +59,12 @@ class IdpShow extends Component
         $this->rejected = Idp::where('submit_status', 'Rejected')->where('user_id', auth()->user()->id)->count();
         $this->pending = Idp::where('submit_status', 'Pending')->where('user_id', auth()->user()->id)->count();
     }
+    public function countAllStatus(){
+        $this->approved = Idp::join('users', 'users.id', '=', 'idps.user_id')
+            ->where('submit_status', 'Approved')->where('college_id', auth()->user()->college_id)->count();
+        $this->pending = Idp::join('users', 'users.id', '=', 'idps.user_id')
+            ->where('submit_status', 'Pending')->where('college_id', auth()->user()->college_id)->count();
+    }
     public function approvedIDP(){
         $this->clear();
         $this->table = 'Approved IDPs';
@@ -71,7 +77,7 @@ class IdpShow extends Component
     }
     public function submittedIDP(){
         $this->clear();
-        $this->table = 'Submitted IDPs';
+        $this->table = 'Pending IDPs';
 
     }
     public function currentIDP(){
@@ -130,7 +136,7 @@ class IdpShow extends Component
         if($this->table == 'My IDPs'){
             $this->query = ['users.id',auth()->user()->id];
         }
-        if($this->table == 'Submitted IDPs'){
+        if($this->table == 'Pending IDPs'){
             $this->query = ['submit_status','Pending'];
 
         }
@@ -150,7 +156,7 @@ class IdpShow extends Component
             $this->query = ['users.id',auth()->user()->id];
 
         }
-        if($this->table == 'Submitted IDPs'){
+        if($this->table == 'Pending IDPs'){
             $this->clear();
             $this->query = ['submit_status','Pending'];
 
@@ -902,6 +908,9 @@ class IdpShow extends Component
         $this->notification();
         $this->checkTable();
         $this->countStatus();
+        if ($this->table == 'Approved IDPs' || $this->table == 'Pending IDPs') {
+            $this->countAllStatus();
+        }
         $this->dispatchBrowserEvent('toggle');
         if($this->table == 'Current IDP'){
             $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status', 'idps.created_at','idps.updated_at','submit_status','comment','year')

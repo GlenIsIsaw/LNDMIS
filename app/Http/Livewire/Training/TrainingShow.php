@@ -64,6 +64,12 @@ class TrainingShow extends Component
         $this->rejected = ListOfTraining::where('status', 'Rejected')->where('user_id', auth()->user()->id)->count();
         $this->pending = ListOfTraining::where('status', 'Pending')->where('user_id', auth()->user()->id)->count();
     }
+    public function countAllStatus(){
+        $this->approved = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->where('status', 'Approved')->where('college_id', auth()->user()->college_id)->count();
+        $this->pending = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->where('status', 'Pending')->where('college_id', auth()->user()->college_id)->count();
+    }
 
     public function approvedTraining(){
         $this->clear();
@@ -75,7 +81,7 @@ class TrainingShow extends Component
     }
     public function submittedTraining(){
         $this->clear();
-        $this->table = 'Submitted Trainings';
+        $this->table = 'Pending Trainings';
     }
     
 
@@ -146,7 +152,7 @@ class TrainingShow extends Component
 
             $this->query = ['users.id',auth()->user()->id];
         }
-        if($this->table == 'Submitted Trainings'){
+        if($this->table == 'Pending Trainings'){
 
             $this->query = ['status','Pending'];
         }
@@ -160,7 +166,7 @@ class TrainingShow extends Component
             $this->clear();
             $this->query = ['users.id',auth()->user()->id];
         }
-        if($this->table == 'Submitted Trainings'){
+        if($this->table == 'Pending Trainings'){
             $this->clear();
             $this->query = ['status','Pending'];
         }
@@ -522,7 +528,7 @@ class TrainingShow extends Component
             
             $this->showAttButton();
         }else{
-            return redirect()->to('/empTraining')->with('message','No results found');
+            return redirect()->to('/training')->with('message','No results found');
         }
     }
     public function editAttendanceForm($id){
@@ -872,6 +878,10 @@ class TrainingShow extends Component
         $this->notification();
         $this->checkTable();
         $this->countStatus();
+        if ($this->table == 'Approved Trainings' || $this->table == 'Pending Trainings') {
+            $this->countAllStatus();
+        }
+        
         $this->dispatchBrowserEvent('toggle');
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();

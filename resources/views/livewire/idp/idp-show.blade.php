@@ -76,12 +76,37 @@
                                     </div>
                                 </div>
                                 @endif
+                                @if ($table == 'Approved IDPs' || $table == 'Pending IDPs')
+                                <div class="container-fluid">
+                                    <div class="row g-3">
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                        <h6 class="fs-2 fw-bolder" style="color: #926F34">{{$approved}}  </h6>
+                                        <p class="fs-6 fw-bold">Approved </p>
+                                                </div>
+                                               <i class="fas fa-thumbs-up fa-2x p-1 me-2" style="color: #800;" ></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34"> {{$pending}} </h6>
+                                                    <p class="fs-6 fw-bold">Pending</p>
+                                                </div>
+                                                    <i class="fas fa-clock fa-2x p-1 me-2" style="color: #800;"></i>
+                                                
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                                @endif
                                 
                         </div>
                         <div class="card-header bg-transparent border-0">
                             <div class="float-end mx-2">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#filterIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-filter me-2"></i>Filter</button>
-                                    @if ($table == 'Submitted IDPs' || $table == 'Approved IDPs')
+                                    @if ($table == 'Pending IDPs' || $table == 'Approved IDPs')
                                         @if ($idps->isNotEmpty())
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#printAllIdpModal"  class="btn-secondary text-uppercase fw-bold text-white rounded-3 shadow text-lg px-3 py-2 my-2" style="background-color: #800;"><i class="fas fa-download me-2"></i>Download All</button>
                                         @endif

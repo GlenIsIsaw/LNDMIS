@@ -5,14 +5,29 @@
           <div class="col-md-12">
               <div id="main-card">
                 <div class="card my-2">
-                   
-                   
+                    @foreach ($competencies as $idp)
+                                        @php
+                                            $prog = $idp['progress'];
+                                        @endphp
+                    @endforeach
                     <div class="card-body">
                         <div class="row">
                         <div class="col-8">
                             
-                        <h6 class="fs-4 fw-bolder" style="color: #926F34"> Hello & Welcome,  {{ Auth::user()->name }}! </h6>
-                        <p class="fs-6 fw-light text-capitalize my-3">You've Achieved almost of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
+                        <h6 class="fs-4 fw-bolder" style="color: #926F34"> Hello & Welcome,  {{ auth()->user()->name }}! </h6>
+                        @if ($prog == 0)
+                            <p class="fs-6 fw-light text-capitalize my-3">You do not have any progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Create one in the IDP menu. </p>
+                        @endif
+                        @if ($prog == 1)
+                            <p class="fs-6 fw-light text-capitalize my-3">You've Achieved the first step in achieving your goals in the Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
+                        @endif
+                        @if ($prog == 2)
+                            <p class="fs-6 fw-light text-capitalize my-3">You've Achieved almost of your progress in IDP Completion Rate of Year {{ date('Y') }}! <br>Keep it up and Improve yourself. </p>
+                        @endif
+                        @if ($prog == 3)
+                            <p class="fs-6 fw-light text-capitalize my-3">You've completed your competencies in the Year {{ date('Y') }}! <br>Good Job. </p>
+                        @endif
+                        
                                 </div>
                                 <div class="col-2">
                             
@@ -42,12 +57,15 @@
                                       
                                       <th scope="col" class="mt-2 text-uppercase" style="color: #800">Competencies</th>
                                       <th scope="col" class="mt-2 text-uppercase" style="color: #800">Number of Trainings</th>
+                                      <th scope="col" class="mt-2 text-uppercase" style="color: #800">Status</th>
                                       
                                   </tr>
                               </thead>
                               <tbody class="text-center">
                                   @forelse ($competencies as $idp)
-                                      
+                                        @php
+                                            $prog = $idp['progress'];
+                                        @endphp
                                         <div class="container-fluid px-5">
                                            
                                                 <div class="col-md-5 offset-md-3">
@@ -68,6 +86,13 @@
                                         <div class="col-md-3">
                                           <td class="py-2 me-3 my-2 fw-bold text-capitalize shadow justify-content-around align-items-center rounded-3 text-xl-center">{{$comp}}</td>
                                           <td class="py-2 me-3 my-2 fs-4 fw-bolder shadow justify-content-around align-items-center rounded-3" style="color: #926F34" style="width: 30%;">{{$count}}</td>
+                                          <td class="py-2 me-3 my-2 fs-4 fw-bolder shadow justify-content-around align-items-center rounded-3" style="color: #926F34" style="width: 30%;">
+                                            @if ($count)
+                                                <i class="fa fa-check" aria-hidden="true" style="color: rgb(0, 147, 0)"></i>
+                                            @else
+                                                <i class="fas fa-times" style="color: #800"></i>
+                                            @endif
+                                          </td>
                                           @endforeach
                                         </div>
                                       </tr>

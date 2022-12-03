@@ -94,7 +94,30 @@
                                 </div>
                                     </div>
                                 </div>
-                            
+                                @else
+                                <div class="container-fluid">
+                                    <div class="row g-3">
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                        <h6 class="fs-2 fw-bolder" style="color: #926F34">{{$approved}}  </h6>
+                                        <p class="fs-6 fw-bold">Approved </p>
+                                                </div>
+                                               <i class="fas fa-thumbs-up fa-2x p-1 me-2" style="color: #800;" ></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="p-1 shadow-sm d-flex justify-content-around align-items-center rounded-3" style="background-color: #FEFCFF">
+                                                <div>
+                                                    <h6 class="fs-2 fw-bolder" style="color: #926F34"> {{$pending}} </h6>
+                                                    <p class="fs-6 fw-bold">Pending</p>
+                                                </div>
+                                                    <i class="fas fa-clock fa-2x p-1 me-2" style="color: #800;"></i>
+                                                
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
                                 @endif
                             </div>
                             <div class="card-header bg-transparent border-0">
