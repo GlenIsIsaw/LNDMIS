@@ -28,7 +28,7 @@
                             <h3 class="fw-bold text-uppercase my-1">
                                 {{$table}}
                                 <button type="button" style="background-color:#800;" class="btn-secondary float-end border-3 rounded-circle my-1" wire:click="resetFilter"><i class='fas fa-redo' wire:click="resetInput"></i></button>
-                                <input type="search" wire:model="search" class="form-control float-end mx-2 my-1 border-3" placeholder="Search by Name" style="width: 250px" />
+                                <input type="search" wire:model="search" class="form-control float-end mx-2 my-1 border-3" placeholder="Search by Name" style="width: 220px" />
                             </h3>
                         </div>
 
@@ -97,7 +97,7 @@
                                     <thead class="text-dark align-bottom shadow" style="background-color:#FEFCFF;">
                                         <tr class="table-bordered">
                                             @if ($table != 'My IDPs')
-                                                <th scope="col">Name</th>
+                                              
                                             @endif
                                             <th scope="col">Competency</th>
                                             <th scope="col">Completion Status</th>
@@ -112,9 +112,7 @@
                                         @forelse ($idps as $idp)
 
                                             <tr>
-                                                @if ($table != 'My IDPs')
-                                                    <td class="fw-bold">{{$idp->name}}</td>
-                                                @endif
+                                               
                                                 <td>
                                                     <ol class="list-group list-group-numbered">
                                                         @foreach ($idp->competency as $item)
@@ -164,7 +162,7 @@
                                                         @if ($idp->comment)
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-white rounded-3 shadow text-uppercase fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
-                                                                #191654);"><i class="fas fa-comments me-1"></i>Comment</button>
+                                                                #191654);font-size:13px; padding:11px 11px 11px 11px;"><i class="fas fa-comments me-1"></i>Comment</button>
                                                         @endif
                                                             
                                                    

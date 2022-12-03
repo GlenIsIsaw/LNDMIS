@@ -38,7 +38,7 @@
     
     #sidebar-wrapper {
       min-height: 100vh;
-      min-width: 37vh;
+      min-width: 35vh;
       margin-left: -17rem;
       -webkit-transition: margin 0.25s ease-out;
       -moz-transition: margin 0.25s ease-out;
@@ -185,6 +185,8 @@
       #wrapper.toggled #sidebar-wrapper {
         margin-left: -26rem;
       }
+
+      
     }
     
     
@@ -228,7 +230,7 @@
                   
                   <li class=""><button wire:click="backButton" id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 mt-2 second-text fw-bold d-block"style="color: #800000">
                     <i class="fas fa-door-open me-2"></i></i>
-                    Upcoming Invitation/s </button></li> 
+                    List of Invitation/s </button></li> 
                 </div>
                   
                   

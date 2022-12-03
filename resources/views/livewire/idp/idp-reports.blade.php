@@ -67,14 +67,45 @@
                                                         <td>{{$item['responsible']}}</td>
                                                         <td>{{$item['support']}}</td>
                                                         <td class="fw-bold">
-                                                         {{$item['status']}}
 
-                                                       
+                                                            @if ($item['status'] == 'Completed')
+
+                                                            <p class="badge badge-pill fs-6 bg-success text-white">Completed</p>
+                                                                
+                                                            @endif
+                                                        
+                                                            @if ($item['status'] == 'Ongoing')
+
+                                                            <p class="badge badge-pill fs-6 text-white" style="background-color:#800">Ongoing</p>
+                                                                
+                                                            @endif
                                                         
                                                         
                                                         
                                                         </td>
-                                                        <td class="fw-bold">{{$item['submit_status']}}</td>
+                                                        <td class="fw-bold">
+                                                            
+                                                            @if ($item['submit_status'] == 'Approved')
+                                                            <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
+                                                                
+                                                            @endif
+                                                            
+                                                            @if ($item['submit_status'] == 'Pending')
+                                                            <p class="badge badge-pill fs-6 bg-warning text-dark">Pending</p>
+                                                                
+                                                            @endif
+                                                        
+                                                            @if ($item['submit_status'] == 'Reject')
+                                                            <p class="badge badge-pill fs-6 bg-danger text-dark">Reject</p>
+                                                                
+                                                            @endif
+                                                        
+                                                            @if ($item['submit_status'] == 'Ongoing')
+                                                            <p class="badge badge-pill fs-6 text-white" style="background-color:#800">Ongoing</p>
+                                                                
+                                                            @endif
+                                                        
+                                                        </td>
                                                     </tr>
                                                 @endforeach
 

@@ -84,8 +84,8 @@
                 
             </div>
             <form wire:submit.prevent="printAll">
-                <div class="modal-body fs-6 text-capitalize">
-                    Are you sure you want to print this?
+                <div class="modal-body fw-bold fs-6 text-capitalize">
+                    Are you sure you want to download this?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"

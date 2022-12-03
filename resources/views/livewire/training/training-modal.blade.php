@@ -21,17 +21,20 @@
             </div>
             <div class="modal-body">
                 @if ($fileType == "pdf")
-                    <div class="container" style="  position: relative;
-                    width: 100%;
-                    overflow: hidden;
-                    padding-top: 56.25%; /* 16:9 Aspect Ratio */">
+                    <div class="container" style="  width:50px; 
+                    height: 50px;
+                    position:absolute;
+                    left:50%;
+                    top:50%;
+                    margin-top:-25px; 
+                    margin-left:-25px;">
                         <iframe class="responsive-iframe" style="  position: absolute;
                         top: 0;
                         left: 0;
                         bottom: 0;
                         right: 0;
                         width: 100%;
-                        height: 100%;
+                        height: 250px;
                         border: none;" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}"></iframe>
                     </div>
 
@@ -57,7 +60,7 @@
             </div>
             <form wire:submit.prevent="destroy">
                 <div class="modal-body text-capitalize fw-bold fs-6">
-                    <h4>Are you sure you want to delete this data ?</h4>
+                    <h6 class="fs-6 fw-bold text-capitalize">Are you sure you want to delete this data ?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" wire:click="closeModal"
@@ -126,7 +129,7 @@
             </div>
             <form wire:submit.prevent="submit">
                 <div class="modal-body fw-bold text-capitalize fs-6">
-                    <h4>Are you sure you want to submit your input ?</h4>
+                    <h6 class="fs-6 fw-bold text-capitalize">Are you sure you want to submit your input ?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" wire:click="closeModal"
@@ -144,17 +147,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="removeSubmissionTrainingModalLabel">Remove Submission of {{$certificate_title}}</h5>
+                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="removeSubmissionTrainingModalLabel">Cancel the Submission</h5>
                
             </div>
             <form wire:submit.prevent="removeSubmit">
                 <div class="modal-body">
-                    <h4 class="fs-6 fw-bold text-capitalize">Are you sure you want to remove your submission ?</h4>
+                    <h4 class="fs-6 fw-bold text-capitalize">Are you sure you want to cancel your submission ?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Remove Submission</button>
+                    <button type="submit" class="btn btn-primary">Yes! Cancel Submission</button>
                 </div>
             </form>
         </div>
@@ -198,8 +201,8 @@
             </div>
             <form wire:submit.prevent="printAttendanceForm">
                 <div class="modal-body text-capitalize fs-6 fw-bold">
-                    <h4>Are you sure you want to Download this Attendance Form ?</h4>
-                    <hr class="h-color mx-2">
+                    <h6 class="fs-6 fw-bold text-capitalize">Are you sure you want to Download this Attendance Form ?</h6>
+                    
                     @if ($checkmySignature)
                         <label class="ps-4 fs-6">
                             <input type="checkbox" wire:model="mySignature" class="fw-light fs-6">

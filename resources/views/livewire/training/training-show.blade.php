@@ -135,13 +135,13 @@
                                                         <td>{{$training->name}}</td>
                                                     @endif
                                                     <td class="fw-bold">{{$training->certificate_title}}</td>
-                                                    <td>{{$training->certificate_type}}</td>
-                                                    <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>
-                                                    <td>{{ $training->level }}</td>
-                                                     <td>{{$training->num_hours }}</td> 
-                                                    <td>{{$training->venue }}</td> 
-                                                    <td>{{ $training->sponsors }}</td>
-                                                    <td>{{ $training->type }}</td>
+                                                    <td >{{$training->certificate_type}}</td>
+                                                    <td >{{ $training->date_covered.' : '.$training->specify_date }}</td>
+                                                    <td >{{ $training->level }}</td>
+                                                     <td >{{$training->num_hours }}</td> 
+                                                    <td >{{$training->venue }}</td> 
+                                                    <td >{{ $training->sponsors }}</td>
+                                                    <td >{{ $training->type }}</td>
                                                    
                                                     <td>
                                                         @if ($training->status == 'Approved')
@@ -250,9 +250,9 @@
                                                                 
                                                                 @if ($training->status == 'Pending')
                                                                     @if (auth()->user()->role_as == 0)
-                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-light text-white rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                             to bottom, #870000,
-                                                                            #190A05" >Remove Submission</button>
+                                                                            #190A05); font-size:13px; padding:7px 20px 7px 20px;"><i class="fas fa-undo-alt me-1"></i>Cancel Submission</button>
                                                                     @endif    
                                                                 @endif
                                                         @endif

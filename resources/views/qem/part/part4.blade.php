@@ -8,6 +8,7 @@
                 <p>{{$total_average}} - {{$rating}}</p>
             </div>
             
+    </div>
 
     
         @if ($rating == 'Not Effective')
@@ -18,10 +19,9 @@
                 <textarea wire:model.lazy="remarks" class="border border-3 border-dark rounded-3" style="width: 97%" rows="10" cols="70"></textarea>
                 </label>
                 @error('remarks')<span class="text-danger">{{$message}}</span><br> @enderror
-
+            </div>
         @endif
-    </div>
-    </div>
+  
     <!--Grid column-->
   </div>
     

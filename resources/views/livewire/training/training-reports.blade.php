@@ -40,9 +40,8 @@
                                         @forelse ($trainings as $training)
                                             <tr>
                                                 <td class="fw-bold">{{$training->name}}</td>
-                                                <td>
-                                                    <span class="badge badge-pill text-uppercase text-white text-wrap fs-6" 
-                                                    style="background-color: #800;">{{$training->certificate_title}}</span></td>
+                                                <td class="fw-bold">
+                                                    {{$training->certificate_title}}</td>
                                                 <td>{{$training->certificate_type}}</td>
                                                 <td>{{$training->seminar_type}}</td>
                                                 <td>{{ $training->date_covered. ' : '. $training->specify_date}}</td>

@@ -22,22 +22,30 @@
 
 </head>    
         
-       
       
+     
 
-<div style="background-image: linear-gradient(
-    to bottom, #c31432,
-    #240b36);" class="vh-100 shadow-lg"> 
-
+<div style="background-image:  linear-gradient(
+    to bottom, #c31432, 
+    #240b36);"  class="vh-100 shadow-lg"> 
+   
 
 <div class="container py-5 px-3 h-100">
+    
+   
+    
     <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-20 col-md-10 col-lg-7 col-xl-6 h-100">
+        
+    
+        <div class="col-20 col-md-10 col-lg-7 col-xl-6">
+            
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                <img src="/images/cnsc.png" class="rounded mx-auto mt-4 mb-1 d-block" alt="..." width="100" height="100">
+                <img src="/images/cnsc.png"  class="rounded mx-auto mt-4 mb-1 d-block" alt="..." width="100" height="100">
                 <div class="card-title text-center fw-bold fs-2 text-uppercase mt-2 mb-4">{{ __('Log in') }}</div>
 
                 <div class="card-body ">
+                 
+                    
                   
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
