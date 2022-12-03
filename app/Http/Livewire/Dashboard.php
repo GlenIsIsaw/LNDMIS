@@ -14,9 +14,10 @@ class Dashboard extends Component
     use WithPagination;
     
     protected $paginationTheme = 'bootstrap';
-    public $name, $year, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
+    public $show,$name, $year, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
     public $filter_name, $filter_level, $filter_free;
     public $competencies = [];
+    public $prog = 0;
     public $progress = [0=>"0%", 1=>"33.33%", 2=>"66.66%", 3=>"100%"];
     //public $currentUrl, $toggle;
 
@@ -114,9 +115,14 @@ class Dashboard extends Component
         $this->date_covered = $lists->date_covered;
         $this->free = $lists->free;
         $this->amount = $lists->amount;
+        $this->show = null;
+
         //dd($this->file);
         //dd($this->fileType);
 
+    }
+    public function backButton(){
+        $this->show = null;
     }
     public function resetFilter(){
         $this->filter_name = null;

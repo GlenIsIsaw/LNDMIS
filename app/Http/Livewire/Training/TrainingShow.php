@@ -21,7 +21,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
+    public $show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others, $seminar_type_others;
     public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
@@ -64,6 +64,12 @@ class TrainingShow extends Component
         $this->rejected = ListOfTraining::where('status', 'Rejected')->where('user_id', auth()->user()->id)->count();
         $this->pending = ListOfTraining::where('status', 'Pending')->where('user_id', auth()->user()->id)->count();
     }
+    public function countAllStatus(){
+        $this->approved = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->where('status', 'Approved')->where('college_id', auth()->user()->college_id)->count();
+        $this->pending = ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
+            ->where('status', 'Pending')->where('college_id', auth()->user()->college_id)->count();
+    }
 
     public function approvedTraining(){
         $this->clear();
@@ -75,7 +81,7 @@ class TrainingShow extends Component
     }
     public function submittedTraining(){
         $this->clear();
-        $this->table = 'Submitted Trainings';
+        $this->table = 'Pending Trainings';
     }
     
 
@@ -102,6 +108,7 @@ class TrainingShow extends Component
         $this->next = 0;
         $this->state = 'editTraining';
     }
+    
     public function createAttButton(){
         $this->next = 0;
         $this->state = 'createAttendance';
@@ -120,6 +127,7 @@ class TrainingShow extends Component
         $this->next = null;
         $this->state = null;
         $this->confirm = false;
+        $this->show = null;
     }
     public function backButton(){
         $this->resetInput();
@@ -146,7 +154,7 @@ class TrainingShow extends Component
 
             $this->query = ['users.id',auth()->user()->id];
         }
-        if($this->table == 'Submitted Trainings'){
+        if($this->table == 'Pending Trainings'){
 
             $this->query = ['status','Pending'];
         }
@@ -160,7 +168,7 @@ class TrainingShow extends Component
             $this->clear();
             $this->query = ['users.id',auth()->user()->id];
         }
-        if($this->table == 'Submitted Trainings'){
+        if($this->table == 'Pending Trainings'){
             $this->clear();
             $this->query = ['status','Pending'];
         }
@@ -200,63 +208,73 @@ class TrainingShow extends Component
         $validatedData = $this->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
-            $this->next = 0;
-            $this->user_id = auth()->user()->id;
-            $list = new ListOfTraining();
-            $list->user_id = $this->user_id;
-            if($this->certificate_type == 'Others'){
-                $list->certificate_type = "Others: ".$this->certificate_type_others;
-            }else {
-                $list->certificate_type = $this->certificate_type;
-            }
-            if($this->seminar_type == 'Others'){
-                $list->seminar_type = "Others: ".$this->seminar_type_others;
-            }else {
-                $list->seminar_type = $this->seminar_type;
-            }
-            if($this->level == 'Others'){
-                $list->level = "Others: ".$this->level_others;
-            }else {
-                $list->level = $this->level;
-            }
-            if($this->type == 'Others'){
-                $list->type = "Others: ".$this->type_others;
-            }else {
-                $list->type = $this->type;
-            }
-            $list->certificate_title = $this->certificate_title;
-            $list->date_covered = $this->date_covered;
-            $list->specify_date = $this->specify_date;
-            $list->venue = $this->venue;
-            $list->sponsors = $this->sponsors;
-            $list->num_hours = $this->num_hours;
-            $list->certificate = 'No Image';
+        $same = ListofTraining::where('certificate_title', $this->certificate_title)
+                    ->where('date_covered', $this->date_covered)
+                    ->count();
+            if ($same) {
+                session()->flash('message','You already have a record of this Training');
+            } else {            
+                $this->next = 0;
+                $this->user_id = auth()->user()->id;
+                $list = new ListOfTraining();
+                $list->user_id = $this->user_id;
+                if($this->certificate_type == 'Others'){
+                    $list->certificate_type = "Others: ".$this->certificate_type_others;
+                }else {
+                    $list->certificate_type = $this->certificate_type;
+                }
+                if($this->seminar_type == 'Others'){
+                    $list->seminar_type = "Others: ".$this->seminar_type_others;
+                }else {
+                    $list->seminar_type = $this->seminar_type;
+                }
+                if($this->level == 'Others'){
+                    $list->level = "Others: ".$this->level_others;
+                }else {
+                    $list->level = $this->level;
+                }
+                if($this->type == 'Others'){
+                    $list->type = "Others: ".$this->type_others;
+                }else {
+                    $list->type = $this->type;
+                }
+                $list->certificate_title = $this->certificate_title;
+                $list->date_covered = $this->date_covered;
+                $list->specify_date = $this->specify_date;
+                $list->venue = $this->venue;
+                $list->sponsors = $this->sponsors;
+                $list->num_hours = $this->num_hours;
+                $list->certificate = 'No Image';
 
-            $list->save();
+                
 
-            if($validatedData['photo']){
-                $ext = $this->photo->getClientOriginalExtension();
-                $lists = ListOfTraining::find($list->id);
-                $filename = date('Ymd').$lists->id.".".$ext;
-                $folderPath = storage_path('app/public/users/'.$this->user_id);
-                if(!is_dir($folderPath))
-        		{
-        			mkdir($folderPath, 0755, true);
-        		}
-                $image = $validatedData['photo'];
-                $img = Image::make($image->path());
+                $list->save();
 
-                $img->resize(1000, 1000, function ($constraint) {
-                $constraint->aspectRatio();
-                })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
-                $lists->certificate = $filename;
-                $lists->save();
+                if($validatedData['photo']){
+                    $ext = $this->photo->getClientOriginalExtension();
+                    $lists = ListOfTraining::find($list->id);
+                    $filename = date('Ymd').$lists->id.".".$ext;
+                    $folderPath = storage_path('app/public/users/'.$this->user_id);
+                    if(!is_dir($folderPath))
+                    {
+                        mkdir($folderPath, 0755, true);
+                    }
+                    $image = $validatedData['photo'];
+                    $img = Image::make($image->path());
+
+                    $img->resize(1000, 1000, function ($constraint) {
+                    $constraint->aspectRatio();
+                    })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+                    $lists->certificate = $filename;
+                    $lists->save();
+                }
+
+                
+                session()->flash('message','Training Added Successfully');
+                $this->backButton();
+                $this->dispatchBrowserEvent('close-modal');
+
             }
-
-            
-            session()->flash('message','Training Added Successfully');
-            $this->backButton();
-            $this->dispatchBrowserEvent('close-modal');
         
     }
 
@@ -264,6 +282,21 @@ class TrainingShow extends Component
         $array = explode(".", $filename);
         return strtolower(end($array));
 
+    }
+    public function certificate(int $id){
+        $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','certificate', 'certificate_title')
+                                            ->where('list_of_trainings.id', $id)
+                                            ->first();
+        
+        if($lists){
+            $this->certificate_title = $lists->certificate_title;
+            $this->fileType = $this->fileType($lists->certificate);
+            $this->certificate = $lists->certificate;
+            $this->user_id = $lists->user_id;
+            $this->show = true;
+        }else{
+            return redirect()->to('/training')->with('message','No results found');
+        }
     }
     public function show(int $id)
     {
@@ -279,7 +312,7 @@ class TrainingShow extends Component
             $this->level = $lists->level;
 
             $this->type = $lists->type;
-
+  
             $this->name = $lists->name;
             $this->certificate_title = $lists->certificate_title;
             
@@ -287,12 +320,11 @@ class TrainingShow extends Component
             $this->venue = $lists->venue;
             $this->sponsors = $lists->sponsors;
             $this->num_hours = $lists->num_hours;
-            $this->fileType = $this->fileType($lists->certificate);
-            $this->certificate = $lists->certificate;
             $this->status = $lists->status;
             $this->attendance_form = $lists->attendance_form;
             $this->ListOfTraining_id = $lists->training_id;
             $this->user_id = $lists->user_id;
+            $this->state = 'showTraining';
         }else{
             return redirect()->to('/training')->with('message','No results found');
         }
@@ -522,7 +554,7 @@ class TrainingShow extends Component
             
             $this->showAttButton();
         }else{
-            return redirect()->to('/empTraining')->with('message','No results found');
+            return redirect()->to('/training')->with('message','No results found');
         }
     }
     public function editAttendanceForm($id){
@@ -872,6 +904,10 @@ class TrainingShow extends Component
         $this->notification();
         $this->checkTable();
         $this->countStatus();
+        if ($this->table == 'Approved Trainings' || $this->table == 'Pending Trainings') {
+            $this->countAllStatus();
+        }
+        
         $this->dispatchBrowserEvent('toggle');
         if ($this->start_date && $this->end_date) {
             $start_date = Carbon::parse($this->start_date)->toDateTimeString();

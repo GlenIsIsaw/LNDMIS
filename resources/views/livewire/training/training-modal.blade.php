@@ -15,7 +15,7 @@
                     ><i class="fas fa-times"></i></button>
                 @else
                     <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
-                    wire:click="closeModal"><i class="fas fa-times"></i></button>
+                    wire:click="backButton"><i class="fas fa-times"></i></button>
                 @endif
                 </div>
             </div>
@@ -38,9 +38,11 @@
                         border: none;" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}"></iframe>
                     </div>
 
-                @else
-                    <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
-                @endif
+                    @else
+                        <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
+                    @endif
+              
+
                 
 
             </div>

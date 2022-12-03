@@ -19,6 +19,7 @@ class TrainingReports extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $seminar;
+    public $approved, $pending;
     public $filter_status,$filter_certificate_type, $filter_level, $filter_type,$filter_seminar_type,  $start_date, $end_date, $filter_certificate_title, $name, $mySignature;
     public $toggle, $currentUrl;
     protected $listeners = [
@@ -48,6 +49,7 @@ class TrainingReports extends Component
         $this->seminar = $lists;
         //dd($this->training);
     }
+
     public static function year($date){
         $pieces = explode("-", $date);
         return $pieces[0];
