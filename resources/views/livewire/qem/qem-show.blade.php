@@ -93,7 +93,7 @@
 
                                                     <td class="d-grid gap-2">
                                                         
-                                                        @if ($training->qem == 2)
+                                                        @if ($training->qem == 0)
                                                             <button type="button" wire:click="createButton({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2 mb-2" style="background-image: linear-gradient(
                                                                 to bottom, #870000,
                                                                 #190A05);"><i class="fas fa-pen me-1"></i>Create</button>

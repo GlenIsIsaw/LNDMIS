@@ -381,7 +381,7 @@ class QemShow extends Component
         $qem = Qem::find($this->qem_id);
         Qem::find($this->qem_id)->delete();
         $training = ListOfTraining::find($qem->list_of_training_id);
-        $training->qem = 2;
+        $training->qem = 0;
         $training->save();
         session()->flash('message','Qem Deleted Successfully');
         $this->backButton();
@@ -833,7 +833,7 @@ class QemShow extends Component
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                     ->whereBetween('date_covered',[$start_date,$end_date])
                     ->where('list_of_trainings.status','Approved')
-                    ->where('qem',2)
+                    ->where('qem',0)
                     ->orderBy('list_of_trainings.updated_at','desc')
                     ->paginate(3);
             }elseif ($this->table == 'Not Submitted QEM') {
@@ -874,7 +874,7 @@ class QemShow extends Component
                     ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->filter_name)."%'")
                     ->WhereRaw("LOWER(certificate_title) LIKE '%".strtolower($this->filter_certificate_title)."%'")
                     ->where('list_of_trainings.status','Approved')
-                    ->where('qem',2)
+                    ->where('qem',0)
                     ->orderBy('list_of_trainings.updated_at','desc')
                     ->paginate(3);
             }elseif ($this->table == 'Not Submitted QEM') {
