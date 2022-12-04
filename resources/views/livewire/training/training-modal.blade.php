@@ -20,7 +20,9 @@
                 </div>
             </div>
             <div class="modal-body">
-                @if ($fileType == "pdf")
+
+                @if ($show)
+                    @if ($fileType == "pdf")
                     <div class="container" style="  width:50px; 
                     height: 50px;
                     position:absolute;
@@ -41,6 +43,8 @@
                     @else
                         <img class="img-fluid justify-center" style="justify-center" src="{{ url('storage/users/'.$user_id.'/'.$certificate) }}?{{ rand() }}">
                     @endif
+                @endif
+                
               
 
                 
