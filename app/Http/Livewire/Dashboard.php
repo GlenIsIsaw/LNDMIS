@@ -115,7 +115,7 @@ class Dashboard extends Component
         $this->date_covered = $lists->date_covered;
         $this->free = $lists->free;
         $this->amount = $lists->amount;
-        $this->show = null;
+        $this->show = true;
 
         //dd($this->file);
         //dd($this->fileType);

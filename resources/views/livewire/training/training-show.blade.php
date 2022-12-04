@@ -156,7 +156,7 @@
                                             @forelse ($trainings as $training)
                                                 <tr>
                                                     @if ($table != "My Trainings")
-                                                        <td>{{$training->name}}</td>
+                                                        <td class="fw-bold">{{$training->name}}</td>
                                                     @endif
                                                     <td class="fw-bold">{{$training->certificate_title}}</td>
                                                     <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>

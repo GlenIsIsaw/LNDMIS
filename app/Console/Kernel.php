@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function () {
+        /*$schedule->call(function () {
             ListOfTraining::join('users', 'users.id', '=', 'list_of_trainings.user_id')
             ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
             ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
@@ -25,7 +25,13 @@ class Kernel extends ConsoleKernel
             ->where('qem',2)
             ->orderBy('list_of_trainings.updated_at','desc')
             ->update(['qem' => 0]);
-        })->everyMinute();
+            echo "Task is running\n";
+        })->everyMinute(); */
+
+        $schedule->call(function () {
+            echo "Task is running\n";
+        })->everyTwoMinutes();
+    
     }
 
     /**

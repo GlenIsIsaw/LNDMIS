@@ -110,10 +110,7 @@ class UserShow extends Component
         if (!$this->checkOfficer()) {
             $this->college_id = auth()->user()->college_id;
         }else{
-            $user->role_as = 1;
-            $college = College::find($this->college_id);
-            $college->coordinator = $user->id;
-            $college->save();
+            $user->role_as = 0;
         }
 
             $user->college_id = $this->college_id;

@@ -122,7 +122,7 @@
                                     <thead class="text-dark align-bottom shadow" style="background-color:#FEFCFF;">
                                         <tr class="table-bordered">
                                             @if ($table != 'My IDPs')
-                                              
+                                                <th scope="col">Name</th>
                                             @endif
                                             <th scope="col">Competency</th>
                                             <th scope="col">Completion Status</th>
@@ -137,7 +137,10 @@
                                         @forelse ($idps as $idp)
 
                                             <tr>
-                                               
+                                                @if ($table != 'My IDPs')
+                                                    <td class="fw-bold">{{ $idp->name }}</td>
+                                                @endif
+                                                
                                                 <td>
                                                     <ol class="list-group list-group-numbered">
                                                         @foreach ($idp->competency as $item)
