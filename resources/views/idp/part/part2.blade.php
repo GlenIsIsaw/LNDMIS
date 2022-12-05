@@ -57,7 +57,7 @@
 <hr class="h-color mx-2 mt-3">
 <div>
     <label for="diffunctiondesc" class="inline-block fs-6 mb-2">
-        What function do you have a difficulty to perform? <span class="text-danger fw-bold">*</span><br>
+        What function do you have a difficulty to perform?<span class="text-danger fw-bold">*</span><br>
         <label class="fw-bold">(Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)                                
     </label><br>
     <div class="d-grid mt-3">
@@ -97,7 +97,7 @@
                 @error('diffunctiondesc0') <span class="text-danger">{{ $message }}</span> @enderror
             </td>
             <td>
-                <textarea class="border border-3 border-dark rounded-3 mt-3 ms-3" style="width: 90%" rows="4" cols="85" wire:model="diffunctiondesc1" id="diffunctiondesc">
+                <textarea class="border border-3 border-dark rounded-3 mt-3 ms-3" style="width: 90%" rows="4" cols="85" wire:model="diffunctiondesc1" id="diffunctiondesc"></textarea>
 
                 @error('diffunctiondesc1') <span class="text-danger">{{ $message }}</span> @enderror
             </td>

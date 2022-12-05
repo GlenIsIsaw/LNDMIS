@@ -115,6 +115,10 @@ class IdpCompletion extends Component
         $this->dispatchBrowserEvent('close-modal');
         return response()->download($path)->deleteFileAfterSend(true);
     }
+    public function resetFilter(){
+        $this->name = null;
+        $this->year = date('Y');
+    }
     public function mount(){
         $this->year = date('Y');
         $this->currentUrl = url()->current();

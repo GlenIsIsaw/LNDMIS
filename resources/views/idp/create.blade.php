@@ -12,7 +12,6 @@
         @endif
         @if ($next == 1)
 
-        
             @include('idp.part.part2')
             <hr class="h-color mx-2 mt-3">
             <button type="button" class="btn btn-secondary" wire:click="back"  wire:loading.attr="disabled" id="back">Back</button>

@@ -12,8 +12,11 @@
     @if ($next == 1)
             @include('idp.part.part2')
             <button type="button" class="btn btn-secondary" wire:click="back"  wire:loading.attr="disabled" id="back">Back</button>
-            <button type="button" class="btn btn-danger float-end" wire:click="backButton" data-bs-dismiss="modal">Close</button>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationIdpModal" class="btn btn-primary float-end">Save</button>
 
+            <div class="float-end">
+            
+            <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationIdpModal" class="btn btn-primary float-end">Save</button>
+            <button type="button" class="btn btn-danger float-end" wire:click="backButton" data-bs-dismiss="modal">Close</button>
+            </div>
     @endif
 </div>
