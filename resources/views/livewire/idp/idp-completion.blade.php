@@ -66,6 +66,9 @@
                             </div>
                         </div>
                         <div class="card-footer">
+                            <div class="d-flex justify-content-center">
+                                {{ $idps->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

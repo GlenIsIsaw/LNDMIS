@@ -93,15 +93,7 @@
                         <p>{{$support[$i]}}</p>
                     </td>
                     <td>
-                        @if (auth()->user()->role_as == 1)
-                            <select wire:model="status.{{$i}}" class="border border-3 rounded-3 border-secondary">
-                                <option value="Ongoing">Ongoing</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        @else
-                            <p>{{$status[$i]}}</p>
-                        @endif
-                        
+                        <p>{{$status[$i]}}</p>
                     </td>
                 </tr>
             @endfor

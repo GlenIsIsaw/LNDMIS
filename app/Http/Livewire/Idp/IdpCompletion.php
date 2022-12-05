@@ -32,16 +32,10 @@ class IdpCompletion extends Component
             $this->dispatchBrowserEvent('show-notification');
         }
     }
-    public function getComp(){
+    public function getComp($lists){
         $array = [];
         $temp = [];
-        $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status','year')
-                ->join('users', 'users.id', '=', 'idps.user_id')
-                ->where('college_id',auth()->user()->college_id)
-                ->where('year', 'like', '%'.$this->year.'%')
-                ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
-                ->orderBy('name','asc')
-                ->get();
+
         foreach ($lists as $value) {
             array_push($temp, [$value->name => $value->competency]);
         }
@@ -55,10 +49,9 @@ class IdpCompletion extends Component
         //dd($array);
         return $array;
     }
-    public function countTraining(){
+    public function countTraining($array){
         $count = [];
         $tick = [];
-        $array = $this->getComp();
         $j=0;
         foreach ($array as $key => $value) {
             $i = 0;
@@ -68,12 +61,14 @@ class IdpCompletion extends Component
                 ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                 ->join('idps', 'idps.id', '=', 'attendance_forms.idp_id')
                 ->where('college_id',auth()->user()->college_id)
+                ->where('submit_status', 'Pending')
                 ->where('list_of_trainings.status','Approved')
+                ->where('list_of_trainings.date_covered', 'like', '%'.$this->year.'%')
                 ->where('name', $key)
                 ->where('attendance_forms.competency', 'like', '%'.$item.'%')
                 ->orderBy('name','asc')
                 ->count();
-                //sdd($lists);
+                //dd($lists);
                 $count[$j]['competency'][$item] = $lists;
                 if($lists){
                     $i++;   
@@ -127,12 +122,21 @@ class IdpCompletion extends Component
     }
     public function render()
     {
-        $this->countTraining();
+        
         $this->notification();
         //$this->getInfo();
         $this->dispatchBrowserEvent('toggle');
+        $lists = Idp::select('idps.id as idp_id','user_id','name','competency','status','year')
+        ->join('users', 'users.id', '=', 'idps.user_id')
+        ->where('submit_status', 'Pending')
+        ->where('college_id',auth()->user()->college_id)
+        ->where('year', 'like', '%'.$this->year.'%')
+        ->WhereRaw("LOWER(name) LIKE '%".strtolower($this->name)."%'")
+        ->orderBy('name','asc')
+        ->paginate(5);
         
-
-        return view('livewire.idp.idp-completion');
+        $arr = $this->getComp($lists->items());
+        $this->countTraining($arr);
+        return view('livewire.idp.idp-completion', ['idps' => $lists]);
     }
 }
