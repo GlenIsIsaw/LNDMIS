@@ -134,12 +134,6 @@ class UserShow extends Component
             $user->yearinPosition = $this->yearinPosition;
             $user->yearJoined = $this->yearJoined;
             $user->save();
-
-            if ($this->checkOfficer()) {
-                $college = College::find($this->college_id);
-                $college->coordinator = $user->id;
-                $college->save();
-            }
         session()->flash('message','User Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');

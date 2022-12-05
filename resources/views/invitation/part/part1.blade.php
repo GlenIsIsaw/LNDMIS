@@ -1,24 +1,24 @@
 <div class="mb-3">
-    <label class="fw-bold">Training Title</label>
+    <label class="fw-bold">Training Title</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="name" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Sponsor</label>
+    <label class="fw-bold">Sponsor</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="sponsor" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('sponsor') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Venue</label>
+    <label class="fw-bold">Venue</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="venue" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('venue') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Level</label>
+    <label class="fw-bold">Level</label><span class="text-danger fw-bold">*</span>
     <select wire:model="level" class="form-control border border-3 border-secondary" style="width: 100%">
         
         <option value="{{$level}}">{{$level}}</option>
-        <option value="">...</option>
+        <option value="">Choose One</option>
         <option value="International">International</option>
         <option value="Local">Local</option>
         <option value="N/A">N/A</option>
@@ -27,7 +27,7 @@
         <option value="Others">Others</option>
     </select>
     @if ($level == 'Others')
-        <label class="fw-bold mt-2 ms-3">Specify The Level:</label>
+        <label class="fw-bold mt-2 ms-3">Specify The Level:</label><span class="text-danger fw-bold">*</span>
         <input type="text" wire:model.lazy="level_others" class="form-control border border-3 border-secondary rounded-3" style="width:50%;">
         
     @endif

@@ -137,6 +137,7 @@
                                             <th scope="col">Free</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Date Covered</th>
+                                            <th scope="col">Registration Date</th>
                                             <th scope="col">Attachments</th>
 
                                           
@@ -153,6 +154,7 @@
                                               <td>{{$array[$training->free]}}</td>
                                               <td>{{$training->amount}}</td>
                                               <td>{{$training->date_covered}}</td>
+                                              <td>{{$training->date}}</td>
                                               <td>
                                                   <button type="button" class="btn btn-link bg-none" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$training->id}})" style="color: #800">
                                                       View File Attachment Here

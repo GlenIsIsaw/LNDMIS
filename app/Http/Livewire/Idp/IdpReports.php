@@ -418,6 +418,11 @@ class IdpReports extends Component
 
         $templateProcessor->setValue('coorname',auth()->user()->name);
         $templateProcessor->setValue('sname',$supervisor->name);
+        $folderPath = storage_path('app/public/users/'.auth()->user()->id);
+        if(!is_dir($folderPath))
+        {
+            mkdir($folderPath, 0755, true);
+        }
         $this->dispatchBrowserEvent('close-modal');
         $path = 'app/public/users/'.auth()->user()->id.'/Local-Learning-Development-Plan_'.$year.'.docx';
         $templateProcessor->saveAs(storage_path($path));
@@ -495,6 +500,8 @@ class IdpReports extends Component
             }
         }
         $templateProcessor->cloneRowAndSetValues('name', $highest);
+
+        $folderPath = storage_path('app/public/users/'.auth()->user()->id);
 
         $foldername = storage_path('app/public/users/'.auth()->user()->id.'/TNMReports');
         $path = storage_path('app/public/users/'.auth()->user()->id.'/TNMReports/'.'TNMReports_'.$this->year.'.docx');

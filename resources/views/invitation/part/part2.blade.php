@@ -1,14 +1,14 @@
 
 <div class="mb-3">
-    <label class="fw-bold">Free</label>
+    <label class="fw-bold">Free</label><span class="text-danger fw-bold">*</span>
     <select wire:model="free" class="form-control border border-3 border-secondary" style="width:100%">
-        <option value="">...</option>
+        <option value="">Pick Yes or No</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
     </select>
     
     @if ($free == 'No')
-        <label class="fw-bold mt-2 ms-3">Amount:</label>
+        <label class="fw-bold mt-2 ms-3">Amount:</label><span class="text-danger fw-bold">*</span>
         <input type="number" wire:model.lazy="amount" class="form-control border border-3 border-secondary rounded-3 ms-5" style="width:70%;">
     @endif
     @error('free') <span class="text-danger">{{ $message }}</span> @enderror
@@ -16,12 +16,12 @@
 </div>
 
 <div class="mb-3">
-    <label class="fw-bold">Date Covered</label>
+    <label class="fw-bold">Date Covered</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="date_covered" class="form-control border border-3 border-secondary" style="width:100%">
     @error('date_covered') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Registration Deadline</label>
+    <label class="fw-bold">Registration Deadline</label><span class="text-danger fw-bold">*</span>
     <input type="date" wire:model.lazy="date" class="form-control border border-3 border-secondary" style="width: 100%">
     @error('date') <span class="text-danger">{{ $message }}</span> @enderror
 </div>

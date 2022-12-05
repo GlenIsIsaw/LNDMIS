@@ -183,8 +183,9 @@ class CertificateReports extends Component
         }
 
         $zip->close();
-        return response()->download($zipname)->deleteFileAfterSend(true);
         $this->dispatchBrowserEvent('close-modal');
+        return response()->download($zipname)->deleteFileAfterSend(true);
+        
         
     }
     public function resetFilter(){

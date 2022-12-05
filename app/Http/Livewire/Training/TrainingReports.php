@@ -240,6 +240,11 @@ class TrainingReports extends Component
             }else{
                 $templateProcessor->setValue('coordsignature'," ");
             }
+            $folderPath = storage_path('app/public/users/'.auth()->user()->id);
+            if(!is_dir($folderPath))
+            {
+                mkdir($folderPath, 0755, true);
+            }
             $path = 'app/public/users/'.auth()->user()->id.'/ListOfTrainings_'.$daterange.'.docx';
             $templateProcessor->saveAs(storage_path($path));
             $this->resetFilter();

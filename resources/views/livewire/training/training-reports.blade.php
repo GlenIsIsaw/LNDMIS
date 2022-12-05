@@ -89,7 +89,7 @@
             })
             window.addEventListener('close-modal', event => {
 
-                $('#printSummaryIdpModal').modal('hide');
+                $('#printTrainingModal').modal('hide');
                 $('#notificationModal').modal('hide');
                 
                 
