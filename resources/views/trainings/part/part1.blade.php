@@ -6,7 +6,7 @@
 
 
 <div class="mb-3">
-    <label class="fw-bold">Certificate Types</label>
+    <label class="fw-bold">Certificate Types</label><span class="text-danger fw-bold">*</span>
     <select type="text" wire:model="certificate_type" class="form-control border border-3 border-secondary">
         <option value="{{$certificate_type}}">{{$certificate_type}}</option>
                 <option value="Certificate of Eligibility">Certificate of Eligibility</option>
@@ -21,20 +21,20 @@
                 <option value="Others">Others</option>
     </select>
     @if ($certificate_type == 'Others')
-        <label class="fw-bold mt-2 ms-3">Specify The Type of Certificate:</label>
+        <label class="fw-bold mt-2 ms-3">Specify The Type of Certificate:</label><span class="text-danger fw-bold">*</span>
         <input type="text" wire:model.lazy="certificate_type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('certificate_type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('certificate_type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Certificate Name</label>
+    <label class="fw-bold">Certificate Name</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="certificate_title" class="form-control border border-3 border-secondary">
     @error('certificate_title') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 
 <div class="mb-3">
-    <label class="fw-bold">Seminar Type</label>
+    <label class="fw-bold">Seminar Type</label><span class="text-danger fw-bold">*</span>
     <select type="text" wire:model="seminar_type" class="form-control border border-3 border-secondary">
         <option value="{{$seminar_type}}">{{$seminar_type}}</option>
                 <option value="Research Related Training">Research Related Training</option>
@@ -44,14 +44,14 @@
                 <option value="Others">Others</option>
     </select>
     @if ($seminar_type == 'Others')
-        <label class="fw-bold mt-2 ms-3">Specify The Type of Seminar:</label>
+        <label class="fw-bold mt-2 ms-3">Specify The Type of Seminar:</label><span class="text-danger fw-bold">*</span>
         <input type="text" wire:model.lazy="seminar_type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('seminar_type_others') <span class="text-danger">{{ $message }}</span> @enderror
     @error('seminar_type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Level</label>
+    <label class="fw-bold">Level</label><span class="text-danger fw-bold">*</span>
     <select wire:model="level" class="form-control border border-3 border-secondary">
         <option value="{{$level}}">{{$level}}</option>
         <option value="International">International</option>
@@ -62,7 +62,7 @@
         <option value="Others">Others</option>
     </select>
     @if ($level == 'Others')
-        <label class="fw-bold mt-2 ms-3">Specify The Level:</label>
+        <label class="fw-bold mt-2 ms-3">Specify The Level:</label><span class="text-danger fw-bold">*</span>
         <input type="text" wire:model.lazy="level_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
         
     @endif
@@ -70,7 +70,7 @@
     @error('level') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Date of Completion</label>
+    <label class="fw-bold">Date of Completion</label><span class="text-danger fw-bold">*</span>
     <input type="date" wire:model.lazy="date_covered" class="form-control border border-3 border-secondary">
 
     <label class="fw-bold mt-2 ms-3">Specify the Date:</label>

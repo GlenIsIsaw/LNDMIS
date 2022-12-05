@@ -276,7 +276,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fw-bold text-uppercase fs-4" id="guideIdpModalLabel">Guide in Accomplishing Individual Development Plan (IDP)</h5>
-                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                aria-label="Close"></button>
             </div>
                 <div class="modal-body text-md-start">
                     <p class="lh-base">
@@ -290,10 +291,10 @@
                     </p>
                     <hr class="h-color mx-2"> 
                     <p>
-                        <div class="fw-bolder mb-1">S/U/G Priorities (IDP Column 2)</div> Approved set of criteria stated in the Learning and Development Plan (S-seriousness, U-urgency, G-growth priorities)
-                        Seriousness - refers to the direct impact of learning need to organization's strategic directions
-                        Urgency - answers the question of how immediate must the learning need be addressed
-                        Growth Potential - pertains to the extent to which the learning need may give rise to more problems it not addressed
+                        <div class="fw-bolder mb-1">S/U/G Priorities (IDP Column 2)</div> Approved set of criteria stated in the Learning and Development Plan (S-seriousness, U-urgency, G-growth priorities)<br>
+                        <b>Seriousness</b> - refers to the direct impact of learning need to organization's strategic directions<br>
+                        <b>Urgency</b> - answers the question of how immediate must the learning need be addressed<br>
+                        <b>Growth Potential</b> - pertains to the extent to which the learning need may give rise to more problems it not addressed<br>
                         
                     </p>
                     <hr class="h-color mx-2"> 

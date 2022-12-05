@@ -1,7 +1,7 @@
 <div>
     <hr class="h-color mx-2 mt-3">
     <label for="compfunctiondesc" class="inline-block fs-6 mb-2" >
-        What function do you feel competent to perform?<br>
+        What function do you feel competent to perform?<span class="text-danger fw-bold">*</span><br>
         <label class="fw-bold">(Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)
     </label><br>
     
@@ -10,7 +10,7 @@
             <tr>
                 <td>
                     <select wire:model="compfunction0" id="compfunctiondesc" class="border border-3 border-dark rounded-3" style="width: 90%">
-                        <option value="">...</option>
+                        <option value="">Choose One Competency</option>
                         @foreach ($comps as $key => $comp)
                         <optgroup label={{$key}}>
                             @foreach ($comp as $item)
@@ -22,7 +22,7 @@
                 </td>
                 <td>
                     <select wire:model="compfunction1" id="compfunctiondesc" class="border border-3 border-dark rounded-3 ms-3" style="width: 90%">
-                        <option value="">...</option>
+                        <option value="">Choose One Competency</option>
                         @foreach ($comps as $key => $comp)
                         <optgroup label={{$key}}>
                             @foreach ($comp as $item)
@@ -57,7 +57,7 @@
 <hr class="h-color mx-2 mt-3">
 <div>
     <label for="diffunctiondesc" class="inline-block fs-6 mb-2">
-        What function do you have a difficulty to perform?<br>
+        What function do you have a difficulty to perform? <span class="text-danger fw-bold">*</span><br>
         <label class="fw-bold">(Choose two and indicate whether core, functional, or leadership, and specify what specific competency.)                                
     </label><br>
     <div class="d-grid mt-3">
@@ -65,7 +65,7 @@
         <tr>
             <td>
                 <select wire:model="diffunction0" id="diffunctiondesc" class="border border-3 border-dark rounded-3" style="width: 90%">
-                    <option value="">...</option>
+                    <option value="">Choose One Competency</option>
                     @foreach ($comps as $key => $comp)
                     <optgroup label={{$key}}>
                         @foreach ($comp as $item)
@@ -78,7 +78,7 @@
             </td>
             <td>
                 <select wire:model="diffunction1" id="diffunctiondesc" class="border border-3 border-dark rounded-3 ms-3" style="width: 90%">
-                    <option value="">...</option>
+                    <option value="">Choose One Competency</option>
                     @foreach ($comps as $key => $comp)
                     <optgroup label={{$key}}>
                         @foreach ($comp as $item)
@@ -97,7 +97,7 @@
                 @error('diffunctiondesc0') <span class="text-danger">{{ $message }}</span> @enderror
             </td>
             <td>
-                <textarea class="border border-3 border-dark rounded-3 mt-3 ms-3" style="width: 90%" rows="4" cols="85" wire:model="diffunctiondesc1" id="diffunctiondesc"></textarea>
+                <textarea class="border border-3 border-dark rounded-3 mt-3 ms-3" style="width: 90%" rows="4" cols="85" wire:model="diffunctiondesc1" id="diffunctiondesc">
 
                 @error('diffunctiondesc1') <span class="text-danger">{{ $message }}</span> @enderror
             </td>
@@ -108,7 +108,7 @@
 <hr class="h-color mx-2 mt-3">
 <div>
     <p class="inline-block fs-6 mb-2">
-        Where do you see your career progressing in? the next two years?
+        Where do you see your career progressing in? the next two years?<span class="text-danger fw-bold">*</span>
     </p>
     <div class="d-grid">
     <table>

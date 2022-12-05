@@ -9,9 +9,9 @@
 </div>
  
 <div class="mb-3">
-    <label class="fw-bold">Specific Competency Target to Enhance</label>
+    <label class="fw-bold">Specific Competency Target to Enhance</label><span class="text-danger fw-bold">*</span>
     <select wire:model="competency" class="form-control border border-3 border-secondary">
-        <option value="">...</option>
+        <option value="">Choose One Competency</option>
         @if ($idp_competency)
         
         @php
@@ -42,7 +42,7 @@
     @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label>
+    <label class="fw-bold">Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label><span class="text-danger fw-bold">*</span>
     <textarea wire:model.lazy="knowledge_acquired" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>
     @error('knowledge_acquired') <span class="text-danger">{{ $message }}</span> @enderror
 </div>

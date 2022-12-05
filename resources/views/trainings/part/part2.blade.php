@@ -8,22 +8,22 @@
 
 
 <div class="mb-3">
-    <label class="fw-bold">Venue</label>
+    <label class="fw-bold">Venue</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="venue" class="form-control border border-3 border-secondary">
     @error('venue') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label  class="fw-bold">Sponsors</label>
+    <label  class="fw-bold">Sponsors</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="sponsors" class="form-control border border-3 border-secondary">
     @error('sponsors') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Number of Hours</label>
+    <label class="fw-bold">Number of Hours</label><span class="text-danger fw-bold">*</span>
     <input type="number" wire:model.lazy="num_hours" class="form-control border border-3 border-secondary">
     @error('num_hours') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Type</label>
+    <label class="fw-bold">Type</label><span class="text-danger fw-bold">*</span>
     <select wire:model="type" class="form-control border border-3 border-secondary">
         <option value="{{$type}}">{{$type}}</option>
         <option value="Eligibility">Eligibility</option>
@@ -34,7 +34,7 @@
         <option value="Others">Others</option>
     </select>
     @if ($type == 'Others')
-        <label class="fw-bold mt-2 ms-3">Specify The Type:</label>
+        <label class="fw-bold mt-2 ms-3">Specify The Type:</label><span class="text-danger fw-bold">*</span>
         <input type="text" wire:model.lazy="type_others" class="form-control border border-3 border-secondary rounded-3 ms-3" style="width:50%;">
     @endif
     @error('type_others') <span class="text-danger">{{ $message }}</span> @enderror

@@ -3,10 +3,10 @@
     to top, #000000,
     #0f9b0f);"><i class="fas fa-scroll me-2"></i></i>Guide</button>
         <div class="mb-3">
-            <label><h6>Year:</h6></label>
+            <label><h6>Year:</h6></label><span class="text-danger fw-bold">*</span>
             <div class="fw-bold">
             <select class="border-dark border-2 rounded-3 text-center fw-bold" style="width: 20%" wire:model="year">
-                <option value=""></option>
+                <option value="">Choose a Year</option>
                 @for ($i = date('Y') + 1; $i >= 2015; $i--)
                     <option value="{{$i}}">{{$i}}</option>
                 @endfor
@@ -40,18 +40,18 @@
         <div class="table-responsive">
             <table class="table table align-middle table-striped">
                 <thead>
-                    <th class="text-center">Target Competency</th>
-                    <th class="text-center">S/U/G</th>
-                    <th class="text-center">Development Activity</th>
-                    <th class="text-center px-4 mx-4">Person Responsible</th>
-                    <th class="text-center">Support Needed </th>
+                    <th class="text-center">Target Competency<span class="text-danger fw-bold">*</span></th>
+                    <th class="text-center">S/U/G Priority<span class="text-danger fw-bold">*</span></th>
+                    <th class="text-center">Development Activity<span class="text-danger fw-bold">*</span></th>
+                    <th class="text-center px-4 mx-4">Person Responsible<span class="text-danger fw-bold">*</span></th>
+                    <th class="text-center">Support Needed<span class="text-danger fw-bold">*</span> </th>
                 </thead>
                 <tbody>
                     @for ($i = 0; $i < 3; $i++)
                         <tr>
                             <td>
                                 <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark py-1">
-                                    <option value=""></option>
+                                    <option value="">Choose one</option>
                                     @foreach ($comps as $key => $comp)
                                     <optgroup label={{$key}}>
                                         @foreach ($comp as $item)
@@ -65,16 +65,16 @@
                             </td>
                             <td>
                                 <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark py-1">
-                                    <option value="">...</option>
-                                    <option value="S">S</option>
-                                    <option value="U">U</option>
-                                    <option value="G">G</option>
+                                    <option value="">Choose the Priority</option>
+                                    <option value="S">Seriousness</option>
+                                    <option value="U">Urgency</option>
+                                    <option value="G">Growth</option>
                                 </select>
                                 @error('sug.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('sug') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
                             <td>
-                                <textarea type="text" wire:model="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 200px; width:300px;"></textarea>
+                                <textarea type="text" wire:model.lazy="dev_act.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 200px; width:200px;"></textarea>
                                 @error('dev_act.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('dev_act') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>
@@ -97,7 +97,7 @@
                                 </label><br>
                                 <label class="px-2 my-2">
                                     Others:
-                                    <textarea type="support" wire:model="input.{{$i}}.{{'Others'}}" class="form-control border border-2 rounded-3 border-dark" style="height: 5px; width:120px;"></textarea>
+                                    <textarea type="support" wire:model.lazy="input.{{$i}}.{{'Others'}}" class="form-control border border-2 rounded-3 border-dark" style="height: 5px; width:120px;"></textarea>
                                     
                                 </label><br>
                                 @error('input') <span class="text-danger">{{ $message }}</span> @enderror
@@ -105,7 +105,7 @@
                             </td>
 
                             <td>
-                                <textarea type="support" wire:model="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 200px; width:300px;"></textarea>
+                                <textarea type="support" wire:model.lazy="support.{{$i}}" class="form-control border border-2 rounded-3 border-dark" style="height: 200px; width:200px;"></textarea>
                                 @error('support.*') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('support') <span class="text-danger">{{ $message }}</span> @enderror
                             </td>

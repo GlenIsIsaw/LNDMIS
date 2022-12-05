@@ -837,7 +837,7 @@ class QemShow extends Component
                     ->orderBy('list_of_trainings.updated_at','desc')
                     ->paginate(3);
             }elseif ($this->table == 'Not Submitted QEM') {
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
@@ -851,7 +851,7 @@ class QemShow extends Component
 
             }
             else{
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
@@ -878,7 +878,7 @@ class QemShow extends Component
                     ->orderBy('list_of_trainings.updated_at','desc')
                     ->paginate(3);
             }elseif ($this->table == 'Not Submitted QEM') {
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
@@ -891,7 +891,7 @@ class QemShow extends Component
 
             }
             else{
-                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id')
+                $lists = ListOfTraining::select('list_of_trainings.id as training_id','name','date_covered', 'certificate_title','venue','sponsors', 'attendance_forms.competency AS trainCompetency','qem', 'qems.status AS confirmation_status', 'qems.id AS qem_id', 'qems.created_at As date_created')
                     ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                     ->join('attendance_forms', 'attendance_forms.list_of_training_id', '=', 'list_of_trainings.id')
                     ->join('qems', 'qems.list_of_training_id', '=', 'list_of_trainings.id')
