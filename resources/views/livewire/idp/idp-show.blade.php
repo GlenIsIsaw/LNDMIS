@@ -179,14 +179,14 @@
                                                        @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
                                                                 to top, #000000,
-                                                                #0f9b0f);"><i class="fas fa-paper-plane me-1"></i>Submit</button>
+                                                                #0f9b0f); font-size:15px; padding:11px 11px 11px 11px;"><i class="fas fa-paper-plane me-1"></i>Submit</button>
                                                         @endif
                                                         <button type="button" wire:click="show({{$idp->idp_id}})" class="btn-success rounded-3 shadow-sm fw-bold text-white text-uppercase px-3 py-2" style="background-image: linear-gradient(
                                                             to bottom, #52c234,
                                                                     #061700);"><i class="fas fa-eye me-1"></i>View</button>
                                                         <button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-info text-white btn-sm rounded-3 shadow-sm fw-bold text-uppercase" style="background-image: linear-gradient(
                                                             to bottom, #43C6AC,
-                                                                #191654); font-size:13px; padding:11px 11px 11px 11px;"><i class="fas fa-download me-1"></i>Download</button>
+                                                                #191654); font-size:13px; padding:10px 10px 10px 10px;"><i class="fas fa-download me-1"></i>Download</button>
                                                         @if ($idp->comment)
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-white rounded-3 shadow text-uppercase fw-bold px-3 py-2" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,

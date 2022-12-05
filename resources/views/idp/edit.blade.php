@@ -15,7 +15,7 @@
 
             <div class="float-end">
             
-            <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationIdpModal" class="btn btn-primary float-end">Save</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#editConfirmationIdpModal" class="btn btn-primary float-end"> <i class="fas fa-save me-2"></i>Save</button>
             <button type="button" class="btn btn-danger float-end" wire:click="backButton" data-bs-dismiss="modal">Close</button>
             </div>
     @endif

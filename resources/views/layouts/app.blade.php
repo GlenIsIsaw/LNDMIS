@@ -86,12 +86,12 @@
                                 <div class="dropdown-menu dropdown-menu-end rounded-3 border-none border-3 shadow-4" style="background-image: linear-gradient(to right, #ADA996, #F2F2F2, #DBDBDB, #EAEAEA);" aria-labelledby="navbarDropdown">
                                     
                                     <a role="button" class="dropdown-item fw-bolder" href="/profile">
-                                        Profile
+                                        <i class="fas fa-user-circle me-2"></i>Profile
                                     </a>
                                     <button class="dropdown-item fw-bolder" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                       <i class="fas fa-sign-out-alt me-1"></i> {{ __('Log Out') }}
                                     </a>
 
 

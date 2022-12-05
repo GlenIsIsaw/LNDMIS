@@ -427,7 +427,7 @@
           <li class=""><a href ="{{ route('logout') }}"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();"
-             {{ __('Logout') }} id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 fw-bold d-block" style="color: #800000"><i class="fas fa-power-off me-2"></i>Log Out</a></li>
+             {{ __('Logout') }} id="openPopup" class="btn dropdown-btn btn-link-light text-decoration-none px-3 py-2 fw-bold d-block" style="color: #800000"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a></li>
           
             
           </ul>

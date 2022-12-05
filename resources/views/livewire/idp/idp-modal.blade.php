@@ -213,7 +213,7 @@
             </div>
             <form wire:submit.prevent="store">
                 <div class="modal-body">
-                    <h6 class="text-uppercase fw-bold fs-6">Are you sure you want to save your input?</h6>
+                    <h6 class="text-capitalize fw-bold fs-6">Are you sure you want to save your input?</h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center"
