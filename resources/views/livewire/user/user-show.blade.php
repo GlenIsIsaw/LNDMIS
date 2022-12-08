@@ -84,7 +84,7 @@
                                                         @endif
 
                                                         @if ($array[$user->user_status] == 'Disabled')
-                                                        <p class="badge badge-pill fs-6 bg-danger text-white">Disabled</p>
+                                                        <p class="badge badge-pill fs-6 bg-danger text-white">Inactive</p>
                                                         @endif
 
                                                        

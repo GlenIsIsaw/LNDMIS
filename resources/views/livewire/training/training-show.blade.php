@@ -199,7 +199,7 @@
 
                                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase" style="background-image: linear-gradient(
                                                                      to bottom, #43C6AC,
-                                                                #191654); font-size:13px; padding:10px 20px 10px 20px;"><i class="fas fa-download me-1 fa-sm"></i>Download</button>
+                                                                #191654); font-size:13px; padding:10px 10px 10px 10px;"><i class="fas fa-download me-1 fa-sm"></i>Download</button>
         
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                 <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-info text-light rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
@@ -231,12 +231,12 @@
                                                         #061700);"><i class="fas fa-eye me-1"></i>View</button>
                                                             <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center" style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
-                                                                #191654); font-size:13px; padding:10px 20px 10px 20px;"><i class="fas fa-certificate me-1"></i>Certificate</button>
+                                                                #191654); font-size:13px; padding:10px 10px 10px 10px;"><i class="fas fa-certificate me-1"></i>Certificate</button>
                                                           
                                                           @if ($training->comment)
                                                           <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg text-uppercase fw-bold" style="background-image: linear-gradient(
                                                               to bottom, #43C6AC,
-                                                              #191654); font-size:15px; padding:10px 5px 10px 5px;"><i class="fas fa-comments me-1"></i>Comment</button>
+                                                              #191654); font-size:13px; padding:10px 5px 10px 5px;"><i class="fas fa-comments me-1"></i>Comment</button>
                                                       @endif
 
                                                        
@@ -249,11 +249,11 @@
                                                                 @if (auth()->user()->role_as == 1)
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success btn-sm text-white rounded-3 shadow-sm fw-bold text-uppercase px-1 py-2"  style="background-image: linear-gradient(
                                                                         to top, #000000,
-                                                                        #0f9b0f);"><i class="fas fa-thumbs-up me-1"></i>Approve</button>
+                                                                        #0f9b0f); font-size:15px; padding:10px 10px 10px 10px;"><i class="fas fa-thumbs-up me-1"></i>Approve</button>
 
                                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold text-sm text-uppercase px-2 py-1" style="background-image: linear-gradient(
                                                                         to bottom, #870000,
-                                                                        #190A05);"><i class="fas fa-thumbs-down me-1"></i>Reject</button>
+                                                                        #190A05);font-size:15px; padding:14px 14px 14px 14px;"><i class="fas fa-thumbs-down me-1"></i>Reject</button>
                                                                 @endif    
                                                             @endif
                                                         

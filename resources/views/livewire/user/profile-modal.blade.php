@@ -42,12 +42,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editConfirmationUserModalLabel">Confirmation</h5>
+                <h5 class="modal-title fw-bold text-uppercase " id="editConfirmationUserModalLabel">Confirmation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" 
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="updateUser">
-                <div class="modal-body">
+                <div class="fw-bold text-capitalize fs-6 modal-body">
                     <h6>Are you sure you want to edit your User info?</h6>
                 </div>
                 <div class="modal-footer">

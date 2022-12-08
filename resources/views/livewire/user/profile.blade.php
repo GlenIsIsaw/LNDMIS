@@ -16,7 +16,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="fw-bold fs-4 text-uppercase">
-                                     Profile
+                                     Your Profile
                                     
                                 </div>
                             </div>
