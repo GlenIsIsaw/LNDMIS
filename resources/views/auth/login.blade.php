@@ -100,10 +100,8 @@
 
                         <div class="row mb-0">
                             <div class="d-grid gap-2 col-md-5 offset-md-4 mb-4" >
-                                <button type="submit" style="background-image: linear-gradient(
-                                    to right, #1a2a6c,
-                                    #b21f1f, #fdbb2d);" class="btn btn-secondary bg-red-900 w-full text-white shadow-4 text-uppercase fw-bold py-2 rounded-pill hover:bg-yellow-500 transition-colors mb-7">
-                                    {{ __('log In') }}
+                                <button type="submit" style="background-color:#800;" class="btn btn-light border-3 w-full text-white fw-bold shadow-4 text-uppercase fw-bold py-2 rounded-3 hover:bg-yellow-500 transition-colors mb-7">
+                                   <div style="color: #FFFFFF"> {{ __('log In') }} </div>
                                 </button>
                             </div>
                             <hr class="px-5">

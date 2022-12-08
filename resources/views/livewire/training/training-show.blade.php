@@ -134,7 +134,7 @@
 
                             <div class="card-body">
                                 <div class="table-responsive rounded-3 text-center text-small">
-                                    <table class="table table-striped border-secondary border border-5 table-hover ">
+                                    <table class="table table-striped table-bordered align-middle border-secondary border border-5 table-hover ">
                                         <thead class="text-dark shadow table align-middle" style="background-color:#FEFCFF;">
                                             <tr>
                                                 @if ($table != "My Trainings")
@@ -145,7 +145,6 @@
                                                 <th scope="col">Date Covered</th>
                                                 <th scope="col" class="">No. of Hours</th>
                                                 <th scope="col">Venue</th>
-                                                <th scope="col">Sponsors</th>
                                                
                                                 <th scope="col">Status</th>
                                                 <th scope="col" style="color:  #800">Attendance Report Actions</th>
@@ -162,7 +161,7 @@
                                                     <td>{{ $training->date_covered.' : '.$training->specify_date }}</td>
                                                      <td>{{$training->num_hours }}</td> 
                                                     <td>{{$training->venue }}</td> 
-                                                    <td>{{ $training->sponsors }}</td>
+                                                
                                                    
                                                     <td>
                                                         @if ($training->status == 'Approved')
@@ -179,94 +178,126 @@
                                                         @endif
                                                     </td>
                                                     
- 
                                                     
                                                     @if ($training->attendance_form == 0)
                                                 
-                                                        <td>
-                                                            <div class="d-grid gap-2 mx-4">
-                                                            <button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase" style="background-image: linear-gradient(
+                                                  
+                                                           <td>
+                                                            <button wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-lg fw-bold text-uppercase tt" data-bs-placement="top" 
+                                                                title="Create your Attendance Report by Pressing This Button."
+                                                             style="background-image: linear-gradient(
                                                                 to bottom, #870000,
-                                                                #190A05); font-size:15px; padding:9px 5px 9px 5px;"><i class="fas fa-pen me-1"></i>Create</button>
-                                                        </td>
+                                                                #190A05);"><i class="fas fa-pen"></i></button>
+                                                           </td>
                                                     @else
                                                         <td>
-                                                            <div class="d-grid gap-2 mx-4">
+                                                            <div class="d-grid gap-2 d-md-block">
 
-                                                                <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-2 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success btn-floating text-white rounded-3 shadow-lg fw-bold text-uppercase  tt" data-bs-placement="top" 
+                                                                    title="Show the Attendance Report By Clicking This Button." style="background-image: linear-gradient(
                                                                     to bottom, #52c234,
-                                                                    #061700);"><i class="fas fa-eye me-1"></i>View</button>
+                                                                    #061700);"><i class="fas fa-eye"></i></button>
 
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg fw-bold text-uppercase" data-bs-placement="top" 
+                                                                    title="Download the Attendance Report By Clicking This Button." style="background-image: linear-gradient(
                                                                      to bottom, #43C6AC,
-                                                                #191654); font-size:13px; padding:10px 10px 10px 10px;"><i class="fas fa-download me-1 fa-sm"></i>Download</button>
-        
+                                                                #191654);"><i class="fas fa-download"></i></button>
+                                                            
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                                <button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-info text-light rounded-3 shadow-lg fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
-                                                                    to bottom, #000046, 
-                                                                    #1CB5E0);"><i class="fas fa-edit me-1"></i>Edit</button>
 
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="btn-danger text-white rounded-3 fw-bold px-2 py-2 text-uppercase" style="background-image: linear-gradient(
-                                                                    to bottom, #870000,
-                                                                    #190A05);"><i class="fas fa-trash fa-sm me-1"></i>Delete</button>
+                                                            
+  
+                                                          
+                                                                <button class="btn btn-link"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                                data-bs-placement="top" 
+                                                                    title="Some Actions Are Here" data-bs-auto-close="outside" aria-expanded="false">
+                                                                    <i class="fas fa-ellipsis-v fa-lg" style="color:  #800;"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">   
+                                                                    <li><a href="#" wire:click="editAttendanceForm({{$training->training_id}})" class="dropdown-item fw-bold" data-bs-placement="top" 
+                                                                    title="Edit the Attendance Report By Clicking This Button."><i class="fas fa-pen me-2"></i>Edit</a></li>
+
+                                                                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})"  class="dropdown-item fw-bold" data-bs-placement="top" 
+                                                                    title="Delete the Attendance Report By Clicking This Button." style="color: #800"><i class="fas fa-trash me-2"></i>Delete</a></li>
+                                                                </ul>
+                                                           
                                                             @endif
+                                                            </div>
                                                         </td>
+                                                   
                                                     @endif
                                                     </div>
 
                                                     
                                                     <td>
-                                                        <div class="d-grid gap-2 mx-4">
+                                                        <div class="d-grid gap-2 d-md-block">
                                                             @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                             @if ($training->attendance_form == 1) 
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-white rounded-3 shadow text-uppercase fw-bold px-2 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-white rounded-3 shadow text-uppercase fw-bold"  data-bs-placement="top" 
+                                                                    title="Submit the Certificate Of Your Training To The Coordinator By Clicking This Button." style="background-image: linear-gradient(
                                                                     to top, #000000,
-                                                                    #0f9b0f);"><i class="fas fa-paper-plane me-1"></i>Submit</button>
+                                                                    #0f9b0f);"><i class="fas fa-paper-plane"></i></button>
                                                             @endif
                                                         
                                                         @endif
-                                                       
-                                                    <button type="button" wire:click="show({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-2 py-2" style="background-image: linear-gradient(
+                                                        </div>
+                                                        <div class="d-grid gap-2 d-md-block mt-2">    
+                                                    <button type="button" wire:click="show({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase"  data-bs-placement="top" 
+                                                        title="Show The Full Information Of The Certificate By Clicking This Button." style="background-image: linear-gradient(
                                                         to bottom, #52c234,
-                                                        #061700);"><i class="fas fa-eye me-1"></i>View</button>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center" style="background-image: linear-gradient(
+                                                        #061700);"><i class="fas fa-eye"></i></button>
+
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase" data-bs-placement="top" 
+                                                                title="Show The Certificate Of Your Training By Clicking This Button." style="background-image: linear-gradient(
                                                                 to bottom, #43C6AC,
-                                                                #191654); font-size:13px; padding:10px 10px 10px 10px;"><i class="fas fa-certificate me-1"></i>Certificate</button>
+                                                                #191654);"><i class="fas fa-certificate"></i></button>
                                                           
+                                                          <button class="btn btn-link"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                          data-bs-placement="top" 
+                                                              title="Some Actions Are Here" data-bs-auto-close="outside" aria-expanded="false">
+                                                              <i class="fas fa-ellipsis-v fa-lg" style="color:  #800;"></i>
+                                                          </button>
+                                                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"> 
                                                           @if ($training->comment)
-                                                          <button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-white rounded-3 shadow-lg text-uppercase fw-bold" style="background-image: linear-gradient(
-                                                              to bottom, #43C6AC,
-                                                              #191654); font-size:13px; padding:10px 5px 10px 5px;"><i class="fas fa-comments me-1"></i>Comment</button>
+                                                          <li><a href="#" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="dropdown-item text-Capitalize fw-bold" data-bs-placement="top" 
+                                                            title="Show the Comment Written & Given By Your Coordinator By Clicking This Button." ><i class="fas fa-comments me-2"></i>Comment</a></li>
                                                       @endif
 
                                                        
 
                                                         
                                                        @if ($training->status != 'Approved')
-                                                     
-                                                    
-                                                            @if ($training->status == 'Pending')
-                                                                @if (auth()->user()->role_as == 1)
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success btn-sm text-white rounded-3 shadow-sm fw-bold text-uppercase px-1 py-2"  style="background-image: linear-gradient(
-                                                                        to top, #000000,
-                                                                        #0f9b0f); font-size:15px; padding:10px 10px 10px 10px;"><i class="fas fa-thumbs-up me-1"></i>Approve</button>
+                                                       
+                                                       <div class="d-grid gap-2 d-md-block">
+                                                        @if ($training->status == 'Pending')
+                                                            @if (auth()->user()->role_as == 1)
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success  text-white rounded-3 mt-2 shadow-sm fw-bold text-uppercase" data-bs-placement="top" 
+                                                                    title="Approve The Submitted Certificate By Clicking This Button."  style="background-image: linear-gradient(
+                                                                    to top, #000000,
+                                                                    #0f9b0f);"><i class="fas fa-thumbs-up"></i></button>
 
-                                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold text-sm text-uppercase px-2 py-1" style="background-image: linear-gradient(
-                                                                        to bottom, #870000,
-                                                                        #190A05);font-size:15px; padding:14px 14px 14px 14px;"><i class="fas fa-thumbs-down me-1"></i>Reject</button>
-                                                                @endif    
-                                                            @endif
-                                                        
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold mt-2 text-uppercase"  data-bs-placement="top" 
+                                                                    title="Disapprove The Submitted Certificate By Clicking This Button."  style="background-image: linear-gradient(
+                                                                    to bottom, #870000,
+                                                                    #190A05);"><i class="fas fa-thumbs-down"></i></button>
+                                                            @endif    
+                                                        @endif
+                                                   </div>
+                                                     
+                                                      
                                                     
 
                                                             @if($training->status != 'Pending')
-                                                                <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary rounded-3 shadow fw-bold text-uppercase px-3 py-2" style="background-image: linear-gradient(
+                                                                <button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary rounded-3 shadow fw-bold text-uppercase"  data-bs-placement="top" 
+                                                                    title="Edit The Information Of Your Training Certificate By Clicking This Button." style="background-image: linear-gradient(
                                                                     to bottom, #000046, 
-                                                                    #1CB5E0);"><i class="fas fa-edit me-1"></i>Edit</button>
-                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold px-2 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                    #1CB5E0);"><i class="fas fa-edit"></i></button>
+                                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold text-uppercase"  data-bs-placement="top" 
+                                                                    title="Delete Your Training Certificate By Clicking This Button."  style="background-image: linear-gradient(
                                                                     to bottom, #870000,
-                                                                    #190A05"><i class="fas fa-trash me-1"></i>Delete</button>
+                                                                    #190A05"><i class="fas fa-trash"></i></button>
                                                             @endif
+                                                            
                                                             
                                                             
                                                                 
@@ -274,16 +305,20 @@
                                                                 
                                                                 @if ($training->status == 'Pending')
                                                                     @if (auth()->user()->role_as == 0)
-                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold px-3 py-2 text-uppercase" style="background-image: linear-gradient(
+                                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-white rounded-3 shadow-sm fw-bold text-uppercase mt-2"
+                                                                            data-bs-placement="top" 
+                                                                            title="Cancel The Submission of Your Entry By Clicking This Button." style="background-image: linear-gradient(
                                                                             to bottom, #870000,
-                                                                            #190A05); font-size:13px; padding:7px 20px 7px 20px;"><i class="fas fa-undo-alt me-1"></i>Cancel Submission</button>
+                                                                            #190A05);"><i class="fas fa-times-circle"></i></button>
                                                                     @endif    
                                                                 @endif
+
+
                                                         @endif
                                                     </div>
                                                     </td>
                                                 </tr>
-                                            
+                                            </div>
                                             @empty    
                                                 <tr>
                                                     <td colspan="20">No Record/s Found</td>
@@ -291,6 +326,7 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -354,7 +390,14 @@
 
 
     </script>
-
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+        
+    
+</script>
     @endsection
     
 </div>
