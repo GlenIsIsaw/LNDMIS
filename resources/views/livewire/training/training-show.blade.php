@@ -196,7 +196,7 @@
                                                                 @else
 
 
-                                                                            <li><button type="button" wire:click="showAttendanceForm({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-2 py-2 dropdown-item" style="background-image: linear-gradient(
+                                                                            <li><button type="button" wire:click="showAttendanceForm({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewAttModal" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-2 py-2 dropdown-item" style="background-image: linear-gradient(
                                                                                 to bottom, #52c234,
                                                                                 #061700);"><i class="fas fa-eye me-1"></i>View</button></li>
 
@@ -235,7 +235,7 @@
                                                                 
                                                                 @endif
                                                             
-                                                            <li><button type="button" wire:click="show({{$training->training_id}})" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-2 py-2 dropdown-item" style="background-image: linear-gradient(
+                                                            <li><button type="button" wire:click="show({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewTrainingModal" class="btn-success text-white rounded-3 shadow-lg fw-bold text-uppercase px-2 py-2 dropdown-item" style="background-image: linear-gradient(
                                                                 to bottom, #52c234,
                                                                 #061700);"><i class="fas fa-eye me-1"></i>View</button>
                                                             <li><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-white rounded-3 fw-bold text-uppercase text-center dropdown-item" style="background-image: linear-gradient(

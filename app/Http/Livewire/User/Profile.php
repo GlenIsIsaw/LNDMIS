@@ -96,7 +96,7 @@ class Profile extends Component
         return [
             'name' => 'required',
             'email' => 'required|string|email|max:255|unique:users,email,'. $this->User_id,
-            'teacher' => Rule::requiredIf(auth()->user()->role_as == 1),
+            'teacher' => Rule::requiredIf(auth()->user()->role_as == 1 || auth()->user()->role_as == 3),
             'position' => 'required',
             'yearinPosition' => 'required',
             'yearJoined' => 'required',
@@ -112,9 +112,15 @@ class Profile extends Component
             $this->dispatchBrowserEvent('show-notification');
         }
     }
+    public function updatedPhoto()
+    {
+        $this->validate([
+            'photo' => 'required|image|mimes:png|max:10240', // 1MB Max
+        ]);
+    }
     public function addSignature(){
         $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'photo' => 'required|image|mimes:png|max:10240', // 1MB Max
         ]);
         $user = User::find($this->User_id);
         if($validatedData['photo']){

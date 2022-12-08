@@ -14,7 +14,7 @@
         @if ($this->next == 2)
             @include('invitation.part.part3')
             <button type="button" class="btn btn-link ms-5 mt-4" data-bs-toggle="modal" data-bs-target="#showInvitationModal" wire:click="show({{$invitation_id}})" style="color: #800">
-                View File Attachment Here
+                View Current File Attachment Here
         </button>
                     <div class="mt-3">
                         <hr class="h-color mx-2 mt-3">

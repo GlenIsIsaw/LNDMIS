@@ -17,7 +17,7 @@ class IncomingTrainingsShow extends Component
     use WithPagination,WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
-    public $show,$name, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
+    public $editFile, $show,$name, $date, $file, $toggle, $currentUrl, $fileType, $start_date, $end_date, $invitation_id, $sponsor, $venue, $level, $level_others, $free, $amount, $date_covered;
     public $filter_name, $filter_level, $filter_free;
 
     public $state = null;
@@ -71,6 +71,7 @@ class IncomingTrainingsShow extends Component
         $this->free = null;
         $this->amount = null;
         $this->date_covered = null;
+        $this->editFile = null;
     }
     public function clear(){
         $this->state = null;
@@ -184,10 +185,21 @@ class IncomingTrainingsShow extends Component
         $this->file = null;
     }
     public function update(){
-        $validatedData = $this->validate([
-            'name' => 'required',
-            'date' => 'required|date|after:now',
-        ]);
+        if ($this->editFile) {
+            $validatedData = $this->validate([
+                'name' => 'required',
+                'date' => 'required|date|after:now',
+                'file' => 'required|mimes:jpeg,png,jpg,svg,pdf'
+            ]);
+        } else {
+            $validatedData = $this->validate([
+                'name' => 'required',
+                'date' => 'required|date|after:now',
+            ]);
+        }
+        
+
+
             $user_id = auth()->user()->id;
             $list = IncomingTrainings::find($this->invitation_id);
             $list->name = $this->name;

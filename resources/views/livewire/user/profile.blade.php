@@ -69,7 +69,7 @@
                                         </table>
                                     </div>
                                     <div class="col my-2">
-                                    <h6 class="fw-bold">Signature</h6>
+                                    <h6 class="fw-bold">Signature</h6><p>(png only with 10 mb max)</p>
                                     
                                         @if ($signature)
                                             <button type="button" wire:click="editSignature" class="text-center btn-danger rounded-3 shadow-sm px-3 py-2 mx-4 float-end"><i class="fas fa-trash-alt"></i></button>
@@ -91,7 +91,7 @@
                                                 </div>
                                                 
                                             </div>
-                                            @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
+                                            @error('photo') <span class="text-danger">{{ $message }}</span><br> @enderror
                                                 
                                             <button type="submit" class="btn btn-primary my-3"><i class="fas fa-upload me-2"></i>Upload</button>
                                         </form>

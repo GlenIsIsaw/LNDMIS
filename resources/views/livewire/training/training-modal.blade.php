@@ -53,6 +53,124 @@
         </div>
     </div>
 </div>
+<!-- View Training Modal -->
+<div wire:ignore.self class="modal fade" id="viewTrainingModal" tabindex="-1" aria-labelledby="viewTrainingModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title" id="viewTrainingModalLabel" class="text-break">Show {{$certificate_title}}</h5>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="backButton"><i class="fas fa-times"></i></button>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <table class="table table-borderd table-striped table-responsive">
+                    <tbody class="table-responsive">
+                        @if ($table != 'My Trainings')
+                            <tr>
+                                <th>Name</th>
+                                <td>{{$name}}</td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <th>Certificate Type</th>
+                            <td>{{$certificate_type}}</td>
+                        </tr>
+                        <tr>
+                            <th>Certificate Title</th>
+                            <td>{{$certificate_title}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Conducted</th>
+                            <td>{{$date_covered}}</td>
+                        </tr>
+                        <tr>
+                            <th>Venue</th>
+                            <td>{{$venue}}</td>
+                        </tr>
+                        <tr>
+                            <th>Sponsors</th>
+                            <td>{{$sponsors}}</td>
+                        </tr>
+                        <tr>
+                            <th>Number of Hours</th>
+                            <td>{{$num_hours}}</td>
+                        </tr>
+                        <tr>
+                            <th>Level</th>
+                            <td>{{$level}}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{$type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Attendance Report Training Modal -->
+<div wire:ignore.self class="modal fade" id="viewAttModal" tabindex="-1" aria-labelledby="viewAttModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title" id="viewAttModalLabel" class="text-break">Show {{$certificate_title}} Attendance Report</h5>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-danger px-3 mx-2 float-end" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="backButton"><i class="fas fa-times"></i></button>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <table class="table table-borderd table-striped table-responsive">
+                    <tbody class="table-responsive">
+                        <tr>
+                            <th style="width: 35%">Name</th>
+                            <td>{{$name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Title of Intervention Attended</th>
+                            <td>{{$certificate_title}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Conducted</th>
+                            <td>{{$date_covered}}</td>
+                        </tr>
+                        <tr>
+                            <th>Venue</th>
+                            <td>{{$venue}}</td>
+                        </tr>
+                        <tr>
+                            <th>Sponsors</th>
+                            <td>{{$sponsors}}</td>
+                        </tr>
+                            <th>Specific Competency to Develop/Enhance</th>
+                            <td>{{$competency}}</td>
+                        </tr>
+                        <tr>
+                            <th>Knowledge Acquired</th>
+                            <td>{{$knowledge_acquired}}</td>
+                        </tr>
+                        <tr>
+                            <th>Outcome</th>
+                            <td>{{$outcome}}</td>
+                        </tr>
+                        <tr>
+                            <th>Personal Action</th>
+                            <td>{{$personal_action}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Delete Modal -->
@@ -90,6 +208,18 @@
             <form wire:submit.prevent="store">
                 <div class="modal-body">
                     <h6 class="text-capitalize fs-6 fw-bold">Are you sure you want to save your Input?</h6>
+                    @if(count($errors) > 0 )
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <ul class="p-0 m-0" style="list-style: none;">
+                            @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"
@@ -113,6 +243,18 @@
             <form wire:submit.prevent="update">
                 <div class="modal-body fw-bold text-uppercase">
                     <h6 class="fs-6 text-capitalize fw-bold">Are you sure you want to edit your training info?</h6>
+                    @if(count($errors) > 0 )
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <ul class="p-0 m-0" style="list-style: none;">
+                            @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"

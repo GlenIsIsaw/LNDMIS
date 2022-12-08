@@ -384,6 +384,11 @@ class UserShow extends Component
          $this->dept_name = $arr;
      
      }
+     public static function year($year){
+        $pieces = explode("-", $year);
+        $current_year = date('Y');
+        return $current_year - $pieces[0];
+    }
     public function checkOfficer(){
         if (auth()->user()->role_as == 3) {
             return true;
@@ -420,7 +425,7 @@ class UserShow extends Component
                         ->where('college_name', 'like', '%'.$this->filter_college.'%')
                         ->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy('users.updated_at','DESC')
-                        ->paginate(3);
+                        ->paginate(5);
         } else {
             $Users = User::select('users.id As user_id', 'name','email','teacher','position','yearinPosition','yearJoined','college_name','supervisor','users.updated_at','college_id', 'user_status', 'role_as')
                         ->join('colleges', 'colleges.id', '=', 'users.college_id')
@@ -428,7 +433,7 @@ class UserShow extends Component
                         ->whereNot('users.id',auth()->user()->id)
                         ->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy('users.updated_at','DESC')
-                        ->paginate(3);
+                        ->paginate(5);
         }
         
         

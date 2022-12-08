@@ -21,7 +21,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
+    public $editCert,$show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others, $seminar_type_others;
     public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
@@ -206,7 +206,7 @@ class TrainingShow extends Component
     public function store()
     {   
         $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'photo' => 'required|image|mimes:jpeg,png,jpg,svg'
         ]);
         $same = ListofTraining::where('certificate_title', $this->certificate_title)
                     ->where('date_covered', $this->date_covered)
@@ -324,7 +324,6 @@ class TrainingShow extends Component
             $this->attendance_form = $lists->attendance_form;
             $this->ListOfTraining_id = $lists->training_id;
             $this->user_id = $lists->user_id;
-            $this->state = 'showTraining';
         }else{
             return redirect()->to('/training')->with('message','No results found');
         }
@@ -368,6 +367,12 @@ class TrainingShow extends Component
  
     public function update()
     {
+        if ($this->editCert) {
+            $validatedData = $this->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,svg'
+            ]);
+        }
+
         //dd($this->user_id);
         $list = ListOfTraining::find($this->ListOfTraining_id);
         if($this->certificate_type == 'Others'){
@@ -559,9 +564,6 @@ class TrainingShow extends Component
             $this->knowledge_acquired = $lists->knowledge_acquired;
             $this->outcome = $lists->outcome;
             $this->personal_action = $lists->personal_action;
-
-            
-            $this->showAttButton();
         }else{
             return redirect()->to('/training')->with('message','No results found');
         }
@@ -705,6 +707,7 @@ class TrainingShow extends Component
         $this->specify_date = '';
         $this->seminar_type_others = '';
         $this->seminar_type = '';
+        $this->editCert = null;
         $this->resetErrorBag();
     }
     public function resetFilter(){
