@@ -499,7 +499,14 @@ class TrainingShow extends Component
             'personal_action' => 'required'
         ]);
         //dd($validatedData);
-        $list = new AttendanceForm();
+        $att = AttendanceForm::where('list_of_training_id', $this->ListOfTraining_id)->first();
+
+        if($att){
+            session()->flash('message','The Training already has a Attendance Form');
+            $this->backButton();
+            $this->dispatchBrowserEvent('close-modal');
+        }else{
+            $list = new AttendanceForm();
         if(strpos($this->competency, '#')){
             $array = explode('#', $this->competency);
             $list->idp_id = $array[0];
@@ -522,6 +529,8 @@ class TrainingShow extends Component
         session()->flash('message','Attendance Form Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
+        }
+        
     }
     public function showAttendanceForm($id){
         $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form','status')
@@ -653,7 +662,7 @@ class TrainingShow extends Component
         $lists->status = 'Not Submitted';
 
         $lists->save();
-        AttendanceForm::where('id',$this->att_id)->delete();
+        AttendanceForm::where('list_of_training_id',$this->att_id)->delete();
         session()->flash('message','Attendance Form Deleted Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
@@ -924,7 +933,7 @@ class TrainingShow extends Component
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(2);
+                ->paginate(5);
         }else {
 
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','specify_date')
@@ -938,7 +947,7 @@ class TrainingShow extends Component
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(2);
+                ->paginate(5);
         }
 
                                     
