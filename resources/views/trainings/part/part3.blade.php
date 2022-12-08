@@ -21,7 +21,7 @@
         x-on:livewire-upload-error="isUploading = false"
         x-on:livewire-upload-progress="progress = $event.detail.progress"
         >
-            <input type="file" wire:model="photo" accept="image/*" class="form-control border border-3 border-secondary">
+            <input type="file" wire:model="photo" accept=".jpeg,.png,.jpg,.svg,.pdf" class="form-control border border-3 border-secondary">
             <div wire:loading wire:target="photo">
                 <div x-show="isUploading">
                     <progress max="100" x-bind:value="progress"></progress>

@@ -13,10 +13,6 @@
             @endif
             @if ($next == 2)
                 @include('trainings.part.part3')
-                @if ($photo)
-                Uploaded Photo:
-                <img class="img-fluid rounded mx-auto d-block" width="500" height="500" src="{{ $photo->temporaryUrl() }}">
-                @endif
                 <div class="mt-3">
                     <hr class="h-color mx-2 mt-3">
                 <div class="float-end">

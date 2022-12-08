@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Training;
 
 use Carbon\Carbon;
-use Image;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,7 +12,9 @@ use App\Models\ListOfTraining;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Imagick;
 
 class TrainingShow extends Component
 {
@@ -206,7 +207,7 @@ class TrainingShow extends Component
     public function store()
     {   
         $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,svg'
+            'photo' => 'required|mimes:jpeg,png,jpg,svg,pdf'
         ]);
         $same = ListofTraining::where('certificate_title', $this->certificate_title)
                     ->where('date_covered', $this->date_covered)
@@ -249,30 +250,55 @@ class TrainingShow extends Component
                 
 
                 $list->save();
-
+                
                 if($validatedData['photo']){
                     $ext = $this->photo->getClientOriginalExtension();
-                    $lists = ListOfTraining::find($list->id);
-                    $filename = date('Ymd').$lists->id.".".$ext;
                     $folderPath = storage_path('app/public/users/'.$this->user_id);
-                    if(!is_dir($folderPath))
-                    {
-                        mkdir($folderPath, 0755, true);
-                    }
-                    $image = $validatedData['photo'];
-                    $img = Image::make($image->path());
+                        if(!is_dir($folderPath))
+                        {
+                            mkdir($folderPath, 0755, true);
+                        }
+                    $lists = ListOfTraining::find($list->id);
+                    if ($ext == 'pdf') {
+                        $imagick = new Imagick();
+                        $image = $validatedData['photo'];
+                        $imagick->readImage($image->path());
+                        $filename = date('Ymd').$lists->id.".jpg";
+                
+                        $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
+                        $imagick->writeImages($saveImagePath, true);
+                        $img = Image::make($saveImagePath);
+    
+                        $img->resize(1000, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                        })->save($saveImagePath);
 
-                    $img->resize(1000, 1000, function ($constraint) {
-                    $constraint->aspectRatio();
-                    })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+                    } else {
+                        $filename = date('Ymd').$lists->id.".".$ext;
+                        
+                        $image = $validatedData['photo'];
+                        $img = Image::make($image->path());
+    
+                        $img->resize(1000, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                        })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+
+                    }
                     $lists->certificate = $filename;
                     $lists->save();
+                    
+                   
                 }
 
                 
                 session()->flash('message','Training Added Successfully');
                 $this->backButton();
                 $this->dispatchBrowserEvent('close-modal');
+                return redirect()->to('/training')->with('message','Training Added Successfully');
+
+
+                //ddd($this->photo);
+                
 
             }
         
@@ -369,7 +395,7 @@ class TrainingShow extends Component
     {
         if ($this->editCert) {
             $validatedData = $this->validate([
-                'photo' => 'required|image|mimes:jpeg,png,jpg,svg'
+                'photo' => 'required|mimes:jpeg,png,jpg,svg,pdf'
             ]);
         }
 
@@ -410,14 +436,37 @@ class TrainingShow extends Component
         if($this->photo){
             $ext = $this->photo->getClientOriginalExtension();
             File::delete(storage_path('app/public/users/'.$this->user_id.'/'.$list->certificate));
-            $filename = date('Ymd').$list->id.".".$ext;
-            $image = $this->photo;
-            $img = Image::make($image->path());
-            $img->resize(1000, 1000, function ($constraint) {
-            $constraint->aspectRatio();
-            })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
-            $list->certificate = $filename;
+            $folderPath = storage_path('app/public/users/'.$this->user_id);
+            
+                if(!is_dir($folderPath))
+                {
+                    mkdir($folderPath, 0755, true);
+                }
+            if ($ext == 'pdf') {
+                $imagick = new Imagick();
+                $image = $this->photo;
+                $imagick->readImage($image->path());
+                $filename = date('Ymd').$list->id.".jpg";
+        
+                $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
+                $imagick->writeImages($saveImagePath, true);
+                $img = Image::make($saveImagePath);
 
+                $img->resize(1000, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+                })->save($saveImagePath);
+
+            } else {
+                $filename = date('Ymd').$list->id.".".$ext;
+                
+                $image = $this->photo;
+                $img = Image::make($image->path());
+
+                $img->resize(1000, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+                })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+
+            }
         }
         $list->save();
         
@@ -707,7 +756,7 @@ class TrainingShow extends Component
         $this->specify_date = '';
         $this->seminar_type_others = '';
         $this->seminar_type = '';
-        $this->editCert = null;
+        //$this->editCert = null;
         $this->resetErrorBag();
     }
     public function resetFilter(){
