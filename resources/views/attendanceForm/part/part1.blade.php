@@ -7,11 +7,12 @@
     <label class="fw-bold">Title of Intervention Attended</label>
     <div class="text-lg" style="font-size: 18px"><p>{{$certificate_title}}</p></div>
 </div>
- 
+
+@if ($state != 'editAttendance')
 <div class="mb-3">
     <label class="fw-bold">Specific Competency Target to Enhance</label><span class="text-danger fw-bold">*</span>
     <select wire:model="competency" class="form-control border border-3 border-secondary">
-        <option value="">Choose One Competency</option>
+        <option value="{{ $competency }}">{{ $competency }}</option>
         @if ($idp_competency)
         
         @php
@@ -41,6 +42,8 @@
     </select>
     @error('competency') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
+@endif
+
 <div class="mb-3">
     <label class="fw-bold">Knowledge Acquired (What skills, knowledge and attitudes acquired?)</label><span class="text-danger fw-bold">*</span>
     <textarea wire:model.lazy="knowledge_acquired" rows="4" cols="50" class="form-control border border-3 border-secondary"></textarea>

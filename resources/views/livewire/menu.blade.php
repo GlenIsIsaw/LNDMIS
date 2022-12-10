@@ -39,7 +39,7 @@
     #sidebar-wrapper {
       min-height: 100vh;
       min-width: 35vh;
-      margin-left: -17rem;
+      margin-left: -18.5rem;
       -webkit-transition: margin 0.25s ease-out;
       -moz-transition: margin 0.25s ease-out;
       -o-transition: margin 0.25s ease-out;

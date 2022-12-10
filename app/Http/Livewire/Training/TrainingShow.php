@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Training;
 
 use Carbon\Carbon;
-use Image;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,7 +12,9 @@ use App\Models\ListOfTraining;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Imagick;
 
 class TrainingShow extends Component
 {
@@ -21,7 +22,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
+    public $editCert,$show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others, $seminar_type_others;
     public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
@@ -206,7 +207,7 @@ class TrainingShow extends Component
     public function store()
     {   
         $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'photo' => 'required|mimes:jpeg,png,jpg,svg,pdf'
         ]);
         $same = ListofTraining::where('certificate_title', $this->certificate_title)
                     ->where('date_covered', $this->date_covered)
@@ -249,30 +250,55 @@ class TrainingShow extends Component
                 
 
                 $list->save();
-
+                
                 if($validatedData['photo']){
                     $ext = $this->photo->getClientOriginalExtension();
-                    $lists = ListOfTraining::find($list->id);
-                    $filename = date('Ymd').$lists->id.".".$ext;
                     $folderPath = storage_path('app/public/users/'.$this->user_id);
-                    if(!is_dir($folderPath))
-                    {
-                        mkdir($folderPath, 0755, true);
-                    }
-                    $image = $validatedData['photo'];
-                    $img = Image::make($image->path());
+                        if(!is_dir($folderPath))
+                        {
+                            mkdir($folderPath, 0755, true);
+                        }
+                    $lists = ListOfTraining::find($list->id);
+                    if ($ext == 'pdf') {
+                        $imagick = new Imagick();
+                        $image = $validatedData['photo'];
+                        $imagick->readImage($image->path());
+                        $filename = date('Ymd').$lists->id.".jpg";
+                
+                        $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
+                        $imagick->writeImages($saveImagePath, true);
+                        $img = Image::make($saveImagePath);
+    
+                        $img->resize(1000, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                        })->save($saveImagePath);
 
-                    $img->resize(1000, 1000, function ($constraint) {
-                    $constraint->aspectRatio();
-                    })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+                    } else {
+                        $filename = date('Ymd').$lists->id.".".$ext;
+                        
+                        $image = $validatedData['photo'];
+                        $img = Image::make($image->path());
+    
+                        $img->resize(1000, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                        })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+
+                    }
                     $lists->certificate = $filename;
                     $lists->save();
+                    
+                   
                 }
 
                 
                 session()->flash('message','Training Added Successfully');
                 $this->backButton();
                 $this->dispatchBrowserEvent('close-modal');
+                return redirect()->to('/training')->with('message','Training Added Successfully');
+
+
+                //ddd($this->photo);
+                
 
             }
         
@@ -324,7 +350,6 @@ class TrainingShow extends Component
             $this->attendance_form = $lists->attendance_form;
             $this->ListOfTraining_id = $lists->training_id;
             $this->user_id = $lists->user_id;
-            $this->state = 'showTraining';
         }else{
             return redirect()->to('/training')->with('message','No results found');
         }
@@ -368,6 +393,12 @@ class TrainingShow extends Component
  
     public function update()
     {
+        if ($this->editCert) {
+            $validatedData = $this->validate([
+                'photo' => 'required|mimes:jpeg,png,jpg,svg,pdf'
+            ]);
+        }
+
         //dd($this->user_id);
         $list = ListOfTraining::find($this->ListOfTraining_id);
         if($this->certificate_type == 'Others'){
@@ -405,14 +436,37 @@ class TrainingShow extends Component
         if($this->photo){
             $ext = $this->photo->getClientOriginalExtension();
             File::delete(storage_path('app/public/users/'.$this->user_id.'/'.$list->certificate));
-            $filename = date('Ymd').$list->id.".".$ext;
-            $image = $this->photo;
-            $img = Image::make($image->path());
-            $img->resize(1000, 1000, function ($constraint) {
-            $constraint->aspectRatio();
-            })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
-            $list->certificate = $filename;
+            $folderPath = storage_path('app/public/users/'.$this->user_id);
+            
+                if(!is_dir($folderPath))
+                {
+                    mkdir($folderPath, 0755, true);
+                }
+            if ($ext == 'pdf') {
+                $imagick = new Imagick();
+                $image = $this->photo;
+                $imagick->readImage($image->path());
+                $filename = date('Ymd').$list->id.".jpg";
+        
+                $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
+                $imagick->writeImages($saveImagePath, true);
+                $img = Image::make($saveImagePath);
 
+                $img->resize(1000, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+                })->save($saveImagePath);
+
+            } else {
+                $filename = date('Ymd').$list->id.".".$ext;
+                
+                $image = $this->photo;
+                $img = Image::make($image->path());
+
+                $img->resize(1000, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+                })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
+
+            }
         }
         $list->save();
         
@@ -499,7 +553,14 @@ class TrainingShow extends Component
             'personal_action' => 'required'
         ]);
         //dd($validatedData);
-        $list = new AttendanceForm();
+        $att = AttendanceForm::where('list_of_training_id', $this->ListOfTraining_id)->first();
+
+        if($att){
+            session()->flash('message','The Training already has a Attendance Form');
+            $this->backButton();
+            $this->dispatchBrowserEvent('close-modal');
+        }else{
+            $list = new AttendanceForm();
         if(strpos($this->competency, '#')){
             $array = explode('#', $this->competency);
             $list->idp_id = $array[0];
@@ -522,6 +583,8 @@ class TrainingShow extends Component
         session()->flash('message','Attendance Form Added Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
+        }
+        
     }
     public function showAttendanceForm($id){
         $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level', 'num_hours','venue','sponsors','type','certificate','competency','attendance_forms.id as att_id','knowledge_acquired','outcome','personal_action','attendance_form','status')
@@ -550,9 +613,6 @@ class TrainingShow extends Component
             $this->knowledge_acquired = $lists->knowledge_acquired;
             $this->outcome = $lists->outcome;
             $this->personal_action = $lists->personal_action;
-
-            
-            $this->showAttButton();
         }else{
             return redirect()->to('/training')->with('message','No results found');
         }
@@ -653,7 +713,7 @@ class TrainingShow extends Component
         $lists->status = 'Not Submitted';
 
         $lists->save();
-        AttendanceForm::where('id',$this->att_id)->delete();
+        AttendanceForm::where('list_of_training_id',$this->att_id)->delete();
         session()->flash('message','Attendance Form Deleted Successfully');
         $this->backButton();
         $this->dispatchBrowserEvent('close-modal');
@@ -696,6 +756,7 @@ class TrainingShow extends Component
         $this->specify_date = '';
         $this->seminar_type_others = '';
         $this->seminar_type = '';
+        //$this->editCert = null;
         $this->resetErrorBag();
     }
     public function resetFilter(){
@@ -924,7 +985,7 @@ class TrainingShow extends Component
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->whereBetween('date_covered',[$start_date,$end_date])
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(2);
+                ->paginate(5);
         }else {
 
             $lists = ListOfTraining::select('list_of_trainings.id as training_id','user_id','name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate','attendance_form','status','list_of_trainings.updated_at','role_as','comment','specify_date')
@@ -938,7 +999,7 @@ class TrainingShow extends Component
                 ->where('certificate_type', 'like', '%'.$this->filter_certificate_type.'%')
                 ->where('type', 'like', '%'.$this->filter_type.'%')
                 ->orderBy('list_of_trainings.updated_at','desc')
-                ->paginate(2);
+                ->paginate(5);
         }
 
                                     

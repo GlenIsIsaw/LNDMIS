@@ -23,12 +23,6 @@
                                 
                           
                     </div>
-                    <div class="p-2 flex-fill bd-highlight">
-                        @if ($photo)
-                        <label for="uploaded" class="fw-bold ml-5">Updated Photo:</label>
-                        <img class="img-thumbnail img-fluid rounded mt-4" id="uploaded" width="400" height="400" src="{{ $photo->temporaryUrl() }}">
-                        @endif
-                    </div>
                 </div>
                 <hr class="h-color mx-2 mt-3">
                 <div class="float-end gap-2">

@@ -322,7 +322,7 @@ class IdpShow extends Component
         $this->support = $validatedData['support'];
         $this->status = ["Ongoing","Ongoing","Ongoing"];
         
-
+ 
         $idp = Idp::select('year')
                 ->join('users', 'users.id', '=', 'idps.user_id')
                 ->where('college_id',auth()->user()->college_id)

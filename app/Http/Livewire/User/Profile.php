@@ -5,6 +5,7 @@ namespace App\Http\Livewire\User;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\College;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,6 +14,7 @@ class Profile extends Component
     use WithFileUploads;
     public $search, $name, $email, $teacher,$position,$yearinPosition,$yearJoined,$college_name,$supervisor,$User_id, $college_id,$supervisor_name,$signature,$password, $password_confirmation, $current_password,$photo;
     public $toggle, $currentUrl;
+    public $colleges = [];
 
     public $state = null;
     public $next = null;
@@ -21,6 +23,27 @@ class Profile extends Component
         $this->state = 'edit';
         $this->next = 0;
     }
+    
+        public function getCollege(){
+        $college = College::all();
+        $arr = [];
+         $college = $college->toArray();
+        foreach ($college as $num => $item) {
+             foreach ($item as $key => $value) {
+                 if ($key == 'id') {
+                     $arr[$num][$key] = $value;
+                 }
+                 if ($key == 'college_name') {
+                     $arr[$num][$key] = $value;
+                 }
+     
+                 
+             }
+        }
+        //dd($arr);
+         $this->colleges = $arr;
+     
+     }
     public function next(){
         ++$this->next;
     }
@@ -73,7 +96,7 @@ class Profile extends Component
         return [
             'name' => 'required',
             'email' => 'required|string|email|max:255|unique:users,email,'. $this->User_id,
-            'teacher' => Rule::requiredIf(auth()->user()->role_as == 1),
+            'teacher' => Rule::requiredIf(auth()->user()->role_as == 1 || auth()->user()->role_as == 3),
             'position' => 'required',
             'yearinPosition' => 'required',
             'yearJoined' => 'required',
@@ -89,9 +112,15 @@ class Profile extends Component
             $this->dispatchBrowserEvent('show-notification');
         }
     }
+    public function updatedPhoto()
+    {
+        $this->validate([
+            'photo' => 'required|image|mimes:png|max:10240', // 1MB Max
+        ]);
+    }
     public function addSignature(){
         $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'photo' => 'required|image|mimes:png|max:10240', // 1MB Max
         ]);
         $user = User::find($this->User_id);
         if($validatedData['photo']){
@@ -219,6 +248,7 @@ class Profile extends Component
     }
     public function render()
     {
+        $this->getCollege();
         $this->notification();
         $this->dispatchBrowserEvent('toggle');
         return view('livewire.user.profile');
