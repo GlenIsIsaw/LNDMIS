@@ -530,40 +530,62 @@
                     </div>
                     
                     <div class="mb-3">
+                        @php
+                            $data = [];
+                            foreach ($filter as $item){
+                                foreach ($item as $name => $value){
+                                    if ($name == 'certificate_type'){
+                                        array_push($data, $value);
+                                    }
+                                }   
+                            }
+                        @endphp
+
                         <label class="fw-bold">Sort by Certificate Type:</label>
                         <select type="text" wire:model="filter_certificate_type" class="form-control border border-dark border-3 rounded-3">
                                     <option value="">...</option>
-                                    <option value="Certificate of Eligibility">Certificate of Eligibility</option>
-                                    <option value="Certificate of Training">Certificate of Training</option>
-                                    <option value="Certificate of Appreciation">Certificate of Appreciation</option>
-                                    <option value="Certificate of Attendance">Certificate of Attendance</option>
-                                    <option value="Certificate of Commendation">Certificate of Commendation</option>
-                                    <option value="Certificate of Completion">Certificate of Completion</option>
-                                    <option value="Certificate of Participation">Certificate of Participation</option>
-                                    <option value="Certificate of Recognition">Certificate of Recognition</option>
-                                    <option value="Membership Certificate">Membership Certificate</option>
+                                    @foreach (array_unique($data) as $item)
+                                        <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
+
                         </select>
                     </div>
                     <div class="mb-3">
+                        @php
+                            $data = [];
+                            foreach ($filter as $item){
+                                foreach ($item as $name => $value){
+                                    if ($name == 'level'){
+                                        array_push($data, $value);
+                                    }
+                                }   
+                            }
+                        @endphp
                         <label class="fw-bold">Sort by Level:</label>
                         <select wire:model="filter_level" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
-                            <option value="International">International</option>
-                            <option value="Local">Local</option>
-                            <option value="N/A">N/A</option>
-                            <option value="National">National</option>
-                            <option value="Regional">Regional</option>
+                            @foreach (array_unique($data) as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
+                        @php
+                        $data = [];
+                            foreach ($filter as $item){
+                                foreach ($item as $name => $value){
+                                    if ($name == 'type'){
+                                        array_push($data, $value);
+                                    }
+                                }   
+                            }
+                        @endphp
                         <label class="fw-bold">Sort by Type:</label>
                         <select wire:model="filter_type" class="form-control border border-dark border-3 rounded-3">
                             <option value="">...</option>
-                            <option value="Eligibility">Eligibility</option>
-                            <option value="Event-Facilitator">Event-Facilitator</option>
-                            <option value="Membership">Membership</option>
-                            <option value="Seminar">Seminar</option>
-                            <option value="Seminar-Facilitator">Seminar-Facilitator</option>
+                            @foreach (array_unique($data) as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                     

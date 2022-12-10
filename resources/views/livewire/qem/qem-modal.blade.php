@@ -128,7 +128,7 @@
                         <input wire:model="filter_name" class="form-control border border-dark border-3 rounded-3" placeholder="Search..." />
                     </div>
                         <div class="mb-3">
-                            <label  class="fw-bold">Search by Qem Title:</label>
+                            <label  class="fw-bold">Search by Certificate Title:</label>
                             <input wire:model="filter_certificate_title" class="form-control border  border-dark border-3 rounded-3" placeholder="Search..." />
                         </div>
                     

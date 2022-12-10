@@ -22,7 +22,7 @@ class TrainingShow extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $editCert,$show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
+    public $filter, $editCert,$show, $name,$comment , $certificate_type, $certificate_title,$seminar_type, $level, $date_covered, $specify_date, $venue, $sponsors, $num_hours, $type, $certificate, $status , $attendance_form ,$ListOfTraining_id, $user_id, $photo,$mySignature, $checkmySignature, $currentUrl, $toggle, $fileType, $idp_Competency, $idp_id;
     public $certificate_type_others, $level_others, $type_others, $seminar_type_others;
     public $approved, $pending, $notSubmitted, $rejected;
     public $competency, $knowledge_acquired, $outcome, $personal_action, $att_id;
@@ -203,6 +203,13 @@ class TrainingShow extends Component
         ]);
         ++$this->next;
     }
+    public function updatedPhoto(){
+        if ($this->editCert) {
+            $validatedData = $this->validate([
+                'photo' => 'required|mimes:jpeg,png,jpg,svg,pdf'
+            ]);
+        }
+    }
     
     public function store()
     {   
@@ -262,7 +269,7 @@ class TrainingShow extends Component
                     if ($ext == 'pdf') {
                         $imagick = new Imagick();
                         $image = $validatedData['photo'];
-                        $imagick->readImage($image->path());
+                        $imagick->readImage($image->path().'[0]');
                         $filename = date('Ymd').$lists->id.".jpg";
                 
                         $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
@@ -434,6 +441,7 @@ class TrainingShow extends Component
         $list->num_hours = $this->num_hours;
 
         if($this->photo){
+            $filename = null;
             $ext = $this->photo->getClientOriginalExtension();
             File::delete(storage_path('app/public/users/'.$this->user_id.'/'.$list->certificate));
             $folderPath = storage_path('app/public/users/'.$this->user_id);
@@ -445,7 +453,7 @@ class TrainingShow extends Component
             if ($ext == 'pdf') {
                 $imagick = new Imagick();
                 $image = $this->photo;
-                $imagick->readImage($image->path());
+                $imagick->readImage($image->path().'[0]');
                 $filename = date('Ymd').$list->id.".jpg";
         
                 $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
@@ -467,6 +475,7 @@ class TrainingShow extends Component
                 })->save(storage_path('app/public/users/'.$this->user_id.'/'.$filename));
 
             }
+            $list->certificate = $filename;
         }
         $list->save();
         
@@ -954,16 +963,30 @@ class TrainingShow extends Component
     public function updatingFilterType($value){
         $this->resetPage();
     }
+    public function getTable(){
+        $filter = ListOfTraining::select('certificate_type','level','type')
+        ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
+        ->where('college_id',auth()->user()->college_id)
+        ->where($this->query[0],$this->query[1])
+        ->get();
+        
+        $filter = $filter->toArray();
+        //dd($filter);
+        $this->filter = $filter;
+        //dd($this->filter);
+    } 
 
     public function mount()
     {
         $this->currentUrl = url()->current();
-        //dd($this->currentUrl);
+
     }
     public function render()
     {
         $this->notification();
+        
         $this->checkTable();
+        $this->getTable();
         $this->countStatus();
         if ($this->table == 'Approved Trainings' || $this->table == 'Pending Trainings') {
             $this->countAllStatus();

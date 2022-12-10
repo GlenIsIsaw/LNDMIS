@@ -39,15 +39,14 @@ class TrainingReports extends Component
     }
     public function getInfo(){
 
-            $lists = ListOfTraining::select('name', 'certificate_title','certificate_type', 'date_covered', 'level','num_hours','venue','sponsors','type','certificate')
+            $lists = ListOfTraining::select('certificate_type','seminar_type','level','type')
                 ->join('users', 'users.id', '=', 'list_of_trainings.user_id')
                 ->where('college_id',auth()->user()->college_id)
                 ->where('status','Approved')
-                ->orderBy('name','asc')
                 ->get();
-
+        $lists = $lists->toArray();
         $this->seminar = $lists;
-        //dd($this->training);
+        //dd($this->seminar);
     }
 
     public static function year($date){
