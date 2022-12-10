@@ -28,7 +28,7 @@
     @error('certificate_type') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
 <div class="mb-3">
-    <label class="fw-bold">Certificate Name</label><span class="text-danger fw-bold">*</span>
+    <label class="fw-bold">Certificate Title</label><span class="text-danger fw-bold">*</span>
     <input type="text" wire:model.lazy="certificate_title" class="form-control border border-3 border-secondary">
     @error('certificate_title') <span class="text-danger">{{ $message }}</span> @enderror
 </div>
