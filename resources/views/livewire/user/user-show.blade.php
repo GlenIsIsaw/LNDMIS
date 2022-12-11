@@ -90,49 +90,47 @@
                                                        
                                                     </td>
                                                     <td>
-                                                        <div class="btn-group dropend">
-                                                            <button type="button" class="btn btn-light text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions
+                                                        <div class="btn-group dropstart">
+                                                            <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                              Actions   
                                                             </button>
-                                                            <ul class="dropdown-menu">
-                                                            <li><button type="button" wire:click="editUser({{$user->user_id}})" class="btn-info text-primary text-uppercase rounded-3 shadow-lg fw-light my-2 mx-1 dropdown-item">
+                                                            <ul class="dropdown-menu shadow-lg rounded-3">
+                                                            <li><button type="button" wire:click="editUser({{$user->user_id}})" class="btn-info text-primary text-uppercase rounded-3 my-2 dropdown-item">
                                                                 <i class="fas fa-pen me-2"></i>
                                                                 Edit
                                                             </button></li>
 
                                                             @if ($user->user_status)
-                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-danger text-uppercase rounded-3 shadow-lg fw-light my-2 mx-1 dropdown-item">
+                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-danger text-danger text-uppercase rounded-3 my-2 dropdown-item">
                                                                 <i class="fas fa-user-times me-2"></i>Disable</button></li>
                                                         @else
-                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-success text-uppercase rounded-3 shadow-lg fw-light my-2 mx-1 dropdown-item">
+                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteuserModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-success text-uppercase rounded-3 my-2 dropdown-item">
                                                             <i class="fas fa-user-check me-2"></i>Enable</button></li>
                                                         @endif
-                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#resetPassModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-success text-uppercase rounded-3 shadow-lg fw-light my-2 mx-1 dropdown-item">
+                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#resetPassModal" wire:click="deleteUser({{$user->user_id}})" class="btn-success text-success text-uppercase rounded-3 my-2 dropdown-item">
                                                             <i class="fas fa-redo-alt me-2"></i>
                                                                 Reset Password
                                                             </button></li>
                                                            
                                                             @if (auth()->user()->role_as == 1)
                                                                 @if ($info['name'] == 'No Supervisor')
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-success text-success text-uppercase rounded-3 shadow-lg fw-light my-2 mx-1 dropdown-item">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#supervisorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-success text-success text-uppercase rounded-3 my-2 dropdown-item">
                                                                     <i class="fas fa-check me-2"></i>Enable as Supervisor</button></li>
                                                                 @endif
                                                                 @if ($user->user_id == $info['supId'])
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-danger text-uppercase rounded-3 shadow-lg fw-light my-2 mx-1 dropdown-item">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#supervisorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-danger text-uppercase rounded-3 my-2 dropdown-item">
                                                                     <i class="fas fa-times me-2"></i>Remove as Supervisor</button></li>
                                                                 @endif
                                                             @endif
                                                             @if (auth()->user()->role_as == 3)
                                                                 @if ($user->role_as == 1)
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#coordinatorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-white text-uppercase rounded-3 shadow-sm fw-bold px-3 py-2 dropdown-item"  style="background-image: linear-gradient(
-                                                                    to bottom, #870000,
-                                                                    #190A05); font-size:13px; padding:11px 20px 11px 20px;"><i class="fas fa-times me-1"></i>Remove as Coordinator</button></li>
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#coordinatorNotModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-danger text-white text-uppercase rounded-3 my-2 dropdown-item"> 
+                                                                    <i class="fas fa-times me-2"></i>Remove as Coordinator</button></li>
                        
                                                                 @endif
                                                                 @if ($this->coorCheck($user->college_id))
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#coordinatorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-success text-white text-uppercase rounded-3 shadow-sm fw-bold dropdown-item" style="background-image: linear-gradient(
-                                                                    to bottom, #008000,
-                                                                    #190A05);font-size:13px; padding:11px 20px 11px 20px;"><i class="fas fa-check me-1"></i>Enable as Coordinator</button></li>
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#coordinatorModal" wire:click="getIds({{$user->user_id}},{{$user->college_id}})" class="btn-success text-white text-uppercase rounded-3 my-2 dropdown-item">
+                                                                    <i class="fas fa-check me-2"></i>Enable as Coordinator</button></li>
                                                                 @endif
                                                                 
 

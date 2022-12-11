@@ -1,9 +1,9 @@
 
 @if ($state == 'editTraining')
-<label>
-    <input type="checkbox" wire:model="editCert" >
+<div class="form-check form-switch mb-3 text-uppercase fw-bold">
+    <input  class="form-check-input" type="checkbox" wire:model="editCert" >
         Edit the Current Certificate
-</label><br>
+</div>
 
 @else
     @php

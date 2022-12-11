@@ -174,23 +174,23 @@
                                                 
                                                 </td>
                                                 <td>
-                                                    <div class="btn-group dropend">
-                                                        <button type="button" class="btn btn-light text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                          Actions
+                                                    <div class="btn-group dropstart">
+                                                        <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                          Actions <i class="fas fa-ellipsis-v ms-2"></i>
                                                         </button>
-                                                        <ul class="dropdown-menu">
+                                                        <ul class="dropdown-menu shadow-lg rounded-3">
                                                    
                                                             @if ($idp->submit_status == 'Not Submitted' || $idp->submit_status == 'Rejected')
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success text-success rounded-3 shadow-lg fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#submitIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2">
                                                                     <i class="fas fa-paper-plane me-2"></i>Submit</button></li>
                                                             @endif
-                                                            <li><button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info text-success rounded-3 shadow-lg fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                            <li><button type="button" wire:click="show({{$idp->idp_id}})" class="btn-info text-success rounded-3 text-uppercase dropdown-item my-2">
                                                                     <i class="fas fa-eye me-2"></i>View</button></li>
 
-                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-info text-primary rounded-3 shadow-lg fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#printIdpModal" wire:click="signature({{$idp->idp_id}})" class="btn-info text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                 <i class="fas fa-download me-2"></i>Download</button></li>
                                                             @if ($idp->comment)
-                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-primary rounded-3 shadow text-uppercase fw-light dropdown-item my-2 mx-1">
+                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$idp->idp_id}})" class="btn-info text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                 <i class="fas fa-comments me-2"></i>Comment</button></li>
                                                             @endif
                                                             
@@ -200,26 +200,26 @@
                                                             @if ($idp->submit_status != 'Approved') 
                                                                 @if ($idp->submit_status == 'Pending')
                                                                     @if (auth()->user()->role_as == 1)
-                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#approveIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success text-success rounded-3 shadow-lg fw-light text-uppercase mx-1 my-2 dropdown-item">
+                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#approveIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-success text-success rounded-3 text-uppercase my-2 dropdown-item">
                                                                         <i class="fas fa-thumbs-up me-2"></i>Approve</button></li>
 
-                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#rejectIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-danger rounded-3 shadow-lg fw-light text-uppercase mx-1 my-2 dropdown-item">
-                                                                            <i class="fas fa-thumbs-down me-2"></i>Reject</button></li>
+                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#rejectIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-danger rounded-3 text-uppercase my-2 dropdown-item">
+                                                                            <i class="fas fa-thumbs-down me-2"></i>Disapprove</button></li>
                                                                     @endif    
                                                                 @endif
 
                                                                     
                                                                 @if($idp->submit_status != 'Pending')
-                                                                    <li><button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary text-primary rounded-3 text-uppercase shadow-lg fw-light mx-1 my-2 dropdown-item">
+                                                                    <li><button type="button" wire:click="edit({{$idp->idp_id}})" class="btn-primary text-primary rounded-3 text-uppercase my-2 dropdown-item">
                                                                         <i class="fas fa-edit me-2"></i>Edit</button></li>
-                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-danger text-uppercase rounded-3 shadow-lg mx-1 my-2  fw-light dropdown-item">
+                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-danger text-uppercase rounded-3 my-2  dropdown-item">
                                                                         <i class="fas fa-trash me-2"></i>Delete</button></li>
                                                                     @endif
 
                                                                     
                                                                     @if ($idp->submit_status == 'Pending')
                                                                         @if (auth()->user()->role_as == 0)
-                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-danger rounded-3 shadow-lg mx-1 my-2 fw-light text-uppercase dropdown-item">
+                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionIdpModal" wire:click="getId({{$idp->idp_id}})" class="btn-danger text-danger rounded-3 my-2 text-uppercase dropdown-item">
                                                                                 <i class="fas fa-undo-alt me-2"></i>Cancel Submission</button></li>
                                                                         @endif    
                                                                     @endif

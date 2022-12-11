@@ -179,14 +179,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fs-4 text-uppercase fw-bold" id="rejectIdpModalLabel">Reject the Submitted Idp</h5>
+                <h5 class="modal-title fs-5 text-uppercase fw-bold" id="rejectIdpModalLabel">Disapprove the Submitted Idp</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="reject">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4 class="text-capitalize fw-bold fs-6">Are you sure you want to Reject this Submission ?</h4>
+                        <h4 class="text-capitalize fw-bold fs-6">Are you sure you want to Disapprove this Submission ?</h4>
                         <label>Comment:</label>
                         <textarea wire:model="comment" rows="4" cols="50" class="form-control border border-3 border-dark rounded-3"></textarea>
                         @error('comment') <span class="text-danger">{{ $message }}</span> @enderror
@@ -195,7 +195,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger rounded-3 px-3 py-2 text-center" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Reject</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-3 py-2 text-center">Yes! Disapprove</button>
                 </div>
             </form>
         </div>

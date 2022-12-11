@@ -32,8 +32,8 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="table-responsive border-secondary border-3 text-center">
-                                <table class="table table-hover table-bordered border border-5 border-secondary table align-middle">
-                                    <thead class="text-dark align-bottom shadow" style="background-color:#FEFCFF;">
+                                <table class="table table align-middle table-hover table-bordered border border-5 border-secondary table align-middle">
+                                    <thead class="text-dark table align-middle shadow" style="background-color:#FEFCFF;">
                                         <tr>
                                             <th scope="col">Name</th>
                                             <th scope="col">Progress</th>

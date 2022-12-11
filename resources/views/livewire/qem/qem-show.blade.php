@@ -93,32 +93,32 @@
 
                                                     <td>
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions
+                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg fw-bold border-2 border-secondary text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                              Actions <i class="fas fa-ellipsis-v ms-2"></i>
                                                             </button>
                                                             <ul class="dropdown-menu">
                                                             @if ($training->qem == 0)
-                                                                <li><button type="button" wire:click="createButton({{$training->training_id}})" class="btn-danger text-danger rounded-3 shadow-lg fw-light text-uppercase my-2 mx-1 dropdown-item">
+                                                                <li><button type="button" wire:click="createButton({{$training->training_id}})" class="btn-danger text-danger rounded-3 text-uppercase my-2 dropdown-item">
                                                                     <i class="fas fa-pen me-2"></i>Create</button></li>
                                                             @else
                                                                 @if ($table != 'Training Need QEM')
                                                                     @if ($training->confirmation_status == 'Not Submitted')
-                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#submitQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success dropdown-item text-success rounded-3 shadow-lg my-2 mx-1 fw-light text-uppercase">
+                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#submitQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success dropdown-item text-success rounded-3 my-2 text-uppercase">
                                                                         <i class="fas fa-paper-plane me-2"></i>Submit</button></li>
                                                                     @endif
                                                                     @if ($training->confirmation_status == 'Pending')
-                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#approveQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success dropdown-item text-success rounded-3 shadow-lg fw-light text-uppercase my-2 mx-1">
+                                                                    <li><button type="button" data-bs-toggle="modal" data-bs-target="#approveQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-success dropdown-item text-success rounded-3 text-uppercase my-2">
                                                                         <i class="fas fa-thumbs-up me-2"></i>Approve</button></li>
                                                                     @endif
                                                                 @endif
-                                                                <li><button type="button" wire:click="show({{$training->qem_id}})" class="btn-info text-primary rounded-3 shadow-lg fw-light text-uppercase my-2 mx-1 dropdown-item">
+                                                                <li><button type="button" wire:click="show({{$training->qem_id}})" class="btn-info text-primary rounded-3 text-uppercase my-2 dropdown-item">
                                                                     <i class="fas fa-eye me-2"></i>Show</button></li>
                                                                 
-                                                                <li><button type="button" wire:click="edit({{$training->qem_id}})" class="btn-info text-primary rounded-3 shadow-lg fw-light text-uppercase my-2 mx-1 dropdown-item">
+                                                                <li><button type="button" wire:click="edit({{$training->qem_id}})" class="btn-info text-primary rounded-3 text-uppercase my-2 dropdown-item">
                                                                     <i class="fas fa-edit me-2"></i>Edit</button></li>
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-danger dropdown-item text-danger rounded-3 shadow-lg fw-light my-2 mx-1 text-uppercase">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-danger dropdown-item text-danger rounded-3 my-2 text-uppercase">
                                                                     <i class="fas fa-trash me-2"></i>Delete</button></li>
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-info dropdown-item text-white rounded-3 shadow-lg fw-light my-2 mx-1 text-uppercase">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-info dropdown-item text-white rounded-3 my-2 text-uppercase">
                                                                     <i class="fas fa-download me-2"></i>Download</button></li>
                                                             @endif
 
