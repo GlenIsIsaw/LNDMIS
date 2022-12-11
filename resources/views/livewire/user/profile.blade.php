@@ -69,7 +69,9 @@
                                         </table>
                                     </div>
                                     <div class="col my-2">
-                                    <h6 class="fw-bold">Signature</h6><p>(png only with 10 mb max)</p>
+                                    <h6 class="fw-bold">Signature</h6>
+                                    
+                                    <p class="fw-light fst-italic text-muted fs-6">"The file type must be PNG only with a 10mb maximum file size."</p>
                                     
                                         @if ($signature)
                                             <button type="button" wire:click="editSignature" class="text-center btn-danger rounded-3 shadow-sm px-3 py-2 mx-4 float-end"><i class="fas fa-trash-alt"></i></button>

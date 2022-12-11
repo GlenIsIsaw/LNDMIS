@@ -70,14 +70,17 @@
                                                    </button>
                                                 </td>
                                                 <td>
-                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                                    <button type="button" wire:click="edit({{$training->id}})" class="btn-info text-light rounded-3 fw-bold text-uppercase px-2 py-2" style="background-image: linear-gradient(
-                                                        to bottom, #000046, 
-                                                        #1CB5E0);"><i class="fas fa-edit fa-sm me-1"></i>Edit</button>
+                                                    <div class="btn-group dropend">
+                                                        <button type="button" class="btn btn-light text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                          Actions
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                    <li><button type="button" wire:click="edit({{$training->id}})" class="btn-info text-primary rounded-3 fw-light text-uppercase my-2 mx-1 dropdown-item shadow-lg">
+                                                        <i class="fas fa-edit me-2"></i>Edit</button></li>
 
-                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmationInvitationModal" wire:click="getId({{$training->id}})" class="btn-danger text-white rounded-3 fw-bold px-2 py-2 text-uppercase" style="background-image: linear-gradient(
-                                                        to bottom, #870000,
-                                                        #190A05);"><i class="fas fa-trash fa-sm me-1"></i>Delete</button>
+                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmationInvitationModal" wire:click="getId({{$training->id}})" class="btn-danger text-danger rounded-3 fw-light my-2 mx-1 dropdown-item shadow-lg text-uppercase">
+                                                        <i class="fas fa-trash  me-2"></i>Delete</button></li>
+                                                        </ul>
                                                     </div>
                                                 </td>
 
