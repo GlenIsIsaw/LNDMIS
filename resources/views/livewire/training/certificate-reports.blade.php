@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="table-responsive rounded-3 text-center">
-                                <table class="table table-striped border border-secondary border-5 table-hover">
+                                <table class="table table align-middle table-striped border border-secondary border-5 table-hover">
                                     <thead class="text-dark shadow" style="background-color:#FEFCFF;">
                                         <tr>
                                             <th scope="col">Name</th>

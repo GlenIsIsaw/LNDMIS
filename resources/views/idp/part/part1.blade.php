@@ -6,7 +6,7 @@
             <label><h6>Year:</h6></label><span class="text-danger fw-bold">*</span>
             <div class="fw-bold">
             <select class="border-dark border-2 rounded-3 text-center fw-bold" style="width: 20%" wire:model="year">
-                <option value="">Choose a Year</option>
+                <option value="">-Select A Year-</option>
                 @for ($i = date('Y') + 1; $i >= 2015; $i--)
                     <option value="{{$i}}">{{$i}}</option>
                 @endfor
@@ -51,7 +51,7 @@
                         <tr>
                             <td>
                                 <select wire:model='competency.{{$i}}' class="border border-2 rounded-3 border-dark py-1">
-                                    <option value="">Choose one</option>
+                                    <option value="">-Select One Compentency-</option>
                                     @foreach ($comps as $key => $comp)
                                     <optgroup label={{$key}}>
                                         @foreach ($comp as $item)
@@ -65,7 +65,7 @@
                             </td>
                             <td>
                                 <select wire:model="sug.{{$i}}" id="sug" class="border border-2 rounded-3 border-dark py-1">
-                                    <option value="">Choose the Priority</option>
+                                    <option value="">-Select One Priority-</option>
                                     <option value="S">Seriousness</option>
                                     <option value="U">Urgency</option>
                                     <option value="G">Growth</option>

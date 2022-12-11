@@ -71,15 +71,15 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group dropend">
-                                                        <button type="button" class="btn btn-light text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                          Actions
+                                                        <button type="button" class="btn btn-ligh rounded-3 shadow-lg fw-bold border-3 border-dark text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                          Actions 
                                                         </button>
-                                                        <ul class="dropdown-menu">
-                                                    <li><button type="button" wire:click="edit({{$training->id}})" class="btn-info text-primary rounded-3 fw-light text-uppercase my-2 mx-1 dropdown-item shadow-lg">
-                                                        <i class="fas fa-edit me-2"></i>Edit</button></li>
+                                                        <ul class="dropdown-menu rounded-3 shadow-lg">
+                                                    <li><a type="button" wire:click="edit({{$training->id}})" class="btn-info text-primary rounded-3 text-uppercase my-2 dropdown-item">
+                                                        <i class="fas fa-edit me-2"></i>Edit</a></li>
 
-                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmationInvitationModal" wire:click="getId({{$training->id}})" class="btn-danger text-danger rounded-3 fw-light my-2 mx-1 dropdown-item shadow-lg text-uppercase">
-                                                        <i class="fas fa-trash  me-2"></i>Delete</button></li>
+                                                        <li><a type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmationInvitationModal" wire:click="getId({{$training->id}})" class="btn-danger text-danger rounded-3 my-2 dropdown-item text-uppercase">
+                                                        <i class="fas fa-trash  me-2"></i>Delete</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>

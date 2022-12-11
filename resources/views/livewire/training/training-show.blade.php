@@ -132,7 +132,7 @@
                                     
                                 
 
-                            <div class="card-body">
+                            <div class="card-body pb-5">
                                 <div class="table-responsive rounded-3 text-center text-small">
                                     <table class="table table-striped align-middle border-secondary border border-5 table-hover ">
                                         <thead class="text-dark shadow table align-middle" style="background-color:#FEFCFF;">
@@ -180,30 +180,30 @@
                                                     
  
                                                     <td>
-                                                        <div class="btn-group dropend">
-                                                            <button type="button" class="btn btn-light text-uppercase  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions
+                                                        <div class="btn-group dropstart">
+                                                            <button type="button" class="btn btn-light rounded-3 border-2 border-secondary shadow-lg text-uppercase fw-bold " data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                              Actions<i class="fas fa-ellipsis-v ms-2"></i>
                                                             </button>
-                                                            <ul class="dropdown-menu">
+                                                            <ul class="dropdown-menu rounded-3 shadow-lg">
                                                                 @if ($training->attendance_form == 0)
                                                             
                                                                     
-                                                                        <li><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-danger rounded-3 shadow-lg  fw-light text-uppercase dropdown-item">
+                                                                        <li><button type="button" wire:click="createAttendanceForm({{$training->training_id}})" class="btn-danger text-danger rounded-3 text-uppercase dropdown-item">
                                                                             <i class="fas fa-pen me-2"></i>Create</button></li>
 
                                                                 @else
 
 
-                                                                            <li><button type="button" wire:click="showAttendanceForm({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewAttModal" class="btn-success text-success rounded-3 shadow-lg  fw-light text-uppercase dropdown-item my-2 mx-1" ><i class="fas fa-eye me-2"></i>View</button></li>
+                                                                            <li><button type="button" wire:click="showAttendanceForm({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewAttModal" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2" ><i class="fas fa-eye me-2"></i>View</button></li>
 
-                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-primary rounded-3 shadow-lg  fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                                 <i class="fas fa-download me-2"></i>Download</button></li>
                     
                                                                         @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
-                                                                            <li><button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-info text-primary rounded-3 shadow-lg  fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                            <li><button type="button" wire:click="editAttendanceForm({{$training->training_id}})" class="btn-info text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                                 <i class="fas fa-edit me-2"></i>Edit</button></li>
 
-                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="text-danger rounded-3 shadow-lg  fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteAttendanceModal" wire:click="deleteAttendanceForm({{$training->training_id}})" class="text-danger rounded-3 text-uppercase dropdown-item my-2">
                                                                                 <i class="fas fa-trash me-2"></i>Delete</button></li>
                                                                         @endif
                                                                     
@@ -214,26 +214,26 @@
 
                                                     
                                                     <td>
-                                                        <div class="btn-group dropend">
-                                                            <button type="button" class="btn btn-light text-uppercase text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions   
+                                                        <div class="btn-group dropstart">
+                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg border-2 border-secondary text-uppercase fw-bold text-dark" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                              Actions   <i class="fas fa-ellipsis-v ms-2"></i>
                                                             </button>
-                                                            <ul class="dropdown-menu">
+                                                            <ul class="dropdown-menu rounded-3 shadow-lg">
                                                                 @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
                                                                     @if ($training->attendance_form == 1) 
-                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-success rounded-3 shadow-lg text-uppercase fw-light dropdown-item my-2 mx-1">
+                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#submitTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2">
                                                                             <i class="fas fa-paper-plane me-2"></i>Submit</button></li>
                                                                     @endif
                                                                 
                                                                 @endif
                                                             
-                                                            <li><button type="button" wire:click="show({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewTrainingModal" class="btn-success text-success rounded-3 shadow-lg fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                            <li><button type="button" wire:click="show({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewTrainingModal" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2">
                                                                 <i class="fas fa-eye me-2"></i>View</button>
-                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-primary rounded-3 shadow-lg fw-light text-uppercase  dropdown-item my-2 mx-1" >
+                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-primary rounded-3 text-uppercase  dropdown-item my-2" >
                                                                 <i class="fas fa-certificate me-2"></i>Certificate</button></li>
                                                                 
                                                                 @if ($training->comment)
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-primary rounded-3 shadow-lg text-uppercase fw-light dropdown-item my-2 mx-1">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#showCommentModal" wire:click="showComment({{$training->training_id}})" class="btn-info text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                     <i class="fas fa-comments me-2"></i>Comment</button></li>
                                                                 @endif
 
@@ -245,20 +245,20 @@
                                                             
                                                                     @if ($training->status == 'Pending')
                                                                         @if (auth()->user()->role_as == 1)
-                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-success rounded-3 shadow-lg fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#approveTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2">
                                                                             <i class="fas fa-thumbs-up me-2"></i>Approve</button></li>
 
-                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-danger rounded-3 shadow-lg fw-light  text-uppercase dropdown-item my-2 mx-1">
-                                                                            <i class="fas fa-thumbs-down me-2"></i>Reject</button></li>
+                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#rejectTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-danger rounded-3  text-uppercase dropdown-item my-2">
+                                                                            <i class="fas fa-thumbs-down me-2"></i>Disapprove</button></li>
                                                                         @endif    
                                                                     @endif
                                                                 
                                                             
 
                                                                     @if($training->status != 'Pending')
-                                                                    <li><button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary text-primary rounded-3 shadow fw-light shadow-lg text-uppercase dropdown-item my-2 mx-1">
+                                                                    <li><button type="button" wire:click="edit({{$training->training_id}})" class="btn-primary text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                         <i class="fas fa-edit me-2"></i>Edit</button></li>
-                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-danger rounded-3 shadow-lg fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                        <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-danger rounded-3 text-uppercase dropdown-item my-2">
                                                                             <i class="fas fa-trash me-2"></i>Delete</button></li>
                                                                     @endif
                                                                     
@@ -268,16 +268,17 @@
                                                                         
                                                                         @if ($training->status == 'Pending')
                                                                             @if (auth()->user()->role_as == 0)
-                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-danger rounded-3 shadow-sm fw-light text-uppercase dropdown-item my-2 mx-1">
+                                                                            <li><button type="button" data-bs-toggle="modal" data-bs-target="#removeSubmissionTrainingModal" wire:click="delete({{$training->training_id}})" class="btn-danger text-danger rounded-3 fw-light text-uppercase dropdown-item my-2">
                                                                                 <i class="fas fa-undo-alt me-1"></i>Cancel Submission</button></li>
                                                                             @endif    
                                                                         @endif
                                                                 @endif
                                                             </ul>
-                                                        </div>
+                                                        
                                                     </td>
                                                 </tr>
                                             </div>
+                                        </div>
                                             @empty    
                                                 <tr>
                                                     <td colspan="20">No Record/s Found</td>

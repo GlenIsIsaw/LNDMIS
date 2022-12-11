@@ -474,14 +474,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-uppercase fw-bold fs-4" id="rejectTrainingModalLabel">Reject the Submitted Training</h5>
+                <h6 class="modal-title text-uppercase fw-bold fs-5" id="rejectTrainingModalLabel">Disapprove the Submitted Training</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
                     aria-label="Close"></button>
             </div>
             <form wire:submit.prevent="reject">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4 class="fs-6 text-capitalize fw-bold">Are you sure you want to Reject this Submission ?</h4>
+                        <h6 class="fs-6 text-capitalize fw-bold">Are you sure you want to Disapprove this submission?</h6>
                         <hr class="h-color mx-2 mt-3">
                         <label class="fw-bold text-capitalize fs-5 mb-3">Comment:</label>
                         <textarea wire:model="comment" rows="4" cols="50" class="form-control border-3 border-dark"></textarea>
@@ -491,7 +491,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" wire:click="closeModal"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Yes! Reject</button>
+                    <button type="submit" class="btn btn-primary">Yes! Disapprove</button>
                 </div>
             </form>
         </div>
