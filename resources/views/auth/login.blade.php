@@ -22,15 +22,21 @@
 
 </head>    
         
-      
-     
+<style>
+    body {
+    background-color: #36454F;
+      background-image: url('../images/18771.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      background-blend-mode: overlay;
+    }
+    </style>
 
-<div style="background-image:  linear-gradient(
-    to bottom, #c31432, 
-    #240b36);"  class="vh-100 shadow-lg"> 
+<div class="vh-100 shadow-lg"> 
    
 
-<div class="container py-5 px-3 h-100">
+<div class="container py-5 px-3  h-100">
     
    
     
@@ -120,6 +126,7 @@
 </div>
 </div>
 </div> 
+
 <footer>
 
     
