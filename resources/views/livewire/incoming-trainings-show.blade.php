@@ -70,8 +70,8 @@
                                                    </button>
                                                 </td>
                                                 <td>
-                                                    <div class="btn-group dropend">
-                                                        <button type="button" class="btn btn-ligh rounded-3 shadow-lg fw-bold border-3 border-dark text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                    <div class="btn-group dropstart">
+                                                        <button type="button" class="btn btn-light fs-6 rounded-3 shadow-lg fw-bold border-3 border-dark text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
                                                           Actions 
                                                         </button>
                                                         <ul class="dropdown-menu rounded-3 shadow-lg">

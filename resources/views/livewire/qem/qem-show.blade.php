@@ -93,8 +93,8 @@
 
                                                     <td>
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg fw-bold border-2 border-secondary text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions <i class="fas fa-ellipsis-v ms-2"></i>
+                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg fw-bold border-2 border-secondary text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                              Actions
                                                             </button>
                                                             <ul class="dropdown-menu">
                                                             @if ($training->qem == 0)
