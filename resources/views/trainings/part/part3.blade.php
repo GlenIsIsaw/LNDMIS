@@ -14,21 +14,9 @@
 @if ($editCert)
     <div class="mb-3">
         <label class="fw-bold">Attach the Certificate</label><span class="text-danger fw-bold">*</span>
-        <div
-        x-data="{ isUploading: false, progress: 0 }"
-        x-on:livewire-upload-start="isUploading = true"
-        x-on:livewire-upload-finish="isUploading = false"
-        x-on:livewire-upload-error="isUploading = false"
-        x-on:livewire-upload-progress="progress = $event.detail.progress"
-        >
+        
             <input type="file" wire:model="photo" accept=".jpeg,.png,.jpg,.svg,.pdf" class="form-control border border-3 border-secondary">
-            <div wire:loading wire:target="photo">
-                <div x-show="isUploading">
-                    <progress max="100" x-bind:value="progress"></progress>
-                </div>
-            </div>
-            
-        </div>
+            <div wire:loading wire:target="photo">Uploading...</div>
         @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
     
     </div> 

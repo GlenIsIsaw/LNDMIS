@@ -308,7 +308,7 @@ class TrainingShow extends Component
                 session()->flash('message','Training Added Successfully');
                 $this->backButton();
                 $this->dispatchBrowserEvent('close-modal');
-                return redirect()->to('/training')->with('message','Training Added Successfully');
+                //return redirect()->to('/training')->with('message','Training Added Successfully');
 
 
                 //ddd($this->photo);
