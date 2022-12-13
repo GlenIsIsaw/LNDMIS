@@ -269,16 +269,23 @@ class TrainingShow extends Component
                     if ($ext == 'pdf') {
                         $imagick = new Imagick();
                         $image = $validatedData['photo'];
+                        $imagick->setResolution(300, 300);
+
+                        $imagick->setBackgroundColor('white');
+        
                         $imagick->readImage($image->path().'[0]');
-                        $filename = date('Ymd').$lists->id.".jpg";
+        
+                        $imagick->setImageFormat('png');
+        
+                        $imagick->scaleImage(1000, 1000, true);
+        
+                        $imagick->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        
+                        $imagick->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+                        $filename = date('Ymd').$lists->id.".png";
                 
                         $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
                         $imagick->writeImages($saveImagePath, true);
-                        $img = Image::make($saveImagePath);
-    
-                        $img->resize(1000, 1000, function ($constraint) {
-                        $constraint->aspectRatio();
-                        })->save($saveImagePath);
 
                     } else {
                         $filename = date('Ymd').$lists->id.".".$ext;
@@ -453,16 +460,24 @@ class TrainingShow extends Component
             if ($ext == 'pdf') {
                 $imagick = new Imagick();
                 $image = $this->photo;
+                
+                $imagick->setResolution(300, 300);
+
+                $imagick->setBackgroundColor('white');
+
                 $imagick->readImage($image->path().'[0]');
-                $filename = date('Ymd').$list->id.".jpg";
-        
+
+                $imagick->setImageFormat('png');
+
+                $imagick->scaleImage(1000, 1000, true);
+
+                $imagick->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+
+                $imagick->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+                $filename = date('Ymd').$list->id.".png";
+                
                 $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
                 $imagick->writeImages($saveImagePath, true);
-                $img = Image::make($saveImagePath);
-
-                $img->resize(1000, 1000, function ($constraint) {
-                $constraint->aspectRatio();
-                })->save($saveImagePath);
 
             } else {
                 $filename = date('Ymd').$list->id.".".$ext;

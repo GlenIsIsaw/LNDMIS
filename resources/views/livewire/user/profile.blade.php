@@ -71,10 +71,10 @@
                                     <div class="col my-2">
                                     <h6 class="fw-bold">Signature</h6>
                                     
-                                    <p class="fw-light fst-italic text-muted fs-6">"The file type must be PNG only with a 10mb maximum file size."</p>
-                                    
+                                    <p class="fw-light fst-italic text-muted fs-6">"The file type must be PNG only with a 2mb maximum file size."</p>
                                         @if ($signature)
-                                            <button type="button" wire:click="editSignature" class="text-center btn-danger rounded-3 shadow-sm px-3 py-2 mx-4 float-end"><i class="fas fa-trash-alt"></i></button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#editSigModal" class="text-center btn-primary rounded-3 shadow-sm px-3 py-2 mx-4 float-end"><i class="fas fa-pen"></i>
+                                            <button type="button" wire:click="deleteSignature" class="text-center btn-danger rounded-3 shadow-sm px-3 py-2 mx-4 float-end"><i class="fas fa-trash-alt"></i></button>
                                             <img class="img-fluid" src="{{ url('storage/users/'.$User_id.'/'.$signature) }}?{{ rand() }}" alt="No Signature">
                                         @else
                                         <form wire:submit.prevent="addSignature">
@@ -85,7 +85,7 @@
                                             x-on:livewire-upload-error="isUploading = false"
                                             x-on:livewire-upload-progress="progress = $event.detail.progress"
                                             >
-                                                <input type="file" wire:model="photo" accept="image/*" class="form-control border border-3 border-secondary">
+                                                <input type="file" wire:model="photo" accept=".png" class="form-control border border-3 border-secondary">
                                                 <div wire:loading wire:target="photo">
                                                     <div x-show="isUploading">
                                                         <progress max="100" x-bind:value="progress"></progress>

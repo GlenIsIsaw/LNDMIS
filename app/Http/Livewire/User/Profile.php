@@ -3,10 +3,11 @@
 namespace App\Http\Livewire\User;
 
 use App\Models\User;
+use App\Models\College;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\College;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class Profile extends Component
@@ -90,6 +91,7 @@ class Profile extends Component
         $this->supervisor_name = '';
         $this->college_name = '';
         $this->photo = '';
+        $this->resetErrorBag();
     }
     protected function rules()
     {
@@ -102,25 +104,31 @@ class Profile extends Component
             'yearJoined' => 'required',
         ];
     }
+    
     protected $listeners = [
         'toggle' => 'open'
         //'passUser' => 'pass',
         //'refreshComponent' => '$refresh'
     ];
+    protected $messages = [
+        'photo.max' => 'The photo must not exceed 2 megabytes.',
+    ];
+
     public function notification(){
         if (session()->has('message')) {
             $this->dispatchBrowserEvent('show-notification');
         }
     }
+
     public function updatedPhoto()
     {
         $this->validate([
-            'photo' => 'required|image|mimes:png|max:10240', // 1MB Max
+            'photo' => 'required|image|mimes:png|max:2048', // 2MB Max
         ]);
     }
     public function addSignature(){
         $validatedData = $this->validate([
-            'photo' => 'required|image|mimes:png|max:10240', // 1MB Max
+            'photo' => 'required|image|mimes:png|max:2048', // 2MB Max
         ]);
         $user = User::find($this->User_id);
         if($validatedData['photo']){
@@ -134,8 +142,25 @@ class Profile extends Component
         
 
     }
-    public function editSignature(){
+    public function updateSignature(){
+        $validatedData = $this->validate([
+            'photo' => 'required|image|mimes:png|max:2048', // 2MB Max
+        ]);
         $user = User::find($this->User_id);
+        File::delete(storage_path('app/public/users/'.$user->id.'/'.$user->signature));
+        if($validatedData['photo']){
+            $ext = $this->photo->getClientOriginalExtension();
+            $filename = $this->User_id.'signature.'.$ext;
+            $validatedData['photo']->storeAs('public/users/'.$this->User_id, $filename);
+            $user->signature = $filename;
+            $user->save();
+        }
+
+        return redirect('/profile');
+    }
+    public function deleteSignature(){
+        $user = User::find($this->User_id);
+        File::delete(storage_path('app/public/users/'.$user->id.'/'.$user->signature));
         $user->signature = null;
         $user->save();
         return redirect('/profile');

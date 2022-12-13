@@ -384,10 +384,22 @@ class UserShow extends Component
          $this->dept_name = $arr;
      
      }
-     public static function year($year){
-        $pieces = explode("-", $year);
+     public static function year($date){
+
+        $pieces = explode("-", $date);
         $current_year = date('Y');
-        return $current_year - $pieces[0];
+        //dd($pieces);
+        $year = $current_year - $pieces[0];
+        if ($year) {
+            return $year. ' years';
+        } else {
+            $pointed_date = date_create($date);
+            $current_date = date_create(date('Y-m-d'));
+            $diff = date_diff($pointed_date,$current_date);
+            return $diff->format("%m month and %d days");
+        }
+        
+        
     }
     public function checkOfficer(){
         if (auth()->user()->role_as == 3) {
