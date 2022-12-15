@@ -286,6 +286,11 @@ class TrainingShow extends Component
                 
                         $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
                         $imagick->writeImages($saveImagePath, true);
+                        $img = Image::make($saveImagePath);
+    
+                        $img->resize(1000, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                        })->save($saveImagePath);
 
                     } else {
                         $filename = date('Ymd').$lists->id.".".$ext;
@@ -478,6 +483,12 @@ class TrainingShow extends Component
                 
                 $saveImagePath = storage_path('app/public/users/'.$this->user_id.'/'.$filename);
                 $imagick->writeImages($saveImagePath, true);
+                $img = Image::make($saveImagePath);
+
+                $img->resize(1000, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+                })->save($saveImagePath);
+                
 
             } else {
                 $filename = date('Ymd').$list->id.".".$ext;
@@ -494,10 +505,11 @@ class TrainingShow extends Component
         }
         $list->save();
         
-        session()->flash('message','ListOfTraining Updated Successfully');
+        session()->flash('message','Training Updated Successfully');
         $this->backButton();
         
         $this->dispatchBrowserEvent('close-modal');
+        //return redirect()->to('/training')->with('message','Training Added Successfully');
 
         
     }
@@ -780,7 +792,7 @@ class TrainingShow extends Component
         $this->specify_date = '';
         $this->seminar_type_others = '';
         $this->seminar_type = '';
-        //$this->editCert = null;
+        $this->editCert = null;
         $this->resetErrorBag();
     }
     public function resetFilter(){
