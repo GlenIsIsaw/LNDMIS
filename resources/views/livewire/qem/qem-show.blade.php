@@ -54,7 +54,7 @@
                                                     <th scope="col">Date Created</th>
                                                 @endif
 
-                                                <th scope="col" style="color: #800">Quantified Evaluation Matrix</th>
+                                                <th scope="col" style="color: #800">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,11 +63,6 @@
                                                     <td class="fw-bold">{{$training->name}}</td>
                                                     <td class="fw-bold"> 
                                                        {{$training->certificate_title}}
-                                                    
-
-                            
-                                                        
-                                                    
                                                     </td>
                                                     <td>{{$training->trainCompetency}}</td>
                                                     <td>{{$training->date_covered}}</td>
@@ -94,7 +89,7 @@
                                                     <td>
                                                         <div class="btn-group dropstart">
                                                             <button type="button" class="btn btn-light rounded-3 shadow-lg fw-bold border-2 border-secondary text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions
+                                                                <i class="fas fa-caret-left"></i>
                                                             </button>
                                                             <ul class="dropdown-menu">
                                                             @if ($training->qem == 0)
@@ -118,7 +113,7 @@
                                                                     <i class="fas fa-edit me-2"></i>Edit</button></li>
                                                                 <li><button type="button" data-bs-toggle="modal" data-bs-target="#deleteQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-danger dropdown-item text-danger rounded-3 my-2 text-uppercase">
                                                                     <i class="fas fa-trash me-2"></i>Delete</button></li>
-                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-info dropdown-item text-white rounded-3 my-2 text-uppercase">
+                                                                <li><button type="button" data-bs-toggle="modal" data-bs-target="#printQemModal" wire:click="getQemId({{$training->qem_id}})" class="btn-info dropdown-item text-dark rounded-3 my-2 text-uppercase">
                                                                     <i class="fas fa-download me-2"></i>Download</button></li>
                                                             @endif
 

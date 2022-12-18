@@ -130,7 +130,7 @@
                                             <th scope="col">Created At</th>
                                             <th scope="col">Updated At</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" style="color:  #800">Individual Development Plan</th>
+                                            <th scope="col" style="color:  #800">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -176,7 +176,7 @@
                                                 <td>
                                                     <div class="btn-group dropstart">
                                                         <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                          Actions 
+                                                            <i class="fas fa-caret-left"></i>
                                                         </button>
                                                         <ul class="dropdown-menu shadow-lg rounded-3">
                                                    
