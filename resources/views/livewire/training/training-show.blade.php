@@ -181,8 +181,8 @@
  
                                                     <td>
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light rounded-3 border-2 border-secondary shadow-lg text-uppercase fw-bold dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                                <i class="fas fa-caret-left"></i>
+                                                            <button type="button" class="btn btn-light rounded-3 border-2 border-secondary shadow-lg text-uppercase fw-bold " data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                                <i class="fas fa-caret-down"></i>
                                                             </button>
                                                             <ul class="dropdown-menu rounded-3 shadow-lg">
                                                                 @if ($training->attendance_form == 0)
@@ -215,8 +215,8 @@
                                                     
                                                     <td>
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg border-2 border-secondary text-uppercase fw-bold text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                                <i class="fas fa-caret-left"></i>
+                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg border-2 border-secondary text-uppercase fw-bold text-dark" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                            <i class="fas fa-caret-down"></i>
                                                             </button>
                                                             <ul class="dropdown-menu rounded-3 shadow-lg">
                                                                 @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')

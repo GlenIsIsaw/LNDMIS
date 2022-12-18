@@ -175,8 +175,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group dropstart">
-                                                        <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                            <i class="fas fa-caret-left"></i>
+                                                        <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
+                                                            <i class="fas fa-caret-down"></i>
                                                         </button>
                                                         <ul class="dropdown-menu shadow-lg rounded-3">
                                                    
