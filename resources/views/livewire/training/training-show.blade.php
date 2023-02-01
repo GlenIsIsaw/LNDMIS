@@ -147,8 +147,8 @@
                                                 <th scope="col">Venue</th>
                                                
                                                 <th scope="col">Status</th>
-                                                <th scope="col" style="color:  #800">Attendance Report Actions</th>
-                                                <th scope="col" style="color:  #800">Actions</th>
+                                                <th scope="col" style="color:  #800">Your Attendance Report</th>
+                                                <th scope="col" style="color:  #800">Your Certificate Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -181,8 +181,8 @@
  
                                                     <td>
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light rounded-3 border-2 border-secondary shadow-lg text-uppercase fw-bold " data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                                <i class="fas fa-caret-down"></i>
+                                                            <button type="button" class="btn btn-sm btn-info rounded-3 border-2 border-light text-light shadow-lg text-uppercase fw-bold py-2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #926F34">
+                                                               Actions<i class="fas fa-angle-down ms-1 fa-sm"></i>
                                                             </button>
                                                             <ul class="dropdown-menu rounded-3 shadow-lg">
                                                                 @if ($training->attendance_form == 0)
@@ -194,7 +194,7 @@
                                                                 @else
 
 
-                                                                            <li><button type="button" wire:click="showAttendanceForm({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewAttModal" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2" ><i class="fas fa-eye me-2"></i>View</button></li>
+                                                                            <li><button type="button" wire:click="showAttendanceForm({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewAttModal" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2" ><i class="fas fa-eye me-2"></i>View Details</button></li>
 
                                                                             <li><button type="button" data-bs-toggle="modal" data-bs-target="#printAttendanceModal" wire:click="signature({{$training->training_id}})" class="btn-info text-primary rounded-3 text-uppercase dropdown-item my-2">
                                                                                 <i class="fas fa-download me-2"></i>Download</button></li>
@@ -215,8 +215,8 @@
                                                     
                                                     <td>
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light rounded-3 shadow-lg border-2 border-secondary text-uppercase fw-bold text-dark" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                            <i class="fas fa-caret-down"></i>
+                                                            <button type="button" class="btn btn-sm btn-info rounded-3 border-2 border-light text-light shadow-lg text-uppercase fw-bold py-2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #926F34">
+                                                                Actions<i class="fas fa-angle-down ms-1 fa-sm"></i>
                                                             </button>
                                                             <ul class="dropdown-menu rounded-3 shadow-lg">
                                                                 @if ($training->status == 'Not Submitted' || $training->status == 'Rejected')
@@ -228,7 +228,7 @@
                                                                 @endif
                                                             
                                                             <li><button type="button" wire:click="show({{$training->training_id}})" data-bs-toggle="modal" data-bs-target="#viewTrainingModal" class="btn-success text-success rounded-3 text-uppercase dropdown-item my-2">
-                                                                <i class="fas fa-eye me-2"></i>View</button>
+                                                                <i class="fas fa-eye me-2"></i>View Details</button>
                                                             <li><button type="button" data-bs-toggle="modal" data-bs-target="#showTrainingModal" wire:click="certificate({{$training->training_id}})" class="btn-info text-primary rounded-3 text-uppercase  dropdown-item my-2" >
                                                                 <i class="fas fa-certificate me-2"></i>Certificate</button></li>
                                                                 

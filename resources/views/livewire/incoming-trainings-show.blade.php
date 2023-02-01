@@ -69,10 +69,10 @@
                                                         View File Attachment Here
                                                    </button>
                                                 </td>
-                                                <td>
+                                                <td style="width: 13%">
                                                     <div class="btn-group dropstart">
-                                                        <button type="button" class="btn btn-light fs-6 rounded-3 shadow-lg fw-bold border-3 border-dark text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                          Actions 
+                                                        <button type="button" class="btn btn-sm btn-info rounded-3 border-2 border-light text-light shadow-lg text-uppercase fw-bold py-2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #926F34">
+                                                            Actions<i class="fas fa-angle-down ms-1 fa-sm"></i>
                                                         </button>
                                                         <ul class="dropdown-menu rounded-3 shadow-lg">
                                                     <li><a type="button" wire:click="edit({{$training->id}})" class="btn-info text-primary rounded-3 text-uppercase my-2 dropdown-item">

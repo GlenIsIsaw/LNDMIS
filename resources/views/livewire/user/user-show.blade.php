@@ -59,12 +59,12 @@
                                         <tbody>
                                             @forelse ($users as $user)
                                                 <tr>
-                                                    <td>{{ $user->user_id }}</td>
+                                                    <td style="width: 3%">{{ $user->user_id }}</td>
                                                     <td class=" fw-bold text-uppercase">{{ $user->name }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ $user->teacher }}</td>
+                                                    <td style="width: 3%">{{ $user->email }}</td>
+                                                    <td style="width: 2%">{{ $user->teacher }}</td>
                                                     <td>{{ $user->position }}</td>
-                                                    <td>{{ $this->year($user->yearinPosition) }}</td>
+                                                    <td >{{ $this->year($user->yearinPosition) }}</td>
                                                     <td>{{ $this->year($user->yearJoined) }}</td>
                                                     @if (auth()->user()->role_as == 3)
                                                         <td>{{ $user->college_name }}</td>
@@ -73,7 +73,7 @@
                                                     @endif
                                                     
                                                     
-                                                    <td>
+                                                    <td class="align-middle">
                                                         @php
                                                             $array =  [1=>'Active', 0=>'Disabled'];
                                                         @endphp
@@ -89,10 +89,10 @@
 
                                                        
                                                     </td>
-                                                    <td>
+                                                    <td style="width: 14%">
                                                         <div class="btn-group dropstart">
-                                                            <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                              Actions   
+                                                            <button type="button" class="btn btn-sm btn-info rounded-3 border-2 border-light text-light shadow-lg text-uppercase fw-bold py-2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #926F34">
+                                                              Actions <i class="fas fa-angle-down ms-1 fa-sm"></i>   
                                                             </button>
                                                             <ul class="dropdown-menu shadow-lg rounded-3">
                                                             <li><button type="button" wire:click="editUser({{$user->user_id}})" class="btn-info text-primary text-uppercase rounded-3 my-2 dropdown-item">

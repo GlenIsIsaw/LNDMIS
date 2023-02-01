@@ -130,7 +130,7 @@
                                             <th scope="col">Created At</th>
                                             <th scope="col">Updated At</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" style="color:  #800">Actions</th>
+                                            <th scope="col mx-2" style="color:  #800">Your IDP</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -138,27 +138,27 @@
 
                                             <tr>
                                                 @if ($table != 'My IDPs')
-                                                    <td class="fw-bold">{{ $idp->name }}</td>
+                                                    <td class="fw-bold align-middle">{{ $idp->name }}</td>
                                                 @endif
                                                 
-                                                <td>
-                                                    <ol class="list-group list-group-numbered">
+                                                <td style="width: 23%">
+                                                    <ol class="list-group list-group-numbered text-start">
                                                         @foreach ($idp->competency as $item)
-                                                            <li class="list-group-item">{{$item}}</li>
+                                                            <li class="list-group-item text-sm">{{$item}}</li>
                                                         @endforeach
                                                     </ol>
                                                 </td>
-                                                <td>
-                                                    <ol class="list-group list-group-numbered">
+                                                <td class="align-middle">
+                                                    <ol class="list-group list-group-numbered text-start">
                                                         @foreach ($idp->status as $item)
-                                                            <li class="list-group-item">{{$item}}</li>
+                                                            <li class="list-group-item text-start">{{$item}}</li>
                                                         @endforeach
                                                     </ol>
                                                 </td>
-                                                <td>{{ $idp->year }}</td>
-                                                <td>{{ $idp->created_at }}</td>
-                                                <td>{{ $idp->updated_at }}</td>
-                                                <td>
+                                                <td class="mt-2">{{ $idp->year }}</td>
+                                                <td class="text-center mt-2" style="width: 5%">{{ $idp->created_at }}</td>
+                                                <td class="text-center mt-2"style="width: 5%">{{ $idp->updated_at }}</td>
+                                                <td class="mt-2">
                                                     @if ($idp->submit_status == 'Approved')
                                                     <p class="badge badge-pill fs-6 bg-success text-white">Approved</p>
                                                 @endif
@@ -175,8 +175,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group dropstart">
-                                                        <button type="button" class="btn btn-light shadow-lg rounded-3 border-2 border-secondary fw-bold text-uppercase" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FEFCFF;">
-                                                            <i class="fas fa-caret-down"></i>
+                                                        <button type="button" class="btn btn-sm btn-info rounded-3 border-2 border-light text-light shadow-lg text-uppercase fw-bold py-2" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #926F34;">
+                                                            Actions<i class="fas fa-angle-down ms-1 fa-sm"></i>
                                                         </button>
                                                         <ul class="dropdown-menu shadow-lg rounded-3">
                                                    
