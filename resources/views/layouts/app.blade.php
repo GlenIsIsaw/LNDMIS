@@ -25,15 +25,15 @@
     
 
     <div id="app">
-        <nav class="navbar blue-text navbar-expand-md shadow-sm py-3 px-2 shadow-4" style="background-color:#FFFFFF;">
+        <nav class="navbar blue-text navbar-expand-md shadow-lg py-3 px-2 shadow-4" style="background-color:#FFFFFF;">
            
             <div class="container-fluid">
                 
                 <button class="btn btn-link rounded-circle text-light py-3 fw-bold text-uppercase" type="button" id="menu-toggle"><i class="fas fa-bars fa-lg" style="Color: #800000;"></i></button>
-               <a href="/">
-                <img src="/images/cnsc.png" alt="CNSC" width="62" height="64" class="d-inline-block align-text-top mx-2">
-               
-               </a>
+                <a href="/">
+                    <img src="/images/cnsc.png" alt="CNSC" width="62" height="64" class="d-inline-block align-text-top mx-2">
+                
+                </a>
                
                 
                 
